@@ -48,6 +48,54 @@ test('content sections alternate tonal bands in light and dark themes', async ({
   }
 });
 
+const demandTestLandings = [
+  ['/uslugi/awaria-sieci-w-firmie/', 'network-emergency'],
+  ['/uslugi/naprawa-gniazda-lan-w-biurze/', 'lan-outlet-repair'],
+  ['/uslugi/audyt-wifi-malego-biura/', 'small-office-wifi-audit'],
+  ['/uslugi/porzadkowanie-szafy-rack/', 'rack-cabinet-cleanup'],
+  ['/uslugi/przeprowadzka-it-biura/', 'office-it-move'],
+  ['/uslugi/okablowanie-pod-monitoring/', 'cctv-cabling'],
+  ['/uslugi/montaz-ekranu-w-biurze/', 'meeting-room-display'],
+] as const;
+
+for (const [path, serviceId] of demandTestLandings) {
+  test(`${serviceId} landing keeps the ad and form intent aligned`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(path);
+    await expect(
+      page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
+    ).toBeVisible();
+    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('select[name="serviceId"]')).toHaveValue(serviceId);
+    await expect(page.locator('input[name="companyName"]')).toHaveAttribute(
+      'required',
+      '',
+    );
+    await expect(page.locator('a[href*="naserwis.pl"]')).toHaveCount(0);
+    const dimensions = await page.evaluate(() => ({
+      client: document.documentElement.clientWidth,
+      scroll: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.scroll).toBe(dimensions.client);
+  });
+}
+
+test('Polish-only landing language links fall back to localized service indexes', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/uslugi/awaria-sieci-w-firmie/');
+  await expect(page.locator('link[rel="alternate"][hreflang="ru"]')).toHaveCount(0);
+  await page.locator('.mobile-bar').getByRole('button', { name: 'Menu' }).click();
+  const russianServices = page.locator('.mobile-locale-switcher a[lang="ru"]');
+  await expect(russianServices).toHaveAttribute('href', '/ru/uslugi/');
+  await russianServices.click();
+  await expect(page).toHaveURL(/\/ru\/uslugi\/$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ru-RU');
+});
+
 test('mobile navigation opens and exposes the primary action', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -101,7 +149,7 @@ test('preview service remains noindex and preselects its form topic', async ({
   );
   await expect(page.getByLabel('Temat')).toHaveValue('office-wifi');
   await expect(
-    page.getByText('Wyłącznie dla firm i organizacji · Warszawa'),
+    page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
   ).toBeVisible();
 });
 

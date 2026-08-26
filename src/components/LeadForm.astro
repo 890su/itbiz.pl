@@ -6,12 +6,18 @@ import { getUi } from '../i18n/ui';
 interface Props {
   selectedServiceId?: string;
   heading?: string;
+  lead?: string;
+  messageHelp?: string;
+  submitLabel?: string;
   locale: Locale;
 }
 
 const { selectedServiceId = '', locale } = Astro.props;
 const copy = getUi(locale).form;
 const heading = Astro.props.heading ?? copy.heading;
+const lead = Astro.props.lead ?? copy.lead;
+const messageHelp = Astro.props.messageHelp ?? copy.messageHelp;
+const submitLabel = Astro.props.submitLabel ?? copy.submit;
 const services = (await getCollection('services')).filter(
   (service) => service.data.locale === locale,
 );
@@ -22,14 +28,14 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
   <div class="section-head">
     <p class="section-label">{copy.label}</p>
     <h2>{heading}</h2>
-    <p>{copy.lead}</p>
+    <p>{lead}</p>
   </div>
   <form
     class="lead-form"
     action="/api/contact"
     method="post"
     data-lead-form
-    data-submit-label={copy.submit}
+    data-submit-label={submitLabel}
     data-sending-label={copy.sending}
     data-missing-contact={copy.missingContact}
     data-generic-error={copy.genericError}
@@ -48,6 +54,18 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           maxlength="120"
           required
         />
+      </div>
+      <div class="field">
+        <label for="nip">{copy.nip}</label>
+        <input
+          id="nip"
+          name="nip"
+          inputmode="numeric"
+          autocomplete="off"
+          maxlength="16"
+          aria-describedby="nip-help"
+        />
+        <small id="nip-help">{copy.nipHelp}</small>
       </div>
       <div class="field">
         <label for="contactName">{copy.contact}</label>
@@ -75,7 +93,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
         <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
         <small>{copy.contactHelp}</small>
       </div>
-      <div class="field field-wide">
+      <div class="field">
         <label for="serviceId">{copy.topic}</label>
         <select id="serviceId" name="serviceId" required>
           <option value="">{copy.choose}</option>
@@ -100,7 +118,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           maxlength="3000"
           required
           aria-describedby="message-help"></textarea>
-        <small id="message-help">{copy.messageHelp}</small>
+        <small id="message-help">{messageHelp}</small>
       </div>
     </div>
     <div class="field visually-hidden" aria-hidden="true">
@@ -124,7 +142,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
       <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
     </p>
     <div class="form-status" role="status" aria-live="polite" data-form-status></div>
-    <button class="button button-primary" type="submit">{copy.submit}</button>
+    <button class="button button-primary" type="submit">{submitLabel}</button>
   </form>
 </div>
 

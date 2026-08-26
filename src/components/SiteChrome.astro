@@ -1,6 +1,7 @@
 ---
 import {
   getRoute,
+  getRouteOrFallback,
   languageNames,
   locales,
   localeLabels,
@@ -66,8 +67,7 @@ const isCurrent = (href: string) =>
           <nav class="locale-switcher" aria-label={copy.common.settings}>
             {locales.map((targetLocale) => (
               <a
-                href={getRoute(targetLocale, translationKey)}
-                hreflang={targetLocale}
+                href={getRouteOrFallback(targetLocale, translationKey)}
                 lang={targetLocale}
                 aria-current={targetLocale === locale ? 'page' : undefined}
                 aria-label={languageNames[targetLocale]}
@@ -133,8 +133,7 @@ const isCurrent = (href: string) =>
         <div class="mobile-locale-switcher">
           {locales.map((targetLocale) => (
             <a
-              href={getRoute(targetLocale, translationKey)}
-              hreflang={targetLocale}
+              href={getRouteOrFallback(targetLocale, translationKey)}
               lang={targetLocale}
               aria-current={targetLocale === locale ? 'page' : undefined}
             >

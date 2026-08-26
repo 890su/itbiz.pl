@@ -12,6 +12,7 @@ export interface ContactEnv {
 
 export interface ContactPayload {
   companyName: string;
+  nip: string;
   contactName: string;
   email: string;
   phone: string;
@@ -31,11 +32,19 @@ const serviceIds = new Set([
   'lan-installation',
   'office-wifi',
   'network-repair',
+  'network-emergency',
+  'lan-outlet-repair',
+  'small-office-wifi-audit',
+  'rack-cabinet-cleanup',
+  'office-it-move',
+  'cctv-cabling',
+  'meeting-room-display',
   'other',
 ]);
 type SupportedLocale = 'pl' | 'ru' | 'en' | 'uk';
 type MessageSet = {
   identity: string;
+  nip: string;
   contact: string;
   email: string;
   phone: string;
@@ -53,6 +62,7 @@ const supportedLocales = new Set<SupportedLocale>(['pl', 'ru', 'en', 'uk']);
 const messages: Record<SupportedLocale, MessageSet> = {
   pl: {
     identity: 'Podaj nazwę organizacji i osobę kontaktową.',
+    nip: 'Sprawdź format numeru NIP.',
     contact: 'Podaj e-mail służbowy lub numer telefonu.',
     email: 'Sprawdź format adresu e-mail.',
     phone: 'Sprawdź format numeru telefonu.',
@@ -66,6 +76,7 @@ const messages: Record<SupportedLocale, MessageSet> = {
   },
   ru: {
     identity: 'Укажите организацию и контактное лицо.',
+    nip: 'Проверьте формат номера NIP.',
     contact: 'Укажите рабочий e-mail или номер телефона.',
     email: 'Проверьте формат e-mail.',
     phone: 'Проверьте формат номера телефона.',
@@ -79,6 +90,7 @@ const messages: Record<SupportedLocale, MessageSet> = {
   },
   en: {
     identity: 'Provide the organisation and contact person.',
+    nip: 'Check the NIP number format.',
     contact: 'Provide a business email or phone number.',
     email: 'Check the email address format.',
     phone: 'Check the phone number format.',
@@ -92,6 +104,7 @@ const messages: Record<SupportedLocale, MessageSet> = {
   },
   uk: {
     identity: 'Вкажіть організацію та контактну особу.',
+    nip: 'Перевірте формат номера NIP.',
     contact: 'Вкажіть робочий e-mail або номер телефону.',
     email: 'Перевірте формат e-mail.',
     phone: 'Перевірте формат номера телефону.',
@@ -123,6 +136,7 @@ export function validateContactPayload(
   const value = toObject(input);
   const data: ContactPayload = {
     companyName: clean(value.companyName, 120),
+    nip: clean(value.nip, 16).replace(/[\s-]/g, ''),
     contactName: clean(value.contactName, 100),
     email: clean(value.email, 160).toLowerCase(),
     phone: clean(value.phone, 40),
@@ -137,6 +151,8 @@ export function validateContactPayload(
 
   if (!data.companyName || !data.contactName)
     return { success: false, message: text.identity };
+  if (data.nip && !/^\d{10}$/.test(data.nip))
+    return { success: false, message: text.nip };
   if (!data.email && !data.phone) return { success: false, message: text.contact };
   if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
     return { success: false, message: text.email };
@@ -232,8 +248,8 @@ async function storeLead(
     await env.LEADS_DB.prepare(
       `INSERT INTO contact_leads (
         request_id, submitted_at, purge_after, company_name, contact_name,
-        email, phone, service_id, message, locale, page_path, status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new')`,
+        nip, email, phone, service_id, message, locale, page_path, status
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new')`,
     )
       .bind(
         requestId,
@@ -241,6 +257,7 @@ async function storeLead(
         new Date(submittedAt.getTime() + 180 * 24 * 60 * 60 * 1000).toISOString(),
         data.companyName,
         data.contactName,
+        data.nip || null,
         data.email || null,
         data.phone || null,
         data.serviceId,
@@ -275,6 +292,7 @@ async function forwardLead(
         requestId,
         submittedAt: submittedAt.toISOString(),
         companyName: data.companyName,
+        nip: data.nip || null,
         contactName: data.contactName,
         email: data.email || null,
         phone: data.phone || null,

@@ -5,8 +5,8 @@ import SiteFooter from '../components/SiteFooter.astro';
 import ConsentControls from '../components/ConsentControls.astro';
 import {
   getRoute,
+  getAvailableRoutes,
   languageTags,
-  routeTranslations,
   type Locale,
   type TranslationKey,
 } from '../i18n/config';
@@ -33,10 +33,7 @@ const canonical = new URL(canonicalPath, Astro.site);
 const siteIndexable = import.meta.env.PUBLIC_SITE_INDEXABLE === 'true';
 const effectiveNoindex = noindex || !siteIndexable;
 const copy = getUi(locale);
-const alternates = Object.entries(routeTranslations[translationKey]) as [
-  Locale,
-  string,
-][];
+const alternates = getAvailableRoutes(translationKey);
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
