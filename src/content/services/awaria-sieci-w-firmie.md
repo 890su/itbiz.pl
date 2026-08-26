@@ -38,10 +38,10 @@ formOption: Zgłoś awarię sieci firmowej
 primaryCta: Zgłoś awarię sieci firmy
 heroFacts:
   - Warszawa i uzgodnione okolice
-  - Pierwszy etap obejmuje do 60 minut diagnozy na miejscu
+  - Zakres pierwszej diagnozy potwierdzony przed dojazdem
   - Dalsze prace wyłącznie po akceptacji ceny
 serviceNoteTitle: Najpierw diagnoza, potem decyzja
-serviceNote: Opisujesz objawy i lokalizację. Potwierdzamy możliwość oraz termin dojazdu, a dodatkowe prace rozpoczynamy dopiero po uzgodnieniu zakresu i ceny. Rozliczenie następuje po odbiorze wykonanej części zlecenia.
+serviceNote: Opisujesz objawy i lokalizację. Potwierdzamy możliwość oraz termin dojazdu, a dodatkowe prace rozpoczynamy dopiero po uzgodnieniu zakresu i warunków.
 processLabel: Przebieg zgłoszenia
 processTitle: Co dzieje się po wysłaniu formularza
 processLead: Krótki opis pozwala przygotować właściwe narzędzia i nie tracić czasu na miejscu.

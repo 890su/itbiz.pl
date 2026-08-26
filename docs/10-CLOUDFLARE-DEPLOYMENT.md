@@ -34,6 +34,14 @@ The D1 schema is managed by `migrations/`. Rows contain a random request ID and
 `purge_after`; the Worker cron removes expired rows after 180 days. Do not export
 or commit lead data.
 
+Before deploying a Worker that writes new columns, check and apply production
+migrations first:
+
+```text
+npx wrangler d1 migrations list itbiz-pl-leads --remote --env production
+npx wrangler d1 migrations apply itbiz-pl-leads --remote --env production
+```
+
 To inspect recent requests from an authorised workstation, use a narrow query
 and avoid copying the output into project files:
 
@@ -59,6 +67,7 @@ CONTACT_WEBHOOK_TOKEN
 1. Run format, Astro check, unit, build, links, SEO, Wrangler dry-run and E2E.
 2. Deploy preview and verify all locales, form states and `noindex`.
 3. Merge a green PR into `main`.
-4. Deploy `--env production` from `main` only.
-5. Verify DNS, HTTPS, redirect, security headers, robots, sitemap and D1.
-6. Keep Google Ads paused until commercial facts and conversions are reviewed.
+4. Apply pending production D1 migrations before a Worker that depends on them.
+5. Deploy `--env production` from `main` only.
+6. Verify DNS, HTTPS, redirect, security headers, robots, sitemap and D1.
+7. Keep Google Ads paused until commercial facts and conversions are reviewed.
