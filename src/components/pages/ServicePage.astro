@@ -1,7 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import B2BBadge from '../B2BBadge.astro';
 import LeadForm from '../LeadForm.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
@@ -34,8 +33,7 @@ const copy = ui.service;
     </ol>
   </nav>
   <header class="page-hero">
-    <B2BBadge {locale} />
-    <p class="eyebrow">{data.eyebrow} · {copy.city}</p>
+    <p class="eyebrow">{copy.qualifier}</p>
     <h1>{data.title}</h1>
     <p>{data.lead}</p>
     <div class="hero-actions">

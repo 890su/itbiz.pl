@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import B2BBadge from '../B2BBadge.astro';
 import ServiceCard from '../ServiceCard.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
@@ -35,7 +34,6 @@ const services = (await getCollection('services'))
     </ol>
   </nav>
   <header class="page-hero">
-    <B2BBadge {locale} />
     <p class="eyebrow">{copy.eyebrow}</p>
     <h1>{copy.h1}</h1>
     <p>{copy.lead}</p>

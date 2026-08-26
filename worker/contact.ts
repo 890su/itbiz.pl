@@ -17,7 +17,6 @@ export interface ContactPayload {
   phone: string;
   serviceId: string;
   message: string;
-  actingForBusiness: boolean;
   locale: string;
   pagePath: string;
   website: string;
@@ -42,7 +41,6 @@ type MessageSet = {
   phone: string;
   topic: string;
   message: string;
-  business: string;
   locale: string;
   rate: string;
   turnstile: string;
@@ -60,7 +58,6 @@ const messages: Record<SupportedLocale, MessageSet> = {
     phone: 'Sprawdź format numeru telefonu.',
     topic: 'Wybierz prawidłowy temat zapytania.',
     message: 'Opisz zadanie w co najmniej 20 znakach.',
-    business: 'Potwierdź kontakt w imieniu organizacji.',
     locale: 'Nieobsługiwana wersja językowa formularza.',
     rate: 'Zbyt wiele prób. Odczekaj minutę i spróbuj ponownie.',
     turnstile: 'Weryfikacja formularza wygasła. Odśwież ją i spróbuj ponownie.',
@@ -74,7 +71,6 @@ const messages: Record<SupportedLocale, MessageSet> = {
     phone: 'Проверьте формат номера телефона.',
     topic: 'Выберите корректную тему обращения.',
     message: 'Опишите задачу не менее чем 20 символами.',
-    business: 'Подтвердите обращение от имени организации.',
     locale: 'Эта языковая версия формы не поддерживается.',
     rate: 'Слишком много попыток. Подождите минуту и попробуйте снова.',
     turnstile: 'Проверка формы истекла. Обновите её и попробуйте снова.',
@@ -88,7 +84,6 @@ const messages: Record<SupportedLocale, MessageSet> = {
     phone: 'Check the phone number format.',
     topic: 'Choose a valid enquiry topic.',
     message: 'Describe the task in at least 20 characters.',
-    business: 'Confirm that you are contacting us for an organisation.',
     locale: 'This form language is not supported.',
     rate: 'Too many attempts. Wait one minute and try again.',
     turnstile: 'The form verification expired. Refresh it and try again.',
@@ -102,7 +97,6 @@ const messages: Record<SupportedLocale, MessageSet> = {
     phone: 'Перевірте формат номера телефону.',
     topic: 'Оберіть правильну тему звернення.',
     message: 'Опишіть завдання щонайменше 20 символами.',
-    business: 'Підтвердьте звернення від імені організації.',
     locale: 'Ця мовна версія форми не підтримується.',
     rate: 'Забагато спроб. Зачекайте хвилину й спробуйте ще раз.',
     turnstile: 'Перевірка форми закінчилася. Оновіть її та спробуйте ще раз.',
@@ -134,8 +128,6 @@ export function validateContactPayload(
     phone: clean(value.phone, 40),
     serviceId: clean(value.serviceId, 64),
     message: clean(value.message, 3000),
-    actingForBusiness:
-      value.actingForBusiness === true || value.actingForBusiness === 'true',
     locale: clean(value.locale, 8) || 'pl',
     pagePath: clean(value.pagePath, 500),
     website: clean(value.website, 200),
@@ -152,7 +144,6 @@ export function validateContactPayload(
     return { success: false, message: text.phone };
   if (!serviceIds.has(data.serviceId)) return { success: false, message: text.topic };
   if (data.message.length < 20) return { success: false, message: text.message };
-  if (!data.actingForBusiness) return { success: false, message: text.business };
   if (!supportedLocales.has(data.locale as SupportedLocale))
     return { success: false, message: text.locale };
 

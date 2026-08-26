@@ -8,14 +8,13 @@ const validPayload = {
   phone: '',
   serviceId: 'office-wifi',
   message: 'W biurze występują okresowe przerwy w połączeniu Wi-Fi.',
-  actingForBusiness: 'true',
   locale: 'pl',
   pagePath: '/uslugi/wifi-dla-biur/',
   website: '',
 };
 
 describe('validateContactPayload', () => {
-  it('accepts a valid B2B request with email', () => {
+  it('accepts a valid business request with email', () => {
     const result = validateContactPayload(validPayload);
     expect(result.success).toBe(true);
   });
@@ -34,14 +33,6 @@ describe('validateContactPayload', () => {
     const result = validateContactPayload({
       ...validPayload,
       serviceId: 'private-laptop',
-    });
-    expect(result).toMatchObject({ success: false });
-  });
-
-  it('requires the business eligibility confirmation', () => {
-    const result = validateContactPayload({
-      ...validPayload,
-      actingForBusiness: 'false',
     });
     expect(result).toMatchObject({ success: false });
   });

@@ -25,8 +25,8 @@ to `true`; `robots.txt` then allows crawling and points to
 
 ## Contact intake
 
-Production submissions pass origin checks, payload validation, B2B confirmation,
-honeypot, rate limiting and Cloudflare Turnstile. A successful request is stored
+Production submissions pass origin checks, payload validation, required organisation
+identity, honeypot, rate limiting and Cloudflare Turnstile. A successful request is stored
 in the `itbiz-pl-leads` D1 database. An optional webhook may deliver a second
 copy, but its absence does not make storage fail.
 
