@@ -1,0 +1,17 @@
+---
+import { company } from '../data/company';
+---
+
+<footer class="site-footer">
+  <div>
+    <strong>{company.brand}</strong>
+    <p>{company.operator} · {company.legalForm}</p>
+  </div>
+  <nav aria-label="Informacje prawne">
+    <a href="/privacy/">Prywatność</a>
+    <a href="/cookies/">Cookies</a>
+    <button type="button" class="text-button" data-privacy-settings
+      >Ustawienia prywatności</button
+    >
+  </nav>
+</footer>

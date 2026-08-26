@@ -2,8 +2,8 @@
 
 ## 1. Архитектура
 
-Сайт — статически генерируемое приложение Astro. Интерактивность добавляется
-islands-компонентами только для:
+Сайт — статически генерируемое приложение Astro. Небольшая интерактивность
+реализуется прогрессивно улучшенным vanilla JavaScript только для:
 
 - mobile navigation;
 - переключателя языка и темы;
@@ -12,21 +12,19 @@ islands-компонентами только для:
 - фильтров реализаций и инструкций;
 - необязательных интерактивных схем решений.
 
-SSR для контентных страниц не требуется. Формы обслуживаются Cloudflare Pages
-Functions.
+SSR для контентных страниц не требуется. Формы обслуживаются Worker endpoint.
 
 ## 2. Планируемый стек
 
 - Astro, актуальная стабильная версия на момент scaffold;
 - TypeScript `strict`;
-- Svelte для islands;
-- Tailwind CSS + CSS custom properties для design tokens;
+- CSS layers + CSS custom properties для design tokens;
 - Astro content collections с Zod-схемами;
 - sitemap integration;
 - ESLint/Prettier или эквивалентный единый formatter;
 - Vitest для чистых функций;
 - Playwright для критических пользовательских путей;
-- Cloudflare Pages/Functions и Turnstile.
+- Cloudflare Workers Static Assets, Worker API и Turnstile.
 
 Версии фиксируются `package-lock.json`. Node фиксируется поддерживаемой Cloudflare
 LTS-версией в `.nvmrc`/`.node-version` после проверки окружения.
@@ -41,8 +39,8 @@ itbiz.pl/
 │   ├── favicon.svg
 │   ├── robots.txt
 │   └── images/
-├── functions/
-│   └── api/contact.ts
+├── worker/
+│   └── index.ts
 ├── src/
 │   ├── components/
 │   │   ├── layout/
@@ -73,7 +71,7 @@ itbiz.pl/
 ├── tests/
 ├── docs/
 ├── astro.config.mjs
-├── tailwind.config.mjs
+├── wrangler.jsonc
 ├── package.json
 └── tsconfig.json
 ```
@@ -150,11 +148,10 @@ images[]
 
 - `companyName` — обязательно;
 - `contactName` — обязательно;
-- `phone` — обязательно либо в паре с правилом «phone or email»;
-- `email` — рекомендуется обязательно для B2B;
+- `phone` — необязательно, но хотя бы один из `phone`/`email` обязателен;
+- `email` — необязательно, но хотя бы один из `phone`/`email` обязателен;
 - `serviceId` — обязательное hidden/select значение;
 - `message` — обязательно;
-- `nip` — необязательно;
 - `actingForBusiness` — обязательное подтверждение обращения от организации;
 - `locale`, `pagePath`, UTM/Click ID — технические поля;
 - honeypot и Turnstile token.
@@ -223,20 +220,20 @@ Endpoint:
 - reduced motion;
 - touch target не менее 44×44 px для основных мобильных контролов.
 
-## 11. Cloudflare Pages
+## 11. Cloudflare Workers
 
 Параметры:
 
 ```text
-Project name: itbiz-pl
+Worker name: itbiz-pl
 Production branch: main
 Build command: npm run build
-Output directory: dist
+Assets directory: dist
 Domain: itbiz.pl
 ```
 
-Preview deployment создаётся для feature branches. Production secrets задаются
-только в Cloudflare:
+Preview deployment создаётся для feature branches. Секреты задаются только в
+Cloudflare:
 
 ```text
 TURNSTILE_SECRET_KEY
@@ -244,9 +241,10 @@ CONTACT_RECIPIENT
 MAIL_PROVIDER_TOKEN/SMTP_*
 TELEGRAM_BOT_TOKEN (если используется)
 TELEGRAM_CHAT_ID (если используется)
-GA_MEASUREMENT_ID
-GOOGLE_ADS_ID
 ```
+
+`GA_MEASUREMENT_ID` и `GOOGLE_ADS_ID` являются публичными environment-specific
+идентификаторами конфигурации, а не секретами.
 
 Для разных environments используются отдельные Turnstile keys и безопасные
 тестовые получатели. `.dev.vars` находится в `.gitignore`.

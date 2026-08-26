@@ -2,15 +2,15 @@
 
 ## 1. Услуги запуска
 
-| ID | PL page | Задача клиента | Связанные решения | Приоритет |
-|---|---|---|---|---|
-| `managed-it` | Obsługa IT dla firm | нужен внешний IT-подрядчик | сеть офиса, безопасный доступ, backup | P1 |
-| `lan-installation` | Sieci LAN dla firm | новая/неупорядоченная кабельная сеть | сеть 10–30 мест, VLAN, переезд | P1 |
-| `office-wifi` | Wi‑Fi dla biur | нестабильное покрытие и перегрузка | стабильный Wi‑Fi, guest VLAN | P1 |
-| `network-repair` | Diagnostyka i naprawa sieci firmowej | обрывы, ошибки портов, неизвестная схема | аудит сети, сегментация | P1 |
-| `ip-monitoring` | Monitoring IP dla firm | камеры/запись/доступ для организации | monitoring IP z zapisem | P2 |
-| `workstations` | Konfiguracja stanowisk pracy | открытие/добавление рабочих мест | новое/переезжающее бюро | P2 |
-| `it-care` | Opieka IT w abonamencie | регулярное обслуживание | standard biura, backup, monitoring | P2 |
+| ID                 | PL page                              | Задача клиента                           | Связанные решения                     | Приоритет |
+| ------------------ | ------------------------------------ | ---------------------------------------- | ------------------------------------- | --------- |
+| `managed-it`       | Obsługa IT dla firm                  | нужен внешний IT-подрядчик               | сеть офиса, безопасный доступ, backup | P1        |
+| `lan-installation` | Sieci LAN dla firm                   | новая/неупорядоченная кабельная сеть     | сеть 10–30 мест, VLAN, переезд        | P1        |
+| `office-wifi`      | Wi‑Fi dla biur                       | нестабильное покрытие и перегрузка       | стабильный Wi‑Fi, guest VLAN          | P1        |
+| `network-repair`   | Diagnostyka i naprawa sieci firmowej | обрывы, ошибки портов, неизвестная схема | аудит сети, сегментация               | P1        |
+| `ip-monitoring`    | Monitoring IP dla firm               | камеры/запись/доступ для организации     | monitoring IP z zapisem               | P2        |
+| `workstations`     | Konfiguracja stanowisk pracy         | открытие/добавление рабочих мест         | новое/переезжающее бюро               | P2        |
+| `it-care`          | Opieka IT w abonamencie              | регулярное обслуживание                  | standard biura, backup, monitoring    | P2        |
 
 P1 — польский MVP и первые Search campaigns. P2 — после уточнения коммерческих
 условий. Нельзя объявлять P2 только ради расширения охвата.
@@ -41,15 +41,15 @@ P1 — польский MVP и первые Search campaigns. P2 — после 
 
 ## 3. Решения запуска
 
-| ID | Название | Основные услуги |
-|---|---|---|
-| `stable-office-wifi` | Stabilne Wi‑Fi w biurze | office-wifi, network-repair |
-| `office-network-10-30` | Sieć dla biura 10–30 stanowisk | lan-installation, managed-it |
-| `vlan-segmentation` | Segmentacja sieci i VLAN gościnny | lan-installation, office-wifi |
-| `secure-remote-access` | Bezpieczny dostęp zdalny | managed-it, it-care |
-| `ip-monitoring-recording` | Monitoring IP z lokalnym zapisem | ip-monitoring, lan-installation |
-| `office-opening` | Otwarcie lub przeprowadzka biura | workstations, lan-installation, office-wifi |
-| `backup-321` | Backup 3‑2‑1 dla małej firmy | managed-it, it-care |
+| ID                        | Название                          | Основные услуги                             |
+| ------------------------- | --------------------------------- | ------------------------------------------- |
+| `stable-office-wifi`      | Stabilne Wi‑Fi w biurze           | office-wifi, network-repair                 |
+| `office-network-10-30`    | Sieć dla biura 10–30 stanowisk    | lan-installation, managed-it                |
+| `vlan-segmentation`       | Segmentacja sieci i VLAN gościnny | lan-installation, office-wifi               |
+| `secure-remote-access`    | Bezpieczny dostęp zdalny          | managed-it, it-care                         |
+| `ip-monitoring-recording` | Monitoring IP z lokalnym zapisem  | ip-monitoring, lan-installation             |
+| `office-opening`          | Otwarcie lub przeprowadzka biura  | workstations, lan-installation, office-wifi |
+| `backup-321`              | Backup 3‑2‑1 dla małej firmy      | managed-it, it-care                         |
 
 Каждое решение содержит minimum/recommended/scalable варианты только если они
 технически корректны и реально могут быть реализованы.

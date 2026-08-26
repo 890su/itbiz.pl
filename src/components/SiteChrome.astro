@@ -1,0 +1,108 @@
+---
+import { navigation } from '../data/navigation';
+
+interface Props {
+  variant: 'desktop' | 'mobile';
+}
+
+const { variant } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+{
+  variant === 'desktop' ? (
+    <aside class="side-panel" aria-label="Nawigacja strony">
+      <a class="brand" href="/" aria-label="ITBIZ.PL — strona główna">
+        <span class="brand-node" aria-hidden="true" />
+        <span>ITBIZ.PL</span>
+      </a>
+      <p class="side-kicker">
+        Infrastruktura IT
+        <br />
+        dla organizacji
+      </p>
+      <nav class="side-nav" aria-label="Główna">
+        <ul>
+          {navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                <span>{item.label}</span>
+                <span class="nav-port" aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div class="side-actions">
+        <a class="button button-primary" href="/kontakt/">
+          Opisz zadanie
+        </a>
+        <div class="utility-row" aria-label="Ustawienia strony">
+          <span class="locale-current" aria-label="Język polski">
+            PL
+          </span>
+          <span class="locale-pending" title="Tłumaczenia są przygotowywane">
+            RU EN UA
+          </span>
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+            aria-label="Zmień motyw"
+          >
+            <span aria-hidden="true">◐</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+  ) : (
+    <header class="mobile-bar">
+      <a class="brand" href="/" aria-label="ITBIZ.PL — strona główna">
+        <span class="brand-node" aria-hidden="true" />
+        <span>ITBIZ.PL</span>
+      </a>
+      <div class="mobile-actions">
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-label="Zmień motyw"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+        <button
+          class="menu-toggle"
+          type="button"
+          data-menu-toggle
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="menu-label">Menu</span>
+          <span class="menu-icon" aria-hidden="true" />
+        </button>
+      </div>
+      <nav id="mobile-menu" class="mobile-menu" aria-label="Główna" hidden>
+        <ul>
+          {navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="button button-primary" href="/kontakt/">
+          Opisz zadanie
+        </a>
+      </nav>
+    </header>
+  )
+}

@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+  index: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+const { href, index, title, description, tags } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="card-index" aria-hidden="true">{index}</div>
+  <div>
+    <h3><a href={href}>{title}</a></h3>
+    <p>{description}</p>
+    <ul class="tag-list" aria-label="Zakres">
+      {tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+  </div>
+  <a class="card-link" href={href} aria-label={`Sprawdź zakres: ${title}`}
+    >Sprawdź zakres <span aria-hidden="true">→</span></a
+  >
+</article>

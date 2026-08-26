@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import B2BBadge from '../../components/B2BBadge.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+
+const services = await getCollection('services');
+---
+
+<BaseLayout
+  title="Usługi IT dla firm w Warszawie | ITBIZ.PL"
+  description="Zakres usług związanych z firmową siecią LAN, Wi‑Fi, diagnostyką i bieżącą obsługą infrastruktury organizacji."
+  canonicalPath="/uslugi/"
+>
+  <nav class="breadcrumb" aria-label="Okruszki">
+    <ol><li><a href="/">Start</a></li><li aria-current="page">Usługi</li></ol>
+  </nav>
+  <header class="page-hero">
+    <B2BBadge />
+    <p class="eyebrow">Zakres techniczny</p>
+    <h1>Usługi IT dla firm w Warszawie</h1>
+    <p>
+      Każda strona opisuje rezultat, zakres i wyłączenia. Warunki komercyjne pozostają w
+      wersji roboczej do zatwierdzenia.
+    </p>
+  </header>
+  <section class="page-section">
+    <div class="service-grid">
+      {
+        services.map((service, index) => (
+          <ServiceCard
+            href={`/uslugi/${service.id}/`}
+            index={String(index + 1).padStart(2, '0')}
+            title={service.data.title}
+            description={service.data.description}
+            tags={service.data.outcomes.slice(0, 2)}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

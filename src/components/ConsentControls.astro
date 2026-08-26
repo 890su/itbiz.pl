@@ -1,0 +1,71 @@
+<section
+  class="consent-banner"
+  data-consent-banner
+  hidden
+  aria-labelledby="consent-title"
+>
+  <div>
+    <p class="section-label">Prywatność</p>
+    <h2 id="consent-title">Opcjonalny pomiar pozostaje wyłączony.</h2>
+    <p>
+      Niezbędne ustawienia chronią formularz i zapisują wybrany motyw. Analityka i
+      reklama nie uruchamiają się bez decyzji.
+    </p>
+  </div>
+  <div class="consent-actions">
+    <button class="button button-secondary" type="button" data-consent-reject
+      >Odrzuć opcjonalne</button
+    >
+    <button class="button button-secondary" type="button" data-consent-customize
+      >Dostosuj</button
+    >
+    <button class="button button-secondary" type="button" data-consent-accept
+      >Akceptuj wszystkie</button
+    >
+  </div>
+</section>
+
+<dialog
+  class="consent-dialog"
+  data-consent-dialog
+  aria-labelledby="privacy-settings-title"
+>
+  <form method="dialog" data-consent-form>
+    <header>
+      <p class="section-label">Ustawienia</p>
+      <h2 id="privacy-settings-title">Prywatność na ITBIZ.PL</h2>
+    </header>
+    <label class="consent-option">
+      <span
+        ><strong>Niezbędne</strong><small
+          >Bezpieczeństwo formularza, motyw i zapis decyzji.</small
+        ></span
+      >
+      <input type="checkbox" checked disabled />
+    </label>
+    <label class="consent-option">
+      <span
+        ><strong>Analityka</strong><small
+          >Pomiar korzystania z serwisu. Obecnie żaden tag nie jest załadowany.</small
+        ></span
+      >
+      <input type="checkbox" name="analytics" />
+    </label>
+    <label class="consent-option">
+      <span
+        ><strong>Reklama</strong><small
+          >Pomiar kampanii i remarketing. Obecnie żaden tag nie jest załadowany.</small
+        ></span
+      >
+      <input type="checkbox" name="advertising" />
+    </label>
+    <div class="consent-actions">
+      <button class="button button-secondary" type="button" data-consent-dialog-reject
+        >Odrzuć opcjonalne</button
+      >
+      <button class="button button-primary" type="submit">Zapisz ustawienia</button>
+    </div>
+  </form>
+</dialog>
+
+<script is:inline src="/scripts/consent.js" defer></script>

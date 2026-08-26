@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { company } from '../data/company';
+---
+
+<BaseLayout
+  title="Prywatność | ITBIZ.PL"
+  description="Robocza informacja o przetwarzaniu danych w serwisie ITBIZ.PL."
+  canonicalPath="/privacy/"
+  noindex={true}
+>
+  <nav class="breadcrumb" aria-label="Okruszki">
+    <ol><li><a href="/">Start</a></li><li aria-current="page">Prywatność</li></ol>
+  </nav>
+  <article class="page-section legal-copy">
+    <p class="eyebrow">Wersja robocza · wymaga przeglądu prawnego</p>
+    <h1>Prywatność</h1>
+    <div class="callout">
+      <strong>Nie jest to jeszcze informacja production</strong>
+      <p>
+        Okresy przechowywania, odbiorcy danych i publiczny kanał kontaktu administratora
+        muszą zostać zatwierdzone przed uruchomieniem formularza.
+      </p>
+    </div>
+    <h2>Administrator</h2>
+    <p>
+      Administratorem danych przesłanych przez serwis jest {company.operator}, {
+        company.legalForm
+      }, operator ITBIZ.PL.
+    </p>
+    <h2>Formularz B2B</h2>
+    <p>
+      Formularz zbiera nazwę organizacji, dane osoby kontaktowej, wybrany temat i opis
+      zadania. Dane mają służyć odpowiedzi na zapytanie oraz ocenie możliwego zakresu
+      prac.
+    </p>
+    <h2>Zabezpieczenie formularza</h2>
+    <p>
+      Po aktywacji formularz może korzystać z Cloudflare Turnstile w celu ograniczenia
+      automatycznych zgłoszeń. Szczegóły dostawcy i transferów zostaną opisane przed
+      production.
+    </p>
+    <h2>Prawa osoby</h2>
+    <p>
+      Ostateczna wersja opisze sposób realizacji prawa dostępu, sprostowania, usunięcia,
+      ograniczenia, sprzeciwu i wniesienia skargi do organu nadzorczego.
+    </p>
+  </article>
+</BaseLayout>

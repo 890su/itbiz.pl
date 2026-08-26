@@ -45,16 +45,16 @@ D:\aibrain\04_projects\support_890\890-by\890-by_site\app-opus
 
 ## Что меняется для ITBIZ
 
-| 890.by | ITBIZ.PL |
-|---|---|
-| Главная — problem input | Главная — B2B value proposition и service routing |
-| Новости | Реализации |
-| Инструменты | Решения |
-| Услуги/цены одной страницей | Отдельные конверсионные service landings |
-| Русский default | Польский default + RU/EN/UK |
-| Remote-support context | Варшавская B2B-инфраструктура, on-site/mixed |
-| Sidebar contact | Sidebar CTA + phone + language + theme |
-| Generic technical cards | Service blueprint и граф связей контента |
+| 890.by                      | ITBIZ.PL                                          |
+| --------------------------- | ------------------------------------------------- |
+| Главная — problem input     | Главная — B2B value proposition и service routing |
+| Новости                     | Реализации                                        |
+| Инструменты                 | Решения                                           |
+| Услуги/цены одной страницей | Отдельные конверсионные service landings          |
+| Русский default             | Польский default + RU/EN/UK                       |
+| Remote-support context      | Варшавская B2B-инфраструктура, on-site/mixed      |
+| Sidebar contact             | Sidebar CTA + phone + language + theme            |
+| Generic technical cards     | Service blueprint и граф связей контента          |
 
 ## Дизайн-критика референса, учтённая в новом проекте
 

@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import B2BBadge from '../components/B2BBadge.astro';
+import NetworkBlueprint from '../components/NetworkBlueprint.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+const services = await getCollection('services');
+const serviceTags: Record<string, string[]> = {
+  'managed-it': ['opieka', 'dokumentacja'],
+  'lan-installation': ['okablowanie', 'porty'],
+  'office-wifi': ['zasięg', 'VLAN gościnny'],
+  'network-repair': ['pomiary', 'diagnoza'],
+};
+---
+
+<BaseLayout
+  title="IT dla firm w Warszawie | ITBIZ.PL"
+  description="Projektowanie, porządkowanie i obsługa sieci, Wi‑Fi oraz stanowisk pracy wyłącznie dla firm i organizacji w Warszawie."
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <B2BBadge />
+      <p class="eyebrow">IT dla biznesu · Warszawa</p>
+      <h1>Firmowa sieć bez przypadkowych połączeń.</h1>
+      <p class="hero-lead">
+        Projektujemy, porządkujemy i diagnozujemy sieci LAN, Wi‑Fi oraz środowisko pracy
+        małych organizacji. Zakres i warunki ustalamy przed rozpoczęciem prac.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#zapytanie">Opisz zadanie firmowe</a>
+        <a class="button button-secondary" href="/uslugi/">Zobacz zakres usług</a>
+      </div>
+      <div class="hero-note" aria-label="Najważniejsze zasady">
+        <span>Warszawa i uzgodnione okolice</span>
+        <span>Zakres przed pracą</span>
+        <span>Dokumentacja ustaleń</span>
+      </div>
+    </div>
+    <NetworkBlueprint />
+  </section>
+
+  <section class="page-section" aria-labelledby="services-title">
+    <header class="section-head">
+      <p class="section-label">Zakres P1</p>
+      <h2 id="services-title">W czym pomagamy organizacjom</h2>
+      <p>
+        Cztery obszary pierwszego uruchomienia. Szczegółowe warunki każdej usługi są
+        weryfikowane przed dopuszczeniem strony do reklamy.
+      </p>
+    </header>
+    <div class="service-grid">
+      {
+        services.map((service, index) => (
+          <ServiceCard
+            href={`/uslugi/${service.id}/`}
+            index={String(index + 1).padStart(2, '0')}
+            title={service.data.title}
+            description={service.data.description}
+            tags={serviceTags[service.data.serviceId] ?? []}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-section" aria-labelledby="process-title">
+    <header class="section-head">
+      <p class="section-label">Sposób pracy</p>
+      <h2 id="process-title">Najpierw fakty, potem zmiany</h2>
+      <p>
+        Proces ogranicza przypadkowe zakupy i pozwala oddzielić diagnozę od wdrożenia.
+      </p>
+    </header>
+    <div class="process-grid">
+      <article class="process-step">
+        <span>01 / KONTEKST</span>
+        <h3>Opis organizacji</h3>
+        <p>Zbieramy objawy, lokalizację, skalę i znane ograniczenia infrastruktury.</p>
+      </article>
+      <article class="process-step">
+        <span>02 / ZAKRES</span>
+        <h3>Ustalenie pracy</h3>
+        <p>
+          Określamy co sprawdzamy, czego nie obejmuje zadanie i jaki ma być rezultat.
+        </p>
+      </article>
+      <article class="process-step">
+        <span>03 / WYNIK</span>
+        <h3>Wykonanie i zapis</h3>
+        <p>
+          Realizujemy uzgodniony zakres i zapisujemy wykonane zmiany oraz zalecenia.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="page-section" aria-labelledby="eligibility-title">
+    <div class="scope-grid">
+      <div class="info-panel">
+        <p class="section-label">Dla kogo</p>
+        <h2 id="eligibility-title">Firmy, biura i organizacje</h2>
+        <ul class="check-list">
+          <li>małe firmy bez własnego działu IT;</li>
+          <li>biura otwierające lub porządkujące lokal;</li>
+          <li>organizacje potrzebujące wykonawcy określonego zadania;</li>
+          <li>wewnętrzni koordynatorzy szukający wsparcia technicznego.</li>
+        </ul>
+      </div>
+      <div class="info-panel">
+        <p class="section-label">Granica usługi</p>
+        <h2>Infrastruktura organizacji</h2>
+        <p>
+          ITBIZ.PL nie świadczy pomocy dla prywatnych komputerów, domowych routerów ani
+          osobistych kont. Formularz służy wyłącznie do kontaktu w imieniu organizacji.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="zapytanie" class="page-section">
+    <LeadForm />
+  </section>
+</BaseLayout>

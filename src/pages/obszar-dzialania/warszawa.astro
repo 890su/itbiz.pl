@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import B2BBadge from '../../components/B2BBadge.astro';
+---
+
+<BaseLayout
+  title="Obsługa IT dla firm w Warszawie | Obszar działania"
+  description="ITBIZ.PL obsługuje firmy i organizacje w Warszawie oraz w indywidualnie uzgodnionych okolicach."
+  canonicalPath="/obszar-dzialania/warszawa/"
+>
+  <nav class="breadcrumb" aria-label="Okruszki">
+    <ol><li><a href="/">Start</a></li><li aria-current="page">Warszawa</li></ol>
+  </nav>
+  <header class="page-hero">
+    <B2BBadge />
+    <p class="eyebrow">Obszar działania</p>
+    <h1>Warszawa i okolice uzgodnione przed realizacją.</h1>
+    <p>
+      Dokładna lokalizacja i możliwość dojazdu są potwierdzane razem z zakresem. Nie
+      tworzymy osobnych ofert dzielnicowych bez unikalnych warunków i faktów.
+    </p>
+  </header>
+</BaseLayout>

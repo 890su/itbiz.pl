@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import B2BBadge from '../components/B2BBadge.astro';
+import { company } from '../data/company';
+---
+
+<BaseLayout
+  title="O ITBIZ.PL"
+  description="ITBIZ.PL to oferta Ihar Shestsiuk dotycząca infrastruktury IT firm i organizacji w Warszawie."
+  canonicalPath="/o-nas/"
+>
+  <nav class="breadcrumb" aria-label="Okruszki">
+    <ol><li><a href="/">Start</a></li><li aria-current="page">O nas</li></ol>
+  </nav>
+  <header class="page-hero">
+    <B2BBadge />
+    <p class="eyebrow">Operator i zasady</p>
+    <h1>ITBIZ.PL nie udaje większej organizacji.</h1>
+    <p>
+      Operatorem serwisu jest {company.operator}, prowadzący {company.legalForm}. Marka
+      opisuje usługi świadczone dla firm i organizacji, a nie osobną spółkę.
+    </p>
+  </header>
+  <section class="page-section">
+    <div class="scope-grid">
+      <article class="info-panel">
+        <p class="section-label">Zasada 01</p>
+        <h2>Zakres przed pracą</h2>
+        <p>
+          Najpierw ustalamy elementy objęte zadaniem, wyłączenia i oczekiwany rezultat.
+        </p>
+      </article>
+      <article class="info-panel">
+        <p class="section-label">Zasada 02</p>
+        <h2>Fakty zamiast obietnic</h2>
+        <p>Nie publikujemy wymyślonych klientów, wyników, cen ani terminów reakcji.</p>
+      </article>
+      <article class="info-panel">
+        <p class="section-label">Zasada 03</p>
+        <h2>Infrastruktura organizacji</h2>
+        <p>
+          Oferta dotyczy środowiska firmowego. Nie obejmuje prywatnej pomocy
+          technicznej.
+        </p>
+      </article>
+      <article class="info-panel">
+        <p class="section-label">Zasada 04</p>
+        <h2>Dokumentacja zmian</h2>
+        <p>
+          Rezultat powinien pozostać zrozumiały także po zakończeniu konkretnego
+          zadania.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

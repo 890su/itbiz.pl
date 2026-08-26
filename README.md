@@ -1,7 +1,8 @@
 # ITBIZ.PL
 
 Мультиязычный B2B-сайт услуг IT для компаний и организаций в Варшаве. Проект
-готовится как отдельный продукт, Git-репозиторий и Cloudflare Pages deployment.
+развивается как отдельный продукт, Git-репозиторий и Cloudflare Workers
+deployment.
 
 ## Ключевое позиционирование
 
@@ -30,10 +31,10 @@ działalność nierejestrowana.
 
 - Astro, static output;
 - TypeScript strict;
-- Svelte только для интерактивных islands;
-- Tailwind CSS и централизованные design tokens;
+- статические Astro-компоненты и минимальный vanilla JavaScript;
+- CSS layers, custom properties и централизованные design tokens;
 - Astro content collections;
-- Cloudflare Pages + Pages Functions;
+- Cloudflare Workers Static Assets + Worker API;
 - Cloudflare Turnstile;
 - отдельные GA4/Google Ads conversion actions с Consent Mode v2.
 
@@ -49,14 +50,17 @@ działalność nierejestrowana.
 6. [Матрица контента](docs/06-CONTENT-MATRIX.md)
 7. [Принципы, взятые из 890.by](docs/07-REFERENCE-890BY.md)
 8. [Roadmap](ROADMAP.md)
+9. [Зафиксированные архитектурные решения](docs/08-ARCHITECTURE-DECISIONS.md)
+10. [Результаты аудита и план улучшений](docs/09-AUDIT-AND-IMPROVEMENTS.md)
+11. [Cloudflare deployment](docs/10-CLOUDFLARE-DEPLOYMENT.md)
 
 ## Репозитории и размещение
 
 - GitHub: `https://github.com/890su/itbiz.pl`
 - production domain: `https://itbiz.pl`
-- Cloudflare Pages project: `itbiz-pl`
+- Cloudflare Worker: `itbiz-pl`
 - production branch: `main`
 - build output: `dist/`
 
-Публикация production начинается только после регистрации домена, проверки
-юридических страниц, Consent Mode, формы и B2B-only контента.
+Production включается только после привязки DNS, проверки юридических страниц,
+Consent Mode, формы и B2B-only контента. До этого используются preview URLs.
