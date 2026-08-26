@@ -47,6 +47,8 @@
     --canvas: #f4f7fb;
     --surface: #ffffff;
     --surface-raised: #f9fbfe;
+    --section-band: #e6ecf4;
+    --section-edge: #b9c6d7;
     --ink: #142033;
     --ink-muted: #56657a;
     --line: #ced8e6;
@@ -77,6 +79,8 @@
       --canvas: #07101f;
       --surface: #0d1829;
       --surface-raised: #111e31;
+      --section-band: #111f33;
+      --section-edge: #30445f;
       --ink: #ecf3fc;
       --ink-muted: #a7b6ca;
       --line: #24354d;
@@ -99,6 +103,8 @@
     --canvas: #07101f;
     --surface: #0d1829;
     --surface-raised: #111e31;
+    --section-band: #111f33;
+    --section-edge: #30445f;
     --ink: #ecf3fc;
     --ink-muted: #a7b6ca;
     --line: #24354d;
@@ -445,6 +451,13 @@
 
   .page-section {
     padding: clamp(4rem, 8vw, 7.5rem) clamp(1.1rem, 5vw, 4rem);
+  }
+
+  .content-rail > main > .page-section:nth-of-type(even) {
+    background-color: color-mix(in srgb, var(--section-band) 94%, transparent);
+    box-shadow:
+      inset 0 1px var(--section-edge),
+      inset 0 -1px var(--section-edge);
   }
 
   .page-section + .page-section {
@@ -842,6 +855,7 @@
     display: grid;
     gap: 1.5rem;
     border-top: 1px solid var(--line);
+    background: color-mix(in srgb, var(--section-band) 72%, transparent);
     padding: 2.5rem clamp(1.1rem, 5vw, 4rem);
     color: var(--ink-muted);
     font-size: 0.85rem;

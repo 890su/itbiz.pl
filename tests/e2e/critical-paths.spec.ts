@@ -29,6 +29,25 @@ test('home page keeps a concise business scope without horizontal overflow', asy
   expect(dimensions.scroll).toBe(dimensions.client);
 });
 
+test('content sections alternate tonal bands in light and dark themes', async ({
+  page,
+}) => {
+  await page.goto('/');
+  for (const theme of ['light', 'dark'] as const) {
+    await page.locator('html').evaluate((html, value) => {
+      html.dataset.theme = value;
+    }, theme);
+    const backgrounds = await page
+      .locator('.page-section')
+      .evaluateAll((sections) =>
+        sections
+          .slice(0, 3)
+          .map((section) => getComputedStyle(section).backgroundColor),
+      );
+    expect(new Set(backgrounds).size).toBeGreaterThan(1);
+  }
+});
+
 test('mobile navigation opens and exposes the primary action', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
