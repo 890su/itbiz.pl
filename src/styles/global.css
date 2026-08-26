@@ -757,11 +757,12 @@
   .page-hero {
     display: grid;
     gap: 1.25rem;
-    padding: clamp(4rem, 8vw, 7rem) clamp(1.1rem, 5vw, 4rem);
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.1rem, 5vw, 4rem);
   }
 
   .page-hero h1 {
-    max-width: 15ch;
+    max-width: 19ch;
+    font-size: clamp(2.5rem, 4.4vw, 4.5rem);
   }
 
   .page-hero > p:not(.eyebrow) {

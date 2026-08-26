@@ -13,6 +13,19 @@ const walk = (directory) =>
 const htmlFiles = walk(root).filter((file) => file.endsWith('.html'));
 const failures = [];
 const languageByPrefix = { ru: 'ru-RU', en: 'en-GB', uk: 'uk-UA' };
+const hreflangByLanguage = {
+  'pl-PL': 'pl',
+  'ru-RU': 'ru',
+  'en-GB': 'en',
+  'uk-UA': 'uk',
+};
+const htmlByCanonical = new Map();
+
+for (const file of htmlFiles) {
+  const html = readFileSync(file, 'utf8');
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  if (canonical) htmlByCanonical.set(canonical, html);
+}
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
@@ -35,11 +48,33 @@ for (const file of htmlFiles) {
   ];
 
   if (!is404) {
-    for (const hreflang of ['pl', 'ru', 'en', 'uk', 'x-default']) {
-      checks.push([
-        `hreflang ${hreflang}`,
-        html.includes(`rel="alternate" hreflang="${hreflang}"`),
-      ]);
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+    const alternates = [
+      ...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g),
+    ].map((match) => ({ locale: match[1], href: match[2] }));
+    const ownHreflang = hreflangByLanguage[expectedLanguage];
+    checks.push([
+      `self hreflang ${ownHreflang}`,
+      alternates.some(
+        (alternate) => alternate.locale === ownHreflang && alternate.href === canonical,
+      ),
+    ]);
+    checks.push([
+      'hreflang x-default',
+      alternates.some((alternate) => alternate.locale === 'x-default'),
+    ]);
+
+    for (const alternate of alternates.filter(({ locale }) => locale !== 'x-default')) {
+      const targetHtml = htmlByCanonical.get(alternate.href);
+      checks.push([`hreflang target ${alternate.locale}`, Boolean(targetHtml)]);
+      if (targetHtml && canonical) {
+        checks.push([
+          `reciprocal hreflang ${alternate.locale}`,
+          targetHtml.includes(
+            `rel="alternate" hreflang="${ownHreflang}" href="${canonical}"`,
+          ),
+        ]);
+      }
     }
   }
 

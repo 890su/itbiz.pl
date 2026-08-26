@@ -29,7 +29,7 @@ const copy = ui.service;
     <ol>
       <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li>
         <a href={getRoute(locale, 'services')}>{ui.common.services}</a>
-      </li><li aria-current="page">{data.title}</li>
+      </li><li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
     </ol>
   </nav>
   <header class="page-hero">
@@ -37,12 +37,24 @@ const copy = ui.service;
     <h1>{data.title}</h1>
     <p>{data.lead}</p>
     <div class="hero-actions">
-      <a class="button button-primary" href="#enquiry">{copy.primary}</a><a
-        class="button button-secondary"
-        href="#scope">{copy.scopeLink}</a
-      >
+      <a class="button button-primary" href="#enquiry"
+        >{data.primaryCta ?? copy.primary}</a
+      ><a class="button button-secondary" href="#scope">{copy.scopeLink}</a>
     </div>
-    <div class="callout"><strong>{copy.calloutTitle}</strong><p>{copy.callout}</p></div>
+    {
+      data.heroFacts && (
+        <ul class="service-facts" aria-label="Najważniejsze warunki usługi">
+          {data.heroFacts.map((fact) => (
+            <li>{fact}</li>
+          ))}
+        </ul>
+      )
+    }
+    <div class="callout">
+      <strong>{data.serviceNoteTitle ?? copy.calloutTitle}</strong><p>
+        {data.serviceNote ?? copy.callout}
+      </p>
+    </div>
   </header>
   <section class="page-section" aria-labelledby="outcomes-title">
     <header class="section-head">
@@ -84,7 +96,34 @@ const copy = ui.service;
       {data.deliverables.map((item) => <li>{item}</li>)}
     </ul><div class="legal-copy"><Content /></div>
   </section>
+  {
+    data.process && (
+      <section class="page-section" aria-labelledby="service-process-title">
+        <header class="section-head">
+          <p class="section-label">{data.processLabel}</p>
+          <h2 id="service-process-title">{data.processTitle}</h2>
+          {data.processLead && <p>{data.processLead}</p>}
+        </header>
+        <div class="process-grid">
+          {data.process.map((step) => (
+            <article class="process-step">
+              <span>{step.label}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    )
+  }
   <section id="enquiry" class="page-section">
-    <LeadForm selectedServiceId={data.serviceId} heading={data.formOption} {locale} />
+    <LeadForm
+      selectedServiceId={data.serviceId}
+      heading={data.formOption}
+      lead={data.formLead}
+      messageHelp={data.messageHelp}
+      submitLabel={data.submitLabel}
+      {locale}
+    />
   </section>
 </BaseLayout>

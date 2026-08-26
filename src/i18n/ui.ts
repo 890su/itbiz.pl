@@ -100,7 +100,7 @@ export const ui = {
       lead: 'Każda usługa opisuje rezultat, zakres i wyłączenia. Dostępność, harmonogram oraz warunki komercyjne potwierdzamy indywidualnie.',
     },
     service: {
-      qualifier: 'Wyłącznie dla firm i organizacji · Warszawa',
+      qualifier: 'Wyłącznie dla firm i organizacji w Warszawie',
       primary: 'Opisz to zadanie',
       scopeLink: 'Sprawdź zakres',
       calloutTitle: 'Zakres potwierdzany przed realizacją',
@@ -193,6 +193,8 @@ export const ui = {
       heading: 'Opisz zadanie',
       lead: 'Podaj krótko kontekst. Zakres, dostępność i warunki potwierdzimy przed pracą.',
       company: 'Firma / organizacja',
+      nip: 'NIP (opcjonalnie)',
+      nipHelp: 'Ułatwia potwierdzenie, że zgłoszenie dotyczy organizacji.',
       contact: 'Osoba kontaktowa',
       email: 'E-mail',
       phone: 'Telefon',
@@ -250,7 +252,7 @@ export const ui = {
         ],
         [
           'Zakres i przechowywanie',
-          'Przetwarzamy nazwę organizacji, dane osoby kontaktowej, wybrany temat i opis zadania. Zgłoszenia są przechowywane nie dłużej niż 180 dni, chyba że dalsze przechowywanie wynika z zawartej umowy lub obowiązku prawnego.',
+          'Przetwarzamy nazwę organizacji, opcjonalny NIP, dane osoby kontaktowej, wybrany temat i opis zadania. Zgłoszenia są przechowywane nie dłużej niż 180 dni, chyba że dalsze przechowywanie wynika z zawartej umowy lub obowiązku prawnego.',
         ],
         [
           'Odbiorcy i bezpieczeństwo',
@@ -475,6 +477,8 @@ export const ui = {
       heading: 'Опишите задачу',
       lead: 'Кратко укажите контекст. Объём, доступность и условия подтвердим до работ.',
       company: 'Компания / организация',
+      nip: 'NIP (необязательно)',
+      nipHelp: 'Помогает подтвердить, что запрос относится к организации.',
       contact: 'Контактное лицо',
       email: 'E-mail',
       phone: 'Телефон',
@@ -529,7 +533,7 @@ export const ui = {
         ],
         [
           'Состав и хранение',
-          'Обрабатываются название организации, данные контактного лица, тема и описание задачи. Запросы хранятся не более 180 дней, если договор или закон не требуют большего срока.',
+          'Обрабатываются название организации, необязательный NIP, данные контактного лица, тема и описание задачи. Запросы хранятся не более 180 дней, если договор или закон не требуют большего срока.',
         ],
         [
           'Получатели и защита',
@@ -755,6 +759,8 @@ export const ui = {
       heading: 'Describe the task',
       lead: 'Provide brief context. We will confirm scope, availability and terms before work.',
       company: 'Company / organisation',
+      nip: 'NIP (optional)',
+      nipHelp: 'Helps confirm that the enquiry concerns an organisation.',
       contact: 'Contact person',
       email: 'Email',
       phone: 'Phone',
@@ -809,7 +815,7 @@ export const ui = {
         ],
         [
           'Data and retention',
-          'We process the organisation name, contact details, selected topic and task description. Enquiries are kept for no more than 180 days unless a contract or legal duty requires longer retention.',
+          'We process the organisation name, optional NIP, contact details, selected topic and task description. Enquiries are kept for no more than 180 days unless a contract or legal duty requires longer retention.',
         ],
         [
           'Recipients and security',
@@ -1036,6 +1042,8 @@ export const ui = {
       heading: 'Опишіть завдання',
       lead: 'Коротко вкажіть контекст. Обсяг, доступність і умови підтвердимо до робіт.',
       company: 'Компанія / організація',
+      nip: 'NIP (необов’язково)',
+      nipHelp: 'Допомагає підтвердити, що запит стосується організації.',
       contact: 'Контактна особа',
       email: 'E-mail',
       phone: 'Телефон',
@@ -1090,7 +1098,7 @@ export const ui = {
         ],
         [
           'Склад і зберігання',
-          'Обробляємо назву організації, дані контактної особи, тему й опис завдання. Запити зберігаються не більше 180 днів, якщо договір або закон не вимагають довшого строку.',
+          'Обробляємо назву організації, необов’язковий NIP, дані контактної особи, тему й опис завдання. Запити зберігаються не більше 180 днів, якщо договір або закон не вимагають довшого строку.',
         ],
         [
           'Одержувачі та захист',

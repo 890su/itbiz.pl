@@ -15,7 +15,10 @@ const { locale } = Astro.props;
 const copy = getUi(locale).home;
 const order = ['managed-it', 'lan-installation', 'office-wifi', 'network-repair'];
 const services = (await getCollection('services'))
-  .filter((service) => service.data.locale === locale)
+  .filter(
+    (service) =>
+      service.data.locale === locale && order.includes(service.data.serviceId),
+  )
   .sort((a, b) => order.indexOf(a.data.serviceId) - order.indexOf(b.data.serviceId));
 ---
 

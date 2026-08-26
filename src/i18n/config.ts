@@ -99,6 +99,27 @@ export const routeTranslations = {
     en: '/en/services/business-network-diagnostics/',
     uk: '/uk/poslugy/diagnostyka-korporatyvnoyi-merezhi/',
   },
+  'service.network-emergency': {
+    pl: '/uslugi/awaria-sieci-w-firmie/',
+  },
+  'service.lan-outlet-repair': {
+    pl: '/uslugi/naprawa-gniazda-lan-w-biurze/',
+  },
+  'service.small-office-wifi-audit': {
+    pl: '/uslugi/audyt-wifi-malego-biura/',
+  },
+  'service.rack-cabinet-cleanup': {
+    pl: '/uslugi/porzadkowanie-szafy-rack/',
+  },
+  'service.office-it-move': {
+    pl: '/uslugi/przeprowadzka-it-biura/',
+  },
+  'service.cctv-cabling': {
+    pl: '/uslugi/okablowanie-pod-monitoring/',
+  },
+  'service.meeting-room-display': {
+    pl: '/uslugi/montaz-ekranu-w-biurze/',
+  },
 } as const;
 
 export type TranslationKey = keyof typeof routeTranslations;
@@ -109,21 +130,40 @@ export function isLocale(value: string): value is Locale {
 }
 
 export function getRoute(locale: Locale, key: TranslationKey): string {
-  return routeTranslations[key][locale];
+  const path = (routeTranslations[key] as Partial<Record<Locale, string>>)[locale];
+  if (!path) throw new Error(`Missing ${locale} route for ${key}`);
+  return path;
+}
+
+export function getRouteOrFallback(locale: Locale, key: TranslationKey): string {
+  return (
+    (routeTranslations[key] as Partial<Record<Locale, string>>)[locale] ??
+    getRoute(locale, key.startsWith('service.') ? 'services' : 'home')
+  );
+}
+
+export function getAvailableRoutes(key: TranslationKey) {
+  return Object.entries(routeTranslations[key]) as [Locale, string][];
 }
 
 export function getLocalizedStaticPaths() {
   return localizedLocales.flatMap((locale) =>
     (
-      Object.entries(routeTranslations) as [TranslationKey, Record<Locale, string>][]
-    ).map(([translationKey, paths]) => {
+      Object.entries(routeTranslations) as [
+        TranslationKey,
+        Partial<Record<Locale, string>>,
+      ][]
+    ).flatMap(([translationKey, paths]) => {
       const prefix = `/${locale}/`;
       const path = paths[locale];
+      if (!path) return [];
       const remainder = path === prefix ? undefined : path.slice(prefix.length, -1);
-      return {
-        params: { lang: locale, path: remainder },
-        props: { locale, translationKey },
-      };
+      return [
+        {
+          params: { lang: locale, path: remainder },
+          props: { locale, translationKey },
+        },
+      ];
     }),
   );
 }

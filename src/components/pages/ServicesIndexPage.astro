@@ -11,7 +11,19 @@ interface Props {
 const { locale } = Astro.props;
 const ui = getUi(locale);
 const copy = ui.servicesIndex;
-const order = ['managed-it', 'lan-installation', 'office-wifi', 'network-repair'];
+const order = [
+  'network-emergency',
+  'lan-outlet-repair',
+  'small-office-wifi-audit',
+  'rack-cabinet-cleanup',
+  'office-it-move',
+  'cctv-cabling',
+  'meeting-room-display',
+  'managed-it',
+  'lan-installation',
+  'office-wifi',
+  'network-repair',
+];
 const services = (await getCollection('services'))
   .filter((service) => service.data.locale === locale)
   .sort((a, b) => order.indexOf(a.data.serviceId) - order.indexOf(b.data.serviceId));

@@ -3,6 +3,7 @@ import { validateContactPayload } from '../worker/contact';
 
 const validPayload = {
   companyName: 'Przykładowa organizacja',
+  nip: '525-00-08-573',
   contactName: 'Jan Kowalski',
   email: 'jan@example.org',
   phone: '',
@@ -34,6 +35,19 @@ describe('validateContactPayload', () => {
       ...validPayload,
       serviceId: 'private-laptop',
     });
+    expect(result).toMatchObject({ success: false });
+  });
+
+  it('accepts a landing-page service and normalises NIP', () => {
+    const result = validateContactPayload({
+      ...validPayload,
+      serviceId: 'network-emergency',
+    });
+    expect(result.success && result.data.nip).toBe('5250008573');
+  });
+
+  it('rejects an invalid NIP format when the optional field is used', () => {
+    const result = validateContactPayload({ ...validPayload, nip: '1234' });
     expect(result).toMatchObject({ success: false });
   });
 
