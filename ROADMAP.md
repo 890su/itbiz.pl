@@ -6,7 +6,7 @@
 - [x] Connect the empty GitHub repository `890su/itbiz.pl`.
 - [x] Document scope, information architecture, SEO, advertising and UI/UX.
 - [x] Register `itbiz.pl` and delegate nameservers to Cloudflare.
-- [ ] Bind `itbiz.pl` to the verified production deployment.
+- [x] Bind `itbiz.pl` to the verified production deployment.
 - [x] Publish four P1 service definitions with explicit scope and exclusions.
 - [ ] Confirm public B2B phone/email and whether the existing number is reused.
 - [ ] Confirm whether estimates/initial consultations are free before using that
@@ -49,7 +49,7 @@
 
 ## Stage 5 — Production and advertising readiness
 
-- [ ] Attach `itbiz.pl`, SSL, redirects and security headers.
+- [x] Attach `itbiz.pl`, SSL, redirects and security headers.
 - [ ] Production crawl, Core Web Vitals and accessibility audit.
 - [ ] Submit sitemap in Google Search Console.
 - [ ] Create Google Ads campaigns and assets in paused state.
