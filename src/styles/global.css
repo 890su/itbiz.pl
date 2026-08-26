@@ -378,6 +378,9 @@
     top: 100%;
     right: 0;
     left: 0;
+    max-height: calc(100dvh - 4.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-bottom: 1px solid var(--panel-line);
     background: var(--panel);
     padding: 1rem;
@@ -406,6 +409,31 @@
   .mobile-menu a:not(.button) {
     padding: 0.8rem 0;
     text-decoration: none;
+  }
+
+  .mobile-menu .mobile-locale-switcher {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--panel-line);
+    font-size: 0.82rem;
+  }
+
+  .mobile-menu .mobile-locale-switcher a {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-color: var(--panel-line);
+    padding: 0.55rem 0.4rem;
+  }
+
+  .mobile-menu > .button {
+    width: 100%;
+    margin-top: 0.9rem;
   }
 
   .mobile-menu a[aria-current='page'] {

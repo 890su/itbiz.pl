@@ -130,11 +130,16 @@ const isCurrent = (href: string) =>
             </li>
           ))}
         </ul>
-        <div class="mobile-locale-switcher">
+        <div
+          class="mobile-locale-switcher"
+          role="group"
+          aria-label={copy.common.settings}
+        >
           {locales.map((targetLocale) => (
             <a
               href={getRouteOrFallback(targetLocale, translationKey)}
               lang={targetLocale}
+              aria-label={languageNames[targetLocale]}
               aria-current={targetLocale === locale ? 'page' : undefined}
             >
               {localeLabels[targetLocale]}

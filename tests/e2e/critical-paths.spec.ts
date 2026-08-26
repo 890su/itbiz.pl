@@ -134,13 +134,41 @@ test('Polish-only landing language links fall back to localized service indexes'
   await expect(page.locator('html')).toHaveAttribute('lang', 'ru-RU');
 });
 
-test('mobile navigation opens and exposes the primary action', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
-  await page.locator('.mobile-bar').getByRole('button', { name: 'Menu' }).click();
-  const menu = page.locator('#mobile-menu');
-  await expect(menu).toBeVisible();
-  await expect(menu.getByRole('link', { name: 'Opisz zadanie' })).toBeVisible();
+test('mobile navigation keeps language targets large and clear of the primary action', async ({
+  page,
+}) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 700 });
+    await page.goto('/');
+    await page.locator('.mobile-bar').getByRole('button', { name: 'Menu' }).click();
+
+    const menu = page.locator('#mobile-menu');
+    const localeSwitcher = menu.locator('.mobile-locale-switcher');
+    const localeLinks = localeSwitcher.locator('a');
+    const primaryAction = menu.getByRole('link', { name: 'Opisz zadanie' });
+
+    await expect(menu).toBeVisible();
+    await expect(primaryAction).toBeVisible();
+    await expect(localeLinks).toHaveCount(4);
+
+    const localeSizes = await localeLinks.evaluateAll((links) =>
+      links.map((link) => {
+        const rect = link.getBoundingClientRect();
+        return { width: rect.width, height: rect.height };
+      }),
+    );
+
+    for (const size of localeSizes) {
+      expect(size.width).toBeGreaterThanOrEqual(44);
+      expect(size.height).toBeGreaterThanOrEqual(44);
+    }
+
+    const switcherBox = await localeSwitcher.boundingBox();
+    const primaryActionBox = await primaryAction.boundingBox();
+    expect(switcherBox).not.toBeNull();
+    expect(primaryActionBox).not.toBeNull();
+    expect(switcherBox!.y + switcherBox!.height).toBeLessThan(primaryActionBox!.y);
+  }
 });
 
 test('privacy choices can be changed and reopened from the footer', async ({
