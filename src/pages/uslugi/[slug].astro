@@ -1,0 +1,27 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ServicePage from '../../components/pages/ServicePage.astro';
+import { getRoute, type TranslationKey } from '../../i18n/config';
+
+export async function getStaticPaths() {
+  const services = (await getCollection('services')).filter(
+    (service) => service.data.locale === 'pl',
+  );
+  return services.map((service) => ({
+    params: {
+      slug: getRoute('pl', service.data.translationKey as TranslationKey)
+        .split('/')
+        .filter(Boolean)
+        .at(-1),
+    },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: CollectionEntry<'services'>;
+}
+const { service } = Astro.props;
+---
+
+<ServicePage locale="pl" {service} />

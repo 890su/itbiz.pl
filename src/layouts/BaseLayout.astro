@@ -1,0 +1,107 @@
+---
+import '../styles/global.css';
+import SiteChrome from '../components/SiteChrome.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ConsentControls from '../components/ConsentControls.astro';
+import {
+  getRoute,
+  languageTags,
+  routeTranslations,
+  type Locale,
+  type TranslationKey,
+} from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  noindex?: boolean;
+  locale?: Locale;
+  translationKey: TranslationKey;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  noindex = false,
+  locale = 'pl',
+  translationKey,
+} = Astro.props;
+const canonical = new URL(canonicalPath, Astro.site);
+const siteIndexable = import.meta.env.PUBLIC_SITE_INDEXABLE === 'true';
+const effectiveNoindex = noindex || !siteIndexable;
+const copy = getUi(locale);
+const alternates = Object.entries(routeTranslations[translationKey]) as [
+  Locale,
+  string,
+][];
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'ITBIZ.PL',
+  url: Astro.site,
+  inLanguage: languageTags[locale],
+};
+---
+
+<!doctype html>
+<html lang={languageTags[locale]} data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1324" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={effectiveNoindex ? 'noindex, follow' : 'index, follow'}
+    />
+    <link rel="canonical" href={canonical} />
+    {
+      alternates.map(([alternateLocale, path]) => (
+        <link
+          rel="alternate"
+          hreflang={alternateLocale}
+          href={new URL(path, Astro.site)}
+        />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(getRoute('pl', translationKey), Astro.site)}
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ITBIZ.PL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={languageTags[locale].replace('-', '_')} />
+    <meta name="twitter:card" content="summary" />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(websiteSchema)}
+    />
+    <script is:inline src="/scripts/theme.js"></script>
+    <script is:inline src="/scripts/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{copy.common.skip}</a>
+    <div class="site-shell">
+      <div class="content-rail">
+        <SiteChrome variant="mobile" {locale} {translationKey} />
+        <main id="main-content" tabindex="-1">
+          <slot />
+        </main>
+        <SiteFooter {locale} />
+      </div>
+      <SiteChrome variant="desktop" {locale} {translationKey} />
+    </div>
+    <ConsentControls {locale} />
+  </body>
+</html>

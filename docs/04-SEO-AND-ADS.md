@@ -16,15 +16,15 @@ Remarketing → возврат посетителей Usługi после consent
 Каждая рекламируемая услуга получает отдельный кластер. Нельзя направлять все
 запросы на главную.
 
-| Service ID | Основной PL-интент | Посадочная |
-|---|---|---|
-| `managed-it` | obsługa IT dla firm Warszawa | `/uslugi/obsluga-it-dla-firm/` |
-| `lan-installation` | sieci LAN dla firm Warszawa | `/uslugi/sieci-lan-dla-firm/` |
-| `office-wifi` | WiFi dla biura Warszawa | `/uslugi/wifi-dla-biur/` |
-| `network-repair` | naprawa sieci firmowej Warszawa | `/uslugi/diagnostyka-i-naprawa-sieci-firmowej/` |
-| `ip-monitoring` | monitoring IP dla firm Warszawa | `/uslugi/monitoring-ip-dla-firm/` |
-| `workstations` | konfiguracja stanowisk pracy firma | `/uslugi/konfiguracja-stanowisk-pracy/` |
-| `it-care` | opieka informatyczna dla firm Warszawa | `/uslugi/opieka-it-w-abonamencie/` |
+| Service ID         | Основной PL-интент                     | Посадочная                                      |
+| ------------------ | -------------------------------------- | ----------------------------------------------- |
+| `managed-it`       | obsługa IT dla firm Warszawa           | `/uslugi/obsluga-it-dla-firm/`                  |
+| `lan-installation` | sieci LAN dla firm Warszawa            | `/uslugi/sieci-lan-dla-firm/`                   |
+| `office-wifi`      | WiFi dla biura Warszawa                | `/uslugi/wifi-dla-biur/`                        |
+| `network-repair`   | naprawa sieci firmowej Warszawa        | `/uslugi/diagnostyka-i-naprawa-sieci-firmowej/` |
+| `ip-monitoring`    | monitoring IP dla firm Warszawa        | `/uslugi/monitoring-ip-dla-firm/`               |
+| `workstations`     | konfiguracja stanowisk pracy firma     | `/uslugi/konfiguracja-stanowisk-pracy/`         |
+| `it-care`          | opieka informatyczna dla firm Warszawa | `/uslugi/opieka-it-w-abonamencie/`              |
 
 До публикации проверяются Keyword Planner, фактические Search Terms и реальная
 способность выполнять услугу. Страницы не создаются только ради ключевого слова.

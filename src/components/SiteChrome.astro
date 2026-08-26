@@ -1,0 +1,151 @@
+---
+import {
+  getRoute,
+  languageNames,
+  locales,
+  localeLabels,
+  type Locale,
+  type TranslationKey,
+} from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  variant: 'desktop' | 'mobile';
+  locale: Locale;
+  translationKey: TranslationKey;
+}
+
+const { variant, locale, translationKey } = Astro.props;
+const copy = getUi(locale);
+const navigation = (
+  ['home', 'services', 'solutions', 'about', 'contact'] as TranslationKey[]
+).map((key, index) => ({ href: getRoute(locale, key), label: copy.common.nav[index] }));
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === getRoute(locale, 'home')
+    ? currentPath === href
+    : currentPath.startsWith(href);
+---
+
+{
+  variant === 'desktop' ? (
+    <aside class="side-panel" aria-label={copy.common.siteNav}>
+      <a
+        class="brand"
+        href={getRoute(locale, 'home')}
+        aria-label={copy.common.brandHome}
+      >
+        <span class="brand-node" aria-hidden="true" />
+        <span>ITBIZ.PL</span>
+      </a>
+      <p class="side-kicker">
+        {copy.common.sideKicker[0]}
+        <br />
+        {copy.common.sideKicker[1]}
+      </p>
+      <nav class="side-nav" aria-label={copy.common.mainNav}>
+        <ul>
+          {navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                <span>{item.label}</span>
+                <span class="nav-port" aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div class="side-actions">
+        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+          {copy.common.cta}
+        </a>
+        <div class="utility-row" aria-label={copy.common.settings}>
+          <nav class="locale-switcher" aria-label={copy.common.settings}>
+            {locales.map((targetLocale) => (
+              <a
+                href={getRoute(targetLocale, translationKey)}
+                hreflang={targetLocale}
+                lang={targetLocale}
+                aria-current={targetLocale === locale ? 'page' : undefined}
+                aria-label={languageNames[targetLocale]}
+              >
+                {localeLabels[targetLocale]}
+              </a>
+            ))}
+          </nav>
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+            aria-label={copy.common.theme}
+          >
+            <span aria-hidden="true">◐</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+  ) : (
+    <header class="mobile-bar">
+      <a
+        class="brand"
+        href={getRoute(locale, 'home')}
+        aria-label={copy.common.brandHome}
+      >
+        <span class="brand-node" aria-hidden="true" />
+        <span>ITBIZ.PL</span>
+      </a>
+      <div class="mobile-actions">
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-label={copy.common.theme}
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+        <button
+          class="menu-toggle"
+          type="button"
+          data-menu-toggle
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="menu-label">{copy.common.menu}</span>
+          <span class="menu-icon" aria-hidden="true" />
+        </button>
+      </div>
+      <nav id="mobile-menu" class="mobile-menu" aria-label={copy.common.mainNav} hidden>
+        <ul>
+          {navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="mobile-locale-switcher">
+          {locales.map((targetLocale) => (
+            <a
+              href={getRoute(targetLocale, translationKey)}
+              hreflang={targetLocale}
+              lang={targetLocale}
+              aria-current={targetLocale === locale ? 'page' : undefined}
+            >
+              {localeLabels[targetLocale]}
+            </a>
+          ))}
+        </div>
+        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+          {copy.common.cta}
+        </a>
+      </nav>
+    </header>
+  )
+}

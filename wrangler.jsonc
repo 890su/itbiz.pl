@@ -1,0 +1,56 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "itbiz-pl-preview",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-08-26",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+  },
+  "vars": {
+    "ENVIRONMENT": "preview",
+    "ALLOWED_ORIGINS": "http://localhost:4321,http://localhost:8787,https://itbiz-pl-preview.iharszasciuk.workers.dev",
+  },
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": { "limit": 5, "period": 60 },
+    },
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+  },
+  "env": {
+    "production": {
+      "name": "itbiz-pl",
+      "workers_dev": false,
+      "routes": [
+        { "pattern": "itbiz.pl", "custom_domain": true },
+        { "pattern": "www.itbiz.pl", "custom_domain": true },
+      ],
+      "vars": {
+        "ENVIRONMENT": "production",
+        "ALLOWED_ORIGINS": "https://itbiz.pl,https://www.itbiz.pl",
+      },
+      "d1_databases": [
+        {
+          "binding": "LEADS_DB",
+          "database_name": "itbiz-pl-leads",
+          "database_id": "6fa5230e-7588-406a-a5a8-95e2cb2d521b",
+        },
+      ],
+      "ratelimits": [
+        {
+          "name": "CONTACT_RATE_LIMITER",
+          "namespace_id": "1001",
+          "simple": { "limit": 5, "period": 60 },
+        },
+      ],
+      "triggers": { "crons": ["17 2 * * *"] },
+    },
+  },
+}

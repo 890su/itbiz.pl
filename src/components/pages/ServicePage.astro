@@ -1,0 +1,92 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import B2BBadge from '../B2BBadge.astro';
+import LeadForm from '../LeadForm.astro';
+import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  service: CollectionEntry<'services'>;
+}
+const { locale, service } = Astro.props;
+const { Content } = await render(service);
+const data = service.data;
+const translationKey = data.translationKey as TranslationKey;
+const ui = getUi(locale);
+const copy = ui.service;
+---
+
+<BaseLayout
+  title={data.seoTitle}
+  description={data.description}
+  canonicalPath={getRoute(locale, translationKey)}
+  noindex={data.noindex || data.status !== 'published'}
+  {locale}
+  {translationKey}
+>
+  <nav class="breadcrumb" aria-label={ui.common.scope}>
+    <ol>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li>
+        <a href={getRoute(locale, 'services')}>{ui.common.services}</a>
+      </li><li aria-current="page">{data.title}</li>
+    </ol>
+  </nav>
+  <header class="page-hero">
+    <B2BBadge {locale} />
+    <p class="eyebrow">{data.eyebrow} · {copy.city}</p>
+    <h1>{data.title}</h1>
+    <p>{data.lead}</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="#enquiry">{copy.primary}</a><a
+        class="button button-secondary"
+        href="#scope">{copy.scopeLink}</a
+      >
+    </div>
+    <div class="callout"><strong>{copy.calloutTitle}</strong><p>{copy.callout}</p></div>
+  </header>
+  <section class="page-section" aria-labelledby="outcomes-title">
+    <header class="section-head">
+      <p class="section-label">{copy.outcomeLabel}</p><h2 id="outcomes-title">
+        {copy.outcomeTitle}
+      </h2>
+    </header><ul class="check-list">{data.outcomes.map((item) => <li>{item}</li>)}</ul>
+  </section>
+  <section class="page-section" aria-labelledby="problems-title">
+    <header class="section-head">
+      <p class="section-label">{copy.problemsLabel}</p><h2 id="problems-title">
+        {copy.problemsTitle}
+      </h2>
+    </header><ul class="plain-list">{data.problems.map((item) => <li>{item}</li>)}</ul>
+  </section>
+  <section id="scope" class="page-section" aria-label={copy.scopeAria}>
+    <div class="scope-grid">
+      <div class="info-panel">
+        <p class="section-label">{copy.inScopeLabel}</p><h2>{copy.inScopeTitle}</h2><ul
+          class="check-list"
+        >
+          {data.scope.map((item) => <li>{item}</li>)}
+        </ul>
+      </div><div class="info-panel">
+        <p class="section-label">{copy.exclusionsLabel}</p><h2>
+          {copy.exclusionsTitle}
+        </h2><ul class="plain-list">
+          {data.exclusions.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="page-section" aria-labelledby="deliverables-title">
+    <header class="section-head">
+      <p class="section-label">{copy.docsLabel}</p><h2 id="deliverables-title">
+        {copy.docsTitle}
+      </h2>
+    </header><ul class="check-list">
+      {data.deliverables.map((item) => <li>{item}</li>)}
+    </ul><div class="legal-copy"><Content /></div>
+  </section>
+  <section id="enquiry" class="page-section">
+    <LeadForm selectedServiceId={data.serviceId} heading={data.formOption} {locale} />
+  </section>
+</BaseLayout>

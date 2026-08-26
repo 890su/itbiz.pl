@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import { getRoute, type Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  selectedServiceId?: string;
+  heading?: string;
+  locale: Locale;
+}
+
+const { selectedServiceId = '', locale } = Astro.props;
+const copy = getUi(locale).form;
+const heading = Astro.props.heading ?? copy.heading;
+const services = (await getCollection('services')).filter(
+  (service) => service.data.locale === locale,
+);
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa4pZ6kY';
+---
+
+<div class="form-block">
+  <div class="section-head">
+    <p class="section-label">{copy.label}</p>
+    <h2>{heading}</h2>
+    <p>{copy.lead}</p>
+  </div>
+  <form
+    class="lead-form"
+    action="/api/contact"
+    method="post"
+    data-lead-form
+    data-submit-label={copy.submit}
+    data-sending-label={copy.sending}
+    data-missing-contact={copy.missingContact}
+    data-generic-error={copy.genericError}
+    data-success-label={copy.success}
+    data-preview-label={copy.preview}
+    data-request-label={copy.requestNumber}
+    novalidate
+  >
+    <div class="form-grid">
+      <div class="field">
+        <label for="companyName">{copy.company}</label>
+        <input
+          id="companyName"
+          name="companyName"
+          autocomplete="organization"
+          maxlength="120"
+          required
+        />
+      </div>
+      <div class="field">
+        <label for="contactName">{copy.contact}</label>
+        <input
+          id="contactName"
+          name="contactName"
+          autocomplete="name"
+          maxlength="100"
+          required
+        />
+      </div>
+      <div class="field">
+        <label for="email">{copy.email}</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          maxlength="160"
+        />
+        <small>{copy.contactHelp}</small>
+      </div>
+      <div class="field">
+        <label for="phone">{copy.phone}</label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
+        <small>{copy.contactHelp}</small>
+      </div>
+      <div class="field field-wide">
+        <label for="serviceId">{copy.topic}</label>
+        <select id="serviceId" name="serviceId" required>
+          <option value="">{copy.choose}</option>
+          {
+            services.map((service) => (
+              <option
+                value={service.data.serviceId}
+                selected={selectedServiceId === service.data.serviceId}
+              >
+                {service.data.formOption}
+              </option>
+            ))
+          }
+          <option value="other">{copy.other}</option>
+        </select>
+      </div>
+      <div class="field field-wide">
+        <label for="message">{copy.message}</label>
+        <textarea
+          id="message"
+          name="message"
+          maxlength="3000"
+          required
+          aria-describedby="message-help"></textarea>
+        <small id="message-help">{copy.messageHelp}</small>
+      </div>
+    </div>
+    <label class="checkbox-field">
+      <input name="actingForBusiness" type="checkbox" value="true" required />
+      <span>{copy.business}</span>
+    </label>
+    <div class="field visually-hidden" aria-hidden="true">
+      <label for="website">{copy.website}</label>
+      <input id="website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="locale" value={locale} />
+    <input type="hidden" name="pagePath" value={Astro.url.pathname} />
+    {
+      siteKey && (
+        <div
+          class="cf-turnstile"
+          data-sitekey={siteKey}
+          data-action="contact"
+          data-language={locale}
+        />
+      )
+    }
+    <p class="form-notice">
+      {copy.notice}
+      <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
+    </p>
+    <div class="form-status" role="status" aria-live="polite" data-form-status></div>
+    <button class="button button-primary" type="submit">{copy.submit}</button>
+  </form>
+</div>
+
+{
+  siteKey && (
+    <script
+      is:inline
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    />
+  )
+}
+<script is:inline src="/scripts/contact-form.js" defer></script>

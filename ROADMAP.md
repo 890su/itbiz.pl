@@ -5,44 +5,46 @@
 - [x] Create the separate local project folder.
 - [x] Connect the empty GitHub repository `890su/itbiz.pl`.
 - [x] Document scope, information architecture, SEO, advertising and UI/UX.
-- [ ] Register `itbiz.pl` and add it to Cloudflare.
-- [ ] Confirm the launch service list and actual delivery conditions.
+- [x] Register `itbiz.pl` and delegate nameservers to Cloudflare.
+- [ ] Bind `itbiz.pl` to the verified production deployment.
+- [x] Publish four P1 service definitions with explicit scope and exclusions.
 - [ ] Confirm public B2B phone/email and whether the existing number is reused.
 - [ ] Confirm whether estimates/initial consultations are free before using that
-  wording.
+      wording.
 
 ## Stage 1 — Technical scaffold
 
-- [ ] Scaffold Astro + TypeScript strict + Svelte islands + Tailwind.
-- [ ] Add typed content collections and locale routing.
-- [ ] Implement design tokens, light/dark themes and responsive shell.
-- [ ] Add automated check, build, link and SEO validation scripts.
-- [ ] Configure Cloudflare Pages preview deployment.
+- [x] Scaffold Astro + TypeScript strict with static components and minimal JS.
+- [x] Add typed content collections and locale routing.
+- [x] Implement design tokens, light/dark themes and responsive shell.
+- [x] Add automated check, build, link and SEO validation scripts.
+- [x] Configure a separate Cloudflare Workers preview deployment.
 
 ## Stage 2 — Polish MVP
 
-- [ ] Home page and B2B positioning.
-- [ ] `Usługi` listing and launch service landing pages.
-- [ ] `Rozwiązania` listing and initial solution pages.
-- [ ] `Realizacje` listing with empty-state rules; no fabricated cases.
-- [ ] `Instrukcje` listing without copying 890.by content.
-- [ ] About, contact, privacy and cookie policy.
-- [ ] Lead form, Turnstile, rate limits and delivery notifications.
+- [x] Draft home page and B2B positioning.
+- [x] Publish `Usługi` listing and four P1 service landing pages in four locales.
+- [x] Publish the factual `Rozwiązania` overview in four locales.
+- [ ] Prepare `Realizacje` collection; publish navigation only with verified cases.
+- [ ] Prepare `Instrukcje` collection; publish navigation only with original content.
+- [x] Publish About, contact, privacy and cookie pages; independent legal review remains recommended.
+- [x] Add lead form, Turnstile, rate limits and durable D1 storage.
 
 ## Stage 3 — Measurement and compliance
 
-- [ ] Consent Mode v2 with all optional signals denied by default.
+- [x] Consent controls with analytics and advertising denied by default; no Google tags loaded.
 - [ ] Separate GA4 stream/property decision.
 - [ ] Separate Google Ads conversions and event taxonomy.
-- [ ] Validate forms, privacy notices, cookie choices and withdrawal flow.
-- [ ] Review every indexable page for B2B-only language and truthful claims.
+- [ ] Define lead statuses and qualified/converted lead import workflow.
+- [x] Validate forms, privacy notices, cookie choices and withdrawal flow.
+- [x] Review every indexable page for B2B-only language and truthful claims.
 
 ## Stage 4 — Localisation
 
-- [ ] Russian localisation and search-intent research.
-- [ ] Ukrainian localisation under `/uk/`.
-- [ ] English localisation.
-- [ ] Reciprocal hreflang, self-canonicals and locale sitemaps.
+- [x] Russian localisation under `/ru/`.
+- [x] Ukrainian localisation under `/uk/`.
+- [x] English localisation under `/en/`.
+- [x] Reciprocal hreflang, self-canonicals and multilingual sitemap.
 - [ ] Native editorial review of every advertised landing page.
 
 ## Stage 5 — Production and advertising readiness

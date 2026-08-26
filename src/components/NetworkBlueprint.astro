@@ -1,0 +1,62 @@
+---
+import type { Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getUi(locale).network;
+---
+
+<figure class="blueprint" aria-labelledby="blueprint-title">
+  <figcaption id="blueprint-title">
+    <span>{copy.label}</span>
+    <strong>{copy.caption}</strong>
+  </figcaption>
+  <svg viewBox="0 0 680 330" role="img" aria-labelledby="network-title network-desc">
+    <title id="network-title">{copy.title}</title>
+    <desc id="network-desc">{copy.description}</desc>
+    <g class="blueprint-grid" aria-hidden="true">
+      <path d="M20 55H660M20 135H660M20 215H660M20 295H660"></path>
+      <path d="M80 20V310M240 20V310M400 20V310M560 20V310"></path>
+    </g>
+    <g class="network-path" aria-hidden="true">
+      <path d="M92 165H190M290 165H390M490 165H560V88M560 165V242"></path>
+    </g>
+    <g class="node">
+      <rect x="30" y="134" width="124" height="62" rx="8"></rect>
+      <text x="92" y="160">01 / WAN</text><text x="92" y="181">Internet</text>
+    </g>
+    <g class="node">
+      <rect x="190" y="124" width="100" height="82" rx="8"></rect>
+      <text x="240" y="154">02 / EDGE</text><text x="240" y="180">Firewall</text>
+    </g>
+    <g class="node">
+      <rect x="390" y="124" width="100" height="82" rx="8"></rect>
+      <text x="440" y="151">03 / CORE</text><text x="440" y="174">Managed</text><text
+        x="440"
+        y="190">switch</text
+      >
+    </g>
+    <g class="node node-endpoint">
+      <rect x="524" y="52" width="112" height="72" rx="8"></rect>
+      <text x="580" y="80">VLAN 10</text><text x="580" y="101">{copy.endpoints[0]}</text
+      >
+    </g>
+    <g class="node node-endpoint">
+      <rect x="524" y="129" width="112" height="72" rx="8"></rect>
+      <text x="580" y="157">VLAN 20</text><text x="580" y="178"
+        >{copy.endpoints[1]}</text
+      >
+    </g>
+    <g class="node node-endpoint">
+      <rect x="524" y="206" width="112" height="72" rx="8"></rect>
+      <text x="580" y="234">VLAN 30</text><text x="580" y="255"
+        >{copy.endpoints[2]}</text
+      >
+    </g>
+  </svg>
+  <p>{copy.note}</p>
+</figure>

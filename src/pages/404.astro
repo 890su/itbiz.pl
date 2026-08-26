@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Nie znaleziono strony | ITBIZ.PL"
+  description="Nie znaleziono strony."
+  noindex={true}
+  translationKey="home"
+>
+  <section class="page-hero">
+    <p class="eyebrow">Błąd 404</p>
+    <h1>Ten adres nie prowadzi do aktywnej strony.</h1>
+    <p>Sprawdź adres albo wróć do katalogu usług dla firm.</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="/uslugi/">Przejdź do usług</a><a
+        class="button button-secondary"
+        href="/">Strona główna</a
+      >
+    </div>
+  </section>
+</BaseLayout>
