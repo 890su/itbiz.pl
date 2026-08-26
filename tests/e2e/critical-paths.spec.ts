@@ -54,7 +54,7 @@ test('privacy choices can be changed and reopened from the footer', async ({
   await expect(dialog.getByLabel('Analityka')).toBeChecked();
 });
 
-test('draft service remains noindex and preselects its form topic', async ({
+test('preview service remains noindex and preselects its form topic', async ({
   page,
 }) => {
   await page.goto('/uslugi/wifi-dla-biur/');
@@ -68,6 +68,41 @@ test('draft service remains noindex and preselects its form topic', async ({
   );
   await expect(page.getByLabel('Temat')).toHaveValue('office-wifi');
 });
+
+test('language switch keeps the translated page relationship', async ({ page }) => {
+  await page.goto('/uslugi/wifi-dla-biur/');
+  await page.locator('.side-panel').getByRole('link', { name: 'English' }).click();
+  await expect(page).toHaveURL(/\/en\/services\/office-wifi\/$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Wi‑Fi for offices and business premises in Warsaw',
+  );
+  await expect(page.locator('link[hreflang="pl"]')).toHaveAttribute(
+    'href',
+    'https://itbiz.pl/uslugi/wifi-dla-biur/',
+  );
+});
+
+for (const [locale, path, language] of [
+  ['pl', '/', 'pl-PL'],
+  ['ru', '/ru/', 'ru-RU'],
+  ['en', '/en/', 'en-GB'],
+  ['uk', '/uk/', 'uk-UA'],
+] as const) {
+  test(`${locale} home is usable on mobile without horizontal overflow`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(path);
+    await expect(page.locator('html')).toHaveAttribute('lang', language);
+    const dimensions = await page.evaluate(() => ({
+      client: document.documentElement.clientWidth,
+      scroll: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.scroll).toBe(dimensions.client);
+    await expect(page.locator('.mobile-locale-switcher a')).toHaveCount(4);
+  });
+}
 
 test('preview form validates without pretending to deliver a lead', async ({
   page,
@@ -87,6 +122,6 @@ test('preview form validates without pretending to deliver a lead', async ({
     .check();
   await page.getByRole('button', { name: 'Wyślij zapytanie B2B' }).click();
   await expect(page.locator('[data-form-status]')).toContainText(
-    'Tryb preview: walidacja zakończona. Zapytanie nie zostało dostarczone.',
+    'Tryb preview: walidacja zakończona. Zapytanie nie zostało zapisane.',
   );
 });

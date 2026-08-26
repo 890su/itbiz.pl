@@ -24,6 +24,6 @@ jobs:
       - run: npm run build
       - run: npm run test:links
       - run: npm run test:seo
-      - run: npx wrangler deploy --dry-run
+      - run: npx wrangler deploy --dry-run --env production
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

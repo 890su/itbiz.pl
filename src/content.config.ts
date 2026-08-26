@@ -6,7 +6,7 @@ const services = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/services' }),
   schema: z.object({
     translationKey: z.string(),
-    locale: z.literal('pl'),
+    locale: z.enum(['pl', 'ru', 'en', 'uk']),
     serviceId: z.string(),
     title: z.string(),
     seoTitle: z.string(),

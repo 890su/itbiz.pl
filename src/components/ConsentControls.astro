@@ -1,3 +1,15 @@
+---
+import type { Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getUi(locale).consent;
+---
+
 <section
   class="consent-banner"
   data-consent-banner
@@ -5,22 +17,19 @@
   aria-labelledby="consent-title"
 >
   <div>
-    <p class="section-label">Prywatność</p>
-    <h2 id="consent-title">Opcjonalny pomiar pozostaje wyłączony.</h2>
-    <p>
-      Niezbędne ustawienia chronią formularz i zapisują wybrany motyw. Analityka i
-      reklama nie uruchamiają się bez decyzji.
-    </p>
+    <p class="section-label">{copy.label}</p>
+    <h2 id="consent-title">{copy.title}</h2>
+    <p>{copy.lead}</p>
   </div>
   <div class="consent-actions">
     <button class="button button-secondary" type="button" data-consent-reject
-      >Odrzuć opcjonalne</button
+      >{copy.reject}</button
     >
     <button class="button button-secondary" type="button" data-consent-customize
-      >Dostosuj</button
+      >{copy.customize}</button
     >
     <button class="button button-secondary" type="button" data-consent-accept
-      >Akceptuj wszystkie</button
+      >{copy.accept}</button
     >
   </div>
 </section>
@@ -32,38 +41,28 @@
 >
   <form method="dialog" data-consent-form>
     <header>
-      <p class="section-label">Ustawienia</p>
-      <h2 id="privacy-settings-title">Prywatność na ITBIZ.PL</h2>
+      <p class="section-label">{copy.settings}</p>
+      <h2 id="privacy-settings-title">{copy.dialogTitle}</h2>
     </header>
     <label class="consent-option">
-      <span
-        ><strong>Niezbędne</strong><small
-          >Bezpieczeństwo formularza, motyw i zapis decyzji.</small
-        ></span
-      >
+      <span><strong>{copy.necessary}</strong><small>{copy.necessaryHelp}</small></span>
       <input type="checkbox" checked disabled />
     </label>
     <label class="consent-option">
-      <span
-        ><strong>Analityka</strong><small
-          >Pomiar korzystania z serwisu. Obecnie żaden tag nie jest załadowany.</small
-        ></span
-      >
+      <span><strong>{copy.analytics}</strong><small>{copy.analyticsHelp}</small></span>
       <input type="checkbox" name="analytics" />
     </label>
     <label class="consent-option">
       <span
-        ><strong>Reklama</strong><small
-          >Pomiar kampanii i remarketing. Obecnie żaden tag nie jest załadowany.</small
-        ></span
+        ><strong>{copy.advertising}</strong><small>{copy.advertisingHelp}</small></span
       >
       <input type="checkbox" name="advertising" />
     </label>
     <div class="consent-actions">
       <button class="button button-secondary" type="button" data-consent-dialog-reject
-        >Odrzuć opcjonalne</button
+        >{copy.reject}</button
       >
-      <button class="button button-primary" type="submit">Zapisz ustawienia</button>
+      <button class="button button-primary" type="submit">{copy.save}</button>
     </div>
   </form>
 </dialog>

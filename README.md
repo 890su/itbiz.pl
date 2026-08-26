@@ -27,7 +27,7 @@ działalność nierejestrowana.
 - `Instrukcje` — оригинальная база знаний ITBIZ.PL;
 - `O nas`, `Kontakt`, privacy и cookies.
 
-## Планируемый стек
+## Реализованный стек
 
 - Astro, static output;
 - TypeScript strict;
@@ -35,10 +35,19 @@ działalność nierejestrowana.
 - CSS layers, custom properties и централизованные design tokens;
 - Astro content collections;
 - Cloudflare Workers Static Assets + Worker API;
-- Cloudflare Turnstile;
+- Cloudflare Turnstile, Rate Limiting и D1 для защищённого приёма лидов;
 - отдельные GA4/Google Ads conversion actions с Consent Mode v2.
 
-Точные версии зависимостей фиксируются lock-файлом при начале реализации.
+Точные версии зависимостей зафиксированы в `package-lock.json`.
+
+## Команды
+
+```text
+npm run build             # индексируемая production-сборка
+npm run build:preview     # noindex preview-сборка
+npm run deploy:preview    # отдельный workers.dev preview
+npm run deploy:production # itbiz.pl и www.itbiz.pl
+```
 
 ## Документация
 
@@ -62,5 +71,6 @@ działalność nierejestrowana.
 - production branch: `main`
 - build output: `dist/`
 
-Production включается только после привязки DNS, проверки юридических страниц,
-Consent Mode, формы и B2B-only контента. До этого используются preview URLs.
+Production разворачивается только из `main`. Preview всегда собирается с
+`noindex`, а production — с индексированием. Все четыре локали имеют явные
+`translationKey`, self-canonical и reciprocal hreflang.

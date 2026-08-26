@@ -2,46 +2,63 @@
 
 ## Architecture
 
-The Astro build is deployed as Workers Static Assets. `worker/index.ts` handles
-`/api/contact`; other requests are served from `dist/` through the assets binding.
+Astro builds static assets. `worker/index.ts` serves `/api/contact`, redirects
+`www` GET/HEAD requests to the apex domain and delegates other requests to the
+assets binding.
 
-## Safe preview defaults
+Two explicit environments share one configuration:
 
-- `ENVIRONMENT=preview`;
-- all pages are `noindex` unless `PUBLIC_SITE_INDEXABLE=true` is present at build time;
-- generated `robots.txt` disallows crawling by default;
-- a form without delivery configuration validates input but clearly reports that
-  no request was delivered;
-- draft service pages remain `noindex` independently of the site-wide flag.
+- top level: `itbiz-pl-preview`, workers.dev, noindex build, no lead storage;
+- `production`: `itbiz-pl`, custom domains `itbiz.pl` and `www.itbiz.pl`, D1,
+  rate limiting and retention cron.
 
-Current preview: `https://itbiz-pl-preview.iharszasciuk.workers.dev`.
-
-## Worker secrets
-
-Set secrets interactively; never place values in Git, `.env`, CI logs or command
-arguments:
+## Build and deploy
 
 ```text
-TURNSTILE_SECRET_KEY
+npm run deploy:preview
+npm run deploy:production
+```
+
+`build:preview` sets `PUBLIC_SITE_INDEXABLE=false`. The production build sets it
+to `true`; `robots.txt` then allows crawling and points to
+`https://itbiz.pl/sitemap-index.xml`.
+
+## Contact intake
+
+Production submissions pass origin checks, payload validation, B2B confirmation,
+honeypot, rate limiting and Cloudflare Turnstile. A successful request is stored
+in the `itbiz-pl-leads` D1 database. An optional webhook may deliver a second
+copy, but its absence does not make storage fail.
+
+The D1 schema is managed by `migrations/`. Rows contain a random request ID and
+`purge_after`; the Worker cron removes expired rows after 180 days. Do not export
+or commit lead data.
+
+To inspect recent requests from an authorised workstation, use a narrow query
+and avoid copying the output into project files:
+
+```text
+npx wrangler d1 execute itbiz-pl-leads --remote --command "SELECT request_id, submitted_at, company_name, contact_name, email, phone, service_id, locale, status FROM contact_leads ORDER BY submitted_at DESC LIMIT 20"
+```
+
+## Secrets
+
+`TURNSTILE_SECRET_KEY` is stored as a Worker secret. It must never be placed in
+Git, `.env`, command output or documentation. `PUBLIC_TURNSTILE_SITE_KEY` is a
+public widget identifier and may be present in generated HTML.
+
+Optional future delivery secrets:
+
+```text
 CONTACT_WEBHOOK_URL
 CONTACT_WEBHOOK_TOKEN
 ```
 
-The matching public Turnstile key is a build variable:
+## Release gate
 
-```text
-PUBLIC_TURNSTILE_SITE_KEY
-```
-
-## Production gate
-
-Before enabling the custom domain or `PUBLIC_SITE_INDEXABLE=true`:
-
-1. approve public phone/e-mail and legal operator data;
-2. approve privacy and cookies text;
-3. configure a tested delivery channel;
-4. enable Turnstile and verify hostname/action checks;
-5. verify rate limiting, request IDs and failure states;
-6. approve service cards and change eligible content from draft/noindex;
-7. run the complete CI suite against the production build;
-8. attach `itbiz.pl` only to a deployment from `main`.
+1. Run format, Astro check, unit, build, links, SEO, Wrangler dry-run and E2E.
+2. Deploy preview and verify all locales, form states and `noindex`.
+3. Merge a green PR into `main`.
+4. Deploy `--env production` from `main` only.
+5. Verify DNS, HTTPS, redirect, security headers, robots, sitemap and D1.
+6. Keep Google Ads paused until commercial facts and conversions are reviewed.

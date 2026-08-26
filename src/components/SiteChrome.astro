@@ -1,29 +1,49 @@
 ---
-import { navigation } from '../data/navigation';
+import {
+  getRoute,
+  languageNames,
+  locales,
+  localeLabels,
+  type Locale,
+  type TranslationKey,
+} from '../i18n/config';
+import { getUi } from '../i18n/ui';
 
 interface Props {
   variant: 'desktop' | 'mobile';
+  locale: Locale;
+  translationKey: TranslationKey;
 }
 
-const { variant } = Astro.props;
+const { variant, locale, translationKey } = Astro.props;
+const copy = getUi(locale);
+const navigation = (
+  ['home', 'services', 'solutions', 'about', 'contact'] as TranslationKey[]
+).map((key, index) => ({ href: getRoute(locale, key), label: copy.common.nav[index] }));
 const currentPath = Astro.url.pathname;
 const isCurrent = (href: string) =>
-  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+  href === getRoute(locale, 'home')
+    ? currentPath === href
+    : currentPath.startsWith(href);
 ---
 
 {
   variant === 'desktop' ? (
-    <aside class="side-panel" aria-label="Nawigacja strony">
-      <a class="brand" href="/" aria-label="ITBIZ.PL — strona główna">
+    <aside class="side-panel" aria-label={copy.common.siteNav}>
+      <a
+        class="brand"
+        href={getRoute(locale, 'home')}
+        aria-label={copy.common.brandHome}
+      >
         <span class="brand-node" aria-hidden="true" />
         <span>ITBIZ.PL</span>
       </a>
       <p class="side-kicker">
-        Infrastruktura IT
+        {copy.common.sideKicker[0]}
         <br />
-        dla organizacji
+        {copy.common.sideKicker[1]}
       </p>
-      <nav class="side-nav" aria-label="Główna">
+      <nav class="side-nav" aria-label={copy.common.mainNav}>
         <ul>
           {navigation.map((item) => (
             <li>
@@ -39,21 +59,28 @@ const isCurrent = (href: string) =>
         </ul>
       </nav>
       <div class="side-actions">
-        <a class="button button-primary" href="/kontakt/">
-          Opisz zadanie
+        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+          {copy.common.cta}
         </a>
-        <div class="utility-row" aria-label="Ustawienia strony">
-          <span class="locale-current" aria-label="Język polski">
-            PL
-          </span>
-          <span class="locale-pending" title="Tłumaczenia są przygotowywane">
-            RU EN UA
-          </span>
+        <div class="utility-row" aria-label={copy.common.settings}>
+          <nav class="locale-switcher" aria-label={copy.common.settings}>
+            {locales.map((targetLocale) => (
+              <a
+                href={getRoute(targetLocale, translationKey)}
+                hreflang={targetLocale}
+                lang={targetLocale}
+                aria-current={targetLocale === locale ? 'page' : undefined}
+                aria-label={languageNames[targetLocale]}
+              >
+                {localeLabels[targetLocale]}
+              </a>
+            ))}
+          </nav>
           <button
             class="theme-toggle"
             type="button"
             data-theme-toggle
-            aria-label="Zmień motyw"
+            aria-label={copy.common.theme}
           >
             <span aria-hidden="true">◐</span>
           </button>
@@ -62,7 +89,11 @@ const isCurrent = (href: string) =>
     </aside>
   ) : (
     <header class="mobile-bar">
-      <a class="brand" href="/" aria-label="ITBIZ.PL — strona główna">
+      <a
+        class="brand"
+        href={getRoute(locale, 'home')}
+        aria-label={copy.common.brandHome}
+      >
         <span class="brand-node" aria-hidden="true" />
         <span>ITBIZ.PL</span>
       </a>
@@ -71,7 +102,7 @@ const isCurrent = (href: string) =>
           class="theme-toggle"
           type="button"
           data-theme-toggle
-          aria-label="Zmień motyw"
+          aria-label={copy.common.theme}
         >
           <span aria-hidden="true">◐</span>
         </button>
@@ -82,11 +113,11 @@ const isCurrent = (href: string) =>
           aria-controls="mobile-menu"
           aria-expanded="false"
         >
-          <span class="menu-label">Menu</span>
+          <span class="menu-label">{copy.common.menu}</span>
           <span class="menu-icon" aria-hidden="true" />
         </button>
       </div>
-      <nav id="mobile-menu" class="mobile-menu" aria-label="Główna" hidden>
+      <nav id="mobile-menu" class="mobile-menu" aria-label={copy.common.mainNav} hidden>
         <ul>
           {navigation.map((item) => (
             <li>
@@ -99,8 +130,20 @@ const isCurrent = (href: string) =>
             </li>
           ))}
         </ul>
-        <a class="button button-primary" href="/kontakt/">
-          Opisz zadanie
+        <div class="mobile-locale-switcher">
+          {locales.map((targetLocale) => (
+            <a
+              href={getRoute(targetLocale, translationKey)}
+              hreflang={targetLocale}
+              lang={targetLocale}
+              aria-current={targetLocale === locale ? 'page' : undefined}
+            >
+              {localeLabels[targetLocale]}
+            </a>
+          ))}
+        </div>
+        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+          {copy.common.cta}
         </a>
       </nav>
     </header>

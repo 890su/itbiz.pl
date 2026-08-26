@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import B2BBadge from '../B2BBadge.astro';
+import { getRoute, type Locale } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const copy = ui.about;
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonicalPath={getRoute(locale, 'about')}
+  {locale}
+  translationKey="about"
+>
+  <nav class="breadcrumb" aria-label={ui.common.scope}>
+    <ol>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li
+        aria-current="page"
+      >
+        {ui.common.nav[3]}
+      </li>
+    </ol>
+  </nav>
+  <header class="page-hero">
+    <B2BBadge {locale} /><p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p>
+      {copy.lead}
+    </p>
+  </header>
+  <section class="page-section">
+    <div class="scope-grid">
+      {
+        copy.principles.map(([label, title, description]) => (
+          <article class="info-panel">
+            <>
+              <p class="section-label">{label}</p>
+              <h2>{title}</h2>
+              <p>{description}</p>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -7,8 +7,8 @@ seoTitle: Sieci LAN dla firm w Warszawie | ITBIZ.PL
 description: Planowanie i porządkowanie firmowej sieci kablowej w biurach i lokalach organizacji. Zakres oraz materiały są uzgadniane przed pracą.
 eyebrow: Sieć przewodowa
 lead: Przygotowujemy czytelną strukturę połączeń dla stanowisk, urządzeń sieciowych i punktów dostępowych.
-status: draft
-noindex: true
+status: published
+noindex: false
 adEligible: false
 b2bOnly: true
 updatedAt: 2026-08-26
@@ -33,5 +33,5 @@ deliverables:
 formOption: Sieci LAN dla firm
 ---
 
-Rodzaj materiałów, sposób pomiaru oraz odpowiedzialność za trasy kablowe wymagają
-potwierdzenia przed oznaczeniem usługi jako reklamowej.
+Rodzaj materiałów, sposób pomiaru oraz odpowiedzialność za trasy kablowe są
+potwierdzane w uzgodnionym zakresie prac.

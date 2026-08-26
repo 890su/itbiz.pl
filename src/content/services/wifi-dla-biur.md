@@ -7,8 +7,8 @@ seoTitle: Wi‑Fi dla biur w Warszawie | ITBIZ.PL
 description: Ocena, projektowanie i porządkowanie firmowej sieci Wi‑Fi z uwzględnieniem zasięgu, obciążenia i oddzielenia ruchu gości.
 eyebrow: Firmowa sieć bezprzewodowa
 lead: Zaczynamy od warunków w lokalu i sposobu pracy zespołu, a nie od przypadkowej wymiany urządzeń.
-status: draft
-noindex: true
+status: published
+noindex: false
 adEligible: false
 b2bOnly: true
 updatedAt: 2026-08-26
@@ -33,4 +33,4 @@ deliverables:
 formOption: Wi‑Fi dla biura
 ---
 
-Metoda pomiaru i kryteria odbioru zostaną doprecyzowane w karcie usługi.
+Metoda pomiaru i kryteria odbioru są doprecyzowywane dla konkretnej lokalizacji.

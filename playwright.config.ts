@@ -9,9 +9,9 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run build && npm run preview -- --port 8787',
+    command: 'npm run build:preview && npm run preview -- --port 8787',
     url: 'http://127.0.0.1:8787',
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
 });

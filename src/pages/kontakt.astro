@@ -1,35 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import B2BBadge from '../components/B2BBadge.astro';
-import LeadForm from '../components/LeadForm.astro';
-import { company } from '../data/company';
+import ContactPage from '../components/pages/ContactPage.astro';
 ---
 
-<BaseLayout
-  title="Kontakt dla firm | ITBIZ.PL"
-  description="Opisz zadanie dotyczące sieci lub infrastruktury IT firmy w Warszawie."
-  canonicalPath="/kontakt/"
->
-  <nav class="breadcrumb" aria-label="Okruszki">
-    <ol><li><a href="/">Start</a></li><li aria-current="page">Kontakt</li></ol>
-  </nav>
-  <header class="page-hero">
-    <B2BBadge />
-    <p class="eyebrow">Kontakt · {company.serviceArea}</p>
-    <h1>Najpierw opiszmy zadanie.</h1>
-    <p>
-      Formularz zbiera kontekst potrzebny do oceny, czy zadanie mieści się w zakresie
-      ITBIZ.PL.
-    </p>
-    <div class="callout">
-      <strong>Kontakt publiczny przed production</strong>
-      <p>
-        Numer telefonu i adres e-mail zostaną dodane dopiero po zatwierdzeniu jako
-        publiczne dane B2B.
-      </p>
-    </div>
-  </header>
-  <section class="page-section">
-    <LeadForm />
-  </section>
-</BaseLayout>
+<ContactPage locale="pl" />

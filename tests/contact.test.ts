@@ -20,6 +20,11 @@ describe('validateContactPayload', () => {
     expect(result.success).toBe(true);
   });
 
+  it.each(['ru', 'en', 'uk'])('accepts the %s locale', (locale) => {
+    const result = validateContactPayload({ ...validPayload, locale });
+    expect(result.success).toBe(true);
+  });
+
   it('requires at least one contact method', () => {
     const result = validateContactPayload({ ...validPayload, email: '', phone: '' });
     expect(result).toMatchObject({ success: false });

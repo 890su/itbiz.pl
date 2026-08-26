@@ -1,14 +1,23 @@
+---
+import type { Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getUi(locale).network;
+---
+
 <figure class="blueprint" aria-labelledby="blueprint-title">
   <figcaption id="blueprint-title">
-    <span>Przykładowa topologia</span>
-    <strong>Biuro / sieć uporządkowana warstwami</strong>
+    <span>{copy.label}</span>
+    <strong>{copy.caption}</strong>
   </figcaption>
   <svg viewBox="0 0 680 330" role="img" aria-labelledby="network-title network-desc">
-    <title id="network-title">Schemat firmowej sieci</title>
-    <desc id="network-desc">
-      Internet łączy się z zaporą, następnie z przełącznikiem zarządzalnym, który
-      rozdziela sieć na stanowiska, firmowe Wi-Fi i oddzielną sieć dla gości.
-    </desc>
+    <title id="network-title">{copy.title}</title>
+    <desc id="network-desc">{copy.description}</desc>
     <g class="blueprint-grid" aria-hidden="true">
       <path d="M20 55H660M20 135H660M20 215H660M20 295H660"></path>
       <path d="M80 20V310M240 20V310M400 20V310M560 20V310"></path>
@@ -33,16 +42,21 @@
     </g>
     <g class="node node-endpoint">
       <rect x="524" y="52" width="112" height="72" rx="8"></rect>
-      <text x="580" y="80">VLAN 10</text><text x="580" y="101">Stanowiska</text>
+      <text x="580" y="80">VLAN 10</text><text x="580" y="101">{copy.endpoints[0]}</text
+      >
     </g>
     <g class="node node-endpoint">
       <rect x="524" y="129" width="112" height="72" rx="8"></rect>
-      <text x="580" y="157">VLAN 20</text><text x="580" y="178">Wi‑Fi firma</text>
+      <text x="580" y="157">VLAN 20</text><text x="580" y="178"
+        >{copy.endpoints[1]}</text
+      >
     </g>
     <g class="node node-endpoint">
       <rect x="524" y="206" width="112" height="72" rx="8"></rect>
-      <text x="580" y="234">VLAN 30</text><text x="580" y="255">Goście</text>
+      <text x="580" y="234">VLAN 30</text><text x="580" y="255"
+        >{copy.endpoints[2]}</text
+      >
     </g>
   </svg>
-  <p>Każdy element ma rolę, właściciela konfiguracji i miejsce w dokumentacji.</p>
+  <p>{copy.note}</p>
 </figure>

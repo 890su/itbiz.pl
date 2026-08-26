@@ -1,0 +1,45 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import HomePage from '../../components/pages/HomePage.astro';
+import ServicesIndexPage from '../../components/pages/ServicesIndexPage.astro';
+import ServicePage from '../../components/pages/ServicePage.astro';
+import ContactPage from '../../components/pages/ContactPage.astro';
+import AboutPage from '../../components/pages/AboutPage.astro';
+import AreaPage from '../../components/pages/AreaPage.astro';
+import SolutionsPage from '../../components/pages/SolutionsPage.astro';
+import LegalPage from '../../components/pages/LegalPage.astro';
+import {
+  getLocalizedStaticPaths,
+  type Locale,
+  type TranslationKey,
+} from '../../i18n/config';
+
+export function getStaticPaths() {
+  return getLocalizedStaticPaths();
+}
+
+interface Props {
+  locale: Locale;
+  translationKey: TranslationKey;
+}
+
+const { locale, translationKey } = Astro.props;
+let service: CollectionEntry<'services'> | undefined;
+if (translationKey.startsWith('service.')) {
+  service = (await getCollection('services')).find(
+    (entry) =>
+      entry.data.locale === locale && entry.data.translationKey === translationKey,
+  );
+  if (!service) throw new Error(`Missing ${locale} content for ${translationKey}`);
+}
+---
+
+{translationKey === 'home' && <HomePage {locale} />}
+{translationKey === 'services' && <ServicesIndexPage {locale} />}
+{translationKey === 'solutions' && <SolutionsPage {locale} />}
+{translationKey === 'about' && <AboutPage {locale} />}
+{translationKey === 'contact' && <ContactPage {locale} />}
+{translationKey === 'area.warsaw' && <AreaPage {locale} />}
+{translationKey === 'privacy' && <LegalPage {locale} kind="privacy" />}
+{translationKey === 'cookies' && <LegalPage {locale} kind="cookies" />}
+{service && <ServicePage {locale} {service} />}

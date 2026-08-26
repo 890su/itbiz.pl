@@ -1,13 +1,19 @@
 ---
-import { getCollection, render, type CollectionEntry } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import B2BBadge from '../../components/B2BBadge.astro';
-import LeadForm from '../../components/LeadForm.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ServicePage from '../../components/pages/ServicePage.astro';
+import { getRoute, type TranslationKey } from '../../i18n/config';
 
 export async function getStaticPaths() {
-  const services = await getCollection('services');
+  const services = (await getCollection('services')).filter(
+    (service) => service.data.locale === 'pl',
+  );
   return services.map((service) => ({
-    params: { slug: service.id },
+    params: {
+      slug: getRoute('pl', service.data.translationKey as TranslationKey)
+        .split('/')
+        .filter(Boolean)
+        .at(-1),
+    },
     props: { service },
   }));
 }
@@ -15,88 +21,7 @@ export async function getStaticPaths() {
 interface Props {
   service: CollectionEntry<'services'>;
 }
-
 const { service } = Astro.props;
-const { Content } = await render(service);
-const data = service.data;
 ---
 
-<BaseLayout
-  title={data.seoTitle}
-  description={data.description}
-  canonicalPath={`/uslugi/${service.id}/`}
-  noindex={data.noindex || data.status !== 'published'}
->
-  <nav class="breadcrumb" aria-label="Okruszki">
-    <ol>
-      <li><a href="/">Start</a></li>
-      <li><a href="/uslugi/">Usługi</a></li>
-      <li aria-current="page">{data.title}</li>
-    </ol>
-  </nav>
-  <header class="page-hero">
-    <B2BBadge />
-    <p class="eyebrow">{data.eyebrow} · Warszawa</p>
-    <h1>{data.title}</h1>
-    <p>{data.lead}</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="#zapytanie">Opisz to zadanie</a>
-      <a class="button button-secondary" href="#zakres">Sprawdź zakres</a>
-    </div>
-    <div class="callout">
-      <strong>Wersja robocza zakresu</strong>
-      <p>
-        Strona pozostaje noindex i nie jest przeznaczona do reklamy do czasu
-        zatwierdzenia warunków realizacji.
-      </p>
-    </div>
-  </header>
-
-  <section class="page-section" aria-labelledby="outcomes-title">
-    <header class="section-head">
-      <p class="section-label">Rezultat</p>
-      <h2 id="outcomes-title">Co otrzymuje organizacja</h2>
-    </header>
-    <ul class="check-list">
-      {data.outcomes.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
-
-  <section class="page-section" aria-labelledby="problems-title">
-    <header class="section-head">
-      <p class="section-label">Sygnały</p>
-      <h2 id="problems-title">Kiedy warto opisać zadanie</h2>
-    </header>
-    <ul class="plain-list">
-      {data.problems.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
-
-  <section id="zakres" class="page-section" aria-label="Zakres usługi">
-    <div class="scope-grid">
-      <div class="info-panel">
-        <p class="section-label">W zakresie</p>
-        <h2>Uzgadniamy do wykonania</h2>
-        <ul class="check-list">{data.scope.map((item) => <li>{item}</li>)}</ul>
-      </div>
-      <div class="info-panel">
-        <p class="section-label">Poza zakresem</p>
-        <h2>Wymaga osobnego ustalenia</h2>
-        <ul class="plain-list">{data.exclusions.map((item) => <li>{item}</li>)}</ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="page-section" aria-labelledby="deliverables-title">
-    <header class="section-head">
-      <p class="section-label">Dokumentacja</p>
-      <h2 id="deliverables-title">Co zostaje po pracy</h2>
-    </header>
-    <ul class="check-list">{data.deliverables.map((item) => <li>{item}</li>)}</ul>
-    <div class="legal-copy"><Content /></div>
-  </section>
-
-  <section id="zapytanie" class="page-section">
-    <LeadForm selectedServiceId={data.serviceId} heading={data.formOption} />
-  </section>
-</BaseLayout>
+<ServicePage locale="pl" {service} />

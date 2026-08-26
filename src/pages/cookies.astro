@@ -1,35 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/pages/LegalPage.astro';
 ---
 
-<BaseLayout
-  title="Cookies | ITBIZ.PL"
-  description="Robocza informacja o pamięci lokalnej, cookies i przyszłych ustawieniach pomiaru ITBIZ.PL."
-  canonicalPath="/cookies/"
-  noindex={true}
->
-  <nav class="breadcrumb" aria-label="Okruszki">
-    <ol><li><a href="/">Start</a></li><li aria-current="page">Cookies</li></ol>
-  </nav>
-  <article class="page-section legal-copy">
-    <p class="eyebrow">Wersja robocza · bez analityki</p>
-    <h1>Cookies i ustawienia lokalne</h1>
-    <h2>Stan foundation</h2>
-    <p>
-      Serwis nie ładuje obecnie GA4 ani tagów reklamowych. Wybrany motyw może zostać
-      zapisany lokalnie w przeglądarce pod kluczem <code>itbiz-theme</code>.
-    </p>
-    <h2>Planowane kategorie</h2>
-    <ul>
-      <li>niezbędne i bezpieczeństwo;</li><li>analityka — wyłączona domyślnie;</li><li>
-        reklama — wyłączona domyślnie.
-      </li>
-    </ul>
-    <h2>Zmiana decyzji</h2>
-    <p>
-      Panel pozwala równie łatwo zaakceptować, odrzucić i zmienić wybór. Sam wybór nie
-      uruchamia jeszcze Google tags; integracja pozostaje wyłączona do osobnej
-      weryfikacji.
-    </p>
-  </article>
-</BaseLayout>
+<LegalPage locale="pl" kind="cookies" />

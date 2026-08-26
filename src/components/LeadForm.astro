@@ -1,28 +1,46 @@
 ---
 import { getCollection } from 'astro:content';
+import { getRoute, type Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
 
 interface Props {
   selectedServiceId?: string;
   heading?: string;
+  locale: Locale;
 }
 
-const { selectedServiceId = '', heading = 'Opisz zadanie firmowe' } = Astro.props;
-const services = await getCollection('services');
-const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const { selectedServiceId = '', locale } = Astro.props;
+const copy = getUi(locale).form;
+const heading = Astro.props.heading ?? copy.heading;
+const services = (await getCollection('services')).filter(
+  (service) => service.data.locale === locale,
+);
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa4pZ6kY';
 ---
 
 <div class="form-block">
   <div class="section-head">
-    <p class="section-label">Zapytanie B2B</p>
+    <p class="section-label">{copy.label}</p>
     <h2>{heading}</h2>
-    <p>
-      Podaj kontekst organizacji. Zakres, dostępność i warunki potwierdzimy przed pracą.
-    </p>
+    <p>{copy.lead}</p>
   </div>
-  <form class="lead-form" action="/api/contact" method="post" data-lead-form novalidate>
+  <form
+    class="lead-form"
+    action="/api/contact"
+    method="post"
+    data-lead-form
+    data-submit-label={copy.submit}
+    data-sending-label={copy.sending}
+    data-missing-contact={copy.missingContact}
+    data-generic-error={copy.genericError}
+    data-success-label={copy.success}
+    data-preview-label={copy.preview}
+    data-request-label={copy.requestNumber}
+    novalidate
+  >
     <div class="form-grid">
       <div class="field">
-        <label for="companyName">Nazwa firmy lub organizacji</label>
+        <label for="companyName">{copy.company}</label>
         <input
           id="companyName"
           name="companyName"
@@ -32,7 +50,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         />
       </div>
       <div class="field">
-        <label for="contactName">Osoba kontaktowa</label>
+        <label for="contactName">{copy.contact}</label>
         <input
           id="contactName"
           name="contactName"
@@ -42,7 +60,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         />
       </div>
       <div class="field">
-        <label for="email">E-mail służbowy</label>
+        <label for="email">{copy.email}</label>
         <input
           id="email"
           name="email"
@@ -50,17 +68,17 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
           autocomplete="email"
           maxlength="160"
         />
-        <small>Podaj e-mail lub telefon.</small>
+        <small>{copy.contactHelp}</small>
       </div>
       <div class="field">
-        <label for="phone">Telefon</label>
+        <label for="phone">{copy.phone}</label>
         <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
-        <small>Podaj telefon lub e-mail.</small>
+        <small>{copy.contactHelp}</small>
       </div>
       <div class="field field-wide">
-        <label for="serviceId">Temat</label>
+        <label for="serviceId">{copy.topic}</label>
         <select id="serviceId" name="serviceId" required>
-          <option value="">Wybierz zakres</option>
+          <option value="">{copy.choose}</option>
           {
             services.map((service) => (
               <option
@@ -71,45 +89,46 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
               </option>
             ))
           }
-          <option value="other">Inne zadanie dotyczące infrastruktury firmy</option>
+          <option value="other">{copy.other}</option>
         </select>
       </div>
       <div class="field field-wide">
-        <label for="message">Co dzieje się w firmowej infrastrukturze?</label>
+        <label for="message">{copy.message}</label>
         <textarea
           id="message"
           name="message"
           maxlength="3000"
           required
           aria-describedby="message-help"></textarea>
-        <small id="message-help"
-          >Opisz lokalizację, liczbę stanowisk i zauważone objawy, jeśli są znane.</small
-        >
+        <small id="message-help">{copy.messageHelp}</small>
       </div>
     </div>
     <label class="checkbox-field">
       <input name="actingForBusiness" type="checkbox" value="true" required />
-      <span
-        >Kontaktuję się w imieniu firmy, organizacji, biura lub innego podmiotu.</span
-      >
+      <span>{copy.business}</span>
     </label>
     <div class="field visually-hidden" aria-hidden="true">
-      <label for="website">Strona internetowa</label>
+      <label for="website">{copy.website}</label>
       <input id="website" name="website" tabindex="-1" autocomplete="off" />
     </div>
-    <input type="hidden" name="locale" value="pl" />
+    <input type="hidden" name="locale" value={locale} />
     <input type="hidden" name="pagePath" value={Astro.url.pathname} />
     {
       siteKey && (
-        <div class="cf-turnstile" data-sitekey={siteKey} data-action="contact" />
+        <div
+          class="cf-turnstile"
+          data-sitekey={siteKey}
+          data-action="contact"
+          data-language={locale}
+        />
       )
     }
     <p class="form-notice">
-      Dane wykorzystamy do odpowiedzi na to zapytanie. Szczegóły znajdują się w
-      <a href="/privacy/">informacji o prywatności</a>.
+      {copy.notice}
+      <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
     </p>
     <div class="form-status" role="status" aria-live="polite" data-form-status></div>
-    <button class="button button-primary" type="submit">Wyślij zapytanie B2B</button>
+    <button class="button button-primary" type="submit">{copy.submit}</button>
   </form>
 </div>
 

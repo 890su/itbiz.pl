@@ -4,6 +4,15 @@
 
   const status = form.querySelector('[data-form-status]');
   const submit = form.querySelector('button[type="submit"]');
+  const labels = {
+    submit: form.dataset.submitLabel || 'Send',
+    sending: form.dataset.sendingLabel || 'Sending…',
+    missingContact: form.dataset.missingContact || 'Provide an email or phone.',
+    genericError: form.dataset.genericError || 'The request could not be sent.',
+    success: form.dataset.successLabel || 'Request accepted.',
+    preview: form.dataset.previewLabel || 'Preview: request not stored.',
+    request: form.dataset.requestLabel || 'Reference',
+  };
 
   const showStatus = (message, state) => {
     if (!(status instanceof HTMLElement)) return;
@@ -20,16 +29,16 @@
 
     if (!form.reportValidity()) return;
     if (!email && !phone) {
-      showStatus('Podaj e-mail służbowy lub numer telefonu.', 'error');
+      showStatus(labels.missingContact, 'error');
       form.querySelector('#email')?.focus();
       return;
     }
 
     if (submit instanceof HTMLButtonElement) {
       submit.disabled = true;
-      submit.textContent = 'Wysyłanie…';
+      submit.textContent = labels.sending;
     }
-    showStatus('Wysyłamy zapytanie…', 'progress');
+    showStatus(labels.sending, 'progress');
 
     try {
       const response = await fetch(form.action, {
@@ -39,26 +48,20 @@
       });
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error(
-          payload.message ||
-            'Nie udało się wysłać zapytania. Sprawdź dane i spróbuj ponownie.',
-        );
+        throw new Error(payload.message || labels.genericError);
       }
       form.reset();
       showStatus(
-        payload.preview
-          ? `Tryb preview: walidacja zakończona. Zapytanie nie zostało dostarczone. Numer: ${payload.requestId}.`
-          : `Zapytanie zostało przyjęte. Numer: ${payload.requestId}.`,
+        `${payload.preview ? labels.preview : labels.success} ${labels.request}: ${payload.requestId}.`,
         'success',
       );
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'Nie udało się wysłać zapytania.';
+      const message = error instanceof Error ? error.message : labels.genericError;
       showStatus(message, 'error');
     } finally {
       if (submit instanceof HTMLButtonElement) {
         submit.disabled = false;
-        submit.textContent = 'Wyślij zapytanie B2B';
+        submit.textContent = labels.submit;
       }
       if (window.turnstile) window.turnstile.reset();
     }

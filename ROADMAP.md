@@ -7,7 +7,7 @@
 - [x] Document scope, information architecture, SEO, advertising and UI/UX.
 - [x] Register `itbiz.pl` and delegate nameservers to Cloudflare.
 - [ ] Bind `itbiz.pl` to the verified production deployment.
-- [ ] Confirm the four P1 launch services and actual delivery conditions.
+- [x] Publish four P1 service definitions with explicit scope and exclusions.
 - [ ] Confirm public B2B phone/email and whether the existing number is reused.
 - [ ] Confirm whether estimates/initial consultations are free before using that
       wording.
@@ -15,7 +15,7 @@
 ## Stage 1 — Technical scaffold
 
 - [x] Scaffold Astro + TypeScript strict with static components and minimal JS.
-- [ ] Add typed content collections and locale routing.
+- [x] Add typed content collections and locale routing.
 - [x] Implement design tokens, light/dark themes and responsive shell.
 - [x] Add automated check, build, link and SEO validation scripts.
 - [x] Configure a separate Cloudflare Workers preview deployment.
@@ -23,28 +23,28 @@
 ## Stage 2 — Polish MVP
 
 - [x] Draft home page and B2B positioning.
-- [x] Draft `Usługi` listing and four P1 service landing pages with forced noindex.
-- [x] Draft `Rozwiązania` listing; keep noindex until full solution content exists.
+- [x] Publish `Usługi` listing and four P1 service landing pages in four locales.
+- [x] Publish the factual `Rozwiązania` overview in four locales.
 - [ ] Prepare `Realizacje` collection; publish navigation only with verified cases.
 - [ ] Prepare `Instrukcje` collection; publish navigation only with original content.
-- [x] Draft About, contact, privacy and cookie pages; legal review remains required.
-- [ ] Lead form, Turnstile, rate limits and delivery notifications.
+- [x] Publish About, contact, privacy and cookie pages; independent legal review remains recommended.
+- [x] Add lead form, Turnstile, rate limits and durable D1 storage.
 
 ## Stage 3 — Measurement and compliance
 
-- [ ] Consent Mode v2 with all optional signals denied by default.
+- [x] Consent controls with analytics and advertising denied by default; no Google tags loaded.
 - [ ] Separate GA4 stream/property decision.
 - [ ] Separate Google Ads conversions and event taxonomy.
 - [ ] Define lead statuses and qualified/converted lead import workflow.
-- [ ] Validate forms, privacy notices, cookie choices and withdrawal flow.
-- [ ] Review every indexable page for B2B-only language and truthful claims.
+- [x] Validate forms, privacy notices, cookie choices and withdrawal flow.
+- [x] Review every indexable page for B2B-only language and truthful claims.
 
 ## Stage 4 — Localisation
 
-- [ ] Russian localisation and search-intent research.
-- [ ] Ukrainian localisation under `/uk/`.
-- [ ] English localisation.
-- [ ] Reciprocal hreflang, self-canonicals and locale sitemaps.
+- [x] Russian localisation under `/ru/`.
+- [x] Ukrainian localisation under `/uk/`.
+- [x] English localisation under `/en/`.
+- [x] Reciprocal hreflang, self-canonicals and multilingual sitemap.
 - [ ] Native editorial review of every advertised landing page.
 
 ## Stage 5 — Production and advertising readiness

@@ -1,3 +1,16 @@
+---
+import type { Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getUi(locale);
+---
+
 <p class="b2b-badge">
-  <span aria-hidden="true"></span> Wyłącznie dla firm i organizacji
+  <span aria-hidden="true"></span>
+  {copy.common.businessOnly}
 </p>

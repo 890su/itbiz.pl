@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getRoute, type Locale } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+interface Props {
+  locale: Locale;
+  kind: 'privacy' | 'cookies';
+}
+const { locale, kind } = Astro.props;
+const ui = getUi(locale);
+const copy = kind === 'privacy' ? ui.privacy : ui.cookiesPage;
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonicalPath={getRoute(locale, kind)}
+  {locale}
+  translationKey={kind}
+>
+  <nav class="breadcrumb" aria-label={ui.common.scope}>
+    <ol>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li
+        aria-current="page"
+      >
+        {kind === 'privacy' ? ui.common.privacy : ui.common.cookies}
+      </li>
+    </ol>
+  </nav>
+  <article class="page-section legal-copy">
+    <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1>{
+      copy.sections.map(([title, body]) => (
+        <>
+          <>
+            <h2>{title}</h2>
+            <p>{body}</p>
+          </>
+        </>
+      ))
+    }
+  </article>
+</BaseLayout>

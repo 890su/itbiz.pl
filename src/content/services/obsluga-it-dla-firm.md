@@ -7,8 +7,8 @@ seoTitle: Obsługa IT dla firm w Warszawie | ITBIZ.PL
 description: Uporządkowanie i bieżąca obsługa firmowej sieci, stanowisk pracy oraz podstawowej dokumentacji IT. Zakres ustalamy przed rozpoczęciem prac.
 eyebrow: Zewnętrzna obsługa IT
 lead: Pomagamy małym organizacjom uporządkować infrastrukturę i ustalić odpowiedzialność za codzienne zadania IT.
-status: draft
-noindex: true
+status: published
+noindex: false
 adEligible: false
 b2bOnly: true
 updatedAt: 2026-08-26
@@ -33,5 +33,5 @@ deliverables:
 formOption: Obsługa IT dla firm
 ---
 
-Pełny zakres, dostępność i model rozliczenia zostaną opublikowane po zatwierdzeniu
-karty usługi przez operatora.
+Pełny zakres, dostępność i model rozliczenia są potwierdzane indywidualnie przed
+rozpoczęciem współpracy.

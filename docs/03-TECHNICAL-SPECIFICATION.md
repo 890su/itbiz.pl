@@ -153,7 +153,7 @@ images[]
 - `serviceId` — обязательное hidden/select значение;
 - `message` — обязательно;
 - `actingForBusiness` — обязательное подтверждение обращения от организации;
-- `locale`, `pagePath`, UTM/Click ID — технические поля;
+- `locale`, `pagePath` — технические поля;
 - honeypot и Turnstile token.
 
 Форма должна иметь idle, submitting, success, validation error, server error и
@@ -165,7 +165,8 @@ Endpoint:
 - валидирует origin, payload, длины и Turnstile;
 - применяет rate limit;
 - не доверяет hidden-полям;
-- передаёт уведомление в отдельный B2B-канал/email;
+- сохраняет подтверждённый production-лид в закрытой D1-базе;
+- опционально передаёт копию в отдельный B2B webhook;
 - не записывает лид в публичные логи;
 - возвращает единый request ID без персональных данных;
 - отправляет conversion event только после подтверждённого success.
@@ -246,8 +247,8 @@ TELEGRAM_CHAT_ID (если используется)
 `GA_MEASUREMENT_ID` и `GOOGLE_ADS_ID` являются публичными environment-specific
 идентификаторами конфигурации, а не секретами.
 
-Для разных environments используются отдельные Turnstile keys и безопасные
-тестовые получатели. `.dev.vars` находится в `.gitignore`.
+Production использует Turnstile secret; preview не сохраняет лиды и не требует
+секретного ключа. `.dev.vars` находится в `.gitignore`.
 
 ## 12. Security headers
 

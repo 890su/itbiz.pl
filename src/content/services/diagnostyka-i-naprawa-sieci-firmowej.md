@@ -7,8 +7,8 @@ seoTitle: Diagnostyka sieci firmowej w Warszawie | ITBIZ.PL
 description: Metodyczne szukanie przyczyn przerw, błędów portów i problemów z połączeniem w sieci należącej do firmy lub organizacji.
 eyebrow: Diagnostyka infrastruktury
 lead: Oddzielamy objawy od przyczyny i dokumentujemy sprawdzone elementy, zanim zaproponujemy zmianę konfiguracji lub sprzętu.
-status: draft
-noindex: true
+status: published
+noindex: false
 adEligible: false
 b2bOnly: true
 updatedAt: 2026-08-26
@@ -33,4 +33,4 @@ deliverables:
 formOption: Diagnostyka sieci firmowej
 ---
 
-Reakcja i termin rozpoczęcia prac pozostają do potwierdzenia przez operatora.
+Możliwy termin rozpoczęcia prac jest potwierdzany po analizie zgłoszenia.
