@@ -82,6 +82,20 @@ for (const [path, serviceId] of demandTestLandings) {
   });
 }
 
+test('Polish-only landing language links fall back to localized service indexes', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/uslugi/awaria-sieci-w-firmie/');
+  await expect(page.locator('link[rel="alternate"][hreflang="ru"]')).toHaveCount(0);
+  await page.locator('.mobile-bar').getByRole('button', { name: 'Menu' }).click();
+  const russianServices = page.locator('.mobile-locale-switcher a[lang="ru"]');
+  await expect(russianServices).toHaveAttribute('href', '/ru/uslugi/');
+  await russianServices.click();
+  await expect(page).toHaveURL(/\/ru\/uslugi\/$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ru-RU');
+});
+
 test('mobile navigation opens and exposes the primary action', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
