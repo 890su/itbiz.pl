@@ -8,14 +8,19 @@ interface Props {
   title: string;
   description: string;
   tags: readonly string[];
+  filterIds?: readonly string[];
   locale: Locale;
 }
 
-const { href, index, title, description, tags, locale } = Astro.props;
+const { href, index, title, description, tags, filterIds = [], locale } = Astro.props;
 const copy = getUi(locale).common;
 ---
 
-<article class="service-card">
+<article
+  class="service-card"
+  data-service-card={filterIds.length ? '' : undefined}
+  data-service-filters={filterIds.length ? filterIds.join(' ') : undefined}
+>
   <div class="card-index" aria-hidden="true">{index}</div>
   <div>
     <h3><a href={href}>{title}</a></h3>

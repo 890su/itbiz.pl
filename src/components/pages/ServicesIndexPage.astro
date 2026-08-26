@@ -4,6 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ServiceCard from '../ServiceCard.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
+import {
+  getServiceFilters,
+  serviceFilterIds,
+  type ServiceFilterId,
+} from '../../data/serviceFilters';
 
 interface Props {
   locale: Locale;
@@ -27,6 +32,12 @@ const order = [
 const services = (await getCollection('services'))
   .filter((service) => service.data.locale === locale)
   .sort((a, b) => order.indexOf(a.data.serviceId) - order.indexOf(b.data.serviceId));
+const availableFilters = serviceFilterIds.filter((filterId) =>
+  services.some((service) =>
+    getServiceFilters(service.data.serviceId).includes(filterId),
+  ),
+);
+const filterLabel = (filterId: ServiceFilterId) => copy.filters[filterId];
 ---
 
 <BaseLayout
@@ -51,19 +62,65 @@ const services = (await getCollection('services'))
     <p>{copy.lead}</p>
   </header>
   <section class="page-section">
-    <div class="service-grid">
+    <div
+      class="service-filter-panel"
+      data-service-filter-panel
+      data-count-one={copy.filterCountOne}
+      data-count-many={copy.filterCountMany}
+      hidden
+    >
+      <div class="service-filter-meta">
+        <p class="service-filter-label">{copy.filterLabel}</p>
+        <p class="service-filter-status" data-service-filter-status aria-live="polite">
+          {
+            copy.filterCountMany
+              .replace('{visible}', String(services.length))
+              .replace('{total}', String(services.length))
+          }
+        </p>
+      </div>
+      <div class="service-filter-row" role="group" aria-label={copy.filterLabel}>
+        <button
+          class="service-filter-button"
+          type="button"
+          data-service-filter="all"
+          aria-controls="service-list"
+          aria-pressed="true">{copy.filters.all}</button
+        >
+        {
+          availableFilters.map((filterId) => (
+            <button
+              class="service-filter-button"
+              type="button"
+              data-service-filter={filterId}
+              aria-controls="service-list"
+              aria-pressed="false"
+            >
+              {filterLabel(filterId)}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <div id="service-list" class="service-grid" data-filterable-service-grid>
       {
-        services.map((service, index) => (
-          <ServiceCard
-            href={getRoute(locale, service.data.translationKey as TranslationKey)}
-            index={String(index + 1).padStart(2, '0')}
-            title={service.data.title}
-            description={service.data.description}
-            tags={service.data.outcomes.slice(0, 2)}
-            {locale}
-          />
-        ))
+        services.map((service, index) => {
+          const filterIds = getServiceFilters(service.data.serviceId);
+          return (
+            <ServiceCard
+              href={getRoute(locale, service.data.translationKey as TranslationKey)}
+              index={String(index + 1).padStart(2, '0')}
+              title={service.data.title}
+              description={service.data.description}
+              tags={filterIds.map(filterLabel)}
+              {filterIds}
+              {locale}
+            />
+          );
+        })
       }
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline src="/scripts/service-filters.js" defer></script>

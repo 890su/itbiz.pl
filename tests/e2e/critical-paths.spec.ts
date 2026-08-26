@@ -82,6 +82,44 @@ for (const [path, serviceId] of demandTestLandings) {
   });
 }
 
+test('service topic filters update cards, status and shareable URL', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/uslugi/');
+
+  const cards = page.locator('[data-service-card]');
+  const status = page.locator('[data-service-filter-status]');
+  await expect(cards).toHaveCount(11);
+  await expect(page.locator('[data-service-card]:visible')).toHaveCount(11);
+
+  await page.getByRole('button', { name: 'Wi‑Fi', exact: true }).click();
+  await expect(page).toHaveURL(/\?temat=wifi$/);
+  await expect(page.locator('[data-service-card]:visible')).toHaveCount(4);
+  await expect(status).toHaveText('Pokazano 4 z 11 usług.');
+  await expect(
+    page.getByRole('heading', {
+      name: 'Audyt Wi‑Fi w małym biurze — 5–30 stanowisk',
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Okablowanie pod monitoring w firmie' }),
+  ).toBeHidden();
+
+  await page.reload();
+  await expect(page.locator('[data-service-card]:visible')).toHaveCount(4);
+
+  await page.getByRole('button', { name: 'Wszystkie', exact: true }).click();
+  await expect(page).toHaveURL(/\/uslugi\/$/);
+  await expect(page.locator('[data-service-card]:visible')).toHaveCount(11);
+
+  const dimensions = await page.evaluate(() => ({
+    client: document.documentElement.clientWidth,
+    scroll: document.documentElement.scrollWidth,
+  }));
+  expect(dimensions.scroll).toBe(dimensions.client);
+});
+
 test('Polish-only landing language links fall back to localized service indexes', async ({
   page,
 }) => {

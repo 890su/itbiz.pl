@@ -632,6 +632,103 @@
     gap: 1rem;
   }
 
+  .service-filter-panel {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    padding: 0.85rem;
+    box-shadow: 0 8px 24px rgb(19 37 62 / 6%);
+  }
+
+  .service-filter-panel[hidden],
+  .service-card[hidden] {
+    display: none;
+  }
+
+  .service-filter-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-inline: 0.15rem;
+  }
+
+  .service-filter-label,
+  .service-filter-status {
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .service-filter-status {
+    letter-spacing: 0.02em;
+    text-align: right;
+    text-transform: none;
+  }
+
+  .service-filter-row {
+    display: flex;
+    gap: 0.45rem;
+    overflow-x: auto;
+    padding: 0.1rem 0.1rem 0.35rem;
+    scrollbar-color: var(--line-strong) transparent;
+    scrollbar-width: thin;
+  }
+
+  .service-filter-button {
+    display: inline-flex;
+    min-height: 2.55rem;
+    flex: none;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface-raised);
+    color: var(--ink-muted);
+    padding: 0.55rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .service-filter-button::before {
+    width: 0.48rem;
+    height: 0.48rem;
+    flex: none;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: transparent;
+    content: '';
+  }
+
+  .service-filter-button:hover {
+    border-color: var(--signal);
+    color: var(--ink);
+  }
+
+  .service-filter-button[aria-pressed='true'] {
+    border-color: var(--signal);
+    background: color-mix(in srgb, var(--signal) 10%, var(--surface));
+    color: var(--ink);
+  }
+
+  .service-filter-button[aria-pressed='true']::before {
+    border-color: var(--signal);
+    background: var(--signal);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal) 14%, transparent);
+  }
+
   .service-card {
     position: relative;
     display: grid;
@@ -1053,6 +1150,12 @@
 
     .service-card {
       grid-template-columns: auto 1fr;
+    }
+
+    .service-filter-row {
+      flex-wrap: wrap;
+      overflow: visible;
+      padding-bottom: 0.1rem;
     }
 
     .service-facts {
