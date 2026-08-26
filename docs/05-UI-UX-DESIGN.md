@@ -53,7 +53,7 @@ Desktop:
 ┌──────────────────────────────────────────────────┬─────────────────────┐
 │ main content max 1120 px                         │ ITBIZ.PL             │
 │                                                  │ Start               │
-│ [B2B label]                                      │ Usługi              │
+│ [service eligibility — only on ad landings]      │ Usługi              │
 │ H1 + value proposition      [service blueprint]  │ Rozwiązania         │
 │ CTA / phone                                      │ Realizacje          │
 │                                                  │ Instrukcje          │
@@ -74,7 +74,7 @@ Mobile:
 ┌──────────────────────────────┐
 │ ITBIZ.PL          PL     ☰   │
 ├──────────────────────────────┤
-│ B2B label                    │
+│ service eligibility         │
 │ H1                           │
 │ value                        │
 │ [Poproś o wycenę]            │
@@ -148,7 +148,7 @@ Hero:
 - `SidebarNav` / `MobileNav`;
 - `LanguageSwitcher`;
 - `ThemeToggle`;
-- `B2BOnlyBadge`;
+- компактная `ServiceEligibilityLine` только на рекламных страницах услуг;
 - `ServiceHero`;
 - `ServiceBlueprint`;
 - `OutcomeList`;
@@ -184,7 +184,7 @@ Hero:
 - ошибка выводится рядом с полем и в summary;
 - введённые данные сохраняются при server error;
 - success сообщает, что запрос получен и какой следующий шаг реален;
-- название компании и подтверждение B2B видимы;
+- название компании обязательно; отдельная B2B-галочка не используется;
 - privacy notice компактный, не скрытый, со ссылкой;
 - CTA формулируется под страницу услуги.
 

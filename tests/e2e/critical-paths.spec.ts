@@ -14,16 +14,14 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test('home page exposes one clear B2B path without horizontal overflow', async ({
+test('home page keeps a concise business scope without horizontal overflow', async ({
   page,
 }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Firmowa sieć bez przypadkowych połączeń.',
   );
-  await expect(
-    page.getByText('Wyłącznie dla firm i organizacji').first(),
-  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Zakres firmowy' })).toBeVisible();
   const dimensions = await page.evaluate(() => ({
     client: document.documentElement.clientWidth,
     scroll: document.documentElement.scrollWidth,
@@ -54,6 +52,22 @@ test('privacy choices can be changed and reopened from the footer', async ({
   await expect(dialog.getByLabel('Analityka')).toBeChecked();
 });
 
+test('privacy prompt stays a compact bottom bar', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('[data-consent-banner]').evaluate((banner) => {
+    (banner as HTMLElement).hidden = false;
+  });
+  const banner = page.locator('[data-consent-banner]');
+  await expect(banner).toBeVisible();
+  const box = await banner.boundingBox();
+  const viewport = page.viewportSize();
+  expect(box).not.toBeNull();
+  expect(viewport).not.toBeNull();
+  expect(box!.height).toBeLessThan(100);
+  expect(Math.round(box!.y + box!.height)).toBe(viewport!.height);
+  expect(Math.round(box!.width)).toBe(viewport!.width);
+});
+
 test('preview service remains noindex and preselects its form topic', async ({
   page,
 }) => {
@@ -67,6 +81,9 @@ test('preview service remains noindex and preselects its form topic', async ({
     'https://itbiz.pl/uslugi/wifi-dla-biur/',
   );
   await expect(page.getByLabel('Temat')).toHaveValue('office-wifi');
+  await expect(
+    page.getByText('Wyłącznie dla firm i organizacji · Warszawa'),
+  ).toBeVisible();
 });
 
 test('language switch keeps the translated page relationship', async ({ page }) => {
@@ -108,19 +125,14 @@ test('preview form validates without pretending to deliver a lead', async ({
   page,
 }) => {
   await page.goto('/kontakt/');
-  await page.getByLabel('Nazwa firmy lub organizacji').fill('Testowa organizacja');
+  await page.getByLabel('Firma / organizacja').fill('Testowa organizacja');
   await page.getByLabel('Osoba kontaktowa').fill('Jan Testowy');
-  await page.getByLabel('E-mail służbowy').fill('test@example.org');
+  await page.getByLabel('E-mail').fill('test@example.org');
   await page.getByLabel('Temat').selectOption('office-wifi');
   await page
-    .getByLabel('Co dzieje się w firmowej infrastrukturze?')
+    .getByLabel('Co wymaga sprawdzenia?')
     .fill('Test pełnej ścieżki formularza w środowisku preview.');
-  await page
-    .getByLabel(
-      'Kontaktuję się w imieniu firmy, organizacji, biura lub innego podmiotu.',
-    )
-    .check();
-  await page.getByRole('button', { name: 'Wyślij zapytanie B2B' }).click();
+  await page.getByRole('button', { name: 'Wyślij zapytanie' }).click();
   await expect(page.locator('[data-form-status]')).toContainText(
     'Tryb preview: walidacja zakończona. Zapytanie nie zostało zapisane.',
   );

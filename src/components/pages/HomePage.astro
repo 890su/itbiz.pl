@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import B2BBadge from '../B2BBadge.astro';
 import NetworkBlueprint from '../NetworkBlueprint.astro';
 import ServiceCard from '../ServiceCard.astro';
 import LeadForm from '../LeadForm.astro';
@@ -29,7 +28,6 @@ const services = (await getCollection('services'))
 >
   <section class="hero">
     <div class="hero-copy">
-      <B2BBadge {locale} />
       <p class="eyebrow">{copy.eyebrow}</p>
       <h1>{copy.h1}</h1>
       <p class="hero-lead">{copy.lead}</p>

@@ -87,7 +87,7 @@ hreflang на отсутствующий перевод не формирует�
 
 1. Breadcrumbs.
 2. Above the fold:
-   - однозначный B2B-label `Usługa wyłącznie dla firm i organizacji`;
+   - один компактный квалификатор `Wyłącznie dla firm i organizacji`;
    - H1, совпадающий с интентом рекламной группы;
    - 2–3 конкретных результата;
    - основной CTA и телефон;
