@@ -32,6 +32,7 @@ export const ui = {
       title: 'Schemat firmowej sieci',
       description:
         'Internet łączy się z zaporą, następnie z przełącznikiem zarządzalnym, który rozdziela sieć na stanowiska, firmowe Wi-Fi i oddzielną sieć dla gości.',
+      devices: ['Internet', 'Zapora', 'Przełącznik'],
       endpoints: ['Stanowiska', 'Wi‑Fi firma', 'Goście'],
       note: 'Każdy element ma rolę, właściciela konfiguracji i miejsce w dokumentacji.',
     },
@@ -352,6 +353,7 @@ export const ui = {
       title: 'Схема корпоративной сети',
       description:
         'Интернет подключён к межсетевому экрану, затем к управляемому коммутатору, который разделяет рабочие места, корпоративный Wi‑Fi и гостевую сеть.',
+      devices: ['Интернет', 'Firewall', 'Коммутатор'],
       endpoints: ['Рабочие места', 'Wi‑Fi компании', 'Гости'],
       note: 'У каждого элемента есть роль, ответственный за конфигурацию и место в документации.',
     },
@@ -669,6 +671,7 @@ export const ui = {
       title: 'Business network diagram',
       description:
         'The internet connects to a firewall and then to a managed switch that separates workstations, business Wi‑Fi and a guest network.',
+      devices: ['Internet', 'Firewall', 'Switch'],
       endpoints: ['Workstations', 'Business Wi‑Fi', 'Guests'],
       note: 'Every element has a role, a configuration owner and a place in the documentation.',
     },
@@ -988,6 +991,7 @@ export const ui = {
       title: 'Схема корпоративної мережі',
       description:
         'Інтернет підключений до міжмережевого екрана, потім до керованого комутатора, який розділяє робочі місця, корпоративний Wi‑Fi та гостьову мережу.',
+      devices: ['Інтернет', 'Firewall', 'Комутатор'],
       endpoints: ['Робочі місця', 'Wi‑Fi компанії', 'Гості'],
       note: 'Кожен елемент має роль, відповідального за конфігурацію та місце в документації.',
     },

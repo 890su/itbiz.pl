@@ -79,8 +79,8 @@
       --canvas: #07101f;
       --surface: #0d1829;
       --surface-raised: #111e31;
-      --section-band: #111f33;
-      --section-edge: #30445f;
+      --section-band: #142741;
+      --section-edge: #36506f;
       --ink: #ecf3fc;
       --ink-muted: #a7b6ca;
       --line: #24354d;
@@ -103,8 +103,8 @@
     --canvas: #07101f;
     --surface: #0d1829;
     --surface-raised: #111e31;
-    --section-band: #111f33;
-    --section-edge: #30445f;
+    --section-band: #142741;
+    --section-edge: #36506f;
     --ink: #ecf3fc;
     --ink-muted: #a7b6ca;
     --line: #24354d;
@@ -515,8 +515,10 @@
   }
 
   .content-rail > main > .page-section:nth-of-type(even) {
-    background-color: color-mix(in srgb, var(--section-band) 94%, transparent);
+    background-color: var(--section-band);
+    clip-path: inset(0 -100vmax);
     box-shadow:
+      0 0 0 100vmax var(--section-band),
       inset 0 1px var(--section-edge),
       inset 0 -1px var(--section-edge);
   }
@@ -621,71 +623,62 @@
   }
 
   .blueprint {
-    overflow: hidden;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
-    box-shadow: var(--shadow);
-  }
-
-  .blueprint figcaption,
-  .blueprint > p {
-    padding: 1rem 1.2rem;
-  }
-
-  .blueprint figcaption {
-    display: grid;
-    gap: 0.15rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .blueprint figcaption span,
-  .blueprint > p {
-    color: var(--ink-muted);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+    width: min(100%, 46rem);
+    justify-self: center;
   }
 
   .blueprint svg {
+    display: block;
     width: 100%;
     height: auto;
     color: var(--ink);
   }
 
-  .blueprint-grid path {
-    fill: none;
-    stroke: var(--line);
-    stroke-width: 1;
-  }
-
   .network-path path {
     fill: none;
     stroke: var(--network);
-    stroke-dasharray: 7 6;
+    stroke-dasharray: 9 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3.5;
+  }
+
+  .network-path circle {
+    fill: var(--surface);
+    stroke: var(--network);
     stroke-width: 3;
   }
 
   .node rect {
-    fill: var(--surface-raised);
+    fill: color-mix(in srgb, var(--surface-raised) 52%, transparent);
     stroke: var(--line-strong);
-    stroke-width: 1.5;
+    stroke-width: 2;
   }
 
   .node text {
     fill: currentColor;
     font-family: var(--font-mono);
-    font-size: 11px;
     text-anchor: middle;
   }
 
-  .node text:first-of-type {
+  .node .node-kicker {
     fill: var(--signal);
-    font-size: 9px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .node .node-label {
+    font-size: 16px;
     font-weight: 700;
   }
 
   .node-endpoint rect {
     stroke: var(--network);
+  }
+
+  .node-endpoint .node-label {
+    font-size: 13px;
   }
 
   .service-grid {
