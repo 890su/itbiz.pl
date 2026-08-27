@@ -24,13 +24,12 @@
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = new FormData(form);
-    const email = String(data.get('email') || '').trim();
-    const phone = String(data.get('phone') || '').trim();
+    const contact = String(data.get('contact') || '').trim();
 
     if (!form.reportValidity()) return;
-    if (!email && !phone) {
+    if (!contact) {
       showStatus(labels.missingContact, 'error');
-      form.querySelector('#email')?.focus();
+      form.querySelector('#contactMethod')?.focus();
       return;
     }
 

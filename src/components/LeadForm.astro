@@ -46,28 +46,6 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
   >
     <div class="form-grid">
       <div class="field">
-        <label for="companyName">{copy.company}</label>
-        <input
-          id="companyName"
-          name="companyName"
-          autocomplete="organization"
-          maxlength="120"
-          required
-        />
-      </div>
-      <div class="field">
-        <label for="nip">{copy.nip}</label>
-        <input
-          id="nip"
-          name="nip"
-          inputmode="numeric"
-          autocomplete="off"
-          maxlength="16"
-          aria-describedby="nip-help"
-        />
-        <small id="nip-help">{copy.nipHelp}</small>
-      </div>
-      <div class="field">
         <label for="contactName">{copy.contact}</label>
         <input
           id="contactName"
@@ -78,20 +56,24 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
         />
       </div>
       <div class="field">
-        <label for="email">{copy.email}</label>
+        <label for="companyName">{copy.company}</label>
         <input
-          id="email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          maxlength="160"
+          id="companyName"
+          name="companyName"
+          autocomplete="organization"
+          maxlength="120"
         />
-        <small>{copy.contactHelp}</small>
       </div>
       <div class="field">
-        <label for="phone">{copy.phone}</label>
-        <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
-        <small>{copy.contactHelp}</small>
+        <label for="contactMethod">{copy.contactMethod}</label>
+        <input
+          id="contactMethod"
+          name="contact"
+          type="text"
+          maxlength="160"
+          placeholder={copy.contactPlaceholder}
+          required
+        />
       </div>
       <div class="field">
         <label for="serviceId">{copy.topic}</label>

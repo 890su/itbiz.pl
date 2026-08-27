@@ -3,10 +3,8 @@ import { validateContactPayload } from '../worker/contact';
 
 const validPayload = {
   companyName: 'Przykładowa organizacja',
-  nip: '525-00-08-573',
   contactName: 'Jan Kowalski',
-  email: 'jan@example.org',
-  phone: '',
+  contact: 'jan@example.org',
   serviceId: 'office-wifi',
   message: 'W biurze występują okresowe przerwy w połączeniu Wi-Fi.',
   locale: 'pl',
@@ -15,9 +13,9 @@ const validPayload = {
 };
 
 describe('validateContactPayload', () => {
-  it('accepts a valid business request with email', () => {
+  it('accepts a valid request with a combined email contact', () => {
     const result = validateContactPayload(validPayload);
-    expect(result.success).toBe(true);
+    expect(result.success && result.data.email).toBe('jan@example.org');
   });
 
   it.each(['ru', 'en', 'uk'])('accepts the %s locale', (locale) => {
@@ -26,8 +24,17 @@ describe('validateContactPayload', () => {
   });
 
   it('requires at least one contact method', () => {
-    const result = validateContactPayload({ ...validPayload, email: '', phone: '' });
+    const result = validateContactPayload({ ...validPayload, contact: '' });
     expect(result).toMatchObject({ success: false });
+  });
+
+  it('accepts a combined phone contact and an omitted organisation', () => {
+    const result = validateContactPayload({
+      ...validPayload,
+      companyName: '',
+      contact: '+48 573 012 321',
+    });
+    expect(result.success && result.data.phone).toBe('+48 573 012 321');
   });
 
   it('rejects an unknown service id', () => {
@@ -41,6 +48,7 @@ describe('validateContactPayload', () => {
   it('accepts a landing-page service and normalises NIP', () => {
     const result = validateContactPayload({
       ...validPayload,
+      companyName: '525-00-08-573',
       serviceId: 'network-emergency',
     });
     expect(result.success && result.data.nip).toBe('5250008573');

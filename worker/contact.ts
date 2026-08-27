@@ -61,7 +61,7 @@ const supportedLocales = new Set<SupportedLocale>(['pl', 'ru', 'en', 'uk']);
 
 const messages: Record<SupportedLocale, MessageSet> = {
   pl: {
-    identity: 'Podaj nazwę organizacji i osobę kontaktową.',
+    identity: 'Podaj osobę kontaktową.',
     nip: 'Sprawdź format numeru NIP.',
     contact: 'Podaj e-mail służbowy lub numer telefonu.',
     email: 'Sprawdź format adresu e-mail.',
@@ -75,7 +75,7 @@ const messages: Record<SupportedLocale, MessageSet> = {
     delivery: 'Nie udało się zapisać zapytania. Spróbuj ponownie.',
   },
   ru: {
-    identity: 'Укажите организацию и контактное лицо.',
+    identity: 'Укажите контактное лицо.',
     nip: 'Проверьте формат номера NIP.',
     contact: 'Укажите рабочий e-mail или номер телефона.',
     email: 'Проверьте формат e-mail.',
@@ -89,7 +89,7 @@ const messages: Record<SupportedLocale, MessageSet> = {
     delivery: 'Не удалось сохранить запрос. Попробуйте снова.',
   },
   en: {
-    identity: 'Provide the organisation and contact person.',
+    identity: 'Provide the contact person.',
     nip: 'Check the NIP number format.',
     contact: 'Provide a business email or phone number.',
     email: 'Check the email address format.',
@@ -103,7 +103,7 @@ const messages: Record<SupportedLocale, MessageSet> = {
     delivery: 'The enquiry could not be stored. Try again.',
   },
   uk: {
-    identity: 'Вкажіть організацію та контактну особу.',
+    identity: 'Вкажіть контактну особу.',
     nip: 'Перевірте формат номера NIP.',
     contact: 'Вкажіть робочий e-mail або номер телефону.',
     email: 'Перевірте формат e-mail.',
@@ -134,12 +134,21 @@ export function validateContactPayload(
   input: FormData | Record<string, unknown>,
 ): ValidationResult {
   const value = toObject(input);
+  const companyInput = clean(value.companyName, 120);
+  const companyDigits = companyInput.replace(/\D/g, '');
+  const companyIsNip = /^[\d\s-]+$/.test(companyInput) && companyDigits.length === 10;
+  const contactInput = clean(value.contact, 160);
+  const legacyEmail = clean(value.email, 160).toLowerCase();
+  const legacyPhone = clean(value.phone, 40);
   const data: ContactPayload = {
-    companyName: clean(value.companyName, 120),
-    nip: clean(value.nip, 16).replace(/[\s-]/g, ''),
+    companyName: companyIsNip ? '' : companyInput,
+    nip:
+      clean(value.nip, 16).replace(/[\s-]/g, '') || (companyIsNip ? companyDigits : ''),
     contactName: clean(value.contactName, 100),
-    email: clean(value.email, 160).toLowerCase(),
-    phone: clean(value.phone, 40),
+    email:
+      legacyEmail || (contactInput.includes('@') ? contactInput.toLowerCase() : ''),
+    phone:
+      legacyPhone || (contactInput && !contactInput.includes('@') ? contactInput : ''),
     serviceId: clean(value.serviceId, 64),
     message: clean(value.message, 3000),
     locale: clean(value.locale, 8) || 'pl',
@@ -149,8 +158,7 @@ export function validateContactPayload(
   };
   const text = getMessages(data.locale);
 
-  if (!data.companyName || !data.contactName)
-    return { success: false, message: text.identity };
+  if (!data.contactName) return { success: false, message: text.identity };
   if (data.nip && !/^\d{10}$/.test(data.nip))
     return { success: false, message: text.nip };
   if (!data.email && !data.phone) return { success: false, message: text.contact };

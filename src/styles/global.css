@@ -409,13 +409,27 @@
     text-decoration: none;
   }
 
+  .mobile-language-block {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--panel-line);
+    padding-top: 1rem;
+  }
+
+  .mobile-utility-label,
+  .menu-phone span {
+    color: var(--panel-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
   .mobile-menu .mobile-locale-switcher {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.5rem;
-    margin-top: 0.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--panel-line);
     font-size: 0.82rem;
   }
 
@@ -427,6 +441,27 @@
     justify-content: center;
     border-color: var(--panel-line);
     padding: 0.55rem 0.4rem;
+  }
+
+  .menu-phone,
+  .mobile-menu a.menu-phone:not(.button) {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--panel-line);
+    border-bottom: 1px solid var(--panel-line);
+    color: inherit;
+    padding: 0.75rem 0;
+    text-decoration: none;
+  }
+
+  .mobile-menu a.menu-phone:not(.button) {
+    margin-top: 0.9rem;
+  }
+
+  .menu-phone:hover strong {
+    color: var(--signal);
   }
 
   .mobile-menu > .button {
@@ -1210,6 +1245,12 @@
 
     .service-card {
       grid-template-columns: auto 1fr;
+    }
+
+    .form-grid > .field:not(.field-wide) > label {
+      display: flex;
+      min-height: 2.5rem;
+      align-items: flex-end;
     }
 
     .service-filter-row {

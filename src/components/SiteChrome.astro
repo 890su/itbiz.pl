@@ -9,6 +9,7 @@ import {
   type TranslationKey,
 } from '../i18n/config';
 import { getUi } from '../i18n/ui';
+import { company } from '../data/company';
 
 interface Props {
   variant: 'desktop' | 'mobile';
@@ -60,11 +61,8 @@ const isCurrent = (href: string) =>
         </ul>
       </nav>
       <div class="side-actions">
-        <a class="button button-primary" href={getRoute(locale, 'contact')}>
-          {copy.common.cta}
-        </a>
         <div class="utility-row" aria-label={copy.common.settings}>
-          <nav class="locale-switcher" aria-label={copy.common.settings}>
+          <nav class="locale-switcher" aria-label={copy.common.languageLabel}>
             {locales.map((targetLocale) => (
               <a
                 href={getRouteOrFallback(targetLocale, translationKey)}
@@ -85,6 +83,13 @@ const isCurrent = (href: string) =>
             <span aria-hidden="true">◐</span>
           </button>
         </div>
+        <a class="menu-phone" href={company.publicPhoneHref}>
+          <span>{copy.common.phoneAction}</span>
+          <strong>{company.publicPhone}</strong>
+        </a>
+        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+          {copy.common.cta}
+        </a>
       </div>
     </aside>
   ) : (
@@ -130,22 +135,29 @@ const isCurrent = (href: string) =>
             </li>
           ))}
         </ul>
-        <div
-          class="mobile-locale-switcher"
-          role="group"
-          aria-label={copy.common.settings}
-        >
-          {locales.map((targetLocale) => (
-            <a
-              href={getRouteOrFallback(targetLocale, translationKey)}
-              lang={targetLocale}
-              aria-label={languageNames[targetLocale]}
-              aria-current={targetLocale === locale ? 'page' : undefined}
-            >
-              {localeLabels[targetLocale]}
-            </a>
-          ))}
+        <div class="mobile-language-block">
+          <span class="mobile-utility-label">{copy.common.languageLabel}</span>
+          <div
+            class="mobile-locale-switcher"
+            role="group"
+            aria-label={copy.common.languageLabel}
+          >
+            {locales.map((targetLocale) => (
+              <a
+                href={getRouteOrFallback(targetLocale, translationKey)}
+                lang={targetLocale}
+                aria-label={languageNames[targetLocale]}
+                aria-current={targetLocale === locale ? 'page' : undefined}
+              >
+                {localeLabels[targetLocale]}
+              </a>
+            ))}
+          </div>
         </div>
+        <a class="menu-phone" href={company.publicPhoneHref}>
+          <span>{copy.common.phoneAction}</span>
+          <strong>{company.publicPhone}</strong>
+        </a>
         <a class="button button-primary" href={getRoute(locale, 'contact')}>
           {copy.common.cta}
         </a>

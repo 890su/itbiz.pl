@@ -69,7 +69,12 @@ for (const [path, serviceId] of demandTestLandings) {
     ).toBeVisible();
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('select[name="serviceId"]')).toHaveValue(serviceId);
-    await expect(page.locator('input[name="companyName"]')).toHaveAttribute(
+    await expect(page.locator('input[name="contactName"]')).toHaveAttribute(
+      'required',
+      '',
+    );
+    await expect(page.locator('input[name="contact"]')).toHaveAttribute('required', '');
+    await expect(page.locator('input[name="companyName"]')).not.toHaveAttribute(
       'required',
       '',
     );
@@ -151,10 +156,12 @@ test('mobile navigation keeps language targets large and clear of the primary ac
     const menu = page.locator('#mobile-menu');
     const localeSwitcher = menu.locator('.mobile-locale-switcher');
     const localeLinks = localeSwitcher.locator('a');
-    const primaryAction = menu.getByRole('link', { name: 'Opisz zadanie' });
+    const primaryAction = menu.getByRole('link', { name: 'Wyślij zapytanie' });
+    const phoneAction = menu.getByRole('link', { name: /\+48 573 012 321/ });
 
     await expect(menu).toBeVisible();
     await expect(primaryAction).toBeVisible();
+    await expect(phoneAction).toHaveAttribute('href', 'tel:+48573012321');
     await expect(localeLinks).toHaveCount(4);
 
     const localeSizes = await localeLinks.evaluateAll((links) =>
@@ -170,10 +177,15 @@ test('mobile navigation keeps language targets large and clear of the primary ac
     }
 
     const switcherBox = await localeSwitcher.boundingBox();
+    const phoneActionBox = await phoneAction.boundingBox();
     const primaryActionBox = await primaryAction.boundingBox();
     expect(switcherBox).not.toBeNull();
+    expect(phoneActionBox).not.toBeNull();
     expect(primaryActionBox).not.toBeNull();
-    expect(switcherBox!.y + switcherBox!.height).toBeLessThan(primaryActionBox!.y);
+    expect(switcherBox!.y + switcherBox!.height).toBeLessThan(phoneActionBox!.y);
+    expect(phoneActionBox!.y + phoneActionBox!.height).toBeLessThan(
+      primaryActionBox!.y,
+    );
   }
 });
 
@@ -248,9 +260,8 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
   await dialog.getByRole('button', { name: 'Zapisz ustawienia' }).click();
   await expect.poll(() => googleTagRequests.length).toBe(1);
 
-  await page.getByLabel('Organizacja').fill('Testowa firma');
   await page.getByLabel('Osoba kontaktowa').fill('Jan Testowy');
-  await page.getByLabel('E-mail').fill('test@example.com');
+  await page.getByLabel('Telefon lub e-mail').fill('test@example.com');
   await page.getByLabel('Temat').selectOption('network-emergency');
   await page
     .getByLabel('Co wymaga sprawdzenia?')
@@ -348,9 +359,8 @@ test('preview form validates without pretending to deliver a lead', async ({
   page,
 }) => {
   await page.goto('/kontakt/');
-  await page.getByLabel('Firma / organizacja').fill('Testowa organizacja');
   await page.getByLabel('Osoba kontaktowa').fill('Jan Testowy');
-  await page.getByLabel('E-mail').fill('test@example.org');
+  await page.getByLabel('Telefon lub e-mail').fill('+48 573 012 321');
   await page.getByLabel('Temat').selectOption('office-wifi');
   await page
     .getByLabel('Co wymaga sprawdzenia?')
