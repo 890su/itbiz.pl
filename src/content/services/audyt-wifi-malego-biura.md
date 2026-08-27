@@ -2,10 +2,10 @@
 translationKey: service.small-office-wifi-audit
 locale: pl
 serviceId: small-office-wifi-audit
-title: Audyt Wi‑Fi w małym biurze — 5–30 stanowisk
+title: Audyt Wi‑Fi w małym biurze - 5-30 stanowisk
 seoTitle: Audyt Wi‑Fi małego biura w Warszawie | ITBIZ.PL
-description: Pomiar zasięgu, zakłóceń i obciążenia Wi‑Fi dla biur z 5–30 stanowiskami w Warszawie. Raport i plan zmian bez obietnic bez pomiaru.
-eyebrow: Wi‑Fi dla 5–30 stanowisk
+description: Pomiar zasięgu, zakłóceń i obciążenia Wi‑Fi dla biur z 5-30 stanowiskami w Warszawie. Raport i plan zmian bez obietnic bez pomiaru.
+eyebrow: Wi‑Fi dla 5-30 stanowisk
 lead: Mierzymy warunki radiowe w lokalu, sprawdzamy obecną konfigurację i wskazujemy, gdzie problem wynika z zasięgu, zakłóceń, pojemności albo łącza internetowego.
 status: published
 noindex: false
@@ -36,7 +36,7 @@ deliverables:
 formOption: Audyt Wi‑Fi małego biura
 primaryCta: Zamów ocenę firmowego Wi‑Fi
 heroFacts:
-  - Biura z 5–30 stanowiskami
+  - Biura z 5-30 stanowiskami
   - Pomiary w lokalu w Warszawie
   - Raport i plan zmian po audycie
 serviceNoteTitle: Prędkość zależy także od łącza

@@ -2,7 +2,7 @@
 translationKey: service.network-emergency
 locale: en
 serviceId: network-emergency
-title: Business network outage — on-site diagnostics in Warsaw
+title: Business network outage - on-site diagnostics in Warsaw
 breadcrumbTitle: Business network outage
 seoTitle: Business network outage Warsaw | On-site diagnostics
 description: No internet, LAN, router, switch or Wi‑Fi in the office? On-site diagnostics exclusively for businesses and organisations in Warsaw.

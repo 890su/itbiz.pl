@@ -104,7 +104,7 @@ test('service topic filters update cards, status and shareable URL', async ({
   await expect(status).toHaveText('Pokazano 4 z 12 usług.');
   await expect(
     page.getByRole('heading', {
-      name: 'Audyt Wi‑Fi w małym biurze — 5–30 stanowisk',
+      name: 'Audyt Wi‑Fi w małym biurze - 5-30 stanowisk',
     }),
   ).toBeVisible();
   await expect(

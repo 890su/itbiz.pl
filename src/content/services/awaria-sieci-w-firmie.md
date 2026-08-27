@@ -2,7 +2,7 @@
 translationKey: service.network-emergency
 locale: pl
 serviceId: network-emergency
-title: Awaria sieci w firmie — diagnostyka z dojazdem w Warszawie
+title: Awaria sieci w firmie - diagnostyka z dojazdem w Warszawie
 breadcrumbTitle: Awaria sieci w firmie
 seoTitle: Awaria sieci w firmie Warszawa | Diagnostyka z dojazdem
 description: Brak internetu, niedziałający LAN, router, switch lub Wi‑Fi w biurze? Diagnostyka na miejscu wyłącznie dla firm i organizacji w Warszawie.

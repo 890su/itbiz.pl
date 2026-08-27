@@ -2,7 +2,7 @@
 translationKey: service.office-it-move
 locale: en
 serviceId: office-it-move
-title: Office IT move in Warsaw — workstations and network
+title: Office IT move in Warsaw - workstations and network
 seoTitle: Office IT move Warsaw | Workstations and network
 description: Planning, labelling, disconnection and restart of workstations and network equipment during a small office IT move in Warsaw.
 eyebrow: Office relocation

@@ -2,10 +2,10 @@
 translationKey: service.small-office-wifi-audit
 locale: en
 serviceId: small-office-wifi-audit
-title: Wi‑Fi audit for a small office — 5–30 workstations
+title: Wi‑Fi audit for a small office - 5-30 workstations
 seoTitle: Small office Wi‑Fi audit Warsaw | ITBIZ.PL
-description: Wi‑Fi coverage, interference and load measurements for offices with 5–30 workstations in Warsaw. A report and change plan without promises before measurement.
-eyebrow: Wi‑Fi for 5–30 workstations
+description: Wi‑Fi coverage, interference and load measurements for offices with 5-30 workstations in Warsaw. A report and change plan without promises before measurement.
+eyebrow: Wi‑Fi for 5-30 workstations
 lead: We measure radio conditions on the premises, review the current configuration and show whether the problem comes from coverage, interference, capacity or the internet connection.
 status: published
 noindex: false
@@ -36,7 +36,7 @@ deliverables:
 formOption: Small office Wi‑Fi audit
 primaryCta: Request a business Wi‑Fi assessment
 heroFacts:
-  - Offices with 5–30 workstations
+  - Offices with 5-30 workstations
   - On-site measurements in Warsaw
   - Report and change plan after the audit
 serviceNoteTitle: Speed also depends on the connection

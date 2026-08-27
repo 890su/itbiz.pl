@@ -2,7 +2,7 @@
 translationKey: service.office-it-move
 locale: pl
 serviceId: office-it-move
-title: Przeprowadzka IT biura w Warszawie — stanowiska i sieć
+title: Przeprowadzka IT biura w Warszawie - stanowiska i sieć
 seoTitle: Przeprowadzka IT biura Warszawa | Stanowiska i sieć
 description: Plan, oznaczenie, odłączenie i ponowne uruchomienie stanowisk oraz sieci podczas przeprowadzki małego biura w Warszawie.
 eyebrow: Zmiana lokalizacji biura

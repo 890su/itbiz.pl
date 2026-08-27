@@ -2,7 +2,7 @@
 translationKey: service.cctv-emergency
 locale: pl
 serviceId: cctv-emergency
-title: Awaria monitoringu IP w firmie — diagnostyka w Warszawie
+title: Awaria monitoringu IP w firmie - diagnostyka w Warszawie
 breadcrumbTitle: Awaria monitoringu w firmie
 seoTitle: Awaria monitoringu w firmie Warszawa | Diagnostyka PoE
 description: Zniknął obraz z kamer, nie działa zapis albo rejestrator piszczy lub hałasuje? Diagnostyka kamer IP, sieci, PoE i rejestratora dla firm w Warszawie.
