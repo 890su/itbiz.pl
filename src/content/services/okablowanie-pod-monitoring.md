@@ -58,4 +58,6 @@ submitLabel: Wyceń okablowanie pod monitoring
 ---
 
 Strona dotyczy wyłącznie infrastruktury kablowej w firmach i organizacjach. Nie
-stanowi oferty sprzedaży ani serwisu urządzeń monitoringu.
+stanowi oferty sprzedaży urządzeń. Jeżeli istniejący system stracił obraz lub
+zapis, sprawdź
+[diagnostykę awarii monitoringu IP](/uslugi/awaria-monitoringu-w-firmie/).

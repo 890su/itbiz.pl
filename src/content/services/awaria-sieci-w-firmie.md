@@ -61,3 +61,6 @@ submitLabel: Wyślij zgłoszenie awarii
 ---
 
 Usługa dotyczy wyłącznie infrastruktury należącej do firmy lub organizacji.
+
+Jeżeli problem występuje okresowo, ale sieć obecnie działa, sprawdź
+[planową diagnostykę sieci firmowej](/uslugi/diagnostyka-i-naprawa-sieci-firmowej/).

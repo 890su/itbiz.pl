@@ -30,5 +30,21 @@ const copy = ui.area;
     <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p>
       {copy.lead}
     </p>
+    <div class="hero-actions">
+      <a class="button button-primary" href={getRoute(locale, 'contact')}>{copy.cta}</a
+      ><a class="button button-secondary" href={getRoute(locale, 'services')}
+        >{ui.common.services}</a
+      >
+    </div>
+    <ul class="service-facts" aria-label={copy.eyebrow}>
+      {copy.facts.map((fact) => <li>{fact}</li>)}
+    </ul>
   </header>
+  <section class="page-section" aria-labelledby="area-process-title">
+    <header class="section-head">
+      <p class="section-label">{copy.eyebrow}</p>
+      <h2 id="area-process-title">{copy.processTitle}</h2>
+    </header>
+    <ul class="check-list">{copy.process.map((item) => <li>{item}</li>)}</ul>
+  </section>
 </BaseLayout>

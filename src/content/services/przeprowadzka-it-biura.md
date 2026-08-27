@@ -2,16 +2,16 @@
 translationKey: service.office-it-move
 locale: pl
 serviceId: office-it-move
-title: Przeprowadzka IT małego biura w Warszawie
+title: Przeprowadzka IT biura w Warszawie — stanowiska i sieć
 seoTitle: Przeprowadzka IT biura Warszawa | Stanowiska i sieć
-description: Odłączenie, oznaczenie i ponowne podłączenie firmowych stanowisk oraz sieci podczas przeprowadzki małego biura w Warszawie.
+description: Plan, oznaczenie, odłączenie i ponowne uruchomienie stanowisk oraz sieci podczas przeprowadzki małego biura w Warszawie.
 eyebrow: Zmiana lokalizacji biura
-lead: Planujemy kolejność odłączenia i uruchomienia sprzętu, opisujemy elementy oraz sprawdzamy stanowiska w nowym lokalu według uzgodnionej listy.
+lead: Spisujemy stanowiska i zależności, planujemy kolejność odłączenia oraz uruchomienia, a po przeprowadzce sprawdzamy sieć i uzgodnione miejsca pracy w nowym biurze.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-08-27
 outcomes:
   - Oznaczone stanowiska, przewody i urządzenia objęte przeprowadzką
   - Ustalona kolejność uruchomienia sieci oraz miejsc pracy
@@ -20,8 +20,10 @@ problems:
   - Firma zmienia lokal i nie ma spisu połączeń ani urządzeń
   - Nowe biuro ma inną liczbę lub układ gniazd LAN
   - Przeprowadzka musi uwzględnić krytyczne stanowiska i kolejność pracy zespołu
+  - Firma potrzebuje rozdzielić odpowiedzialność za transport, sieć, internet i uruchomienie
 scope:
   - Inwentaryzacja i oznaczenie uzgodnionego sprzętu przed odłączeniem
+  - Techniczna lista gotowości nowego lokalu na podstawie dostępnych informacji
   - Odłączenie oraz zabezpieczenie przewodów i drobnych elementów IT
   - Podłączenie w nowej lokalizacji według uzgodnionego planu
   - Podstawowy test sieci i stanowisk po uruchomieniu
@@ -33,10 +35,11 @@ deliverables:
   - Lista przenoszonych elementów i oznaczeń
   - Protokół uruchomienia stanowisk objętych zakresem
   - Lista braków lub usterek wymagających dalszych prac
+  - Lista zależności od operatora, administracji budynku lub firmy transportowej
 formOption: Przeprowadzka IT biura
 primaryCta: Zaplanuj przeprowadzkę IT
 heroFacts:
-  - Małe biura w Warszawie
+  - Adres źródłowy i docelowy w Warszawie
   - Oznaczenie przed odłączeniem
   - Test stanowisk po podłączeniu
 serviceNoteTitle: Zakres ustalamy przed dniem przeprowadzki
@@ -59,4 +62,6 @@ submitLabel: Poproś o plan przeprowadzki
 ---
 
 Harmonogram potwierdzamy po sprawdzeniu gotowości nowego lokalu i zależności od
-operatorów, administracji budynku oraz firmy transportowej.
+operatorów, administracji budynku oraz firmy transportowej. Jeżeli nowe biuro
+wymaga dodatkowych punktów, zakres
+[sieci LAN dla firmy](/uslugi/sieci-lan-dla-firm/) wyceniamy osobno.

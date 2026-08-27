@@ -34,7 +34,7 @@ export const ui = {
       note: 'Każdy element ma rolę, właściciela konfiguracji i miejsce w dokumentacji.',
     },
     home: {
-      title: 'IT dla firm w Warszawie | ITBIZ.PL',
+      title: 'Infrastruktura IT dla małych firm w Warszawie | ITBIZ.PL',
       description:
         'Projektowanie, porządkowanie i obsługa sieci, Wi‑Fi oraz stanowisk pracy wyłącznie dla firm i organizacji w Warszawie.',
       eyebrow: 'IT dla biznesu · Warszawa',
@@ -50,7 +50,7 @@ export const ui = {
       serviceLabel: 'Zakres usług',
       serviceTitle: 'W czym pomagamy',
       serviceLead:
-        'Cztery obszary infrastruktury. Konkretny zakres i warunki potwierdzamy przed realizacją.',
+        'Najbardziej konkretne zadania dla małych biur. Pełny zakres pozostaje dostępny w katalogu usług.',
       processLabel: 'Sposób pracy',
       processTitle: 'Najpierw fakty, potem zmiany',
       processLead:
@@ -89,14 +89,19 @@ export const ui = {
         'lan-installation': ['okablowanie', 'porty'],
         'office-wifi': ['zasięg', 'VLAN gościnny'],
         'network-repair': ['pomiary', 'diagnoza'],
+        'network-emergency': ['awaria', 'dojazd'],
+        'cctv-emergency': ['awaria monitoringu', 'diagnostyka PoE'],
+        'lan-outlet-repair': ['jedna linia', 'test LAN'],
+        'small-office-wifi-audit': ['pomiary', 'raport'],
+        'office-it-move': ['dwa adresy', 'plan uruchomienia'],
       },
     },
     servicesIndex: {
-      title: 'Usługi IT dla firm w Warszawie | ITBIZ.PL',
+      title: 'Usługi sieciowe i infrastruktura IT dla firm | ITBIZ.PL',
       description:
         'Zakres usług związanych z firmową siecią LAN, Wi‑Fi, diagnostyką i bieżącą obsługą infrastruktury organizacji.',
       eyebrow: 'Zakres techniczny',
-      h1: 'Usługi IT dla firm w Warszawie',
+      h1: 'Usługi sieciowe i IT dla firm w Warszawie',
       lead: 'Każda usługa opisuje rezultat, zakres i wyłączenia. Dostępność, harmonogram oraz warunki komercyjne potwierdzamy indywidualnie.',
       filterLabel: 'Filtr / usługi',
       filterCountOne: 'Pokazano {visible} z {total} usług.',
@@ -168,12 +173,25 @@ export const ui = {
       ],
     },
     area: {
-      title: 'Obsługa IT dla firm w Warszawie | Obszar działania',
+      title: 'Obszar działania ITBIZ.PL | Warszawa i okolice',
       description:
         'ITBIZ.PL obsługuje firmy i organizacje w Warszawie oraz w indywidualnie uzgodnionych okolicach.',
       eyebrow: 'Obszar działania',
       h1: 'Warszawa i okolice uzgodnione przed realizacją.',
       lead: 'Dokładna lokalizacja i możliwość dojazdu są potwierdzane razem z zakresem. Nie tworzymy osobnych ofert dzielnicowych bez unikalnych warunków i faktów.',
+      facts: [
+        'Adres realizacji podaje organizacja w zgłoszeniu.',
+        'Dojazd poza Warszawę potwierdzamy indywidualnie.',
+        'Termin zależy od rodzaju zadania i dostępu do infrastruktury.',
+      ],
+      processTitle: 'Co sprawdzamy przed potwierdzeniem dojazdu',
+      process: [
+        'lokalizację i dostęp do budynku;',
+        'rodzaj awarii albo planowanych prac;',
+        'osobę upoważnioną do udostępnienia infrastruktury;',
+        'ograniczenia godzinowe i wymagane okno serwisowe.',
+      ],
+      cta: 'Opisz lokalizację i zadanie',
     },
     solutions: {
       title: 'Rozwiązania infrastruktury dla małych firm | ITBIZ.PL',
@@ -330,7 +348,7 @@ export const ui = {
       note: 'У каждого элемента есть роль, ответственный за конфигурацию и место в документации.',
     },
     home: {
-      title: 'IT для компаний в Варшаве | ITBIZ.PL',
+      title: 'IT-инфраструктура для небольших компаний в Варшаве | ITBIZ.PL',
       description:
         'Проектирование, упорядочивание и обслуживание сетей, Wi‑Fi и рабочих мест только для компаний и организаций в Варшаве.',
       eyebrow: 'IT для бизнеса · Варшава',
@@ -346,7 +364,7 @@ export const ui = {
       serviceLabel: 'Услуги',
       serviceTitle: 'Чем помогаем',
       serviceLead:
-        'Четыре направления инфраструктуры. Конкретный объём и условия подтверждаем до выполнения.',
+        'Наиболее конкретные задачи для небольших офисов. Полный перечень доступен в каталоге услуг.',
       processLabel: 'Как мы работаем',
       processTitle: 'Сначала факты, затем изменения',
       processLead:
@@ -385,14 +403,19 @@ export const ui = {
         'lan-installation': ['кабели', 'порты'],
         'office-wifi': ['покрытие', 'гостевой VLAN'],
         'network-repair': ['измерения', 'диагностика'],
+        'network-emergency': ['авария', 'выезд'],
+        'cctv-emergency': ['авария камер', 'диагностика PoE'],
+        'lan-outlet-repair': ['одна линия', 'тест LAN'],
+        'small-office-wifi-audit': ['измерения', 'отчёт'],
+        'office-it-move': ['два адреса', 'план запуска'],
       },
     },
     servicesIndex: {
-      title: 'IT-услуги для компаний в Варшаве | ITBIZ.PL',
+      title: 'Сетевые и инфраструктурные IT-услуги | ITBIZ.PL',
       description:
         'Корпоративные LAN, Wi‑Fi, диагностика и текущее обслуживание инфраструктуры организаций.',
       eyebrow: 'Технический объём',
-      h1: 'IT-услуги для компаний в Варшаве',
+      h1: 'Сетевые и IT-услуги для компаний в Варшаве',
       lead: 'На каждой странице описаны результат, объём и исключения. Доступность, график и коммерческие условия подтверждаем индивидуально.',
       filterLabel: 'Фильтр / услуги',
       filterCountOne: 'Показано: {visible} из {total}.',
@@ -463,12 +486,25 @@ export const ui = {
       ],
     },
     area: {
-      title: 'IT-обслуживание компаний в Варшаве | Зона работы',
+      title: 'Зона работы ITBIZ.PL | Варшава и окрестности',
       description:
         'ITBIZ.PL обслуживает компании и организации в Варшаве и индивидуально согласованных окрестностях.',
       eyebrow: 'Зона работы',
       h1: 'Варшава и окрестности, согласованные до выполнения.',
       lead: 'Точный адрес и возможность выезда подтверждаем вместе с объёмом. Мы не создаём отдельные районные предложения без уникальных условий и фактов.',
+      facts: [
+        'Организация указывает адрес выполнения в заявке.',
+        'Выезд за пределы Варшавы подтверждаем индивидуально.',
+        'Срок зависит от задачи и доступа к инфраструктуре.',
+      ],
+      processTitle: 'Что проверяем до подтверждения выезда',
+      process: [
+        'адрес и условия доступа в здание;',
+        'тип аварии или планируемых работ;',
+        'ответственное лицо, которое предоставит доступ к инфраструктуре;',
+        'временные ограничения и необходимое сервисное окно.',
+      ],
+      cta: 'Описать адрес и задачу',
     },
     solutions: {
       title: 'Инфраструктурные решения для небольших компаний | ITBIZ.PL',
@@ -621,7 +657,7 @@ export const ui = {
       note: 'Every element has a role, a configuration owner and a place in the documentation.',
     },
     home: {
-      title: 'Business IT services in Warsaw | ITBIZ.PL',
+      title: 'IT infrastructure for small Warsaw businesses | ITBIZ.PL',
       description:
         'Network, Wi‑Fi and workplace design, organisation and support for businesses and organisations in Warsaw only.',
       eyebrow: 'IT for business · Warsaw',
@@ -637,7 +673,7 @@ export const ui = {
       serviceLabel: 'Service scope',
       serviceTitle: 'How we help',
       serviceLead:
-        'Four infrastructure areas. The exact scope and terms are confirmed before delivery.',
+        'The most specific tasks for small offices. The complete scope remains available in the service catalogue.',
       processLabel: 'How we work',
       processTitle: 'Facts first, changes second',
       processLead:
@@ -676,14 +712,19 @@ export const ui = {
         'lan-installation': ['cabling', 'ports'],
         'office-wifi': ['coverage', 'guest VLAN'],
         'network-repair': ['measurement', 'diagnosis'],
+        'network-emergency': ['outage', 'on-site'],
+        'cctv-emergency': ['CCTV outage', 'PoE diagnostics'],
+        'lan-outlet-repair': ['one line', 'LAN test'],
+        'small-office-wifi-audit': ['measurement', 'report'],
+        'office-it-move': ['two addresses', 'startup plan'],
       },
     },
     servicesIndex: {
-      title: 'Business IT services in Warsaw | ITBIZ.PL',
+      title: 'Network and IT infrastructure services | ITBIZ.PL',
       description:
         'Business LAN, Wi‑Fi, diagnostics and ongoing infrastructure support for organisations.',
       eyebrow: 'Technical scope',
-      h1: 'IT services for businesses in Warsaw',
+      h1: 'Network and IT services for Warsaw businesses',
       lead: 'Each service explains the outcome, scope and exclusions. Availability, schedule and commercial terms are confirmed individually.',
       filterLabel: 'Filter / services',
       filterCountOne: 'Showing {visible} of {total} services.',
@@ -755,12 +796,25 @@ export const ui = {
       ],
     },
     area: {
-      title: 'Business IT services in Warsaw | Service area',
+      title: 'ITBIZ.PL service area | Warsaw and nearby areas',
       description:
         'ITBIZ.PL supports businesses and organisations in Warsaw and individually agreed nearby areas.',
       eyebrow: 'Service area',
       h1: 'Warsaw and nearby areas agreed before delivery.',
       lead: 'The exact location and travel feasibility are confirmed with the scope. We do not create district-specific offers without unique conditions and verified facts.',
+      facts: [
+        'The organisation provides the service address in its enquiry.',
+        'Travel outside Warsaw is confirmed individually.',
+        'Timing depends on the task and infrastructure access.',
+      ],
+      processTitle: 'What we check before confirming a visit',
+      process: [
+        'location and building-access conditions;',
+        'the type of outage or planned work;',
+        'the person authorised to provide infrastructure access;',
+        'time restrictions and the required maintenance window.',
+      ],
+      cta: 'Describe the location and task',
     },
     solutions: {
       title: 'Infrastructure solutions for small businesses | ITBIZ.PL',
@@ -915,7 +969,7 @@ export const ui = {
       note: 'Кожен елемент має роль, відповідального за конфігурацію та місце в документації.',
     },
     home: {
-      title: 'IT для компаній у Варшаві | ITBIZ.PL',
+      title: 'IT-інфраструктура для малих компаній у Варшаві | ITBIZ.PL',
       description:
         'Проєктування, впорядкування й обслуговування мереж, Wi‑Fi та робочих місць лише для компаній і організацій у Варшаві.',
       eyebrow: 'IT для бізнесу · Варшава',
@@ -931,7 +985,7 @@ export const ui = {
       serviceLabel: 'Послуги',
       serviceTitle: 'Чим допомагаємо',
       serviceLead:
-        'Чотири напрями інфраструктури. Точний обсяг і умови підтверджуємо до виконання.',
+        'Найконкретніші завдання для малих офісів. Повний перелік доступний у каталозі послуг.',
       processLabel: 'Як ми працюємо',
       processTitle: 'Спочатку факти, потім зміни',
       processLead:
@@ -970,14 +1024,19 @@ export const ui = {
         'lan-installation': ['кабелі', 'порти'],
         'office-wifi': ['покриття', 'гостьовий VLAN'],
         'network-repair': ['вимірювання', 'діагностика'],
+        'network-emergency': ['аварія', 'виїзд'],
+        'cctv-emergency': ['аварія камер', 'діагностика PoE'],
+        'lan-outlet-repair': ['одна лінія', 'тест LAN'],
+        'small-office-wifi-audit': ['вимірювання', 'звіт'],
+        'office-it-move': ['дві адреси', 'план запуску'],
       },
     },
     servicesIndex: {
-      title: 'IT-послуги для компаній у Варшаві | ITBIZ.PL',
+      title: 'Мережеві та інфраструктурні IT-послуги | ITBIZ.PL',
       description:
         'Корпоративні LAN, Wi‑Fi, діагностика та поточне обслуговування інфраструктури організацій.',
       eyebrow: 'Технічний обсяг',
-      h1: 'IT-послуги для компаній у Варшаві',
+      h1: 'Мережеві та IT-послуги для компаній у Варшаві',
       lead: 'Кожна послуга описує результат, обсяг і винятки. Доступність, графік і комерційні умови підтверджуємо індивідуально.',
       filterLabel: 'Фільтр / послуги',
       filterCountOne: 'Показано {visible} з {total} послуг.',
@@ -1049,12 +1108,25 @@ export const ui = {
       ],
     },
     area: {
-      title: 'IT-обслуговування компаній у Варшаві | Зона роботи',
+      title: 'Зона роботи ITBIZ.PL | Варшава та околиці',
       description:
         'ITBIZ.PL обслуговує компанії та організації у Варшаві й індивідуально погоджених околицях.',
       eyebrow: 'Зона роботи',
       h1: 'Варшава та околиці, погоджені до виконання.',
       lead: 'Точну адресу й можливість виїзду підтверджуємо разом з обсягом. Не створюємо окремих районних пропозицій без унікальних умов і перевірених фактів.',
+      facts: [
+        'Організація вказує адресу виконання в заявці.',
+        'Виїзд за межі Варшави підтверджуємо індивідуально.',
+        'Строк залежить від завдання та доступу до інфраструктури.',
+      ],
+      processTitle: 'Що перевіряємо до підтвердження виїзду',
+      process: [
+        'адресу та умови доступу до будівлі;',
+        'тип аварії або запланованих робіт;',
+        'відповідальну особу, яка надасть доступ до інфраструктури;',
+        'часові обмеження та потрібне сервісне вікно.',
+      ],
+      cta: 'Описати адресу та завдання',
     },
     solutions: {
       title: 'Інфраструктурні рішення для малого бізнесу | ITBIZ.PL',

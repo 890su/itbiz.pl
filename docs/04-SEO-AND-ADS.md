@@ -1,5 +1,9 @@
 # SEO и контекстная реклама
 
+> Текущая рабочая спецификация ограниченного запуска находится в
+> [`12-GOOGLE-ADS-LAUNCH-SPEC.md`](./12-GOOGLE-ADS-LAUNCH-SPEC.md). Эта страница
+> сохраняет общие принципы канала.
+
 ## 1. Роль каналов
 
 ```text
@@ -16,15 +20,26 @@ Remarketing → возврат посетителей Usługi после consent
 Каждая рекламируемая услуга получает отдельный кластер. Нельзя направлять все
 запросы на главную.
 
-| Service ID         | Основной PL-интент                     | Посадочная                                      |
-| ------------------ | -------------------------------------- | ----------------------------------------------- |
-| `managed-it`       | obsługa IT dla firm Warszawa           | `/uslugi/obsluga-it-dla-firm/`                  |
-| `lan-installation` | sieci LAN dla firm Warszawa            | `/uslugi/sieci-lan-dla-firm/`                   |
-| `office-wifi`      | WiFi dla biura Warszawa                | `/uslugi/wifi-dla-biur/`                        |
-| `network-repair`   | naprawa sieci firmowej Warszawa        | `/uslugi/diagnostyka-i-naprawa-sieci-firmowej/` |
-| `ip-monitoring`    | monitoring IP dla firm Warszawa        | `/uslugi/monitoring-ip-dla-firm/`               |
-| `workstations`     | konfiguracja stanowisk pracy firma     | `/uslugi/konfiguracja-stanowisk-pracy/`         |
-| `it-care`          | opieka informatyczna dla firm Warszawa | `/uslugi/opieka-it-w-abonamencie/`              |
+| Service ID                | Основной PL-интент                      | Посадочная                                      |
+| ------------------------- | --------------------------------------- | ----------------------------------------------- |
+| `network-emergency`       | awaria sieci w firmie Warszawa          | `/uslugi/awaria-sieci-w-firmie/`                |
+| `lan-outlet-repair`       | naprawa gniazda LAN w biurze Warszawa   | `/uslugi/naprawa-gniazda-lan-w-biurze/`         |
+| `small-office-wifi-audit` | audyt Wi-Fi małego biura Warszawa       | `/uslugi/audyt-wifi-malego-biura/`              |
+| `network-repair`          | diagnostyka niestabilnej sieci firmowej | `/uslugi/diagnostyka-i-naprawa-sieci-firmowej/` |
+| `lan-installation`        | okablowanie strukturalne biura Warszawa | `/uslugi/sieci-lan-dla-firm/`                   |
+| `office-wifi`             | projekt i wdrożenie Wi-Fi w biurze      | `/uslugi/wifi-dla-biur/`                        |
+| `rack-cabinet-cleanup`    | porządkowanie szafy rack Warszawa       | `/uslugi/porzadkowanie-szafy-rack/`             |
+| `office-it-move`          | przeprowadzka IT biura Warszawa         | `/uslugi/przeprowadzka-it-biura/`               |
+| `cctv-emergency`          | awaria monitoringu IP w firmie Warszawa | `/uslugi/awaria-monitoringu-w-firmie/`          |
+| `cctv-cabling`            | okablowanie pod monitoring IP Warszawa  | `/uslugi/okablowanie-pod-monitoring/`           |
+| `meeting-room-display`    | montaż ekranu w sali konferencyjnej     | `/uslugi/montaz-ekranu-w-biurze/`               |
+| `managed-it`              | outsourcing IT dla małej firmy Warszawa | `/uslugi/obsluga-it-dla-firm/`                  |
+
+Запросы об активной аварии не ведутся на плановую диагностику. Ремонт одного
+пункта LAN не ведётся на страницу строительства сети. Аудит существующего Wi‑Fi
+не смешивается с проектированием и внедрением новой сети. Авария существующего
+мониторинга не смешивается с новыми кабельными трассами к камерам. Эти границы
+должны повторяться в объявлениях, ключевых и межгрупповых минус-словах.
 
 До публикации проверяются Keyword Planner, фактические Search Terms и реальная
 способность выполнять услугу. Страницы не создаются только ради ключевого слова.

@@ -60,3 +60,6 @@ submitLabel: Poproś o audyt Wi‑Fi
 
 Zakres pomiarów oraz kryteria odbioru potwierdzamy dla konkretnego lokalu przed
 wizytą.
+
+Jeżeli organizacja planuje nową sieć lub zaakceptowane wdrożenie zmian, sprawdź
+[projekt i wdrożenie Wi‑Fi dla biura](/uslugi/wifi-dla-biur/).

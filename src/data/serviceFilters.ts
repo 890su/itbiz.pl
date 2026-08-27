@@ -14,6 +14,7 @@ const serviceFilters: Record<string, readonly ServiceFilterId[]> = {
   'small-office-wifi-audit': ['wifi'],
   'rack-cabinet-cleanup': ['lan', 'office'],
   'office-it-move': ['office'],
+  'cctv-emergency': ['incidents', 'monitoring', 'lan'],
   'cctv-cabling': ['monitoring', 'lan'],
   'meeting-room-display': ['office'],
   'managed-it': ['office'],

@@ -13,7 +13,14 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getUi(locale).home;
-const order = ['managed-it', 'lan-installation', 'office-wifi', 'network-repair'];
+const order = [
+  'network-emergency',
+  'cctv-emergency',
+  'lan-outlet-repair',
+  'office-it-move',
+  'small-office-wifi-audit',
+  'lan-installation',
+];
 const services = (await getCollection('services'))
   .filter(
     (service) =>

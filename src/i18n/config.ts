@@ -101,24 +101,51 @@ export const routeTranslations = {
   },
   'service.network-emergency': {
     pl: '/uslugi/awaria-sieci-w-firmie/',
+    ru: '/ru/uslugi/avariya-seti-v-kompanii/',
+    en: '/en/services/business-network-emergency/',
+    uk: '/uk/poslugy/avariya-merezhi-v-kompaniyi/',
   },
   'service.lan-outlet-repair': {
     pl: '/uslugi/naprawa-gniazda-lan-w-biurze/',
+    ru: '/ru/uslugi/remont-lan-rozetki-v-ofise/',
+    en: '/en/services/office-lan-outlet-repair/',
+    uk: '/uk/poslugy/remont-lan-rozetky-v-ofisi/',
   },
   'service.small-office-wifi-audit': {
     pl: '/uslugi/audyt-wifi-malego-biura/',
+    ru: '/ru/uslugi/audit-wifi-nebolshogo-ofisa/',
+    en: '/en/services/small-office-wifi-audit/',
+    uk: '/uk/poslugy/audyt-wifi-maloho-ofisu/',
   },
   'service.rack-cabinet-cleanup': {
     pl: '/uslugi/porzadkowanie-szafy-rack/',
+    ru: '/ru/uslugi/poryadok-v-shkafu-rack/',
+    en: '/en/services/rack-cabinet-cleanup/',
+    uk: '/uk/poslugy/vporyadkuvannya-shafy-rack/',
   },
   'service.office-it-move': {
     pl: '/uslugi/przeprowadzka-it-biura/',
+    ru: '/ru/uslugi/it-pereezd-ofisa/',
+    en: '/en/services/office-it-move/',
+    uk: '/uk/poslugy/it-pereyizd-ofisu/',
   },
   'service.cctv-cabling': {
     pl: '/uslugi/okablowanie-pod-monitoring/',
+    ru: '/ru/uslugi/kabeli-dlya-videonablyudeniya/',
+    en: '/en/services/cctv-cabling/',
+    uk: '/uk/poslugy/kabeli-dlya-videosposterezhennya/',
+  },
+  'service.cctv-emergency': {
+    pl: '/uslugi/awaria-monitoringu-w-firmie/',
+    ru: '/ru/uslugi/avariya-videonablyudeniya-v-kompanii/',
+    en: '/en/services/business-cctv-emergency/',
+    uk: '/uk/poslugy/avariya-videosposterezhennya-v-kompaniyi/',
   },
   'service.meeting-room-display': {
     pl: '/uslugi/montaz-ekranu-w-biurze/',
+    ru: '/ru/uslugi/montazh-ekrana-v-ofise/',
+    en: '/en/services/meeting-room-display-installation/',
+    uk: '/uk/poslugy/montazh-ekrana-v-ofisi/',
   },
 } as const;
 
