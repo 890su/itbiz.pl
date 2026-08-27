@@ -8,7 +8,7 @@
 - [x] Register `itbiz.pl` and delegate nameservers to Cloudflare.
 - [x] Bind `itbiz.pl` to the verified production deployment.
 - [x] Publish four P1 service definitions with explicit scope and exclusions.
-- [ ] Confirm public B2B phone/email and whether the existing number is reused.
+- [x] Publish the confirmed B2B contacts: +48 573 012 321 and info@itbiz.pl.
 - [ ] Confirm whether estimates/initial consultations are free before using that
       wording.
 

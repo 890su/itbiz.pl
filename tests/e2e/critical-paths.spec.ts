@@ -177,6 +177,34 @@ test('mobile navigation keeps language targets large and clear of the primary ac
   }
 });
 
+test('mobile header scrolls away with the page', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 700 });
+  await page.goto('/');
+
+  const header = page.locator('.mobile-bar');
+  await expect(header).toHaveCSS('position', 'relative');
+  const initialBox = await header.boundingBox();
+  expect(initialBox).not.toBeNull();
+
+  await page.evaluate(() => window.scrollTo(0, 600));
+  await expect
+    .poll(async () => (await header.boundingBox())?.y ?? 0)
+    .toBeLessThan(-100);
+});
+
+test('confirmed phone and email are published in every locale', async ({ page }) => {
+  for (const path of ['/kontakt/', '/ru/kontakt/', '/en/contact/', '/uk/kontakt/']) {
+    await page.goto(path);
+    const directContact = page.locator('.contact-links');
+    await expect(directContact.locator('a[href="tel:+48573012321"]')).toHaveText(
+      /\+48 573 012 321/,
+    );
+    await expect(directContact.locator('a[href="mailto:info@itbiz.pl"]')).toHaveText(
+      /info@itbiz\.pl/,
+    );
+  }
+});
+
 test('privacy choices can be changed and reopened from the footer', async ({
   page,
 }) => {

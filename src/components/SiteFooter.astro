@@ -15,6 +15,10 @@ const copy = getUi(locale);
   <div>
     <strong>{company.brand}</strong>
     <p>{company.operator} · {copy.common.legalForm}</p>
+    <address class="footer-contact" aria-label={copy.common.nav[4]}>
+      <a href={company.publicPhoneHref}>{company.publicPhone}</a>
+      <a href={company.publicEmailHref}>{company.publicEmail}</a>
+    </address>
   </div>
   <nav aria-label={copy.common.legalNav}>
     <a href={getRoute(locale, 'privacy')}>{copy.common.privacy}</a>

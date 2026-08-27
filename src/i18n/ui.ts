@@ -141,6 +141,9 @@ export const ui = {
       eyebrow: 'Kontakt · Warszawa i uzgodnione okolice',
       h1: 'Najpierw opiszmy zadanie.',
       lead: 'Formularz zbiera kontekst potrzebny do oceny, czy zadanie mieści się w zakresie ITBIZ.PL. Odpowiedź i możliwe terminy potwierdzimy po analizie zgłoszenia.',
+      directLabel: 'Bezpośredni kontakt z ITBIZ.PL',
+      phoneLabel: 'Telefon',
+      emailLabel: 'E-mail',
     },
     about: {
       title: 'O ITBIZ.PL',
@@ -272,7 +275,7 @@ export const ui = {
       sections: [
         [
           'Administrator',
-          'Administratorem danych przesłanych przez serwis jest Ihar Shestsiuk, prowadzący działalność nierejestrowaną i operujący marką ITBIZ.PL. Kontakt z administratorem jest możliwy przez formularz.',
+          'Administratorem danych przesłanych przez serwis jest Ihar Shestsiuk, prowadzący działalność nierejestrowaną i operujący marką ITBIZ.PL. Kontakt: info@itbiz.pl, +48 573 012 321 lub formularz.',
         ],
         [
           'Cel i podstawa',
@@ -453,6 +456,9 @@ export const ui = {
       eyebrow: 'Контакт · Варшава и согласованные районы',
       h1: 'Сначала опишем задачу.',
       lead: 'Форма собирает контекст, необходимый для оценки задачи. Ответ и возможные сроки подтвердим после анализа обращения.',
+      directLabel: 'Прямой контакт с ITBIZ.PL',
+      phoneLabel: 'Телефон',
+      emailLabel: 'E-mail',
     },
     about: {
       title: 'О проекте ITBIZ.PL',
@@ -583,7 +589,7 @@ export const ui = {
       sections: [
         [
           'Администратор',
-          'Администратор данных — Ihar Shestsiuk, ведущий незарегистрированную деятельность в Польше и использующий бренд ITBIZ.PL. Связаться с администратором можно через форму.',
+          'Администратор данных — Ihar Shestsiuk, ведущий незарегистрированную деятельность в Польше и использующий бренд ITBIZ.PL. Контакт: info@itbiz.pl, +48 573 012 321 или форма.',
         ],
         [
           'Цель и основание',
@@ -764,6 +770,9 @@ export const ui = {
       eyebrow: 'Contact · Warsaw and agreed nearby areas',
       h1: 'Start by describing the task.',
       lead: 'The form collects the context needed to assess whether the task fits ITBIZ.PL. We confirm a response and possible timing after reviewing the enquiry.',
+      directLabel: 'Direct contact with ITBIZ.PL',
+      phoneLabel: 'Phone',
+      emailLabel: 'Email',
     },
     about: {
       title: 'About ITBIZ.PL',
@@ -894,7 +903,7 @@ export const ui = {
       sections: [
         [
           'Controller',
-          'The controller of data submitted through the site is Ihar Shestsiuk, carrying out unregistered business activity in Poland and operating ITBIZ.PL. The controller can be contacted through the form.',
+          'The controller of data submitted through the site is Ihar Shestsiuk, carrying out unregistered business activity in Poland and operating ITBIZ.PL. Contact: info@itbiz.pl, +48 573 012 321 or the form.',
         ],
         [
           'Purpose and basis',
@@ -1076,6 +1085,9 @@ export const ui = {
       eyebrow: 'Контакт · Варшава та погоджені околиці',
       h1: 'Спочатку опишімо завдання.',
       lead: 'Форма збирає контекст, потрібний для оцінки завдання. Відповідь і можливі строки підтвердимо після аналізу звернення.',
+      directLabel: 'Прямий контакт з ITBIZ.PL',
+      phoneLabel: 'Телефон',
+      emailLabel: 'E-mail',
     },
     about: {
       title: 'Про ITBIZ.PL',
@@ -1206,7 +1218,7 @@ export const ui = {
       sections: [
         [
           'Адміністратор',
-          'Адміністратор даних — Ihar Shestsiuk, який веде незареєстровану діяльність у Польщі та використовує бренд ITBIZ.PL. Зв’язатися з адміністратором можна через форму.',
+          'Адміністратор даних — Ihar Shestsiuk, який веде незареєстровану діяльність у Польщі та використовує бренд ITBIZ.PL. Контакт: info@itbiz.pl, +48 573 012 321 або форма.',
         ],
         [
           'Мета та підстава',
