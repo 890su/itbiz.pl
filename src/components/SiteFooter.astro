@@ -14,7 +14,7 @@ const copy = getUi(locale);
 <footer class="site-footer">
   <div>
     <strong>{company.brand}</strong>
-    <p>{company.operator} · {copy.common.legalForm}</p>
+    <p>{company.legalName} · NIP {company.nip}</p>
     <address class="footer-contact" aria-label={copy.common.nav[4]}>
       <a href={company.publicPhoneHref}>{company.publicPhone}</a>
       <a href={company.publicEmailHref}>{company.publicEmail}</a>

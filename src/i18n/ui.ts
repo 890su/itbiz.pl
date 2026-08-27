@@ -24,7 +24,6 @@ export const ui = {
       start: 'Start',
       services: 'Usługi',
       warsaw: 'Warszawa',
-      legalForm: 'działalność nierejestrowana',
     },
     network: {
       label: 'Przykładowa topologia',
@@ -151,10 +150,10 @@ export const ui = {
     about: {
       title: 'O ITBIZ.PL',
       description:
-        'ITBIZ.PL to oferta Ihar Shestsiuk dotycząca infrastruktury IT firm i organizacji w Warszawie.',
+        'ITBIZ.PL to oferta GOODSERVICE sp. z o.o. dotycząca infrastruktury IT firm i organizacji w Warszawie.',
       eyebrow: 'Operator i zasady',
       h1: 'ITBIZ.PL nie udaje większej organizacji.',
-      lead: 'Operatorem serwisu jest Ihar Shestsiuk, prowadzący działalność nierejestrowaną. Marka opisuje usługi dla firm i organizacji, a nie osobną spółkę.',
+      lead: 'Operatorem serwisu jest GOODSERVICE sp. z o.o., NIP 5272714609. Marka ITBIZ.PL opisuje usługi dla firm i organizacji.',
       principles: [
         [
           'Zasada 01',
@@ -280,7 +279,7 @@ export const ui = {
       sections: [
         [
           'Administrator',
-          'Administratorem danych przesłanych przez serwis jest Ihar Shestsiuk, prowadzący działalność nierejestrowaną i operujący marką ITBIZ.PL. Kontakt: info@itbiz.pl, +48 573 012 321 lub formularz.',
+          'Administratorem danych przesłanych przez serwis jest GOODSERVICE sp. z o.o., NIP 5272714609, operator marki ITBIZ.PL. Kontakt: info@itbiz.pl, +48 573 012 321 lub formularz.',
         ],
         [
           'Cel i podstawa',
@@ -345,7 +344,6 @@ export const ui = {
       start: 'Главная',
       services: 'Услуги',
       warsaw: 'Варшава',
-      legalForm: 'незарегистрированная деятельность в Польше',
     },
     network: {
       label: 'Пример топологии',
@@ -471,10 +469,10 @@ export const ui = {
     about: {
       title: 'О проекте ITBIZ.PL',
       description:
-        'ITBIZ.PL - услуги Игара Шестюка по инфраструктуре компаний и организаций в Варшаве.',
+        'ITBIZ.PL - услуги GOODSERVICE sp. z o.o. по IT-инфраструктуре компаний и организаций в Варшаве.',
       eyebrow: 'Оператор и принципы',
       h1: 'ITBIZ.PL не изображает большую организацию.',
-      lead: 'Оператор сайта - Ihar Shestsiuk, ведущий незарегистрированную деятельность в Польше. Бренд описывает услуги для компаний и организаций, а не отдельное юридическое лицо.',
+      lead: 'Оператор сайта - GOODSERVICE sp. z o.o., NIP 5272714609. Бренд ITBIZ.PL описывает услуги для компаний и организаций.',
       principles: [
         [
           'Принцип 01',
@@ -599,7 +597,7 @@ export const ui = {
       sections: [
         [
           'Администратор',
-          'Администратор данных - Ihar Shestsiuk, ведущий незарегистрированную деятельность в Польше и использующий бренд ITBIZ.PL. Контакт: info@itbiz.pl, +48 573 012 321 или форма.',
+          'Администратор данных - GOODSERVICE sp. z o.o., NIP 5272714609, оператор бренда ITBIZ.PL. Контакт: info@itbiz.pl, +48 573 012 321 или форма.',
         ],
         [
           'Цель и основание',
@@ -663,7 +661,6 @@ export const ui = {
       start: 'Home',
       services: 'Services',
       warsaw: 'Warsaw',
-      legalForm: 'unregistered business activity in Poland',
     },
     network: {
       label: 'Example topology',
@@ -790,10 +787,10 @@ export const ui = {
     about: {
       title: 'About ITBIZ.PL',
       description:
-        'ITBIZ.PL is Ihar Shestsiuk’s offer for business and organisational IT infrastructure in Warsaw.',
+        'ITBIZ.PL is the business IT infrastructure offer of GOODSERVICE sp. z o.o. in Warsaw.',
       eyebrow: 'Operator and principles',
       h1: 'ITBIZ.PL does not pretend to be a larger organisation.',
-      lead: 'The site is operated by Ihar Shestsiuk as an unregistered business activity in Poland. The brand describes services for businesses and organisations, not a separate company.',
+      lead: 'The site is operated by GOODSERVICE sp. z o.o., Polish tax ID (NIP) 5272714609. ITBIZ.PL describes its services for businesses and organisations.',
       principles: [
         [
           'Principle 01',
@@ -918,7 +915,7 @@ export const ui = {
       sections: [
         [
           'Controller',
-          'The controller of data submitted through the site is Ihar Shestsiuk, carrying out unregistered business activity in Poland and operating ITBIZ.PL. Contact: info@itbiz.pl, +48 573 012 321 or the form.',
+          'The controller of data submitted through the site is GOODSERVICE sp. z o.o., Polish tax ID (NIP) 5272714609, operator of ITBIZ.PL. Contact: info@itbiz.pl, +48 573 012 321 or the form.',
         ],
         [
           'Purpose and basis',
@@ -983,7 +980,6 @@ export const ui = {
       start: 'Головна',
       services: 'Послуги',
       warsaw: 'Варшава',
-      legalForm: 'незареєстрована діяльність у Польщі',
     },
     network: {
       label: 'Приклад топології',
@@ -1110,10 +1106,10 @@ export const ui = {
     about: {
       title: 'Про ITBIZ.PL',
       description:
-        'ITBIZ.PL - пропозиція Ігара Шестюка щодо IT-інфраструктури компаній та організацій у Варшаві.',
+        'ITBIZ.PL - пропозиція GOODSERVICE sp. z o.o. щодо IT-інфраструктури компаній та організацій у Варшаві.',
       eyebrow: 'Оператор і принципи',
       h1: 'ITBIZ.PL не вдає більшу організацію.',
-      lead: 'Оператор сайту - Ihar Shestsiuk, який веде незареєстровану діяльність у Польщі. Бренд описує послуги для компаній та організацій, а не окрему юридичну особу.',
+      lead: 'Оператор сайту - GOODSERVICE sp. z o.o., NIP 5272714609. Бренд ITBIZ.PL описує послуги для компаній та організацій.',
       principles: [
         [
           'Принцип 01',
@@ -1238,7 +1234,7 @@ export const ui = {
       sections: [
         [
           'Адміністратор',
-          'Адміністратор даних - Ihar Shestsiuk, який веде незареєстровану діяльність у Польщі та використовує бренд ITBIZ.PL. Контакт: info@itbiz.pl, +48 573 012 321 або форма.',
+          'Адміністратор даних - GOODSERVICE sp. z o.o., NIP 5272714609, оператор бренду ITBIZ.PL. Контакт: info@itbiz.pl, +48 573 012 321 або форма.',
         ],
         [
           'Мета та підстава',

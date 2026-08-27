@@ -204,7 +204,9 @@ test('mobile header scrolls away with the page', async ({ page }) => {
     .toBeLessThan(-100);
 });
 
-test('confirmed phone and email are published in every locale', async ({ page }) => {
+test('confirmed company identity and contacts are published in every locale', async ({
+  page,
+}) => {
   for (const path of ['/kontakt/', '/ru/kontakt/', '/en/contact/', '/uk/kontakt/']) {
     await page.goto(path);
     const directContact = page.locator('.contact-links');
@@ -214,6 +216,8 @@ test('confirmed phone and email are published in every locale', async ({ page })
     await expect(directContact.locator('a[href="mailto:info@itbiz.pl"]')).toHaveText(
       /info@itbiz\.pl/,
     );
+    await expect(page.locator('.site-footer')).toContainText('GOODSERVICE sp. z o.o.');
+    await expect(page.locator('.site-footer')).toContainText('NIP 5272714609');
   }
 });
 
