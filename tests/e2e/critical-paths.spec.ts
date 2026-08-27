@@ -90,13 +90,13 @@ test('service topic filters update cards, status and shareable URL', async ({
 
   const cards = page.locator('[data-service-card]');
   const status = page.locator('[data-service-filter-status]');
-  await expect(cards).toHaveCount(11);
-  await expect(page.locator('[data-service-card]:visible')).toHaveCount(11);
+  await expect(cards).toHaveCount(12);
+  await expect(page.locator('[data-service-card]:visible')).toHaveCount(12);
 
   await page.getByRole('button', { name: 'Wi‑Fi', exact: true }).click();
   await expect(page).toHaveURL(/\?temat=wifi$/);
   await expect(page.locator('[data-service-card]:visible')).toHaveCount(4);
-  await expect(status).toHaveText('Pokazano 4 z 11 usług.');
+  await expect(status).toHaveText('Pokazano 4 z 12 usług.');
   await expect(
     page.getByRole('heading', {
       name: 'Audyt Wi‑Fi w małym biurze — 5–30 stanowisk',
@@ -111,7 +111,7 @@ test('service topic filters update cards, status and shareable URL', async ({
 
   await page.getByRole('button', { name: 'Wszystkie', exact: true }).click();
   await expect(page).toHaveURL(/\/uslugi\/$/);
-  await expect(page.locator('[data-service-card]:visible')).toHaveCount(11);
+  await expect(page.locator('[data-service-card]:visible')).toHaveCount(12);
 
   const dimensions = await page.evaluate(() => ({
     client: document.documentElement.clientWidth,
@@ -120,17 +120,23 @@ test('service topic filters update cards, status and shareable URL', async ({
   expect(dimensions.scroll).toBe(dimensions.client);
 });
 
-test('Polish-only landing language links fall back to localized service indexes', async ({
+test('translated emergency landing keeps localized service relationships', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/uslugi/awaria-sieci-w-firmie/');
-  await expect(page.locator('link[rel="alternate"][hreflang="ru"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="alternate"][hreflang="ru"]')).toHaveAttribute(
+    'href',
+    'https://itbiz.pl/ru/uslugi/avariya-seti-v-kompanii/',
+  );
   await page.locator('.mobile-bar').getByRole('button', { name: 'Menu' }).click();
   const russianServices = page.locator('.mobile-locale-switcher a[lang="ru"]');
-  await expect(russianServices).toHaveAttribute('href', '/ru/uslugi/');
+  await expect(russianServices).toHaveAttribute(
+    'href',
+    '/ru/uslugi/avariya-seti-v-kompanii/',
+  );
   await russianServices.click();
-  await expect(page).toHaveURL(/\/ru\/uslugi\/$/);
+  await expect(page).toHaveURL(/\/ru\/uslugi\/avariya-seti-v-kompanii\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'ru-RU');
 });
 
@@ -225,7 +231,7 @@ test('language switch keeps the translated page relationship', async ({ page }) 
   await expect(page).toHaveURL(/\/en\/services\/office-wifi\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Wi‑Fi for offices and business premises in Warsaw',
+    'Office Wi‑Fi design and deployment in Warsaw',
   );
   await expect(page.locator('link[hreflang="pl"]')).toHaveAttribute(
     'href',
