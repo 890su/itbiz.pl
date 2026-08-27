@@ -95,28 +95,35 @@ exclusively to businesses](https://support.google.com/adspolicy/answer/13527027?
 
 ## 5. Campaign architecture
 
-Отдельная Search campaign для каждого языка:
+Базовая единица управления — один язык и одна непересекающаяся GEO-ячейка:
 
 ```text
-Search | PL | Warszawa | B2B
-Search | RU | Warszawa | B2B
-Search | UK | Warszawa | B2B
-Search | EN | Warszawa | B2B
+SRCH-PL-WAW-S-CORE
+SRCH-PL-SUB-PIA-CORE
+SRCH-RU-WAW-S-CORE
+SRCH-EN-WAW-S-CORE
+SRCH-UK-WAW-S-CORE
 ```
 
 Внутри — ad groups по услуге, а не один mixed ad group. Бюджеты и статусы языков
-независимы. На старте:
+и геозон независимы. Ставки услуг регулируются manual CPC на уровне группы или
+ключа; услуга с подтверждённым объёмом выносится в отдельную campaign. Полная
+матрица районов и пригородов зафиксирована в
+`docs/12-GOOGLE-ADS-LAUNCH-SPEC.md`. На старте:
 
 - exact и phrase match;
 - location option — присутствие в целевой географии, не только интерес к ней;
-- Warsaw target + проверенные радиусы/почтовые коды;
+- не использовать target `Warszawa` поверх кампаний с отдельными районами;
+- первая география: юг, центр и запад Варшавы, Piaseczno-коридор, а также
+  Janki/Raszyn/Dawidy Bankowe и соседние согласованные населённые пункты;
 - дальние зоны исключаются или получают отдельную кампанию;
 - Search Partners и Display expansion отключены до получения данных;
 - автоматические URL/тексты включаются только после проверки.
 
-Микрорайоны регулируются campaign/location settings. Нельзя обещать отдельную
-ставку для района, которого нет как target entity: тогда применяются радиусы,
-postal codes, exclusions или отдельные кампании.
+Микрорайоны внутри официального района не дублируются отдельными target entities.
+Нельзя обещать отдельную ставку для места, которого нет как target entity: тогда
+для всей GEO-ячейки применяется один компактный radius, postal codes, exclusions
+или отдельная кампания. Несколько перекрывающихся радиусов не используются.
 
 ## 6. Negative keywords
 
@@ -228,11 +235,16 @@ Anchor должен описывать назначение страницы: `p
 
 ## 12. Launch sequence
 
-1. Индексация и Search Console PL.
-2. Создание PL Search campaign paused.
-3. Проверка destination, phone asset и conversions.
-4. Ограниченный PL launch.
-5. Search Terms review каждые 1–2 дня на старте.
-6. RU/UK/EN запускаются отдельно после готовности соответствующих страниц.
-7. Remarketing — только после consent QA и достаточного размера аудитории.
-8. Demand Gen/Display — только как отдельный эксперимент, не смешанный с Search.
+1. Индексация и Search Console всех четырёх локалей.
+2. Создание PL Search campaigns paused по ячейкам `WAW-S`, `WAW-C`, `WAW-W`,
+   `SUB-PIA`, `SUB-JAN`.
+3. Проверка destination, lead delivery, conversions, Presence и взаимных
+   location exclusions.
+4. Ограниченный PL launch сначала в наиболее доступных по доезду GEO-ячейках.
+5. Search Terms и user locations review ежедневно в первую неделю.
+6. RU/UK/EN создаются и включаются отдельно по тем же GEO-ячейкам после ручной
+   языковой проверки.
+7. Остальные районы Варшавы и пригороды добавляются отдельными ячейками после
+   проверки стоимости квалифицированной заявки и времени доезда.
+8. Remarketing — только после consent QA и достаточного размера аудитории.
+9. Demand Gen/Display — только как отдельный эксперимент, не смешанный с Search.
