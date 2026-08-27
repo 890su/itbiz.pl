@@ -55,6 +55,13 @@
         `${payload.preview ? labels.preview : labels.success} ${labels.request}: ${payload.requestId}.`,
         'success',
       );
+      if (!payload.preview) {
+        window.dispatchEvent(
+          new CustomEvent('itbiz:b2b-lead-submit', {
+            detail: { requestId: payload.requestId },
+          }),
+        );
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : labels.genericError;
       showStatus(message, 'error');

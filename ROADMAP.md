@@ -32,9 +32,9 @@
 
 ## Stage 3 — Measurement and compliance
 
-- [x] Consent controls with analytics and advertising denied by default; no Google tags loaded.
+- [x] Consent Mode v2 with analytics and advertising denied by default; Google Ads loads only after advertising consent.
 - [ ] Separate GA4 stream/property decision.
-- [ ] Separate Google Ads conversions and event taxonomy.
+- [x] Separate the primary Google Ads website lead from secondary hosted-form measurement and fire it only after server-confirmed success.
 - [ ] Define lead statuses and qualified/converted lead import workflow.
 - [x] Validate forms, privacy notices, cookie choices and withdrawal flow.
 - [x] Review every indexable page for B2B-only language and truthful claims.

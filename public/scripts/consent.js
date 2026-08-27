@@ -1,10 +1,10 @@
 (() => {
-  const storageKey = 'itbiz-consent-v1';
+  const storageKey = 'itbiz-consent-v2';
   const defaults = {
     necessary: true,
     analytics: false,
     advertising: false,
-    version: 1,
+    version: 2,
   };
   const banner = document.querySelector('[data-consent-banner]');
   const dialog = document.querySelector('[data-consent-dialog]');
@@ -13,7 +13,7 @@
   const read = () => {
     try {
       const value = JSON.parse(localStorage.getItem(storageKey) || 'null');
-      return value?.version === 1 ? { ...defaults, ...value } : null;
+      return value?.version === 2 ? { ...defaults, ...value } : null;
     } catch {
       return null;
     }

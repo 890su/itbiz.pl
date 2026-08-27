@@ -3,12 +3,12 @@ import { expect, test } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     localStorage.setItem(
-      'itbiz-consent-v1',
+      'itbiz-consent-v2',
       JSON.stringify({
         necessary: true,
         analytics: false,
         advertising: false,
-        version: 1,
+        version: 2,
       }),
     );
   });
@@ -189,6 +189,62 @@ test('privacy choices can be changed and reopened from the footer', async ({
   await expect(dialog).not.toBeVisible();
   await page.getByRole('button', { name: 'Ustawienia prywatności' }).click();
   await expect(dialog.getByLabel('Analityka')).toBeChecked();
+});
+
+test('Google Ads tag and lead conversion require advertising consent', async ({
+  page,
+}) => {
+  const googleTagRequests: string[] = [];
+  await page.route('https://www.googletagmanager.com/**', async (route) => {
+    googleTagRequests.push(route.request().url());
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/javascript',
+      body: '',
+    });
+  });
+  await page.route('**/api/contact', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ requestId: 'test-request-1' }),
+    });
+  });
+
+  await page.goto('/kontakt/');
+  expect(googleTagRequests).toHaveLength(0);
+
+  await page.getByRole('button', { name: 'Ustawienia prywatności' }).click();
+  const dialog = page.locator('[data-consent-dialog]');
+  await dialog.getByLabel('Reklama').check();
+  await dialog.getByRole('button', { name: 'Zapisz ustawienia' }).click();
+  await expect.poll(() => googleTagRequests.length).toBe(1);
+
+  await page.getByLabel('Organizacja').fill('Testowa firma');
+  await page.getByLabel('Osoba kontaktowa').fill('Jan Testowy');
+  await page.getByLabel('E-mail').fill('test@example.com');
+  await page.getByLabel('Temat').selectOption('network-emergency');
+  await page
+    .getByLabel('Co wymaga sprawdzenia?')
+    .fill('Testowe zgłoszenie firmowej awarii sieci.');
+  await page.getByRole('button', { name: 'Wyślij zapytanie' }).click();
+  await expect(page.locator('[data-form-status]')).toContainText('test-request-1');
+
+  const conversion = await page.evaluate(() =>
+    (window as typeof window & { dataLayer?: IArguments[] }).dataLayer
+      ?.map((entry) => Array.from(entry))
+      .find(
+        (entry) =>
+          entry[0] === 'event' &&
+          entry[1] === 'conversion' &&
+          entry[2]?.send_to === 'AW-18394870871/WpLcCOaejeMcENforcNE',
+      ),
+  );
+  expect(conversion?.[2]).toMatchObject({
+    value: 1,
+    currency: 'PLN',
+    transaction_id: 'test-request-1',
+  });
 });
 
 test('privacy prompt stays a compact bottom bar', async ({ page }) => {

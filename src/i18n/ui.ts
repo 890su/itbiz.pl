@@ -249,7 +249,7 @@ export const ui = {
     consent: {
       label: 'Prywatność',
       title: 'Prywatność i cookies',
-      lead: 'Używamy niezbędnych ustawień. Analityka i reklama są wyłączone.',
+      lead: 'Używamy niezbędnych ustawień. Analityka i reklama są opcjonalne.',
       reject: 'Tylko niezbędne',
       customize: 'Ustawienia',
       accept: 'Zezwól',
@@ -258,11 +258,10 @@ export const ui = {
       necessary: 'Niezbędne',
       necessaryHelp: 'Bezpieczeństwo formularza, motyw i zapis decyzji.',
       analytics: 'Analityka',
-      analyticsHelp:
-        'Pomiar korzystania z serwisu. Obecnie żaden tag nie jest załadowany.',
+      analyticsHelp: 'Pomiar korzystania z serwisu. GA4 nie jest obecnie używany.',
       advertising: 'Reklama',
       advertisingHelp:
-        'Pomiar kampanii i remarketing. Obecnie żaden tag nie jest załadowany.',
+        'Pomiar kampanii Google Ads. Tag ładuje się dopiero po wyrażeniu tej zgody.',
       save: 'Zapisz ustawienia',
     },
     privacy: {
@@ -285,7 +284,7 @@ export const ui = {
         ],
         [
           'Odbiorcy i bezpieczeństwo',
-          'Infrastruktura serwisu i formularza działa w Cloudflare. Dane mogą być dostępne dostawcom infrastruktury wyłącznie w zakresie koniecznym do świadczenia usługi i z zastosowaniem odpowiednich zabezpieczeń. Formularz korzysta z Turnstile do ograniczania automatycznych zgłoszeń.',
+          'Infrastruktura serwisu i formularza działa w Cloudflare. Dane mogą być dostępne dostawcom infrastruktury wyłącznie w zakresie koniecznym do świadczenia usługi i z zastosowaniem odpowiednich zabezpieczeń. Formularz korzysta z Turnstile do ograniczania automatycznych zgłoszeń. Po zgodzie na reklamę Google Ads przetwarza dane pomiarowe kampanii; tag nie otrzymuje treści formularza ani danych kontaktowych.',
         ],
         [
           'Prawa osoby',
@@ -306,7 +305,7 @@ export const ui = {
         ],
         [
           'Kategorie opcjonalne',
-          'Analityka i reklama są domyślnie wyłączone. Serwis nie ładuje obecnie GA4 ani tagów reklamowych, nawet po wyrażeniu zgody. Ich przyszłe uruchomienie będzie wymagało aktualizacji tej informacji i ponownej weryfikacji consent.',
+          'Analityka i reklama są domyślnie wyłączone. GA4 nie jest obecnie używany. Tag Google Ads ładuje się dopiero po zgodzie na reklamę, a potwierdzona przez serwer wysyłka formularza jest wtedy rejestrowana jako konwersja. Treść formularza i dane kontaktowe nie są przekazywane do tagu.',
         ],
         [
           'Zmiana decyzji',
@@ -561,7 +560,7 @@ export const ui = {
     consent: {
       label: 'Конфиденциальность',
       title: 'Приватность и cookies',
-      lead: 'Используем необходимые настройки. Аналитика и реклама отключены.',
+      lead: 'Используем необходимые настройки. Аналитика и реклама включаются по выбору.',
       reject: 'Только необходимые',
       customize: 'Настройки',
       accept: 'Разрешить',
@@ -570,9 +569,10 @@ export const ui = {
       necessary: 'Необходимые',
       necessaryHelp: 'Безопасность формы, тема и сохранение решения.',
       analytics: 'Аналитика',
-      analyticsHelp: 'Измерение использования сайта. Сейчас теги не загружаются.',
+      analyticsHelp: 'Измерение использования сайта. GA4 сейчас не используется.',
       advertising: 'Реклама',
-      advertisingHelp: 'Измерение кампаний и ремаркетинг. Сейчас теги не загружаются.',
+      advertisingHelp:
+        'Измерение кампаний Google Ads. Тег загружается только после этого согласия.',
       save: 'Сохранить настройки',
     },
     privacy: {
@@ -595,7 +595,7 @@ export const ui = {
         ],
         [
           'Получатели и защита',
-          'Сайт и форма работают в инфраструктуре Cloudflare. Поставщик получает доступ только в объёме, необходимом для услуги и при соответствующих мерах защиты. Turnstile ограничивает автоматические отправки.',
+          'Сайт и форма работают в инфраструктуре Cloudflare. Поставщик получает доступ только в объёме, необходимом для услуги и при соответствующих мерах защиты. Turnstile ограничивает автоматические отправки. После согласия на рекламу Google Ads обрабатывает данные измерения кампаний; содержимое формы и контактные данные в тег не передаются.',
         ],
         [
           'Права',
@@ -615,7 +615,7 @@ export const ui = {
         ],
         [
           'Необязательные категории',
-          'Аналитика и реклама по умолчанию выключены. Сейчас сайт не загружает GA4 или рекламные теги даже после согласия. Их запуск потребует обновить эту информацию и повторно проверить consent.',
+          'Аналитика и реклама по умолчанию выключены. GA4 сейчас не используется. Тег Google Ads загружается только после согласия на рекламу, а подтверждённая сервером отправка формы тогда регистрируется как конверсия. Содержимое формы и контактные данные в тег не передаются.',
         ],
         [
           'Изменение решения',
@@ -871,7 +871,7 @@ export const ui = {
     consent: {
       label: 'Privacy',
       title: 'Privacy and cookies',
-      lead: 'We use necessary settings. Analytics and advertising are off.',
+      lead: 'We use necessary settings. Analytics and advertising are optional.',
       reject: 'Necessary only',
       customize: 'Settings',
       accept: 'Allow',
@@ -880,10 +880,10 @@ export const ui = {
       necessary: 'Necessary',
       necessaryHelp: 'Form security, theme and saved decision.',
       analytics: 'Analytics',
-      analyticsHelp: 'Measurement of site use. No tag is currently loaded.',
+      analyticsHelp: 'Measurement of site use. GA4 is not currently in use.',
       advertising: 'Advertising',
       advertisingHelp:
-        'Campaign measurement and remarketing. No tag is currently loaded.',
+        'Google Ads campaign measurement. The tag loads only after this consent.',
       save: 'Save settings',
     },
     privacy: {
@@ -906,7 +906,7 @@ export const ui = {
         ],
         [
           'Recipients and security',
-          'The site and form run on Cloudflare infrastructure. Providers may access data only as needed to deliver the service and under appropriate safeguards. Turnstile limits automated submissions.',
+          'The site and form run on Cloudflare infrastructure. Providers may access data only as needed to deliver the service and under appropriate safeguards. Turnstile limits automated submissions. After advertising consent, Google Ads processes campaign measurement data; form content and contact details are not sent to the tag.',
         ],
         [
           'Your rights',
@@ -927,7 +927,7 @@ export const ui = {
         ],
         [
           'Optional categories',
-          'Analytics and advertising are off by default. The site currently loads neither GA4 nor advertising tags, even after consent. Enabling them later will require an update to this notice and renewed consent QA.',
+          'Analytics and advertising are off by default. GA4 is not currently in use. The Google Ads tag loads only after advertising consent, and a server-confirmed form submission is then recorded as a conversion. Form content and contact details are not sent to the tag.',
         ],
         [
           'Changing your decision',
@@ -1183,7 +1183,7 @@ export const ui = {
     consent: {
       label: 'Конфіденційність',
       title: 'Приватність і cookies',
-      lead: 'Використовуємо необхідні налаштування. Аналітика й реклама вимкнені.',
+      lead: 'Використовуємо необхідні налаштування. Аналітика й реклама є необов’язковими.',
       reject: 'Лише необхідні',
       customize: 'Налаштування',
       accept: 'Дозволити',
@@ -1192,10 +1192,10 @@ export const ui = {
       necessary: 'Необхідні',
       necessaryHelp: 'Безпека форми, тема та збереження рішення.',
       analytics: 'Аналітика',
-      analyticsHelp: 'Вимірювання використання сайту. Зараз теги не завантажуються.',
+      analyticsHelp: 'Вимірювання використання сайту. GA4 зараз не використовується.',
       advertising: 'Реклама',
       advertisingHelp:
-        'Вимірювання кампаній і ремаркетинг. Зараз теги не завантажуються.',
+        'Вимірювання кампаній Google Ads. Тег завантажується лише після цієї згоди.',
       save: 'Зберегти налаштування',
     },
     privacy: {
@@ -1218,7 +1218,7 @@ export const ui = {
         ],
         [
           'Одержувачі та захист',
-          'Сайт і форма працюють в інфраструктурі Cloudflare. Постачальник отримує доступ лише в обсязі, необхідному для послуги, із належними заходами захисту. Turnstile обмежує автоматичні надсилання.',
+          'Сайт і форма працюють в інфраструктурі Cloudflare. Постачальник отримує доступ лише в обсязі, необхідному для послуги, із належними заходами захисту. Turnstile обмежує автоматичні надсилання. Після згоди на рекламу Google Ads обробляє дані вимірювання кампаній; вміст форми й контактні дані до тегу не передаються.',
         ],
         [
           'Права',
@@ -1239,7 +1239,7 @@ export const ui = {
         ],
         [
           'Необов’язкові категорії',
-          'Аналітика й реклама за замовчуванням вимкнені. Зараз сайт не завантажує GA4 або рекламні теги навіть після згоди. Їх запуск вимагатиме оновлення цієї інформації та повторної перевірки consent.',
+          'Аналітика й реклама за замовчуванням вимкнені. GA4 зараз не використовується. Тег Google Ads завантажується лише після згоди на рекламу, а підтверджене сервером надсилання форми тоді реєструється як конверсія. Вміст форми й контактні дані до тегу не передаються.',
         ],
         [
           'Зміна рішення',
