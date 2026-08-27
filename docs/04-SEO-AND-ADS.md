@@ -98,11 +98,11 @@ exclusively to businesses](https://support.google.com/adspolicy/answer/13527027?
 Базовая единица управления — один язык и одна непересекающаяся GEO-ячейка:
 
 ```text
-SRCH-PL-WAW-S-CORE
-SRCH-PL-SUB-PIA-CORE
-SRCH-RU-WAW-S-CORE
-SRCH-EN-WAW-S-CORE
-SRCH-UK-WAW-S-CORE
+SRCH-PL-URS-SW-CORE
+SRCH-PL-URS-W-CORE
+SRCH-RU-URS-S-CORE
+SRCH-EN-URS-SE-CORE
+SRCH-UK-URS-N-CORE
 ```
 
 Внутри — ad groups по услуге, а не один mixed ad group. Бюджеты и статусы языков
@@ -114,16 +114,19 @@ SRCH-UK-WAW-S-CORE
 - exact и phrase match;
 - location option — присутствие в целевой географии, не только интерес к ней;
 - не использовать target `Warszawa` поверх кампаний с отдельными районами;
-- первая география: юг, центр и запад Варшавы, Piaseczno-коридор, а также
-  Janki/Raszyn/Dawidy Bankowe и соседние согласованные населённые пункты;
+- географические кластеры строятся по транспортным направлениям от Урсынова, а
+  не кольцами одинакового расстояния или радиусами вокруг Варшавы;
+- первая география: `URS-LOCAL`, `URS-N`, `URS-SW`, `URS-S`, `URS-SE`; запад,
+  северо-запад, восток и северо-восток остаются отдельными следующими волнами;
 - дальние зоны исключаются или получают отдельную кампанию;
 - Search Partners и Display expansion отключены до получения данных;
 - автоматические URL/тексты включаются только после проверки.
 
 Микрорайоны внутри официального района не дублируются отдельными target entities.
-Нельзя обещать отдельную ставку для места, которого нет как target entity: тогда
-для всей GEO-ячейки применяется один компактный radius, postal codes, exclusions
-или отдельная кампания. Несколько перекрывающихся радиусов не используются.
+Если Google не поддерживает малую местность как target entity, круговой радиус
+не применяется: используется ближайшая корректная административная entity,
+postal code либо зона временно исключается. Похожая удалённость не является
+основанием смешивать разные направления в одной кампании.
 
 ## 6. Negative keywords
 
@@ -236,8 +239,9 @@ Anchor должен описывать назначение страницы: `p
 ## 12. Launch sequence
 
 1. Индексация и Search Console всех четырёх локалей.
-2. Создание PL Search campaigns paused по ячейкам `WAW-S`, `WAW-C`, `WAW-W`,
-   `SUB-PIA`, `SUB-JAN`.
+2. Создание PL Search campaigns paused по направлениям от Урсынова:
+   `URS-LOCAL`, `URS-N`, `URS-SW`, `URS-S`, `URS-SE`, затем западные, восточные
+   и северо-восточные коридоры.
 3. Проверка destination, lead delivery, conversions, Presence и взаимных
    location exclusions.
 4. Ограниченный PL launch сначала в наиболее доступных по доезду GEO-ячейках.
