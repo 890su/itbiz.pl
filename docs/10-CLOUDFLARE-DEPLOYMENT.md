@@ -1,5 +1,15 @@
 # Cloudflare deployment
 
+## Latest verified release — 2026-09-05
+
+Commit `c13ffb3307b3432ce878ade102d408a65bb20233` changes only the initial
+consent banner layout to a compact bottom-centred card. The public noindex
+preview was verified in all four locales as Worker version
+`52388402-db70-4919-86b9-4bbf120d4b90`. Production was then published as Worker
+version `006f183c-eb32-4d62-b304-ec94bb65ed19` and verified on `itbiz.pl` in all
+four locales, including canonical URLs and the `www` redirect. Consent defaults,
+the detailed settings dialog, forms, measurement and SEO content are unchanged.
+
 ## Architecture
 
 Astro builds static assets. `worker/index.ts` serves `/api/contact`, redirects
