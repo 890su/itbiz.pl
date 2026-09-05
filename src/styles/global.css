@@ -1085,18 +1085,22 @@
   }
 
   .consent-banner {
+    --consent-card-edge: clamp(0.75rem, 2vw, 1.25rem);
     position: fixed;
     z-index: 80;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    right: auto;
+    bottom: var(--consent-card-edge);
+    left: 50%;
     display: grid;
+    width: min(52rem, calc(100% - 1.5rem));
     gap: 0.55rem;
-    border-top: 1px solid color-mix(in srgb, var(--ink-muted) 45%, var(--line));
+    border: 1px solid color-mix(in srgb, var(--ink-muted) 45%, var(--line));
+    border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface) 88%, var(--ink-muted));
     padding: 0.6rem clamp(0.75rem, 2vw, 1.5rem);
-    box-shadow: 0 -0.4rem 1.4rem rgb(4 10 20 / 10%);
+    box-shadow: 0 0.8rem 2rem rgb(4 10 20 / 16%);
     backdrop-filter: blur(16px);
+    transform: translateX(-50%);
   }
 
   .consent-banner[hidden] {
@@ -1306,6 +1310,10 @@
   }
 
   @media (min-width: 72rem) {
+    .consent-banner {
+      left: calc((100vw - var(--sidebar)) / 2);
+    }
+
     .site-shell {
       display: grid;
       grid-template-columns: minmax(0, 1fr) var(--sidebar);

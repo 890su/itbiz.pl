@@ -290,7 +290,7 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
   });
 });
 
-test('privacy prompt stays a compact bottom bar', async ({ page }) => {
+test('privacy prompt stays a compact bottom-centred card', async ({ page }) => {
   await page.goto('/');
   await page.locator('[data-consent-banner]').evaluate((banner) => {
     (banner as HTMLElement).hidden = false;
@@ -302,8 +302,11 @@ test('privacy prompt stays a compact bottom bar', async ({ page }) => {
   expect(box).not.toBeNull();
   expect(viewport).not.toBeNull();
   expect(box!.height).toBeLessThan(100);
-  expect(Math.round(box!.y + box!.height)).toBe(viewport!.height);
-  expect(Math.round(box!.width)).toBe(viewport!.width);
+  expect(box!.y + box!.height).toBeLessThan(viewport!.height);
+  expect(viewport!.height - (box!.y + box!.height)).toBeGreaterThanOrEqual(11);
+  expect(box!.width).toBeLessThan(viewport!.width);
+  const mainWidth = viewport!.width >= 1152 ? viewport!.width - 288 : viewport!.width;
+  expect(Math.abs(box!.x - (mainWidth - box!.width) / 2)).toBeLessThan(2);
 });
 
 test('preview service remains noindex and preselects its form topic', async ({

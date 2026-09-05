@@ -15,4 +15,5 @@ Thumbs.db
 coverage/
 playwright-report/
 test-results/
+outputs/
 .wrangler-state/
