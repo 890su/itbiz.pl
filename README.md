@@ -26,6 +26,7 @@ działalność nierejestrowana.
 - `Realizacje` — только реальные выполненные проекты;
 - `Instrukcje` — оригинальная база знаний ITBIZ.PL;
 - `O nas`, `Kontakt`, privacy и cookies.
+- отдельный B2B-инструмент «погода в Варшаве / состояние сети» на PL, RU, EN и UK;
 
 ## Реализованный стек
 
@@ -35,6 +36,7 @@ działalność nierejestrowana.
 - CSS layers, custom properties и централизованные design tokens;
 - Astro content collections;
 - Cloudflare Workers Static Assets + Worker API;
+- API прогноза MET Norway и приватной диагностики (`/api/weather`, `/api/network`, `/api/network-probe`); IP и результаты не сохраняются и не передаются в аналитику;
 - Cloudflare Turnstile, Rate Limiting и D1 для защищённого приёма лидов;
 - отдельные GA4/Google Ads conversion actions с Consent Mode v2.
 

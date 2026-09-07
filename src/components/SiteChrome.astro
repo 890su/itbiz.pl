@@ -19,9 +19,23 @@ interface Props {
 
 const { variant, locale, translationKey } = Astro.props;
 const copy = getUi(locale);
-const navigation = (
+const navigation: { href: string; label: string }[] = (
   ['home', 'services', 'solutions', 'about', 'contact'] as TranslationKey[]
-).map((key, index) => ({ href: getRoute(locale, key), label: copy.common.nav[index] }));
+).map((key, index) => ({
+  href: getRoute(locale, key),
+  label: copy.common.nav[index]!,
+}));
+navigation.splice(4, 0, {
+  href: getRoute(locale, 'networkWeather'),
+  label: (
+    {
+      pl: 'Stan łącza',
+      ru: 'Состояние сети',
+      en: 'Network status',
+      uk: 'Стан мережі',
+    } as const
+  )[locale],
+});
 const currentPath = Astro.url.pathname;
 const isCurrent = (href: string) =>
   href === getRoute(locale, 'home')

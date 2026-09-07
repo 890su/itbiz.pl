@@ -275,3 +275,14 @@ npm run test:e2e
 
 CI проверяет также отсутствие secrets, битых локальных assets, missing
 translations, indexable drafts и service pages без `b2bOnly: true`.
+
+## Weather and network diagnostic
+
+The localized `networkWeather` route is a static Astro page backed by three
+same-origin Worker endpoints. `/api/weather` proxies the fixed Warsaw forecast
+from MET Norway with a 15-minute shared cache and required attribution.
+`/api/network` reflects request metadata (public IP, ASN/organisation, approximate
+network location, Cloudflare edge and TLS) with `Cache-Control: no-store`.
+`/api/network-probe` is invoked only by user action and caps the download payload
+at 256 KiB. Diagnostic values are not sent to Google tags, persisted or placed in
+page URLs. The privacy page documents this behaviour in all four locales.

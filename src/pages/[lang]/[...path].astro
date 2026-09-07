@@ -8,6 +8,7 @@ import AboutPage from '../../components/pages/AboutPage.astro';
 import AreaPage from '../../components/pages/AreaPage.astro';
 import SolutionsPage from '../../components/pages/SolutionsPage.astro';
 import LegalPage from '../../components/pages/LegalPage.astro';
+import NetworkWeatherPage from '../../components/pages/NetworkWeatherPage.astro';
 import {
   getLocalizedStaticPaths,
   type Locale,
@@ -39,6 +40,7 @@ if (translationKey.startsWith('service.')) {
 {translationKey === 'solutions' && <SolutionsPage {locale} />}
 {translationKey === 'about' && <AboutPage {locale} />}
 {translationKey === 'contact' && <ContactPage {locale} />}
+{translationKey === 'networkWeather' && <NetworkWeatherPage {locale} />}
 {translationKey === 'area.warsaw' && <AreaPage {locale} />}
 {translationKey === 'privacy' && <LegalPage {locale} kind="privacy" />}
 {translationKey === 'cookies' && <LegalPage {locale} kind="cookies" />}

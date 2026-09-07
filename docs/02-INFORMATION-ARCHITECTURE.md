@@ -173,3 +173,14 @@ consumer-support контент.
 
 Регулирование ставок по районам выполняется настройками кампаний, а не doorway
 pages.
+
+## Diagnostic utility routes
+
+- PL: `/narzedzia/pogoda-a-internet-w-firmie/`
+- RU: `/ru/instrumenty/pogoda-i-internet-v-kompanii/`
+- EN: `/en/tools/weather-and-business-internet/`
+- UK: `/uk/instrumenty/pohoda-i-internet-dlya-biznesu/`
+
+These routes form one translation group with reciprocal hreflang links. They are
+linked from the primary navigation and a compact homepage utility entry. Copy is
+strictly business-oriented and does not advertise support for private clients.

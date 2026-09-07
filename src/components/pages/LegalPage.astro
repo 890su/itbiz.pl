@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
+import { getNetworkWeather } from '../../i18n/network-weather';
 interface Props {
   locale: Locale;
   kind: 'privacy' | 'cookies';
@@ -9,6 +10,7 @@ interface Props {
 const { locale, kind } = Astro.props;
 const ui = getUi(locale);
 const copy = kind === 'privacy' ? ui.privacy : ui.cookiesPage;
+const diagnosticPrivacy = getNetworkWeather(locale).privacy;
 ---
 
 <BaseLayout
@@ -37,6 +39,16 @@ const copy = kind === 'privacy' ? ui.privacy : ui.cookiesPage;
           </>
         </>
       ))
+    }
+    {
+      kind === 'privacy' && (
+        <>
+          <>
+            <h2>{diagnosticPrivacy[0]}</h2>
+            <p>{diagnosticPrivacy[1]}</p>
+          </>
+        </>
+      )
     }
   </article>
 </BaseLayout>

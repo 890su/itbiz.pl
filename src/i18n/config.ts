@@ -57,6 +57,12 @@ export const routeTranslations = {
     en: '/en/contact/',
     uk: '/uk/kontakt/',
   },
+  networkWeather: {
+    pl: '/narzedzia/pogoda-a-internet-w-firmie/',
+    ru: '/ru/instrumenty/pogoda-i-internet-v-kompanii/',
+    en: '/en/tools/weather-and-business-internet/',
+    uk: '/uk/instrumenty/pohoda-i-internet-dlya-biznesu/',
+  },
   'area.warsaw': {
     pl: '/obszar-dzialania/warszawa/',
     ru: '/ru/zona-raboty/varshava/',

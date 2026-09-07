@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getRoute, languageTags, type Locale } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+import { getNetworkWeather } from '../../i18n/network-weather';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const common = getUi(locale).common;
+const copy = getNetworkWeather(locale);
+const settings = JSON.stringify({
+  unavailable: copy.unavailable,
+  unknown: copy.unknown,
+  dateLocale: copy.dateLocale,
+  unitWind: copy.unitWind,
+  testing: copy.testing,
+  test: copy.test,
+  copied: copy.copied,
+});
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: copy.nav,
+  url: new URL(getRoute(locale, 'networkWeather'), Astro.site),
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  inLanguage: languageTags[locale],
+  isAccessibleForFree: true,
+};
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonicalPath={getRoute(locale, 'networkWeather')}
+  {locale}
+  translationKey="networkWeather"
+>
+  <nav class="breadcrumb" aria-label={common.scope}>
+    <ol>
+      <li><a href={getRoute(locale, 'home')}>{common.start}</a></li><li
+        aria-current="page"
+      >
+        {copy.nav}
+      </li>
+    </ol>
+  </nav>
+  <div class="network-weather" data-network-weather data-settings={settings}>
+    <section class="nw-business-hero">
+      <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p class="hero-lead">
+        {copy.lead}
+      </p>
+      <div class="nw-status-board">
+        <article
+          class="nw-module nw-module-weather"
+          aria-labelledby="weather-module-title"
+        >
+          <header>
+            <div>
+              <span class="nw-module-code">EXT / WAW</span><h2
+                id="weather-module-title"
+              >
+                {copy.weatherTitle}
+              </h2>
+            </div><span class="nw-live">LIVE</span>
+          </header>
+          <div class="nw-primary-reading">
+            <strong data-weather-temperature>—</strong><span>°C</span><small
+              data-weather-symbol>…</small
+            >
+          </div>
+          <dl class="nw-business-metrics">
+            <div><dt>{copy.feels}</dt><dd data-weather-feels>—</dd></div><div>
+              <dt>{copy.humidity}</dt><dd data-weather-humidity>—</dd>
+            </div><div><dt>{copy.wind}</dt><dd data-weather-wind>—</dd></div><div>
+              <dt>{copy.pressure}</dt><dd data-weather-pressure>—</dd>
+            </div><div><dt>{copy.rain}</dt><dd data-weather-rain>—</dd></div>
+          </dl>
+          <p
+            class="nw-inline-status"
+            data-weather-status
+            role="status"
+            aria-live="polite"
+          >
+          </p>
+        </article>
+        <article
+          class="nw-module nw-module-network"
+          aria-labelledby="network-module-title"
+        >
+          <header>
+            <div>
+              <span class="nw-module-code">EDGE / USER</span><h2
+                id="network-module-title"
+              >
+                {copy.networkTitle}
+              </h2>
+            </div><span class="nw-pulse" aria-hidden="true"></span>
+          </header>
+          <dl class="nw-telemetry">
+            <div><dt>{copy.ip}</dt><dd data-network-ip>—</dd></div><div>
+              <dt>{copy.provider}</dt><dd data-network-provider>—</dd>
+            </div><div>
+              <dt>{copy.location}</dt><dd data-network-location>—</dd>
+            </div><div><dt>{copy.edge}</dt><dd data-network-edge>—</dd></div>
+          </dl>
+          <p
+            class="nw-inline-status"
+            data-network-status
+            role="status"
+            aria-live="polite"
+          >
+          </p>
+          <button
+            class="button button-primary nw-measure"
+            type="button"
+            data-network-test>{copy.test}</button
+          ><p class="nw-smallprint">{copy.testNote}</p>
+          <div class="nw-report" data-test-results hidden>
+            <div>
+              <span>{copy.latency}</span><strong data-test-latency>—</strong>
+            </div><div>
+              <span>{copy.jitter}</span><strong data-test-jitter>—</strong>
+            </div><div>
+              <span>{copy.speed}</span><strong data-test-speed>—</strong>
+            </div><button type="button" data-copy-result>{copy.copyResult}</button>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="page-section nw-horizon" aria-labelledby="forecast-title">
+      <header class="section-head">
+        <p class="section-label">MET / 24H</p><h2 id="forecast-title">
+          {copy.forecast}
+        </h2>
+      </header><div class="nw-forecast-rail" data-weather-forecast aria-live="polite">
+      </div><p class="nw-attribution">
+        <a href="https://api.met.no/" rel="external">{copy.attribution}</a>
+      </p>
+    </section>
+    <section class="page-section">
+      <div class="nw-analysis-grid">
+        <article class="info-panel">
+          <p class="section-label">INTERPRETACJA / 01</p><h2>{copy.explainTitle}</h2><ul
+            class="check-list"
+          >
+            {copy.explain.map((item) => <li>{item}</li>)}
+          </ul>
+        </article><article class="info-panel nw-context-panel">
+          <p class="section-label">KONTEKST / 02</p><h2>
+            {copy.weatherContextTitle}
+          </h2><p>{copy.weatherContext}</p>
+        </article>
+      </div>
+    </section>
+    <section class="page-section">
+      <div class="nw-business-cta">
+        <div>
+          <p class="section-label">INCIDENT / NEXT</p><h2>{copy.ctaTitle}</h2><p>
+            {copy.ctaText}
+          </p>
+        </div><a class="button button-primary" href={getRoute(locale, 'contact')}
+          >{copy.cta}</a
+        >
+      </div>
+    </section>
+  </div>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(appSchema)} />
+  <script is:inline src="/scripts/network-weather.js" defer></script>
+</BaseLayout>
