@@ -286,3 +286,9 @@ network location, Cloudflare edge and TLS) with `Cache-Control: no-store`.
 `/api/network-probe` is invoked only by user action and caps the download payload
 at 256 KiB. Diagnostic values are not sent to Google tags, persisted or placed in
 page URLs. The privacy page documents this behaviour in all four locales.
+
+The weather module keeps perceived temperature beside the primary reading and
+uses a 2×2 grid for the four remaining conditions. The network module links to
+the official Ookla and Cloudflare full tests in new tabs instead of copying the
+lightweight result. The closing incident panel exposes both the business enquiry
+and public telephone actions.

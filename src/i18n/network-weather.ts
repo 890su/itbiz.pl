@@ -27,8 +27,6 @@ const copy = {
     latency: 'opóźnienie HTTP',
     jitter: 'jitter',
     speed: 'pobieranie',
-    copyResult: 'Kopiuj raport',
-    copied: 'Skopiowano',
     unavailable: 'Dane chwilowo niedostępne',
     unknown: 'brak danych',
     unitWind: 'm/s',
@@ -46,7 +44,7 @@ const copy = {
       'Silny wiatr, opady lub temperatura mogą wpływać na łącza radiowe, urządzenia zewnętrzne i zasilanie. Dla większości biur pierwszym krokiem nadal jest sprawdzenie Wi‑Fi, okablowania, obciążenia i statusu operatora.',
     ctaTitle: 'Incydent powtarza się?',
     ctaText:
-      'Prześlij firmowe zgłoszenie z godziną problemu i skopiowanym raportem. Ustalimy zakres diagnostyki przed rozpoczęciem prac.',
+      'Prześlij firmowe zgłoszenie z godziną problemu i opisem objawów. Ustalimy zakres diagnostyki przed rozpoczęciem prac.',
     cta: 'Zgłoś problem firmowy',
     attribution: 'Dane pogodowe: MET Norway, CC BY 4.0.',
     privacy: [
@@ -80,8 +78,6 @@ const copy = {
     latency: 'HTTP-задержка',
     jitter: 'джиттер',
     speed: 'загрузка',
-    copyResult: 'Копировать отчёт',
-    copied: 'Скопировано',
     unavailable: 'Данные временно недоступны',
     unknown: 'нет данных',
     unitWind: 'м/с',
@@ -99,7 +95,7 @@ const copy = {
       'Ветер, осадки и температура могут влиять на радиолинии, наружное оборудование и питание. Для большинства офисов сначала нужно проверить Wi‑Fi, кабель, нагрузку и статус оператора.',
     ctaTitle: 'Инцидент повторяется?',
     ctaText:
-      'Отправьте корпоративную заявку со временем проблемы и скопированным отчётом. Согласуем объём диагностики до начала работ.',
+      'Отправьте корпоративную заявку со временем проблемы и описанием симптомов. Согласуем объём диагностики до начала работ.',
     cta: 'Сообщить о проблеме',
     attribution: 'Данные о погоде: MET Norway, CC BY 4.0.',
     privacy: [
@@ -133,8 +129,6 @@ const copy = {
     latency: 'HTTP latency',
     jitter: 'jitter',
     speed: 'download',
-    copyResult: 'Copy report',
-    copied: 'Copied',
     unavailable: 'Data is temporarily unavailable',
     unknown: 'no data',
     unitWind: 'm/s',
@@ -152,7 +146,7 @@ const copy = {
       'Wind, precipitation and temperature may affect radio links, outdoor equipment and power. For most offices, Wi‑Fi, cabling, load and provider status remain the first checks.',
     ctaTitle: 'Does the incident repeat?',
     ctaText:
-      'Send a business enquiry with the time of the issue and copied report. We will agree the diagnostic scope before work begins.',
+      'Send a business enquiry with the time of the issue and a description of the symptoms. We will agree the diagnostic scope before work begins.',
     cta: 'Report a business issue',
     attribution: 'Weather data: MET Norway, CC BY 4.0.',
     privacy: [
@@ -186,8 +180,6 @@ const copy = {
     latency: 'HTTP-затримка',
     jitter: 'джиттер',
     speed: 'завантаження',
-    copyResult: 'Копіювати звіт',
-    copied: 'Скопійовано',
     unavailable: 'Дані тимчасово недоступні',
     unknown: 'немає даних',
     unitWind: 'м/с',
@@ -205,7 +197,7 @@ const copy = {
       'Вітер, опади й температура можуть впливати на радіолінії, зовнішнє обладнання та живлення. Для більшості офісів спочатку слід перевірити Wi‑Fi, кабель, навантаження і статус оператора.',
     ctaTitle: 'Інцидент повторюється?',
     ctaText:
-      'Надішліть корпоративну заявку з часом проблеми та скопійованим звітом. Узгодимо обсяг діагностики до початку робіт.',
+      'Надішліть корпоративну заявку з часом проблеми й описом симптомів. Узгодимо обсяг діагностики до початку робіт.',
     cta: 'Повідомити про проблему',
     attribution: 'Дані про погоду: MET Norway, CC BY 4.0.',
     privacy: [

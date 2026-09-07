@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getRoute, languageTags, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getNetworkWeather } from '../../i18n/network-weather';
+import { company } from '../../data/company';
 
 interface Props {
   locale: Locale;
@@ -17,8 +18,15 @@ const settings = JSON.stringify({
   unitWind: copy.unitWind,
   testing: copy.testing,
   test: copy.test,
-  copied: copy.copied,
 });
+const fullTestLabel = (
+  {
+    pl: 'Pełny test łącza',
+    ru: 'Полный тест соединения',
+    en: 'Full connection test',
+    uk: 'Повний тест з’єднання',
+  } as const
+)[locale];
 const appSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
@@ -67,14 +75,18 @@ const appSchema = {
             </div><span class="nw-live">LIVE</span>
           </header>
           <div class="nw-primary-reading">
-            <strong data-weather-temperature>—</strong><span>°C</span><small
-              data-weather-symbol>…</small
+            <strong data-weather-temperature>—</strong><span>°C</span><div
+              class="nw-reading-context"
             >
+              <small data-weather-symbol>…</small><p>
+                <span>{copy.feels}</span><strong data-weather-feels>—</strong>
+              </p>
+            </div>
           </div>
           <dl class="nw-business-metrics">
-            <div><dt>{copy.feels}</dt><dd data-weather-feels>—</dd></div><div>
-              <dt>{copy.humidity}</dt><dd data-weather-humidity>—</dd>
-            </div><div><dt>{copy.wind}</dt><dd data-weather-wind>—</dd></div><div>
+            <div><dt>{copy.humidity}</dt><dd data-weather-humidity>—</dd></div><div>
+              <dt>{copy.wind}</dt><dd data-weather-wind>—</dd>
+            </div><div>
               <dt>{copy.pressure}</dt><dd data-weather-pressure>—</dd>
             </div><div><dt>{copy.rain}</dt><dd data-weather-rain>—</dd></div>
           </dl>
@@ -125,8 +137,19 @@ const appSchema = {
               <span>{copy.jitter}</span><strong data-test-jitter>—</strong>
             </div><div>
               <span>{copy.speed}</span><strong data-test-speed>—</strong>
-            </div><button type="button" data-copy-result>{copy.copyResult}</button>
+            </div>
           </div>
+          <nav class="nw-external-tests" aria-label={fullTestLabel}>
+            <span>{fullTestLabel}</span><a
+              href="https://www.speedtest.net/"
+              target="_blank"
+              rel="noopener noreferrer">Speedtest by Ookla ↗</a
+            ><a
+              href="https://speed.cloudflare.com/"
+              target="_blank"
+              rel="noopener noreferrer">Cloudflare Speed Test ↗</a
+            >
+          </nav>
         </article>
       </div>
     </section>
@@ -161,9 +184,13 @@ const appSchema = {
           <p class="section-label">INCIDENT / NEXT</p><h2>{copy.ctaTitle}</h2><p>
             {copy.ctaText}
           </p>
-        </div><a class="button button-primary" href={getRoute(locale, 'contact')}
-          >{copy.cta}</a
-        >
+        </div><div class="nw-business-cta-actions">
+          <a class="button button-primary" href={getRoute(locale, 'contact')}
+            >{copy.cta}</a
+          ><a class="button button-secondary" href={company.publicPhoneHref}
+            >{common.phoneAction}: {company.publicPhone}</a
+          >
+        </div>
       </div>
     </section>
   </div>

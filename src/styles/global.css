@@ -1566,15 +1566,34 @@
     color: var(--network);
     font: 700 1.7rem var(--font-mono);
   }
-  .nw-primary-reading small {
+  .nw-reading-context {
+    display: grid;
+    align-self: center;
+    gap: 0.55rem;
     max-width: 9rem;
     margin-left: auto;
-    color: var(--ink-muted);
     text-align: right;
+  }
+  .nw-reading-context small {
+    color: var(--ink-muted);
+  }
+  .nw-reading-context p {
+    margin: 0;
+  }
+  .nw-reading-context p span {
+    display: block;
+    color: var(--ink-muted);
+    font: 0.62rem var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .nw-reading-context p strong {
+    font: 700 1.2rem var(--font-mono);
+    letter-spacing: -0.03em;
   }
   .nw-business-metrics {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1px;
     margin: 0;
     background: var(--line);
@@ -1582,7 +1601,7 @@
   .nw-business-metrics > div,
   .nw-telemetry > div {
     min-width: 0;
-    padding: 0.8rem;
+    padding: 1.1rem;
     background: var(--surface-raised);
   }
   .nw-business-metrics dt,
@@ -1597,6 +1616,10 @@
     margin: 0.35rem 0 0;
     overflow-wrap: anywhere;
     font-weight: 680;
+  }
+  .nw-business-metrics dd {
+    margin-top: 0.55rem;
+    font: 700 1.08rem var(--font-mono);
   }
   .nw-telemetry {
     display: grid;
@@ -1657,13 +1680,34 @@
     color: var(--panel-ink);
     font: 700 1rem var(--font-mono);
   }
-  .nw-report button {
+  .nw-external-tests {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 1rem;
+    background: var(--panel-line);
+  }
+  .nw-external-tests > span {
     grid-column: 1 / -1;
+    padding: 0.55rem 0.75rem;
+    background: color-mix(in srgb, var(--panel) 74%, var(--surface));
+    color: var(--panel-muted);
+    font: 0.62rem var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .nw-external-tests a {
     border: 1px solid var(--panel-line);
-    padding: 0.6rem;
-    background: transparent;
+    padding: 0.7rem;
+    background: color-mix(in srgb, var(--panel) 82%, var(--surface));
     color: var(--panel-ink);
-    cursor: pointer;
+    font: 0.72rem var(--font-mono);
+    text-align: center;
+    text-decoration: none;
+  }
+  .nw-external-tests a:hover,
+  .nw-external-tests a:focus-visible {
+    color: var(--network);
   }
   .nw-horizon {
     background: var(--section-band) !important;
@@ -1737,6 +1781,11 @@
     max-width: 45rem;
     color: var(--panel-muted);
   }
+  .nw-business-cta-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.65rem;
+  }
   @keyframes nw-business-pulse {
     0% {
       box-shadow: 0 0 0 0 color-mix(in srgb, var(--verified) 38%, transparent);
@@ -1751,15 +1800,18 @@
     .nw-analysis-grid {
       grid-template-columns: 1fr;
     }
-    .nw-business-metrics {
-      grid-template-columns: repeat(3, 1fr);
-    }
     .nw-business-cta {
       align-items: stretch;
       flex-direction: column;
     }
     .nw-business-cta .button {
       text-align: center;
+    }
+    .nw-business-cta-actions {
+      width: 100%;
+    }
+    .nw-business-cta-actions .button {
+      flex: 1 1 0;
     }
   }
   @media (max-width: 32rem) {
@@ -1772,14 +1824,15 @@
     .nw-business-hero {
       padding-inline: 1rem;
     }
-    .nw-business-metrics,
     .nw-telemetry,
     .nw-report {
       grid-template-columns: 1fr;
     }
-    .nw-telemetry > div:first-child,
-    .nw-report button {
+    .nw-telemetry > div:first-child {
       grid-column: auto;
+    }
+    .nw-business-cta-actions {
+      flex-direction: column;
     }
   }
 }
