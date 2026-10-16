@@ -6,12 +6,12 @@ title: Okablowanie strukturalne i sieci LAN dla firm w Warszawie
 seoTitle: Okablowanie strukturalne biura Warszawa | Sieć LAN
 description: Planowanie i wykonanie uzgodnionych punktów LAN oraz tras kablowych w biurach. Zakończenie, oznaczenie i sprawdzenie połączeń.
 eyebrow: Nowa lub rozbudowywana sieć przewodowa
-lead: Planujemy punkty i trasy dla stanowisk, urządzeń sieciowych oraz access pointów. Ta strona dotyczy budowy i rozbudowy instalacji, nie naprawy jednego gniazda.
+lead: Planujemy i wykonujemy okablowanie do stanowisk pracy, urządzeń sieciowych i punktów dostępowych Wi‑Fi. Usługa obejmuje budowę lub rozbudowę sieci LAN. Naprawa jednego gniazda to osobne zadanie.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Czytelny plan punktów i połączeń
   - Opisane zakończenia oraz porty

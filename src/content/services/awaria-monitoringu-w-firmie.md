@@ -7,12 +7,12 @@ breadcrumbTitle: Awaria monitoringu w firmie
 seoTitle: Awaria monitoringu w firmie Warszawa | Diagnostyka PoE
 description: Zniknął obraz z kamer, nie działa zapis albo rejestrator piszczy lub hałasuje? Diagnostyka kamer IP, sieci, PoE i rejestratora dla firm w Warszawie.
 eyebrow: Pilna diagnostyka monitoringu IP
-lead: Sprawdzamy zasilanie, PoE, połączenia sieciowe, dostępność kamer oraz statusy rejestratora, aby oddzielić usterkę linii, urządzenia, dysku lub konfiguracji.
+lead: Sprawdzamy zasilanie PoE, przewody, połączenia z kamerami i komunikaty rejestratora. Ustalamy, czy brak obrazu lub zapisu wynika z sieci, urządzenia, dysku czy ustawień.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-27
+updatedAt: 2026-10-16
 outcomes:
   - Wskazanie najbardziej prawdopodobnego źródła awarii w uzgodnionym zakresie
   - Przywrócenie obrazu lub zapisu, jeżeli jest możliwe bez nieuzgodnionej wymiany sprzętu
@@ -44,9 +44,9 @@ heroFacts:
   - Kamery IP, sieć, PoE i rejestrator
   - Warszawa i uzgodnione okolice
 serviceNoteTitle: Nie każda awaria oznacza uszkodzoną kamerę
-serviceNote: Brak obrazu lub zapisu może wynikać z zasilania PoE, przewodu, portu switcha, adresacji, rejestratora albo nośnika. Najpierw lokalizujemy warstwę problemu, a wymianę sprzętu uzgadniamy osobno.
+serviceNote: Brak obrazu lub zapisu może wynikać z zasilania PoE, przewodu, portu switcha, adresacji, rejestratora albo nośnika. Sprawdzamy, gdzie powstaje problem. Ewentualną wymianę sprzętu uzgadniamy osobno.
 processLabel: Diagnostyka awarii CCTV
-processTitle: Od objawu do wskazanej warstwy problemu
+processTitle: Jak szukamy przyczyny awarii
 processLead: Zdjęcia komunikatów i opis tego, które kamery nie działają, pomagają przygotować właściwy zakres pierwszej wizyty.
 process:
   - label: 01 / OBJAWY

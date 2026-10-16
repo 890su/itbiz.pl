@@ -6,12 +6,12 @@ title: Office Wi‑Fi design and deployment in Warsaw
 seoTitle: Office Wi‑Fi design and deployment Warsaw | ITBIZ.PL
 description: Access point placement, configuration and separation of business and guest networks. Wi‑Fi deployment for offices in Warsaw.
 eyebrow: Designed business wireless network
-lead: We build or modernise business Wi‑Fi around the premises layout, user count and agreed working patterns. Audit measurements are a separate scope.
+lead: We design and configure business Wi‑Fi around your office layout, device count and working needs. We build new networks and update existing ones. A standalone measurement audit is a separate service.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - An agreed placement and configuration plan for access points
   - Networks configured within the scope approved by the organisation
@@ -38,20 +38,20 @@ heroFacts:
   - Design for the specific premises
   - Configuration of agreed access points
   - Guest network when included in the design
-serviceNoteTitle: Audit and deployment are separate scopes
-serviceNote: If you only need measurements and a report for the existing network, choose the Wi‑Fi audit. This page covers design, configuration and deployment of approved changes.
+serviceNoteTitle: Design and setup, or just an audit?
+serviceNote: If you only need measurements and a report on the existing network, choose the Wi‑Fi audit. This service covers design, configuration and installation of agreed changes.
 processLabel: Wi‑Fi deployment
 processTitle: From requirements to a verified configuration
 process:
   - label: 01 / REQUIREMENTS
-    title: We establish users and premises
+    title: We review the office layout and requirements
     description: We collect the floor plan, device count, working patterns and guest-network requirements.
   - label: 02 / DESIGN
     title: We agree access points and configuration
     description: We define placement, cabling, network names and traffic separation included in the deployment.
   - label: 03 / DEPLOYMENT
     title: We configure and verify
-    description: We start the approved scope and record the result of basic verification.
+    description: We start the agreed networks and test connectivity. You receive a record of settings and test results.
 formLead: Provide the area, user count, current access points and whether this is a new network or an upgrade.
 messageHelp: Describe the office layout, device count, available cabling, current network and requirements for staff and guests.
 submitLabel: Request a Wi‑Fi design

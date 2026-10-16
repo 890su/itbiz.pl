@@ -6,12 +6,12 @@ title: Audyt Wi‑Fi w małym biurze - 5-30 stanowisk
 seoTitle: Audyt Wi‑Fi małego biura w Warszawie | ITBIZ.PL
 description: Pomiar zasięgu, zakłóceń i obciążenia Wi‑Fi dla biur z 5-30 stanowiskami w Warszawie. Raport i plan zmian bez obietnic bez pomiaru.
 eyebrow: Wi‑Fi dla 5-30 stanowisk
-lead: Mierzymy warunki radiowe w lokalu, sprawdzamy obecną konfigurację i wskazujemy, gdzie problem wynika z zasięgu, zakłóceń, pojemności albo łącza internetowego.
+lead: Mierzymy zasięg i zakłócenia Wi‑Fi w biurze oraz sprawdzamy konfigurację sieci. Ustalamy, czy przyczyna leży w pokryciu, obciążeniu sieci, łączu internetowym czy urządzeniach użytkowników.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Mapa miejsc wymagających poprawy zasięgu lub pojemności
   - Rozdzielenie problemów Wi‑Fi od ograniczeń łącza internetowego
@@ -40,7 +40,7 @@ heroFacts:
   - Pomiary w lokalu w Warszawie
   - Raport i plan zmian po audycie
 serviceNoteTitle: Prędkość zależy także od łącza
-serviceNote: Audyt nie zaczyna się od obietnicy wyniku ani zakupu sprzętu. Najpierw oddzielamy jakość sieci radiowej od przepustowości internetu i możliwości urządzeń użytkowników.
+serviceNote: Słabe Wi‑Fi nie zawsze oznacza, że trzeba kupić nowe punkty dostępowe. Sprawdzamy osobno sieć radiową, łącze internetowe i ograniczenia urządzeń użytkowników.
 processLabel: Audyt Wi‑Fi
 processTitle: Trzy etapy bez zgadywania
 process:

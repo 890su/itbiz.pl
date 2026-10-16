@@ -6,12 +6,12 @@ title: Managed IT and outsourced support for Warsaw businesses
 seoTitle: Outsourced IT for small Warsaw businesses | ITBIZ.PL
 description: Ongoing support for a small business network, workstations and IT documentation. Responsibility and the working model are agreed before support begins.
 eyebrow: Ongoing outsourced IT support
-lead: We take ownership of agreed recurring infrastructure tasks. This service is for an ongoing relationship, not a one-off urgent outage.
+lead: We handle agreed recurring tasks for your business network and workstations. This is ongoing IT support, not a one-off emergency visit.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - An inventory of devices and important dependencies
   - An agreed scope of ongoing support
@@ -40,10 +40,10 @@ heroFacts:
   - Ongoing support for small organisations
   - Responsibility agreed before support begins
   - Projects and purchases handled separately
-serviceNoteTitle: This is not the urgent-response page
-serviceNote: If the business network is down now, use the network outage request. Here we agree the ongoing support model, request scope and responsibility for the environment.
+serviceNoteTitle: Dealing with an outage right now?
+serviceNote: If your business network is down now, use the network outage request. For ongoing support, we agree which tasks we handle, how requests reach us and who is responsible for what.
 processLabel: Starting support
-processTitle: From inventory to an ongoing scope
+processTitle: How we agree ongoing support
 process:
   - label: 01 / BASELINE
     title: We establish the starting point

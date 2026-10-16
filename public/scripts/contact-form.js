@@ -34,10 +34,11 @@
 
   const status = form.querySelector('[data-form-status]');
   const submit = form.querySelector('button[type="submit"]');
+  const summary = form.querySelector('[data-validation-summary]');
+  const fields = Array.from(form.querySelectorAll('[data-validation-message]'));
   const labels = {
     submit: form.dataset.submitLabel || 'Send',
     sending: form.dataset.sendingLabel || 'Sending…',
-    missingContact: form.dataset.missingContact || 'Provide an email or phone.',
     genericError: form.dataset.genericError || 'The request could not be sent.',
     success: form.dataset.successLabel || 'Request accepted.',
     preview: form.dataset.previewLabel || 'Preview: request not stored.',
@@ -51,19 +52,84 @@
     status.focus?.();
   };
 
+  const fieldMessage = (field) => {
+    const value = field.value.trim();
+    const invalid =
+      field.name === 'contact'
+        ? !value ||
+          (value.includes('@')
+            ? !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+            : value.replace(/\D/g, '').length < 7)
+        : field.name === 'message'
+          ? value.length < 20
+          : !value;
+    return invalid ? field.dataset.validationMessage : '';
+  };
+
+  const validateField = (field) => {
+    const message = fieldMessage(field);
+    const error = document.getElementById(`${field.id}-error`);
+    field.setCustomValidity(message);
+    if (message) field.setAttribute('aria-invalid', 'true');
+    else field.removeAttribute('aria-invalid');
+    if (error) {
+      error.textContent = message;
+      error.hidden = !message;
+    }
+    return !message;
+  };
+
+  const updateSummary = (focus = false) => {
+    if (!(summary instanceof HTMLElement)) return;
+    const list = summary.querySelector('ul');
+    if (!list) return;
+    list.replaceChildren();
+    for (const field of fields) {
+      if (field.getAttribute('aria-invalid') !== 'true') continue;
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `#${field.id}`;
+      link.textContent = field.dataset.validationMessage;
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        field.focus();
+      });
+      item.append(link);
+      list.append(item);
+    }
+    summary.hidden = !list.childElementCount;
+    if (focus && !summary.hidden) summary.focus();
+  };
+
+  for (const field of fields) {
+    field.addEventListener('blur', () => {
+      validateField(field);
+      if (summary && !summary.hidden) updateSummary();
+    });
+    field.addEventListener('input', () => {
+      if (field.getAttribute('aria-invalid') === 'true' && !fieldMessage(field)) {
+        validateField(field);
+        if (summary && !summary.hidden) updateSummary();
+      }
+    });
+    field.addEventListener('change', () => {
+      if (field.getAttribute('aria-invalid') === 'true') {
+        validateField(field);
+        if (summary && !summary.hidden) updateSummary();
+      }
+    });
+  }
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (submit instanceof HTMLButtonElement && submit.disabled) return;
-    loadTurnstile();
-    const data = new FormData(form);
-    const contact = String(data.get('contact') || '').trim();
-
-    if (!form.reportValidity()) return;
-    if (!contact) {
-      showStatus(labels.missingContact, 'error');
-      form.querySelector('#contactMethod')?.focus();
+    const valid = fields.map(validateField).every(Boolean);
+    updateSummary(!valid);
+    if (!valid) {
       return;
     }
+    loadTurnstile();
+    const data = new FormData(form);
 
     if (submit instanceof HTMLButtonElement) {
       submit.disabled = true;

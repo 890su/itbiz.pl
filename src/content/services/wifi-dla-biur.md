@@ -6,12 +6,12 @@ title: Projekt i wdrożenie Wi‑Fi dla biura w Warszawie
 seoTitle: Projekt i wdrożenie Wi‑Fi dla biura Warszawa | ITBIZ.PL
 description: Projekt rozmieszczenia, konfiguracja punktów dostępowych i oddzielenie sieci firmowej od gościnnej. Wdrożenie Wi‑Fi w biurach w Warszawie.
 eyebrow: Projektowana sieć bezprzewodowa
-lead: Przygotowujemy lub modernizujemy firmowe Wi‑Fi na podstawie układu lokalu, liczby użytkowników i uzgodnionego sposobu pracy. Pomiary audytowe są odrębnym zakresem.
+lead: Projektujemy i konfigurujemy firmowe Wi‑Fi, uwzględniając układ biura, liczbę urządzeń i sposób pracy zespołu. Budujemy nowe sieci i modernizujemy istniejące. Sam audyt z pomiarami zamawia się osobno.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Uzgodniony plan rozmieszczenia i konfiguracji punktów dostępowych
   - Skonfigurowane sieci w zakresie zaakceptowanym przez organizację
@@ -38,20 +38,20 @@ heroFacts:
   - Projekt dla konkretnego lokalu
   - Konfiguracja uzgodnionych punktów dostępowych
   - Sieć gościnna, jeśli obejmuje ją projekt
-serviceNoteTitle: Audyt i wdrożenie to dwa zakresy
-serviceNote: Jeżeli potrzebujesz wyłącznie pomiarów oraz raportu dla istniejącej sieci, wybierz audyt Wi‑Fi. Ta strona dotyczy projektu, konfiguracji i wdrożenia zaakceptowanych zmian.
+serviceNoteTitle: Projekt i konfiguracja czy sam audyt?
+serviceNote: Jeśli potrzebujesz tylko pomiarów i raportu dla istniejącej sieci, wybierz audyt Wi‑Fi. Tutaj zajmujemy się projektem, konfiguracją i wdrożeniem uzgodnionych zmian.
 processLabel: Wdrożenie Wi‑Fi
 processTitle: Od wymagań do sprawdzonej konfiguracji
 process:
   - label: 01 / WYMAGANIA
-    title: Ustalamy użytkowników i lokal
+    title: Poznajemy biuro i wymagania
     description: Zbieramy plan pomieszczeń, liczbę urządzeń, sposób pracy i wymagania dla sieci gościnnej.
   - label: 02 / PROJEKT
     title: Uzgadniamy punkty i konfigurację
     description: Określamy rozmieszczenie, okablowanie, nazwy sieci i podział ruchu objęty wdrożeniem.
   - label: 03 / WDROŻENIE
     title: Konfigurujemy i sprawdzamy
-    description: Uruchamiamy zaakceptowany zakres i zapisujemy wynik podstawowej weryfikacji.
+    description: Uruchamiamy uzgodnione sieci i sprawdzamy połączenie. Zapisujemy ustawienia i wyniki testów.
 formLead: Podaj powierzchnię, liczbę użytkowników, obecne punkty dostępowe i informację, czy chodzi o nową sieć czy modernizację.
 messageHelp: Opisz układ biura, liczbę urządzeń, dostępne okablowanie, obecną sieć i wymagania dla pracowników oraz gości.
 submitLabel: Poproś o projekt Wi‑Fi

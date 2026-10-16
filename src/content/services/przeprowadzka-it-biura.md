@@ -6,12 +6,12 @@ title: Przeprowadzka IT biura w Warszawie - stanowiska i sieć
 seoTitle: Przeprowadzka IT biura Warszawa | Stanowiska i sieć
 description: Plan, oznaczenie, odłączenie i ponowne uruchomienie stanowisk oraz sieci podczas przeprowadzki małego biura w Warszawie.
 eyebrow: Zmiana lokalizacji biura
-lead: Spisujemy stanowiska i zależności, planujemy kolejność odłączenia oraz uruchomienia, a po przeprowadzce sprawdzamy sieć i uzgodnione miejsca pracy w nowym biurze.
+lead: Spisujemy i oznaczamy sprzęt, a następnie ustalamy kolejność odłączenia i uruchomienia. Po przeprowadzce podłączamy uzgodnione stanowiska i sprawdzamy sieć w nowym biurze.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-27
+updatedAt: 2026-10-16
 outcomes:
   - Oznaczone stanowiska, przewody i urządzenia objęte przeprowadzką
   - Ustalona kolejność uruchomienia sieci oraz miejsc pracy
@@ -43,9 +43,9 @@ heroFacts:
   - Oznaczenie przed odłączeniem
   - Test stanowisk po podłączeniu
 serviceNoteTitle: Zakres ustalamy przed dniem przeprowadzki
-serviceNote: Najpierw potrzebujemy listy stanowisk, lokalizacji źródłowej i docelowej oraz informacji, kto odpowiada za transport. Dodatkowe okablowanie i materiały wyceniamy osobno.
+serviceNote: Potrzebujemy liczby stanowisk, obu adresów i informacji, kto przewozi sprzęt. Dodatkowe okablowanie i materiały wyceniamy osobno.
 processLabel: Plan przeprowadzki
-processTitle: Najpierw zależności, potem kartony
+processTitle: Plan przed odłączeniem sprzętu
 process:
   - label: 01 / INWENTARYZACJA
     title: Spisujemy stanowiska i sieć
@@ -55,7 +55,7 @@ process:
     description: Przygotowujemy elementy IT zgodnie z ustaleniem dotyczącym transportu i odpowiedzialności.
   - label: 03 / START
     title: Podłączamy i testujemy
-    description: Uruchamiamy uzgodnione stanowiska, sprawdzamy połączenie i zapisujemy wyjątki.
+    description: Uruchamiamy uzgodnione stanowiska, sprawdzamy połączenia i zapisujemy, co wymaga dalszej pracy.
 formLead: Podaj liczbę stanowisk, oba adresy, planowany termin oraz informację, czy potrzebujesz także transportu sprzętu.
 messageHelp: Opisz liczbę stanowisk i urządzeń sieciowych, lokalizację źródłową i docelową, termin oraz zakres transportu.
 submitLabel: Poproś o plan przeprowadzki

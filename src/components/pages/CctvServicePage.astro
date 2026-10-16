@@ -1,0 +1,149 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../LeadForm.astro';
+import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+import { getExperience } from '../../i18n/experience';
+import { company } from '../../data/company';
+
+interface Props {
+  locale: Locale;
+  service: CollectionEntry<'services'>;
+}
+const { locale, service } = Astro.props;
+const { Content } = await render(service);
+const data = service.data;
+const translationKey = data.translationKey as TranslationKey;
+const ui = getUi(locale);
+const experience = getExperience(locale);
+const copy = experience.cctv;
+---
+
+<BaseLayout
+  title={data.seoTitle}
+  description={data.description}
+  canonicalPath={getRoute(locale, translationKey)}
+  noindex={data.noindex || data.status !== 'published'}
+  {locale}
+  {translationKey}
+  pageClass="service-experience"
+  service={{ name: data.title, description: data.description }}
+  breadcrumbs={[
+    { name: ui.common.start, path: getRoute(locale, 'home') },
+    { name: ui.common.services, path: getRoute(locale, 'services') },
+    {
+      name: data.breadcrumbTitle ?? data.title,
+      path: getRoute(locale, translationKey),
+    },
+  ]}
+>
+  <nav class="breadcrumb" aria-label={ui.common.scope}>
+    <ol>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li>
+      <li><a href={getRoute(locale, 'services')}>{ui.common.services}</a></li>
+      <li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
+    </ol>
+  </nav>
+  <header class="page-hero cctv-hero">
+    <div class="cctv-intro">
+      <p class="service-qualifier">{ui.service.qualifier}</p>
+      <h1>{data.title}</h1>
+      <p class="hero-lead">{copy.intro}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#enquiry">{data.primaryCta}</a>
+        <a class="button button-secondary call-action" href={company.publicPhoneHref}>
+          {experience.call}
+          <span>{company.publicPhone}</span>
+        </a>
+      </div>
+      <p class="scope-note">{data.serviceNote}</p>
+    </div>
+    <figure class="diagnostic-path">
+      <figcaption>{copy.diagramTitle}</figcaption>
+      <ol>
+        {
+          copy.nodes.map(([title, description], index) => (
+            <li>
+              <span class="path-step" aria-hidden="true">
+                {index + 1}
+              </span>
+              <div>
+                <>
+                  <strong>{title}</strong>
+                  <span>{description}</span>
+                </>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <p>{copy.diagramNote}</p>
+    </figure>
+  </header>
+
+  <section
+    id="scope"
+    class="page-section service-overview"
+    aria-labelledby="scope-title"
+  >
+    <div>
+      <h2 id="scope-title">{ui.service.inScopeTitle}</h2>
+      <ul class="check-list">{data.scope.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div>
+      <h2>{copy.symptomsTitle}</h2>
+      <ul class="plain-list">{data.problems.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+
+  <section id="enquiry" class="page-section">
+    <LeadForm
+      selectedServiceId={data.serviceId}
+      heading={data.formOption}
+      lead={copy.formLead}
+      messageHelp={copy.messageHelp}
+      submitLabel={data.submitLabel}
+      photoHelp={copy.photoHelp}
+      {locale}
+    />
+  </section>
+
+  <section class="page-section service-result" aria-labelledby="result-title">
+    <h2 id="result-title">{copy.resultTitle}</h2>
+    <div class="service-overview">
+      <ul class="check-list">{data.outcomes.map((item) => <li>{item}</li>)}</ul>
+      <div>
+        <h3>{ui.service.docsTitle}</h3>
+        <ul class="plain-list">{data.deliverables.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </div>
+    <details class="scope-disclosure">
+      <summary>{ui.service.exclusionsTitle}</summary>
+      <ul class="plain-list">{data.exclusions.map((item) => <li>{item}</li>)}</ul>
+    </details>
+    <div class="legal-copy"><Content /></div>
+  </section>
+
+  {
+    data.process && (
+      <section class="page-section" aria-labelledby="service-process-title">
+        <header class="section-head">
+          <h2 id="service-process-title">{data.processTitle}</h2>
+          {data.processLead && <p>{data.processLead}</p>}
+        </header>
+        <ol class="work-steps">
+          {data.process.map((step) => (
+            <li>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </li>
+          ))}
+        </ol>
+        <a class="all-services-link" href="#enquiry">
+          {data.primaryCta}
+        </a>
+      </section>
+    )
+  }
+</BaseLayout>

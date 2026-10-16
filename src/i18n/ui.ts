@@ -41,7 +41,7 @@ export const ui = {
         'Projektowanie, porządkowanie i obsługa sieci, Wi‑Fi oraz stanowisk pracy wyłącznie dla firm i organizacji w Warszawie.',
       eyebrow: 'IT dla biznesu · Warszawa',
       h1: 'Firmowa sieć bez przypadkowych połączeń.',
-      lead: 'Projektujemy, porządkujemy i diagnozujemy sieci LAN, Wi‑Fi oraz środowisko pracy małych organizacji. Zakres i warunki ustalamy przed rozpoczęciem prac.',
+      lead: 'Projektujemy i naprawiamy sieci LAN oraz Wi‑Fi w małych firmach. Porządkujemy też okablowanie i stanowiska pracy. Zakres i warunki ustalamy przed rozpoczęciem prac.',
       primary: 'Wyślij zapytanie',
       secondary: 'Zobacz zakres usług',
       notes: [
@@ -52,25 +52,25 @@ export const ui = {
       serviceLabel: 'Zakres usług',
       serviceTitle: 'W czym pomagamy',
       serviceLead:
-        'Najbardziej konkretne zadania dla małych biur. Pełny zakres pozostaje dostępny w katalogu usług.',
+        'Awaria sieci, słabe Wi‑Fi, nowe gniazda LAN czy przeprowadzka biura? Wybierz usługę pasującą do zadania.',
       processLabel: 'Sposób pracy',
       processTitle: 'Najpierw fakty, potem zmiany',
       processLead:
-        'Proces ogranicza przypadkowe zakupy i pozwala oddzielić diagnozę od wdrożenia.',
+        'Najpierw sprawdzamy, co nie działa i dlaczego. Zakup sprzętu lub dodatkowe prace uzgadniamy osobno.',
       process: [
         [
           '01 / KONTEKST',
-          'Opis organizacji',
-          'Zbieramy objawy, lokalizację, skalę i znane ograniczenia infrastruktury.',
+          'Rozpoznanie zadania',
+          'Pytamy, co nie działa lub co trzeba zmienić, gdzie jest biuro i ile stanowisk obejmuje zadanie.',
         ],
         [
           '02 / ZAKRES',
-          'Ustalenie pracy',
-          'Określamy co sprawdzamy, czego nie obejmuje zadanie i jaki ma być rezultat.',
+          'Uzgodnienie zakresu',
+          'Ustalamy, co sprawdzimy lub wykonamy, co pozostaje poza zakresem i jaki ma być rezultat.',
         ],
         [
           '03 / WYNIK',
-          'Wykonanie i zapis',
+          'Praca i dokumentacja',
           'Realizujemy uzgodniony zakres i zapisujemy wykonane zmiany oraz zalecenia.',
         ],
       ],
@@ -104,7 +104,7 @@ export const ui = {
         'Zakres usług związanych z firmową siecią LAN, Wi‑Fi, diagnostyką i bieżącą obsługą infrastruktury organizacji.',
       eyebrow: 'Zakres techniczny',
       h1: 'Usługi sieciowe i IT dla firm w Warszawie',
-      lead: 'Każda usługa opisuje rezultat, zakres i wyłączenia. Dostępność, harmonogram oraz warunki komercyjne potwierdzamy indywidualnie.',
+      lead: 'Sprawdź, co obejmuje wybrana usługa i co otrzymasz po pracy. Termin, koszt i potrzebne materiały ustalamy po poznaniu zadania.',
       filterLabel: 'Filtr / usługi',
       filterCountOne: 'Pokazano {visible} z {total} usług.',
       filterCountMany: 'Pokazano {visible} z {total} usług.',
@@ -122,28 +122,28 @@ export const ui = {
       factsLabel: 'Najważniejsze warunki usługi',
       primary: 'Wyślij zapytanie',
       scopeLink: 'Sprawdź zakres',
-      calloutTitle: 'Zakres potwierdzany przed realizacją',
+      calloutTitle: 'Najpierw ustalamy zakres i warunki',
       callout:
-        'Dostępność, harmonogram, odpowiedzialność za materiały i warunki komercyjne ustalamy po poznaniu infrastruktury organizacji.',
+        'Po zapoznaniu się z zadaniem potwierdzamy możliwy termin, koszt i to, kto dostarcza materiały. Dopiero potem rozpoczynamy uzgodnione prace.',
       outcomeLabel: 'Rezultat',
       outcomeTitle: 'Co otrzymuje organizacja',
       problemsLabel: 'Sygnały',
-      problemsTitle: 'Kiedy warto opisać zadanie',
+      problemsTitle: 'Kiedy ta usługa jest potrzebna',
       scopeAria: 'Zakres usługi',
       inScopeLabel: 'W zakresie',
-      inScopeTitle: 'Uzgadniamy do wykonania',
+      inScopeTitle: 'Co obejmuje usługa',
       exclusionsLabel: 'Poza zakresem',
       exclusionsTitle: 'Wymaga osobnego ustalenia',
       docsLabel: 'Dokumentacja',
-      docsTitle: 'Co zostaje po pracy',
+      docsTitle: 'Jak dokumentujemy wynik',
     },
     contact: {
       title: 'Kontakt dla firm | ITBIZ.PL',
       description:
         'Opisz zadanie dotyczące sieci lub infrastruktury IT firmy w Warszawie.',
       eyebrow: 'Kontakt · Warszawa i uzgodnione okolice',
-      h1: 'Najpierw opiszmy zadanie.',
-      lead: 'Formularz zbiera kontekst potrzebny do oceny, czy zadanie mieści się w zakresie ITBIZ.PL. Odpowiedź i możliwe terminy potwierdzimy po analizie zgłoszenia.',
+      h1: 'Wyślij zapytanie lub zadzwoń.',
+      lead: 'Napisz, czego potrzebuje firma, i podaj adres biura. Po zapoznaniu się ze zgłoszeniem ustalimy zakres prac i możliwy termin.',
       directLabel: 'Bezpośredni kontakt z ITBIZ.PL',
       phoneLabel: 'Telefon',
       emailLabel: 'E-mail',
@@ -153,7 +153,7 @@ export const ui = {
       description:
         'ITBIZ.PL to oferta GOODSERVICE sp. z o.o. dotycząca infrastruktury IT firm i organizacji w Warszawie.',
       eyebrow: 'Operator i zasady',
-      h1: 'ITBIZ.PL nie udaje większej organizacji.',
+      h1: 'ITBIZ.PL - infrastruktura IT dla firm.',
       lead: 'Operatorem serwisu jest GOODSERVICE sp. z o.o., NIP 5272714609. Marka ITBIZ.PL opisuje usługi dla firm i organizacji.',
       principles: [
         [
@@ -164,7 +164,7 @@ export const ui = {
         [
           'Zasada 02',
           'Fakty zamiast obietnic',
-          'Nie publikujemy wymyślonych klientów, wyników, cen ani terminów reakcji.',
+          'Koszt, dostępność i termin potwierdzamy dla konkretnego zadania. Nie obiecujemy czasu reakcji bez wcześniejszych ustaleń.',
         ],
         [
           'Zasada 03',
@@ -174,7 +174,7 @@ export const ui = {
         [
           'Zasada 04',
           'Dokumentacja zmian',
-          'Rezultat powinien pozostać zrozumiały także po zakończeniu konkretnego zadania.',
+          'Zapisujemy wykonane zmiany i zalecenia, żeby można było do nich wrócić po zakończeniu prac.',
         ],
       ],
     },
@@ -183,8 +183,8 @@ export const ui = {
       description:
         'ITBIZ.PL obsługuje firmy i organizacje w Warszawie oraz w indywidualnie uzgodnionych okolicach.',
       eyebrow: 'Obszar działania',
-      h1: 'Warszawa i okolice uzgodnione przed realizacją.',
-      lead: 'Dokładna lokalizacja i możliwość dojazdu są potwierdzane razem z zakresem. Nie tworzymy osobnych ofert dzielnicowych bez unikalnych warunków i faktów.',
+      h1: 'Obsługa firm w Warszawie i okolicach.',
+      lead: 'Podaj adres biura i opisz potrzebne prace. Potwierdzimy możliwość dojazdu razem z zakresem i terminem. Wyjazdy poza Warszawę ustalamy indywidualnie.',
       facts: [
         'Adres realizacji podaje organizacja w zgłoszeniu.',
         'Dojazd poza Warszawę potwierdzamy indywidualnie.',
@@ -203,8 +203,8 @@ export const ui = {
       title: 'Rozwiązania infrastruktury dla małych firm | ITBIZ.PL',
       description: 'Scenariusze uporządkowania sieci, Wi‑Fi i dostępu w małym biurze.',
       eyebrow: 'Schematy infrastruktury',
-      h1: 'Rozwiązania opisują architekturę, nie obietnicę sprzedażową.',
-      lead: 'Punktem wyjścia są ograniczenia lokalu, liczba użytkowników i odpowiedzialność za utrzymanie. Docelowy wariant dobieramy dopiero po zebraniu faktów.',
+      h1: 'Jak zaplanować sieć małego biura.',
+      lead: 'Poniżej pokazujemy przykładowe układy sieci. Dobór sprzętu, okablowania i konfiguracji zależy od lokalu, liczby użytkowników i sposobu pracy firmy.',
       items: [
         [
           'R-01',
@@ -225,8 +225,8 @@ export const ui = {
     },
     form: {
       label: 'Zapytanie',
-      heading: 'Opisz zadanie',
-      lead: 'Podaj krótko kontekst. Zakres, dostępność i warunki potwierdzimy przed pracą.',
+      heading: 'Wyślij zapytanie',
+      lead: 'Napisz, co trzeba naprawić lub przygotować, i podaj adres biura. Zakres, termin i koszt ustalimy przed pracą.',
       company: 'Firma / organizacja / NIP (opcjonalnie)',
       nip: 'NIP (opcjonalnie)',
       nipHelp: 'Możesz podać nazwę firmy, organizacji albo NIP.',
@@ -237,9 +237,9 @@ export const ui = {
       phone: 'Telefon',
       contactHelp: 'Podaj e-mail lub telefon.',
       topic: 'Temat',
-      choose: 'Wybierz zakres',
+      choose: 'Wybierz usługę',
       other: 'Inne zadanie infrastrukturalne',
-      message: 'Co wymaga sprawdzenia?',
+      message: 'Czego potrzebuje firma?',
       messageHelp:
         'Opisz lokalizację, liczbę stanowisk i zauważone objawy, jeśli są znane.',
       website: 'Strona internetowa',
@@ -362,7 +362,7 @@ export const ui = {
         'Проектирование, упорядочивание и обслуживание сетей, Wi‑Fi и рабочих мест только для компаний и организаций в Варшаве.',
       eyebrow: 'IT для бизнеса · Варшава',
       h1: 'Корпоративная сеть без случайных соединений.',
-      lead: 'Проектируем, упорядочиваем и диагностируем LAN, Wi‑Fi и рабочую среду небольших организаций. Объём и условия согласовываем до начала работ.',
+      lead: 'Проектируем и ремонтируем сети LAN и Wi‑Fi в небольших компаниях. Приводим в порядок кабели и рабочие места. Объём и условия согласовываем до начала работ.',
       primary: 'Отправить запрос',
       secondary: 'Посмотреть услуги',
       notes: [
@@ -373,16 +373,16 @@ export const ui = {
       serviceLabel: 'Услуги',
       serviceTitle: 'Чем помогаем',
       serviceLead:
-        'Наиболее конкретные задачи для небольших офисов. Полный перечень доступен в каталоге услуг.',
+        'Не работает сеть, пропадает Wi‑Fi, нужны розетки LAN или предстоит переезд офиса? Выберите услугу под вашу задачу.',
       processLabel: 'Как мы работаем',
       processTitle: 'Сначала факты, затем изменения',
       processLead:
-        'Такой процесс сокращает случайные покупки и отделяет диагностику от внедрения.',
+        'Сначала выясняем, что не работает и почему. Покупку оборудования и дополнительные работы согласовываем отдельно.',
       process: [
         [
           '01 / КОНТЕКСТ',
-          'Описание организации',
-          'Собираем симптомы, адрес, масштаб и известные ограничения инфраструктуры.',
+          'Разбираемся в задаче',
+          'Уточняем, что не работает или что нужно изменить, где находится офис и сколько рабочих мест затронуто.',
         ],
         [
           '02 / ОБЪЁМ',
@@ -391,7 +391,7 @@ export const ui = {
         ],
         [
           '03 / РЕЗУЛЬТАТ',
-          'Выполнение и фиксация',
+          'Работа и документация',
           'Выполняем согласованный объём и документируем изменения и рекомендации.',
         ],
       ],
@@ -425,7 +425,7 @@ export const ui = {
         'Корпоративные LAN, Wi‑Fi, диагностика и текущее обслуживание инфраструктуры организаций.',
       eyebrow: 'Технический объём',
       h1: 'Сетевые и IT-услуги для компаний в Варшаве',
-      lead: 'На каждой странице описаны результат, объём и исключения. Доступность, график и коммерческие условия подтверждаем индивидуально.',
+      lead: 'Посмотрите, что входит в нужную услугу и что вы получите после работы. Сроки, стоимость и материалы согласуем, когда разберёмся в задаче.',
       filterLabel: 'Фильтр / услуги',
       filterCountOne: 'Показано: {visible} из {total}.',
       filterCountMany: 'Показано: {visible} из {total}.',
@@ -443,27 +443,27 @@ export const ui = {
       factsLabel: 'Основные условия услуги',
       primary: 'Отправить запрос',
       scopeLink: 'Посмотреть объём',
-      calloutTitle: 'Объём подтверждаем до выполнения',
+      calloutTitle: 'Сначала согласуем объём и условия',
       callout:
-        'Доступность, график, ответственность за материалы и коммерческие условия согласовываем после знакомства с инфраструктурой организации.',
+        'Когда разберёмся в задаче, подтвердим возможный срок, стоимость и кто предоставляет материалы. Затем приступим к согласованным работам.',
       outcomeLabel: 'Результат',
       outcomeTitle: 'Что получает организация',
       problemsLabel: 'Признаки',
-      problemsTitle: 'Когда стоит описать задачу',
+      problemsTitle: 'Когда нужна эта услуга',
       scopeAria: 'Объём услуги',
-      inScopeLabel: 'В объёме',
-      inScopeTitle: 'Согласовываем к выполнению',
-      exclusionsLabel: 'За пределами',
+      inScopeLabel: 'Входит в услугу',
+      inScopeTitle: 'Какие работы выполняем',
+      exclusionsLabel: 'Не входит в услугу',
       exclusionsTitle: 'Требует отдельного согласования',
       docsLabel: 'Документация',
-      docsTitle: 'Что остаётся после работы',
+      docsTitle: 'Как фиксируем результат',
     },
     contact: {
       title: 'Контакт для компаний | ITBIZ.PL',
       description: 'Опишите задачу по сети или IT-инфраструктуре компании в Варшаве.',
       eyebrow: 'Контакт · Варшава и согласованные районы',
-      h1: 'Сначала опишем задачу.',
-      lead: 'Форма собирает контекст, необходимый для оценки задачи. Ответ и возможные сроки подтвердим после анализа обращения.',
+      h1: 'Отправьте запрос или позвоните.',
+      lead: 'Напишите, что нужно компании, и укажите адрес офиса. Изучим заявку и согласуем объём работ и возможный срок.',
       directLabel: 'Прямой контакт с ITBIZ.PL',
       phoneLabel: 'Телефон',
       emailLabel: 'E-mail',
@@ -473,18 +473,18 @@ export const ui = {
       description:
         'ITBIZ.PL - услуги GOODSERVICE sp. z o.o. по IT-инфраструктуре компаний и организаций в Варшаве.',
       eyebrow: 'Оператор и принципы',
-      h1: 'ITBIZ.PL не изображает большую организацию.',
+      h1: 'ITBIZ.PL - IT-инфраструктура для компаний.',
       lead: 'Оператор сайта - GOODSERVICE sp. z o.o., NIP 5272714609. Бренд ITBIZ.PL описывает услуги для компаний и организаций.',
       principles: [
         [
           'Принцип 01',
-          'Объём до начала',
+          'Объём до начала работ',
           'Сначала согласовываем элементы задачи, исключения и ожидаемый результат.',
         ],
         [
           'Принцип 02',
           'Факты вместо обещаний',
-          'Не публикуем вымышленных клиентов, результаты, цены или сроки реакции.',
+          'Стоимость, доступность и сроки подтверждаем для конкретной задачи. Не обещаем время реакции без предварительного согласования.',
         ],
         [
           'Принцип 03',
@@ -494,7 +494,7 @@ export const ui = {
         [
           'Принцип 04',
           'Документация изменений',
-          'Результат должен оставаться понятным после завершения конкретной задачи.',
+          'Записываем выполненные изменения и рекомендации, чтобы к ним можно было вернуться после окончания работ.',
         ],
       ],
     },
@@ -503,8 +503,8 @@ export const ui = {
       description:
         'ITBIZ.PL обслуживает компании и организации в Варшаве и индивидуально согласованных окрестностях.',
       eyebrow: 'Зона работы',
-      h1: 'Варшава и окрестности, согласованные до выполнения.',
-      lead: 'Точный адрес и возможность выезда подтверждаем вместе с объёмом. Мы не создаём отдельные районные предложения без уникальных условий и фактов.',
+      h1: 'Обслуживание компаний в Варшаве и окрестностях.',
+      lead: 'Укажите адрес офиса и нужные работы. Возможность выезда подтвердим вместе с объёмом и сроком. Выезд за пределы Варшавы согласовываем отдельно.',
       facts: [
         'Организация указывает адрес выполнения в заявке.',
         'Выезд за пределы Варшавы подтверждаем индивидуально.',
@@ -523,8 +523,8 @@ export const ui = {
       title: 'Инфраструктурные решения для небольших компаний | ITBIZ.PL',
       description: 'Сценарии упорядочивания сети, Wi‑Fi и доступа в небольшом офисе.',
       eyebrow: 'Схемы инфраструктуры',
-      h1: 'Решения описывают архитектуру, а не рекламное обещание.',
-      lead: 'Исходим из ограничений помещения, числа пользователей и ответственности за обслуживание. Конкретный вариант выбираем после сбора фактов.',
+      h1: 'Как спланировать сеть небольшого офиса.',
+      lead: 'Здесь показаны примеры устройства сети. Оборудование, кабели и настройки подбираем с учётом помещения, числа пользователей и задач компании.',
       items: [
         [
           'R-01',
@@ -545,8 +545,8 @@ export const ui = {
     },
     form: {
       label: 'Запрос',
-      heading: 'Опишите задачу',
-      lead: 'Кратко укажите контекст. Объём, доступность и условия подтвердим до работ.',
+      heading: 'Отправить запрос',
+      lead: 'Напишите, что нужно починить или подготовить, и укажите адрес офиса. Объём, сроки и стоимость согласуем до начала работ.',
       company: 'Компания / организация / NIP (необязательно)',
       nip: 'NIP (необязательно)',
       nipHelp: 'Помогает подтвердить, что запрос относится к организации.',
@@ -559,7 +559,7 @@ export const ui = {
       topic: 'Тема',
       choose: 'Выберите направление',
       other: 'Другая инфраструктурная задача',
-      message: 'Что нужно проверить?',
+      message: 'Что нужно компании?',
       messageHelp:
         'Укажите адрес, количество рабочих мест и замеченные симптомы, если они известны.',
       website: 'Веб-сайт',
@@ -680,7 +680,7 @@ export const ui = {
         'Network, Wi‑Fi and workplace design, organisation and support for businesses and organisations in Warsaw only.',
       eyebrow: 'IT for business · Warsaw',
       h1: 'A business network without accidental connections.',
-      lead: 'We design, organise and diagnose LAN, Wi‑Fi and workplace environments for small organisations. Scope and terms are agreed before work begins.',
+      lead: 'We design and repair LAN and Wi‑Fi networks for small businesses. We also organise cabling and workstations. We agree the scope and terms before work begins.',
       primary: 'Send an enquiry',
       secondary: 'View services',
       notes: [
@@ -691,16 +691,16 @@ export const ui = {
       serviceLabel: 'Service scope',
       serviceTitle: 'How we help',
       serviceLead:
-        'The most specific tasks for small offices. The complete scope remains available in the service catalogue.',
+        'A network outage, unreliable Wi‑Fi, new LAN outlets or an office move? Choose the service that fits the task.',
       processLabel: 'How we work',
       processTitle: 'Facts first, changes second',
       processLead:
-        'The process reduces unnecessary purchases and separates diagnosis from implementation.',
+        'First, we check what is wrong and why. Equipment purchases and additional work are agreed separately.',
       process: [
         [
           '01 / CONTEXT',
-          'Describe the organisation',
-          'We collect symptoms, location, scale and known infrastructure constraints.',
+          'Understand the task',
+          'We ask what is wrong or needs changing, where the office is and how many workstations are involved.',
         ],
         [
           '02 / SCOPE',
@@ -743,7 +743,7 @@ export const ui = {
         'Business LAN, Wi‑Fi, diagnostics and ongoing infrastructure support for organisations.',
       eyebrow: 'Technical scope',
       h1: 'Network and IT services for Warsaw businesses',
-      lead: 'Each service explains the outcome, scope and exclusions. Availability, schedule and commercial terms are confirmed individually.',
+      lead: 'Check what each service includes and what you receive afterwards. We agree timing, cost and materials once we understand the task.',
       filterLabel: 'Filter / services',
       filterCountOne: 'Showing {visible} of {total} services.',
       filterCountMany: 'Showing {visible} of {total} services.',
@@ -753,7 +753,7 @@ export const ui = {
         lan: 'LAN and cabling',
         wifi: 'Wi‑Fi',
         office: 'Office infrastructure',
-        monitoring: 'CCTV cabling',
+        monitoring: 'CCTV',
       },
     },
     service: {
@@ -761,28 +761,28 @@ export const ui = {
       factsLabel: 'Key service terms',
       primary: 'Send an enquiry',
       scopeLink: 'View scope',
-      calloutTitle: 'Scope confirmed before delivery',
+      calloutTitle: 'Scope and terms agreed before work',
       callout:
-        'Availability, schedule, responsibility for materials and commercial terms are agreed after we understand the organisation’s infrastructure.',
+        'Once we understand the task, we confirm a possible date, the cost and who supplies materials. Work begins after these details are agreed.',
       outcomeLabel: 'Outcome',
       outcomeTitle: 'What the organisation receives',
-      problemsLabel: 'Signals',
-      problemsTitle: 'When to describe the task',
+      problemsLabel: 'Common problems',
+      problemsTitle: 'When you need this service',
       scopeAria: 'Service scope',
       inScopeLabel: 'In scope',
-      inScopeTitle: 'Agreed for delivery',
+      inScopeTitle: 'What the service covers',
       exclusionsLabel: 'Out of scope',
       exclusionsTitle: 'Requires separate agreement',
       docsLabel: 'Documentation',
-      docsTitle: 'What remains after the work',
+      docsTitle: 'How we document the result',
     },
     contact: {
       title: 'Business contact | ITBIZ.PL',
       description:
         'Describe a network or IT infrastructure task for a business in Warsaw.',
       eyebrow: 'Contact · Warsaw and agreed nearby areas',
-      h1: 'Start by describing the task.',
-      lead: 'The form collects the context needed to assess whether the task fits ITBIZ.PL. We confirm a response and possible timing after reviewing the enquiry.',
+      h1: 'Send an enquiry or call us.',
+      lead: 'Tell us what your business needs and include the office address. We will review the enquiry and agree the scope and possible timing.',
       directLabel: 'Direct contact with ITBIZ.PL',
       phoneLabel: 'Phone',
       emailLabel: 'Email',
@@ -792,7 +792,7 @@ export const ui = {
       description:
         'ITBIZ.PL is the business IT infrastructure offer of GOODSERVICE sp. z o.o. in Warsaw.',
       eyebrow: 'Operator and principles',
-      h1: 'ITBIZ.PL does not pretend to be a larger organisation.',
+      h1: 'ITBIZ.PL - IT infrastructure for businesses.',
       lead: 'The site is operated by GOODSERVICE sp. z o.o., Polish tax ID (NIP) 5272714609. ITBIZ.PL describes its services for businesses and organisations.',
       principles: [
         [
@@ -803,7 +803,7 @@ export const ui = {
         [
           'Principle 02',
           'Facts over promises',
-          'We do not publish invented clients, outcomes, prices or response times.',
+          'We confirm cost, availability and timing for each task. Response times are agreed, not assumed.',
         ],
         [
           'Principle 03',
@@ -813,7 +813,7 @@ export const ui = {
         [
           'Principle 04',
           'Documented changes',
-          'The result should remain understandable after a specific task is complete.',
+          'We record changes and recommendations so they can be referred to after the work is finished.',
         ],
       ],
     },
@@ -822,8 +822,8 @@ export const ui = {
       description:
         'ITBIZ.PL supports businesses and organisations in Warsaw and individually agreed nearby areas.',
       eyebrow: 'Service area',
-      h1: 'Warsaw and nearby areas agreed before delivery.',
-      lead: 'The exact location and travel feasibility are confirmed with the scope. We do not create district-specific offers without unique conditions and verified facts.',
+      h1: 'Business IT services in Warsaw and nearby areas.',
+      lead: 'Send the office address and a description of the work. We confirm whether we can visit when agreeing the scope and timing. Visits outside Warsaw are arranged individually.',
       facts: [
         'The organisation provides the service address in its enquiry.',
         'Travel outside Warsaw is confirmed individually.',
@@ -843,8 +843,8 @@ export const ui = {
       description:
         'Scenarios for organising network, Wi‑Fi and access in a small office.',
       eyebrow: 'Infrastructure patterns',
-      h1: 'Solutions describe architecture, not a sales promise.',
-      lead: 'We begin with premises constraints, user count and maintenance responsibility. A target option is selected only after the facts are collected.',
+      h1: 'Planning a small office network.',
+      lead: 'These are examples of office network layouts. Equipment, cabling and configuration depend on the premises, number of users and how the business works.',
       items: [
         [
           'R-01',
@@ -865,8 +865,8 @@ export const ui = {
     },
     form: {
       label: 'Enquiry',
-      heading: 'Describe the task',
-      lead: 'Provide brief context. We will confirm scope, availability and terms before work.',
+      heading: 'Send an enquiry',
+      lead: 'Tell us what needs fixing or setting up and include the office address. We will agree scope, timing and cost before work begins.',
       company: 'Company / organisation / NIP (optional)',
       nip: 'NIP (optional)',
       nipHelp: 'Helps confirm that the enquiry concerns an organisation.',
@@ -877,9 +877,9 @@ export const ui = {
       phone: 'Phone',
       contactHelp: 'Provide an email or phone number.',
       topic: 'Topic',
-      choose: 'Choose a scope',
+      choose: 'Choose a service',
       other: 'Another infrastructure task',
-      message: 'What needs to be checked?',
+      message: 'What does your business need?',
       messageHelp: 'Include the location, number of workstations and known symptoms.',
       website: 'Website',
       notice: 'We use the data to respond to this enquiry. Details are in the',
@@ -1000,7 +1000,7 @@ export const ui = {
         'Проєктування, впорядкування й обслуговування мереж, Wi‑Fi та робочих місць лише для компаній і організацій у Варшаві.',
       eyebrow: 'IT для бізнесу · Варшава',
       h1: 'Корпоративна мережа без випадкових з’єднань.',
-      lead: 'Проєктуємо, впорядковуємо й діагностуємо LAN, Wi‑Fi та робоче середовище невеликих організацій. Обсяг і умови погоджуємо до початку робіт.',
+      lead: 'Проєктуємо й ремонтуємо мережі LAN та Wi‑Fi для невеликих компаній. Упорядковуємо кабелі й робочі місця. Обсяг і умови погоджуємо до початку робіт.',
       primary: 'Надіслати запит',
       secondary: 'Переглянути послуги',
       notes: [
@@ -1011,16 +1011,16 @@ export const ui = {
       serviceLabel: 'Послуги',
       serviceTitle: 'Чим допомагаємо',
       serviceLead:
-        'Найконкретніші завдання для малих офісів. Повний перелік доступний у каталозі послуг.',
+        'Не працює мережа, зникає Wi‑Fi, потрібні розетки LAN чи заплановано переїзд офісу? Оберіть послугу для свого завдання.',
       processLabel: 'Як ми працюємо',
       processTitle: 'Спочатку факти, потім зміни',
       processLead:
-        'Процес зменшує випадкові закупівлі та відокремлює діагностику від упровадження.',
+        'Спочатку з’ясовуємо, що не працює і чому. Придбання обладнання та додаткові роботи погоджуємо окремо.',
       process: [
         [
           '01 / КОНТЕКСТ',
-          'Опис організації',
-          'Збираємо симптоми, адресу, масштаб і відомі обмеження інфраструктури.',
+          'З’ясовуємо завдання',
+          'Уточнюємо, що не працює або що потрібно змінити, де розташований офіс і скільки робочих місць залучено.',
         ],
         [
           '02 / ОБСЯГ',
@@ -1029,7 +1029,7 @@ export const ui = {
         ],
         [
           '03 / РЕЗУЛЬТАТ',
-          'Виконання й фіксація',
+          'Робота й документація',
           'Виконуємо погоджений обсяг і документуємо зміни та рекомендації.',
         ],
       ],
@@ -1063,7 +1063,7 @@ export const ui = {
         'Корпоративні LAN, Wi‑Fi, діагностика та поточне обслуговування інфраструктури організацій.',
       eyebrow: 'Технічний обсяг',
       h1: 'Мережеві та IT-послуги для компаній у Варшаві',
-      lead: 'Кожна послуга описує результат, обсяг і винятки. Доступність, графік і комерційні умови підтверджуємо індивідуально.',
+      lead: 'Перегляньте, що входить до потрібної послуги та що ви отримаєте після роботи. Строки, вартість і матеріали погодимо, коли з’ясуємо завдання.',
       filterLabel: 'Фільтр / послуги',
       filterCountOne: 'Показано {visible} з {total} послуг.',
       filterCountMany: 'Показано {visible} з {total} послуг.',
@@ -1081,28 +1081,28 @@ export const ui = {
       factsLabel: 'Основні умови послуги',
       primary: 'Надіслати запит',
       scopeLink: 'Переглянути обсяг',
-      calloutTitle: 'Обсяг підтверджуємо до виконання',
+      calloutTitle: 'Спочатку погодимо обсяг і умови',
       callout:
-        'Доступність, графік, відповідальність за матеріали та комерційні умови погоджуємо після ознайомлення з інфраструктурою організації.',
+        'Коли з’ясуємо завдання, підтвердимо можливий строк, вартість і хто надає матеріали. Потім почнемо погоджені роботи.',
       outcomeLabel: 'Результат',
       outcomeTitle: 'Що отримує організація',
       problemsLabel: 'Ознаки',
-      problemsTitle: 'Коли варто описати завдання',
+      problemsTitle: 'Коли потрібна ця послуга',
       scopeAria: 'Обсяг послуги',
-      inScopeLabel: 'В обсязі',
-      inScopeTitle: 'Погоджуємо до виконання',
+      inScopeLabel: 'Входить до послуги',
+      inScopeTitle: 'Які роботи виконуємо',
       exclusionsLabel: 'Поза обсягом',
       exclusionsTitle: 'Потребує окремого погодження',
       docsLabel: 'Документація',
-      docsTitle: 'Що залишається після роботи',
+      docsTitle: 'Як фіксуємо результат',
     },
     contact: {
       title: 'Контакт для компаній | ITBIZ.PL',
       description:
         'Опишіть завдання щодо мережі або IT-інфраструктури компанії у Варшаві.',
       eyebrow: 'Контакт · Варшава та погоджені околиці',
-      h1: 'Спочатку опишімо завдання.',
-      lead: 'Форма збирає контекст, потрібний для оцінки завдання. Відповідь і можливі строки підтвердимо після аналізу звернення.',
+      h1: 'Надішліть запит або зателефонуйте.',
+      lead: 'Напишіть, що потрібно компанії, та вкажіть адресу офісу. Розглянемо заявку й погодимо обсяг робіт і можливий строк.',
       directLabel: 'Прямий контакт з ITBIZ.PL',
       phoneLabel: 'Телефон',
       emailLabel: 'E-mail',
@@ -1112,18 +1112,18 @@ export const ui = {
       description:
         'ITBIZ.PL - пропозиція GOODSERVICE sp. z o.o. щодо IT-інфраструктури компаній та організацій у Варшаві.',
       eyebrow: 'Оператор і принципи',
-      h1: 'ITBIZ.PL не вдає більшу організацію.',
+      h1: 'ITBIZ.PL - IT-інфраструктура для компаній.',
       lead: 'Оператор сайту - GOODSERVICE sp. z o.o., NIP 5272714609. Бренд ITBIZ.PL описує послуги для компаній та організацій.',
       principles: [
         [
           'Принцип 01',
-          'Обсяг до початку',
+          'Обсяг до початку робіт',
           'Спочатку погоджуємо елементи завдання, винятки та очікуваний результат.',
         ],
         [
           'Принцип 02',
           'Факти замість обіцянок',
-          'Не публікуємо вигаданих клієнтів, результати, ціни чи строки реакції.',
+          'Вартість, доступність і строки підтверджуємо для конкретного завдання. Не обіцяємо часу реакції без попереднього погодження.',
         ],
         [
           'Принцип 03',
@@ -1133,7 +1133,7 @@ export const ui = {
         [
           'Принцип 04',
           'Документація змін',
-          'Результат має залишатися зрозумілим після завершення конкретного завдання.',
+          'Записуємо виконані зміни й рекомендації, щоб до них можна було повернутися після завершення робіт.',
         ],
       ],
     },
@@ -1142,8 +1142,8 @@ export const ui = {
       description:
         'ITBIZ.PL обслуговує компанії та організації у Варшаві й індивідуально погоджених околицях.',
       eyebrow: 'Зона роботи',
-      h1: 'Варшава та околиці, погоджені до виконання.',
-      lead: 'Точну адресу й можливість виїзду підтверджуємо разом з обсягом. Не створюємо окремих районних пропозицій без унікальних умов і перевірених фактів.',
+      h1: 'Обслуговування компаній у Варшаві та околицях.',
+      lead: 'Вкажіть адресу офісу й потрібні роботи. Можливість виїзду підтвердимо разом з обсягом і строком. Виїзд за межі Варшави погоджуємо окремо.',
       facts: [
         'Організація вказує адресу виконання в заявці.',
         'Виїзд за межі Варшави підтверджуємо індивідуально.',
@@ -1163,8 +1163,8 @@ export const ui = {
       description:
         'Сценарії впорядкування мережі, Wi‑Fi та доступу в невеликому офісі.',
       eyebrow: 'Схеми інфраструктури',
-      h1: 'Рішення описують архітектуру, а не рекламну обіцянку.',
-      lead: 'Виходимо з обмежень приміщення, кількості користувачів і відповідальності за обслуговування. Цільовий варіант обираємо після збору фактів.',
+      h1: 'Як спланувати мережу невеликого офісу.',
+      lead: 'Тут наведено приклади побудови офісної мережі. Обладнання, кабелі й налаштування підбираємо з урахуванням приміщення, кількості користувачів і завдань компанії.',
       items: [
         [
           'R-01',
@@ -1185,8 +1185,8 @@ export const ui = {
     },
     form: {
       label: 'Запит',
-      heading: 'Опишіть завдання',
-      lead: 'Коротко вкажіть контекст. Обсяг, доступність і умови підтвердимо до робіт.',
+      heading: 'Надіслати запит',
+      lead: 'Напишіть, що потрібно полагодити або підготувати, і вкажіть адресу офісу. Обсяг, строки й вартість погодимо до початку робіт.',
       company: 'Компанія / організація / NIP (необов’язково)',
       nip: 'NIP (необов’язково)',
       nipHelp: 'Допомагає підтвердити, що запит стосується організації.',
@@ -1199,7 +1199,7 @@ export const ui = {
       topic: 'Тема',
       choose: 'Оберіть напрям',
       other: 'Інше інфраструктурне завдання',
-      message: 'Що потрібно перевірити?',
+      message: 'Що потрібно компанії?',
       messageHelp: 'Вкажіть адресу, кількість робочих місць і відомі симптоми.',
       website: 'Вебсайт',
       notice: 'Використаємо дані, щоб відповісти на запит. Докладніше - в',

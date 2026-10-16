@@ -6,12 +6,12 @@ title: Structured cabling and LAN networks for Warsaw businesses
 seoTitle: Office structured cabling Warsaw | Business LAN
 description: Planning and installation of agreed LAN outlets and cable routes in offices. Termination, labelling and verification of connections.
 eyebrow: New or expanding wired network
-lead: We plan outlets and routes for workstations, network devices and access points. This page covers installation and expansion, not repair of one outlet.
+lead: We plan and install cabling for workstations, network equipment and Wi‑Fi access points. This service covers new LAN installations and extensions. Repairing a single outlet is a separate task.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - A clear plan of outlets and connections
   - Labelled terminations and ports

@@ -6,12 +6,12 @@ title: Office IT move in Warsaw - workstations and network
 seoTitle: Office IT move Warsaw | Workstations and network
 description: Planning, labelling, disconnection and restart of workstations and network equipment during a small office IT move in Warsaw.
 eyebrow: Office relocation
-lead: We inventory workstations and dependencies, plan disconnection and startup order, then test the network and agreed workplaces at the new office.
+lead: We list and label equipment, then plan the order for disconnection and restart. After the move, we reconnect the agreed workstations and test the network in the new office.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-27
+updatedAt: 2026-10-16
 outcomes:
   - Labelled workstations, cables and devices included in the move
   - An agreed startup order for the network and workplaces
@@ -43,9 +43,9 @@ heroFacts:
   - Labelling before disconnection
   - Workstation testing after reconnection
 serviceNoteTitle: Scope agreed before moving day
-serviceNote: We first need the workstation list, source and destination locations and information about responsibility for transport. Additional cabling and materials are quoted separately.
+serviceNote: We need the workstation count, both addresses and confirmation of who transports the equipment. Additional cabling and materials are quoted separately.
 processLabel: Move plan
-processTitle: Dependencies first, boxes second
+processTitle: Plan before disconnecting
 process:
   - label: 01 / INVENTORY
     title: We record workstations and network equipment
@@ -55,7 +55,7 @@ process:
     description: We prepare IT components according to the agreement on transport and responsibility.
   - label: 03 / STARTUP
     title: We reconnect and test
-    description: We start the agreed workstations, test connectivity and record exceptions.
+    description: We start the agreed workstations, test connections and note anything that needs further work.
 formLead: Provide the number of workstations, both addresses, planned date and whether you also need equipment transport.
 messageHelp: Describe the number of workstations and network devices, source and destination locations, timing and transport scope.
 submitLabel: Request an IT move plan

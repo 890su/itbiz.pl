@@ -6,12 +6,12 @@ title: Wi‑Fi audit for a small office - 5-30 workstations
 seoTitle: Small office Wi‑Fi audit Warsaw | ITBIZ.PL
 description: Wi‑Fi coverage, interference and load measurements for offices with 5-30 workstations in Warsaw. A report and change plan without promises before measurement.
 eyebrow: Wi‑Fi for 5-30 workstations
-lead: We measure radio conditions on the premises, review the current configuration and show whether the problem comes from coverage, interference, capacity or the internet connection.
+lead: We measure Wi‑Fi coverage and interference in the office and check the network settings. We investigate whether coverage, network load, the internet connection or user devices are causing the problem.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - A map of areas that need better coverage or capacity
   - Separation of Wi‑Fi problems from internet connection limitations
@@ -40,7 +40,7 @@ heroFacts:
   - On-site measurements in Warsaw
   - Report and change plan after the audit
 serviceNoteTitle: Speed also depends on the connection
-serviceNote: The audit does not start with a promised result or equipment purchase. We first separate radio network quality from internet capacity and end-user device limitations.
+serviceNote: Poor Wi‑Fi does not always mean you need new access points. We check the wireless network, internet connection and user-device limitations separately.
 processLabel: Wi‑Fi audit
 processTitle: Three stages without guesswork
 process:

@@ -11,7 +11,7 @@ status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Labelled ports and cables within the agreed scope
   - Fewer accidental and unused connections
@@ -52,10 +52,10 @@ process:
     description: The organisation identifies critical services and approves connections intended for removal.
   - label: 03 / ACCEPTANCE
     title: We label and test
-    description: We organise the agreed scope, test operation and provide an updated description.
+    description: We organise the agreed connections, test the network and provide updated port records.
 formLead: Photographs of the open cabinet and an approximate port count will help estimate the scope and required maintenance window.
 messageHelp: Provide the location, number of cabinets and ports, available descriptions and hours when switching is possible.
-submitLabel: Send cabinet photos and description
+submitLabel: Request a rack cabinet assessment
 ---
 
 We do not claim that the work can be completed in one day without first checking its scale and the impact of switching on the organisation.

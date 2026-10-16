@@ -6,12 +6,12 @@ title: Okablowanie pod monitoring w firmie
 seoTitle: Okablowanie pod monitoring Warszawa | Trasy i test LAN
 description: Trasy kablowe, zakończenie i test przewodów pod kamery IP. Sprzęt monitoringu dostarcza klient. Usługa dla firm w Warszawie.
 eyebrow: Warstwa kablowa pod kamery IP
-lead: Wykonujemy uzgodnione trasy, zakańczamy przewody i sprawdzamy połączenia. Kamery, rejestrator oraz odpowiedzialność za obraz pozostają po stronie klienta lub jego integratora.
+lead: Układamy i zakańczamy przewody do kamer IP, oznaczamy linie i testujemy połączenia. Dobór i uruchomienie kamer oraz rejestratora należą do klienta lub jego integratora.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Przewody doprowadzone do uzgodnionych punktów kamerowych
   - Zakończone i oznaczone oba końce każdej linii
@@ -38,7 +38,7 @@ heroFacts:
   - Kamery i rejestrator po stronie klienta
   - Trasa, zakończenie i test przewodu
   - Zakres materiałów przed rozpoczęciem
-serviceNoteTitle: Wycena po planie punktów
+serviceNoteTitle: Do wyceny potrzebny jest plan kamer
 serviceNote: Do oceny potrzebujemy liczby kamer, długości i rodzaju tras, wysokości montażu oraz informacji o przepustach. Przed pracą potwierdzamy materiały i sposób testu.
 processLabel: Realizacja okablowania
 processTitle: Gotowa warstwa kablowa dla integratora kamer

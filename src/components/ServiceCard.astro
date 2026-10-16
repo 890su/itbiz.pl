@@ -10,10 +10,12 @@ interface Props {
   tags: readonly string[];
   filterIds?: readonly string[];
   locale: Locale;
+  headingLevel?: 'h2' | 'h3';
 }
 
 const { href, index, title, description, tags, filterIds = [], locale } = Astro.props;
 const copy = getUi(locale).common;
+const Heading = Astro.props.headingLevel ?? 'h3';
 ---
 
 <article
@@ -23,7 +25,7 @@ const copy = getUi(locale).common;
 >
   <div class="card-index" aria-hidden="true">{index}</div>
   <div>
-    <h3><a href={href}>{title}</a></h3>
+    <Heading><a href={href}>{title}</a></Heading>
     <p>{description}</p>
     <ul class="tag-list" aria-label={copy.scope}>
       {tags.map((tag) => <li>{tag}</li>)}
