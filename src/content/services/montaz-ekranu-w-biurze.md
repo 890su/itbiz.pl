@@ -6,12 +6,12 @@ title: Montaż ekranu lub panelu w sali konferencyjnej
 seoTitle: Montaż ekranu w biurze Warszawa | Sala konferencyjna
 description: Montaż firmowego ekranu lub panelu konferencyjnego, podłączenie źródła sygnału i test. Usługa dla biur i organizacji w Warszawie.
 eyebrow: Wyposażenie sali spotkań
-lead: Montujemy dostarczony ekran lub panel w uzgodnionym miejscu, porządkujemy dostępne przewody sygnałowe i sprawdzamy podstawowy scenariusz spotkania.
+lead: Montujemy dostarczony ekran lub panel w uzgodnionym miejscu i porządkujemy przewody sygnałowe. Sprawdzamy obraz oraz uzgodnione połączenie ze sprzętem używanym podczas spotkań.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Ekran lub panel zamocowany w uzgodnionym miejscu
   - Podłączone dostępne źródło obrazu i sieć, jeżeli obejmuje je zakres
@@ -50,7 +50,7 @@ process:
     title: Mocujemy uzgodniony zestaw
     description: Instalujemy ekran lub panel i prowadzimy przewody dostępne w potwierdzonym zakresie.
   - label: 03 / PRÓBA
-    title: Uruchamiamy scenariusz
+    title: Sprawdzamy obraz i połączenie
     description: Sprawdzamy obraz i wskazane połączenie z urządzeniem używanym przez firmę.
 formLead: Podaj model ekranu i uchwytu, rodzaj ściany oraz oczekiwane podłączenia. Zdjęcia miejsca pozwolą szybciej ocenić zakres.
 messageHelp: Opisz model i przekątną ekranu, uchwyt, rodzaj ściany, dostęp do zasilania, źródło obrazu oraz wysokość montażu.

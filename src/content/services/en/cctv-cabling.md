@@ -6,12 +6,12 @@ title: Cabling for business CCTV
 seoTitle: CCTV cabling Warsaw | Cable routes and LAN testing
 description: Cable routes, termination and testing for IP cameras. The client supplies the CCTV equipment. Service for businesses in Warsaw.
 eyebrow: Cabling layer for IP cameras
-lead: We install the agreed routes, terminate cables and test connections. Cameras, the recorder and responsibility for the image remain with the client or its integrator.
+lead: We run and terminate cables for IP cameras, label the lines and test connections. The client or their integrator selects and sets up the cameras and recorder.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Cables routed to the agreed camera points
   - Both ends of every line terminated and labelled
@@ -38,7 +38,7 @@ heroFacts:
   - Cameras and recorder supplied by the client
   - Cable route, termination and test
   - Material scope agreed before work
-serviceNoteTitle: Quote based on the point plan
+serviceNoteTitle: A camera layout helps us quote
 serviceNote: To assess the work, we need the camera count, route lengths and types, installation height and information about penetrations. We confirm materials and the test method before work.
 processLabel: Cabling delivery
 processTitle: A completed cabling layer for the camera integrator

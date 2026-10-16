@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { getRoute } from '../../src/i18n/config';
+import { getUi } from '../../src/i18n/ui';
+import { getExperience } from '../../src/i18n/experience';
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
@@ -105,11 +108,11 @@ test('service topic filters update cards, status and shareable URL', async ({
   await expect(status).toHaveText('Pokazano 4 z 12 usług.');
   await expect(
     page.getByRole('heading', {
-      name: 'Audyt Wi‑Fi w małym biurze - 5-30 stanowisk',
+      name: 'Audyt Wi‑Fi małego biura',
     }),
   ).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: 'Okablowanie pod monitoring w firmie' }),
+    page.getByRole('heading', { name: 'Okablowanie kamer IP' }),
   ).toBeHidden();
 
   await page.reload();
@@ -335,7 +338,7 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
   await page.getByLabel('Telefon lub e-mail').fill('test@example.com');
   await page.getByLabel('Temat').selectOption('network-emergency');
   await page
-    .getByLabel('Co wymaga sprawdzenia?')
+    .getByLabel('Czego potrzebuje firma?')
     .fill('Testowe zgłoszenie firmowej awarii sieci.');
   await page.getByRole('button', { name: 'Wyślij zapytanie' }).click();
   await expect(page.locator('[data-form-status]')).toContainText('test-request-1');
@@ -437,13 +440,110 @@ test('preview form validates without pretending to deliver a lead', async ({
   await page.getByLabel('Telefon lub e-mail').fill('+48 573 012 321');
   await page.getByLabel('Temat').selectOption('office-wifi');
   await page
-    .getByLabel('Co wymaga sprawdzenia?')
+    .getByLabel('Czego potrzebuje firma?')
     .fill('Test pełnej ścieżki formularza w środowisku preview.');
   await page.getByRole('button', { name: 'Wyślij zapytanie' }).click();
   await expect(page.locator('[data-form-status]')).toContainText(
     'Tryb preview: walidacja zakończona. Zapytanie nie zostało zapisane.',
   );
 });
+
+for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
+  test(`${locale} client experience gives clear service choices and a visible CCTV phone`, async ({
+    page,
+  }) => {
+    const copy = getExperience(locale);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(getRoute(locale, 'home'));
+    await expect(page.locator('.service-journey')).toHaveCount(3);
+    await expect(page.locator('.service-journey a')).toHaveCount(7);
+    await expect(page.locator('.handover-sheet figcaption')).toHaveText(
+      copy.sampleLabel,
+    );
+    const heroPhone = page.locator('.hero a[href="tel:+48573012321"]');
+    await expect(heroPhone).toBeInViewport();
+    const choice = await page.locator('#services').boundingBox();
+    const utility = await page.locator('.network-tool-entry').boundingBox();
+    expect(choice!.y).toBeLessThan(utility!.y);
+
+    await page.goto(getRoute(locale, 'service.cctv-emergency'));
+    const phone = page.locator('.cctv-hero a[href="tel:+48573012321"]');
+    await expect(phone).toBeInViewport();
+    await expect(page.locator('.diagnostic-path li')).toHaveCount(4);
+    await expect(page.locator('.photo-help a')).toHaveAttribute(
+      'href',
+      'mailto:info@itbiz.pl',
+    );
+    await expect(page.locator('.side-actions > .button')).toHaveAttribute(
+      'href',
+      '#enquiry',
+    );
+    const form = await page.locator('#enquiry').boundingBox();
+    expect(form!.y).toBeLessThan(3500);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+  });
+
+  test(`${locale} form identifies bad fields locally and retains a corrected enquiry`, async ({
+    page,
+  }) => {
+    const copy = getExperience(locale).form;
+    let requests = 0;
+    await page.route('**/api/contact', async (route) => {
+      requests += 1;
+      await route.fulfill({ json: { preview: true, requestId: 'ux-test-only' } });
+    });
+    await page.goto(getRoute(locale, 'service.cctv-emergency'));
+    const submit = page.locator('[data-lead-form] button[type="submit"]');
+    await submit.click();
+    await expect(page.locator('[data-validation-summary]')).toBeFocused();
+    await expect(page.locator('#contactName-error')).toHaveText(copy.nameError);
+    await page.locator('#contactName').fill('Jan Testowy');
+    await page.locator('#contactMethod').fill('abc');
+    await page.locator('#message').fill('Awaria');
+    await submit.click();
+    await expect(page.locator('#contactMethod-error')).toHaveText(copy.contactError);
+    await expect(page.locator('#message-error')).toHaveText(copy.messageError);
+    expect(requests).toBe(0);
+    await page.locator('#contactMethod').fill('test@example.org');
+    await page
+      .locator('#message')
+      .fill('Testowe zgłoszenie firmowej awarii monitoringu.');
+    await expect(page.locator('#contactMethod-error')).toBeHidden();
+    await expect(page.locator('#message-error')).toBeHidden();
+    await submit.click();
+    await expect(page.locator('[data-form-status]')).toContainText('ux-test-only');
+    expect(requests).toBe(1);
+  });
+
+  test(`${locale} revised copy keeps contact and narrow service actions usable at 320px`, async ({
+    page,
+  }) => {
+    const copy = getUi(locale);
+    await page.setViewportSize({ width: 320, height: 740 });
+    await page.goto(getRoute(locale, 'contact'));
+    await expect(page.locator('h1')).toHaveText(copy.contact.h1);
+    await expect(page.getByLabel(copy.form.message, { exact: true })).toBeVisible();
+
+    for (const [key, serviceId] of [
+      ['service.cctv-emergency', 'cctv-emergency'],
+      ['service.office-it-move', 'office-it-move'],
+    ] as const) {
+      await page.goto(getRoute(locale, key));
+      await expect(page.locator('select[name="serviceId"]')).toHaveValue(serviceId);
+      await expect(page.locator('.page-hero a[href="#enquiry"]')).toBeVisible();
+      await expect(page.locator('#scope h2').first()).toHaveText(
+        copy.service.inScopeTitle,
+      );
+      await expect(page.getByLabel(copy.form.message, { exact: true })).toBeVisible();
+      expect(
+        await page.evaluate(
+          () =>
+            document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        ),
+      ).toBe(0);
+    }
+  });
+}
 
 for (const route of [
   '/narzedzia/pogoda-a-internet-w-firmie/',

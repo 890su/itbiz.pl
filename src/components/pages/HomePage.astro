@@ -1,12 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NetworkBlueprint from '../NetworkBlueprint.astro';
-import ServiceCard from '../ServiceCard.astro';
 import LeadForm from '../LeadForm.astro';
-import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
+import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
-import { getNetworkWeather } from '../../i18n/network-weather';
+import { getExperience, serviceJourneys } from '../../i18n/experience';
+import { company } from '../../data/company';
 
 interface Props {
   locale: Locale;
@@ -14,21 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getUi(locale).home;
-const networkTool = getNetworkWeather(locale);
-const order = [
-  'network-emergency',
-  'cctv-emergency',
-  'lan-outlet-repair',
-  'office-it-move',
-  'small-office-wifi-audit',
-  'lan-installation',
-];
-const services = (await getCollection('services'))
-  .filter(
-    (service) =>
-      service.data.locale === locale && order.includes(service.data.serviceId),
-  )
-  .sort((a, b) => order.indexOf(a.data.serviceId) - order.indexOf(b.data.serviceId));
+const experience = getExperience(locale);
 ---
 
 <BaseLayout
@@ -37,17 +22,19 @@ const services = (await getCollection('services'))
   canonicalPath={getRoute(locale, 'home')}
   {locale}
   translationKey="home"
+  pageClass="home-experience"
 >
   <section class="hero">
     <div class="hero-copy">
-      <p class="eyebrow">{copy.eyebrow}</p>
+      <p class="service-qualifier">{copy.eyebrow}</p>
       <h1>{copy.h1}</h1>
-      <p class="hero-lead">{copy.lead}</p>
+      <p class="hero-lead">{experience.homeLead}</p>
       <div class="hero-actions">
         <a class="button button-primary" href="#enquiry">{copy.primary}</a>
-        <a class="button button-secondary" href={getRoute(locale, 'services')}
-          >{copy.secondary}</a
-        >
+        <a class="button button-secondary call-action" href={company.publicPhoneHref}>
+          {experience.call}
+          <span>{company.publicPhone}</span>
+        </a>
       </div>
       <div class="hero-note">
         {copy.notes.map((note) => <span>{note}</span>)}
@@ -56,64 +43,98 @@ const services = (await getCollection('services'))
     <NetworkBlueprint {locale} />
   </section>
 
-  <a class="network-tool-entry" href={getRoute(locale, 'networkWeather')}>
-    <span class="network-tool-entry-code">TOOL / LIVE</span>
-    <span
-      ><strong>{networkTool.nav}</strong><small>{networkTool.description}</small></span
-    >
-    <span class="network-tool-entry-arrow" aria-hidden="true">↗</span>
-  </a>
-
-  <section class="page-section" aria-labelledby="services-title">
+  <section id="services" class="page-section" aria-labelledby="services-title">
     <header class="section-head">
-      <p class="section-label">{copy.serviceLabel}</p>
-      <h2 id="services-title">{copy.serviceTitle}</h2>
-      <p>{copy.serviceLead}</p>
+      <h2 id="services-title">{experience.chooseTitle}</h2>
+      <p>{experience.chooseLead}</p>
     </header>
-    <div class="service-grid">
+    <div class="service-journeys">
       {
-        services.map((service, index) => (
-          <ServiceCard
-            href={getRoute(locale, service.data.translationKey as TranslationKey)}
-            index={String(index + 1).padStart(2, '0')}
-            title={service.data.title}
-            description={service.data.description}
-            tags={copy.tags[service.data.serviceId as keyof typeof copy.tags] ?? []}
-            {locale}
-          />
+        serviceJourneys.map((keys, index) => (
+          <section class="service-journey" aria-labelledby={`journey-${index}`}>
+            <h3 id={`journey-${index}`}>{experience.groups[index]!.title}</h3>
+            <p>{experience.groups[index]!.description}</p>
+            <ul>
+              {keys.map((key) => (
+                <li>
+                  <a href={getRoute(locale, key)}>
+                    {experience.serviceNames[key]}
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 12h14m-6-6 6 6-6 6" />
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
         ))
       }
     </div>
+    <a class="all-services-link" href={getRoute(locale, 'services')}
+      >{experience.allServices}</a
+    >
+  </section>
+
+  <section class="page-section handover-section" aria-labelledby="handover-title">
+    <div class="section-head">
+      <h2 id="handover-title">{experience.handoverTitle}</h2>
+      <p>{experience.handoverLead}</p>
+    </div>
+    <figure class="handover-sheet">
+      <div class="sheet-heading">
+        <span class="sheet-mark" aria-hidden="true"></span>
+        <strong>{experience.sampleTitle}</strong>
+      </div>
+      <dl>
+        {
+          experience.sampleRows.map(([label, value]) => (
+            <div>
+              <>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </>
+            </div>
+          ))
+        }
+      </dl>
+      <figcaption>{experience.sampleLabel}</figcaption>
+    </figure>
   </section>
 
   <section class="page-section" aria-labelledby="process-title">
     <header class="section-head">
-      <p class="section-label">{copy.processLabel}</p>
       <h2 id="process-title">{copy.processTitle}</h2>
       <p>{copy.processLead}</p>
     </header>
-    <div class="process-grid">
+    <ol class="work-steps">
       {
-        copy.process.map(([index, title, description]) => (
-          <article class="process-step">
-            <span>{index}</span>
+        copy.process.map(([, title, description]) => (
+          <li>
             <h3>{title}</h3>
             <p>{description}</p>
-          </article>
+          </li>
         ))
       }
-    </div>
+    </ol>
   </section>
+
+  <a class="network-tool-entry" href={getRoute(locale, 'networkWeather')}>
+    <span class="network-tool-entry-symbol" aria-hidden="true">
+      <svg viewBox="0 0 32 32"><path d="M4 19h5l4-10 6 16 4-10h5"></path></svg>
+    </span>
+    <span
+      ><strong>{experience.toolTitle}</strong><small>{experience.toolLead}</small></span
+    >
+    <span class="network-tool-entry-arrow" aria-hidden="true">→</span>
+  </a>
 
   <section class="page-section" aria-labelledby="eligibility-title">
     <div class="scope-grid">
       <div class="info-panel">
-        <p class="section-label">{copy.forWhomLabel}</p>
         <h2 id="eligibility-title">{copy.forWhomTitle}</h2>
         <ul class="check-list">{copy.forWhom.map((item) => <li>{item}</li>)}</ul>
       </div>
       <div class="info-panel">
-        <p class="section-label">{copy.boundaryLabel}</p>
         <h2>{copy.boundaryTitle}</h2>
         <p>{copy.boundary}</p>
       </div>

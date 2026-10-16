@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/experience.css';
 import SiteChrome from '../components/SiteChrome.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ConsentControls from '../components/ConsentControls.astro';
@@ -28,6 +29,7 @@ interface Props {
   translationKey: TranslationKey;
   breadcrumbs?: { name: string; path: string }[];
   service?: { name: string; description: string };
+  pageClass?: string;
 }
 
 const {
@@ -39,6 +41,7 @@ const {
   translationKey,
   breadcrumbs,
   service,
+  pageClass,
 } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site);
 const siteIndexable = import.meta.env.PUBLIC_SITE_INDEXABLE === 'true';
@@ -183,7 +186,7 @@ const pageSchema = {
   <body>
     <a class="skip-link" href="#main-content">{copy.common.skip}</a>
     <div class="site-shell">
-      <div class="content-rail">
+      <div class:list={['content-rail', pageClass && 'experience-rail']}>
         <SiteChrome variant="mobile" {locale} {translationKey} />
         <noscript>
           <nav class="no-script-nav" aria-label={copy.common.mainNav}>
@@ -192,7 +195,7 @@ const pageSchema = {
             <a href={getRoute(locale, 'contact')}>{copy.common.nav[4]}</a>
           </nav>
         </noscript>
-        <main id="main-content" tabindex="-1">
+        <main id="main-content" class={pageClass} tabindex="-1">
           <slot />
         </main>
         <SiteFooter {locale} />

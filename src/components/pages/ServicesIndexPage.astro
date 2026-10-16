@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ServiceCard from '../ServiceCard.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
+import { getExperience, type ServiceKey } from '../../i18n/experience';
 import {
   getServiceFilters,
   serviceFilterIds,
@@ -16,6 +17,7 @@ interface Props {
 const { locale } = Astro.props;
 const ui = getUi(locale);
 const copy = ui.servicesIndex;
+const experience = getExperience(locale);
 const order = [
   'network-emergency',
   'cctv-emergency',
@@ -111,7 +113,8 @@ const filterLabel = (filterId: ServiceFilterId) => copy.filters[filterId];
             <ServiceCard
               href={getRoute(locale, service.data.translationKey as TranslationKey)}
               index={String(index + 1).padStart(2, '0')}
-              title={service.data.title}
+              title={experience.serviceNames[service.data.translationKey as ServiceKey]}
+              headingLevel="h2"
               description={service.data.description}
               tags={filterIds.map(filterLabel)}
               {filterIds}

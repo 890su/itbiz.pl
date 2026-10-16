@@ -6,12 +6,12 @@ title: Display or panel installation in a meeting room
 seoTitle: Office display installation Warsaw | Meeting room
 description: Installation of a business display or conference panel, connection of the signal source and testing. Service for offices and organisations in Warsaw.
 eyebrow: Meeting room equipment
-lead: We install the supplied display or panel in the agreed location, organise the available signal cables and test the basic meeting scenario.
+lead: We mount the supplied display or panel in the agreed location and organise the signal cables. We test the picture and the agreed connection to the equipment used for meetings.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Display or panel mounted in the agreed location
   - Available image source and network connected when included in scope
@@ -50,7 +50,7 @@ process:
     title: We mount the agreed set
     description: We install the display or panel and run cables available within the confirmed scope.
   - label: 03 / TEST
-    title: We run the scenario
+    title: We test the picture and connection
     description: We test the image and the specified connection to the device used by the business.
 formLead: Provide the display and bracket models, wall type and expected connections. Photographs of the location will help us assess the scope faster.
 messageHelp: Describe the display model and size, bracket, wall type, access to power, image source and installation height.

@@ -6,12 +6,12 @@ title: Planowa diagnostyka niestabilnej sieci firmowej w Warszawie
 seoTitle: Diagnostyka niestabilnej sieci firmowej Warszawa | ITBIZ.PL
 description: Planowe badanie okresowych przerw, błędów portów i niejasnych problemów z połączeniem. Dokumentacja obserwacji i kolejnych kroków.
 eyebrow: Planowa analiza infrastruktury
-lead: Badamy powtarzalne lub trudne do odtworzenia problemy i dokumentujemy sprawdzone hipotezy. Jeżeli sieć firmy nie działa teraz, właściwą usługą jest zgłoszenie awarii.
+lead: Szukamy przyczyn zrywających się połączeń i innych problemów, które wracają lub trudno je odtworzyć. Zapisujemy wyniki testów i dalsze zalecenia. Jeśli sieć firmy nie działa teraz, wybierz zgłoszenie awarii.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Lista sprawdzonych hipotez i obserwacji
   - Wskazanie wykrytej przyczyny albo kolejnego kroku diagnostycznego
@@ -39,8 +39,8 @@ heroFacts:
   - Problemy okresowe lub trudne do odtworzenia
   - Uzgodniony zakres urządzeń i połączeń
   - Raport z obserwacji i kolejnych kroków
-serviceNoteTitle: Awaria trwająca teraz ma osobny tryb
-serviceNote: Ta usługa służy planowej analizie problemów powracających lub niejednoznacznych. Brak internetu albo niedziałająca sieć wymagają zgłoszenia awarii i potwierdzenia możliwego terminu dojazdu.
+serviceNoteTitle: Sieć nie działa teraz?
+serviceNote: Planowa diagnostyka służy problemom, które wracają lub mają niejasną przyczynę. Jeśli firma nie ma teraz sieci lub internetu, wybierz zgłoszenie awarii. Możliwy termin dojazdu potwierdzimy osobno.
 processLabel: Diagnostyka planowa
 processTitle: Hipotezy, testy i udokumentowany wynik
 process:

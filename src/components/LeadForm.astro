@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { getRoute, type Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
 import { company } from '../data/company';
+import { getExperience } from '../i18n/experience';
 
 interface Props {
   selectedServiceId?: string;
@@ -10,11 +11,13 @@ interface Props {
   lead?: string;
   messageHelp?: string;
   submitLabel?: string;
+  photoHelp?: string;
   locale: Locale;
 }
 
 const { selectedServiceId = '', locale } = Astro.props;
 const copy = getUi(locale).form;
+const validation = getExperience(locale).form;
 const heading = Astro.props.heading ?? copy.heading;
 const lead = Astro.props.lead ?? copy.lead;
 const messageHelp = Astro.props.messageHelp ?? copy.messageHelp;
@@ -27,7 +30,6 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
 
 <div class="form-block">
   <div class="section-head">
-    <p class="section-label">{copy.label}</p>
     <h2>{heading}</h2>
     <p>{lead}</p>
   </div>
@@ -46,6 +48,16 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
     data-turnstile-src="https://challenges.cloudflare.com/turnstile/v0/api.js"
     novalidate
   >
+    <div
+      class="validation-summary"
+      tabindex="-1"
+      role="alert"
+      data-validation-summary
+      hidden
+    >
+      <p>{validation.errorsTitle}</p>
+      <ul></ul>
+    </div>
     <div class="form-grid">
       <div class="field">
         <label for="contactName">{copy.contact}</label>
@@ -55,7 +67,10 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           autocomplete="name"
           maxlength="100"
           required
+          aria-describedby="contactName-error"
+          data-validation-message={validation.nameError}
         />
+        <small id="contactName-error" class="field-error" hidden></small>
       </div>
       <div class="field">
         <label for="companyName">{copy.company}</label>
@@ -75,11 +90,20 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           maxlength="160"
           placeholder={copy.contactPlaceholder}
           required
+          aria-describedby="contactMethod-error"
+          data-validation-message={validation.contactError}
         />
+        <small id="contactMethod-error" class="field-error" hidden></small>
       </div>
       <div class="field">
         <label for="serviceId">{copy.topic}</label>
-        <select id="serviceId" name="serviceId" required>
+        <select
+          id="serviceId"
+          name="serviceId"
+          required
+          aria-describedby="serviceId-error"
+          data-validation-message={validation.topicError}
+        >
           <option value="">{copy.choose}</option>
           {
             services.map((service) => (
@@ -93,6 +117,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           }
           <option value="other">{copy.other}</option>
         </select>
+        <small id="serviceId-error" class="field-error" hidden></small>
       </div>
       <div class="field field-wide">
         <label for="message">{copy.message}</label>
@@ -100,11 +125,23 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           id="message"
           name="message"
           maxlength="3000"
+          minlength="20"
           required
-          aria-describedby="message-help"></textarea>
+          aria-describedby="message-help message-minimum message-error"
+          data-validation-message={validation.messageError}></textarea>
         <small id="message-help">{messageHelp}</small>
+        <small id="message-minimum">{validation.minimum}</small>
+        <small id="message-error" class="field-error" hidden></small>
       </div>
     </div>
+    {
+      Astro.props.photoHelp && (
+        <p class="photo-help">
+          {Astro.props.photoHelp}{' '}
+          <a href={company.publicEmailHref}>{company.publicEmail}</a>
+        </p>
+      )
+    }
     <noscript>
       <p>
         <a href={company.publicPhoneHref}
@@ -130,7 +167,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
       )
     }
     <p class="form-notice">
-      {copy.notice}
+      {copy.notice}{' '}
       <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
     </p>
     <div class="form-status" role="status" tabindex="-1" data-form-status></div>

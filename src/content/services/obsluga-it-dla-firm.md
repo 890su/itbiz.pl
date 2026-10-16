@@ -6,12 +6,12 @@ title: Outsourcing IT i stała obsługa informatyczna firm w Warszawie
 seoTitle: Outsourcing IT dla małych firm Warszawa | ITBIZ.PL
 description: Stała, uzgodniona obsługa sieci, stanowisk i dokumentacji IT małej firmy. Zakres odpowiedzialności i model współpracy ustalamy przed startem.
 eyebrow: Stała zewnętrzna obsługa IT
-lead: Przejmujemy uzgodnione, powtarzalne zadania dotyczące firmowej infrastruktury. Ta usługa dotyczy stałej współpracy, a nie jednorazowej pilnej awarii.
+lead: Zajmujemy się uzgodnionymi, powtarzalnymi zadaniami związanymi z siecią i stanowiskami pracy firmy. To stała obsługa IT, nie jednorazowy wyjazd do awarii.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Spis urządzeń i najważniejszych zależności
   - Uzgodniony zakres bieżącej opieki
@@ -40,10 +40,10 @@ heroFacts:
   - Stała współpraca dla małych organizacji
   - Zakres odpowiedzialności ustalony przed startem
   - Projekty i zakupy rozliczane osobno
-serviceNoteTitle: To nie jest strona pilnej interwencji
-serviceNote: Jeśli sieć firmy nie działa teraz, wybierz zgłoszenie awarii. Tutaj ustalamy model bieżącej opieki, zakres zgłoszeń i odpowiedzialność za środowisko.
+serviceNoteTitle: Potrzebujesz pomocy przy trwającej awarii?
+serviceNote: Jeśli sieć firmy nie działa teraz, wybierz zgłoszenie awarii. W stałej obsłudze ustalamy, jakie zadania przejmujemy, jak przyjmujemy zgłoszenia i za co odpowiadamy.
 processLabel: Rozpoczęcie współpracy
-processTitle: Od inwentaryzacji do stałego zakresu
+processTitle: Jak ustalamy zasady stałej obsługi
 process:
   - label: 01 / STAN
     title: Ustalamy punkt wyjścia

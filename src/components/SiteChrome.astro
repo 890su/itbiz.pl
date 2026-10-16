@@ -37,6 +37,9 @@ navigation.splice(4, 0, {
   )[locale],
 });
 const currentPath = Astro.url.pathname;
+const enquiryHref = translationKey.startsWith('service.')
+  ? '#enquiry'
+  : getRoute(locale, 'contact');
 const isCurrent = (href: string) =>
   href === getRoute(locale, 'home')
     ? currentPath === href
@@ -101,7 +104,7 @@ const isCurrent = (href: string) =>
           <span>{copy.common.phoneAction}</span>
           <strong>{company.publicPhone}</strong>
         </a>
-        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+        <a class="button button-primary" href={enquiryHref}>
           {copy.common.cta}
         </a>
       </div>
@@ -172,7 +175,7 @@ const isCurrent = (href: string) =>
           <span>{copy.common.phoneAction}</span>
           <strong>{company.publicPhone}</strong>
         </a>
-        <a class="button button-primary" href={getRoute(locale, 'contact')}>
+        <a class="button button-primary" href={enquiryHref}>
           {copy.common.cta}
         </a>
       </nav>

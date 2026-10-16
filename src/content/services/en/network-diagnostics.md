@@ -6,12 +6,12 @@ title: Planned diagnostics for an unstable business network in Warsaw
 seoTitle: Unstable business network diagnostics Warsaw | ITBIZ.PL
 description: Planned investigation of intermittent drops, port errors and unclear connection problems. Documented observations and next steps.
 eyebrow: Planned infrastructure analysis
-lead: We investigate recurring or hard-to-reproduce problems and document tested hypotheses. If the business network is down now, use the network outage request.
+lead: We investigate connection drops and other problems that return or are hard to reproduce. You receive the test findings and recommended next steps. If your business network is down now, use the network outage request.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - A list of tested hypotheses and observations
   - An identified cause or the next diagnostic step
@@ -39,8 +39,8 @@ heroFacts:
   - Intermittent or hard-to-reproduce problems
   - Agreed device and connection scope
   - Report with observations and next steps
-serviceNoteTitle: A current outage has a separate response path
-serviceNote: This service is for planned analysis of recurring or ambiguous problems. No internet or a network that is down requires an outage request and confirmation of a possible visit time.
+serviceNoteTitle: Is your network down right now?
+serviceNote: Planned diagnostics are for recurring problems or faults with an unclear cause. If your business has no network or internet access now, use the outage request. We confirm the possible visit time separately.
 processLabel: Planned diagnostics
 processTitle: Hypotheses, tests and a documented result
 process:

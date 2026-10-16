@@ -7,12 +7,12 @@ breadcrumbTitle: Business CCTV outage
 seoTitle: Business CCTV outage Warsaw | PoE diagnostics
 description: Camera images missing, recording stopped, or the recorder is beeping or noisy? Diagnostics of business IP cameras, network, PoE and recorder in Warsaw.
 eyebrow: Urgent business CCTV diagnostics
-lead: We check power, PoE, network links, camera availability and recorder statuses to separate a line, device, storage or configuration fault.
+lead: We check PoE power, cables, camera connections and recorder alerts to find out why the image or recording has stopped. The cause may be the network, a device, storage or settings.
 status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-27
+updatedAt: 2026-10-16
 outcomes:
   - Identification of the most likely fault source within the agreed scope
   - Restoration of image or recording when possible without an unapproved equipment replacement
@@ -44,9 +44,9 @@ heroFacts:
   - IP cameras, network, PoE and recorder
   - Warsaw and agreed nearby areas
 serviceNoteTitle: A missing image does not always mean a failed camera
-serviceNote: Loss of image or recording can be caused by PoE power, cabling, a switch port, addressing, the recorder or storage. We first locate the fault layer and agree any equipment replacement separately.
+serviceNote: PoE power, cabling, a switch port, IP addressing, the recorder or storage can cause the problem. We check where the fault occurs. Any equipment replacement is agreed separately.
 processLabel: CCTV outage diagnostics
-processTitle: From the symptom to the affected layer
+processTitle: How we investigate the outage
 processLead: Photos of messages and a list of affected cameras help define the first visit.
 process:
   - label: 01 / SYMPTOMS

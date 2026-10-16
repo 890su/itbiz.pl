@@ -11,7 +11,7 @@ status: published
 noindex: false
 adEligible: false
 b2bOnly: true
-updatedAt: 2026-08-26
+updatedAt: 2026-10-16
 outcomes:
   - Opisane porty i przewody objęte uzgodnionym zakresem
   - Mniej przypadkowych oraz nieużywanych połączeń
@@ -52,10 +52,10 @@ process:
     description: Organizacja wskazuje usługi krytyczne i akceptuje połączenia przeznaczone do usunięcia.
   - label: 03 / ODBIÓR
     title: Oznaczamy i sprawdzamy
-    description: Porządkujemy uzgodniony zakres, testujemy działanie i przekazujemy aktualny opis.
+    description: Porządkujemy uzgodnione połączenia, sprawdzamy działanie sieci i przekazujemy aktualny opis portów.
 formLead: Zdjęcia otwartej szafy i przybliżona liczba portów pozwolą oszacować zakres oraz potrzebne okno serwisowe.
 messageHelp: Podaj lokalizację, liczbę szaf i portów, dostępne opisy oraz godziny, w których możliwe są przełączenia.
-submitLabel: Wyślij zdjęcia i opis szafy
+submitLabel: Poproś o ocenę szafy rack
 ---
 
 Nie deklarujemy wykonania w jeden dzień bez wcześniejszego sprawdzenia skali i
