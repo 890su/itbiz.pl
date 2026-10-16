@@ -2,6 +2,36 @@
   const form = document.querySelector('[data-lead-form]');
   if (!(form instanceof HTMLFormElement)) return;
 
+  let turnstileRequested = false;
+  const loadTurnstile = () => {
+    if (turnstileRequested || !form.querySelector('.cf-turnstile')) return;
+    turnstileRequested = true;
+    const script = document.createElement('script');
+    script.src = form.dataset.turnstileSrc;
+    script.async = true;
+    script.referrerPolicy = 'strict-origin-when-cross-origin';
+    script.onerror = () => {
+      turnstileRequested = false;
+      script.remove();
+    };
+    document.head.append(script);
+  };
+  form.addEventListener('focusin', loadTurnstile);
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadTurnstile();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '400px' },
+    );
+    observer.observe(form);
+  } else {
+    loadTurnstile();
+  }
+
   const status = form.querySelector('[data-form-status]');
   const submit = form.querySelector('button[type="submit"]');
   const labels = {
@@ -23,6 +53,8 @@
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (submit instanceof HTMLButtonElement && submit.disabled) return;
+    loadTurnstile();
     const data = new FormData(form);
     const contact = String(data.get('contact') || '').trim();
 

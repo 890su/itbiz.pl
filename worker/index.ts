@@ -9,9 +9,10 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     if (
-      url.hostname === 'www.itbiz.pl' &&
-      (request.method === 'GET' || request.method === 'HEAD')
+      (url.hostname === 'itbiz.pl' || url.hostname === 'www.itbiz.pl') &&
+      (url.protocol === 'http:' || url.hostname === 'www.itbiz.pl')
     ) {
+      url.protocol = 'https:';
       url.hostname = 'itbiz.pl';
       return Response.redirect(url, 308);
     }

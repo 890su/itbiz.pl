@@ -119,6 +119,7 @@ export const ui = {
     },
     service: {
       qualifier: 'Wyłącznie dla firm i organizacji w Warszawie',
+      factsLabel: 'Najważniejsze warunki usługi',
       primary: 'Wyślij zapytanie',
       scopeLink: 'Sprawdź zakres',
       calloutTitle: 'Zakres potwierdzany przed realizacją',
@@ -300,7 +301,7 @@ export const ui = {
       ],
     },
     cookiesPage: {
-      title: 'Cookies | ITBIZ.PL',
+      title: 'Pliki cookies | ITBIZ.PL',
       description:
         'Informacja o pamięci lokalnej, cookies i ustawieniach pomiaru ITBIZ.PL.',
       eyebrow: 'Ustawienia lokalne',
@@ -356,7 +357,7 @@ export const ui = {
       note: 'У каждого элемента есть роль, ответственный за конфигурацию и место в документации.',
     },
     home: {
-      title: 'IT-инфраструктура для небольших компаний в Варшаве | ITBIZ.PL',
+      title: 'IT-инфраструктура для компаний в Варшаве | ITBIZ.PL',
       description:
         'Проектирование, упорядочивание и обслуживание сетей, Wi‑Fi и рабочих мест только для компаний и организаций в Варшаве.',
       eyebrow: 'IT для бизнеса · Варшава',
@@ -439,6 +440,7 @@ export const ui = {
     },
     service: {
       qualifier: 'Только для компаний и организаций · Варшава',
+      factsLabel: 'Основные условия услуги',
       primary: 'Отправить запрос',
       scopeLink: 'Посмотреть объём',
       calloutTitle: 'Объём подтверждаем до выполнения',
@@ -618,7 +620,7 @@ export const ui = {
       ],
     },
     cookiesPage: {
-      title: 'Cookies | ITBIZ.PL',
+      title: 'Файлы cookies | ITBIZ.PL',
       description: 'Информация о локальном хранилище, cookies и измерении на ITBIZ.PL.',
       eyebrow: 'Локальные настройки',
       h1: 'Cookies и локальные настройки',
@@ -756,6 +758,7 @@ export const ui = {
     },
     service: {
       qualifier: 'For businesses and organisations only · Warsaw',
+      factsLabel: 'Key service terms',
       primary: 'Send an enquiry',
       scopeLink: 'View scope',
       calloutTitle: 'Scope confirmed before delivery',
@@ -936,7 +939,7 @@ export const ui = {
       ],
     },
     cookiesPage: {
-      title: 'Cookies | ITBIZ.PL',
+      title: 'Cookies and settings | ITBIZ.PL',
       description:
         'Information about local storage, cookies and measurement settings on ITBIZ.PL.',
       eyebrow: 'Local settings',
@@ -1075,6 +1078,7 @@ export const ui = {
     },
     service: {
       qualifier: 'Лише для компаній та організацій · Варшава',
+      factsLabel: 'Основні умови послуги',
       primary: 'Надіслати запит',
       scopeLink: 'Переглянути обсяг',
       calloutTitle: 'Обсяг підтверджуємо до виконання',
@@ -1255,7 +1259,7 @@ export const ui = {
       ],
     },
     cookiesPage: {
-      title: 'Cookies | ITBIZ.PL',
+      title: 'Файли cookies | ITBIZ.PL',
       description:
         'Інформація про локальне сховище, cookies і вимірювання на ITBIZ.PL.',
       eyebrow: 'Локальні налаштування',

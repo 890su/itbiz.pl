@@ -38,6 +38,10 @@ for (const file of htmlFiles) {
     ['one H1', (html.match(/<h1[\s>]/g) || []).length === 1],
     ['meta description', /<meta name="description" content="[^"]+"/.test(html)],
     ['canonical', /<link rel="canonical" href="https:\/\/itbiz\.pl\//.test(html)],
+    [
+      'social image',
+      /property="og:image" content="https:\/\/itbiz\.pl\/assets\//.test(html),
+    ],
     [`lang=${expectedLanguage}`, html.includes(`<html lang="${expectedLanguage}"`)],
     [
       is404 ? '404 noindex' : 'indexable',
@@ -46,6 +50,52 @@ for (const file of htmlFiles) {
       ),
     ],
   ];
+
+  const schemas = [
+    ...html.matchAll(
+      /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+    ),
+  ].flatMap((match) => {
+    try {
+      const value = JSON.parse(match[1]);
+      return value['@graph'] ?? [value];
+    } catch {
+      checks.push(['valid JSON-LD', false]);
+      return [];
+    }
+  });
+  checks.push([
+    'registered organization schema',
+    schemas.some(
+      (item) => item['@type'] === 'Organization' && item.taxID === '5272714609',
+    ),
+  ]);
+  checks.push([
+    'WebSite only on domain home',
+    schemas.filter((item) => item['@type'] === 'WebSite').length ===
+      (name === 'index.html' ? 1 : 0),
+  ]);
+  if (html.includes('class="breadcrumb"')) {
+    checks.push([
+      'breadcrumb schema',
+      schemas.some(
+        (item) =>
+          item['@type'] === 'BreadcrumbList' && item.itemListElement?.length >= 2,
+      ),
+    ]);
+  }
+  if (
+    /name="serviceId"/.test(html) &&
+    /<nav class="breadcrumb"[^>]*>[\s\S]*?<ol>[\s\S]*?<\/ol>/.test(html)
+  ) {
+    const breadcrumb = schemas.find((item) => item['@type'] === 'BreadcrumbList');
+    if (breadcrumb?.itemListElement.length === 3) {
+      checks.push([
+        'service schema',
+        schemas.some((item) => item['@type'] === 'Service'),
+      ]);
+    }
+  }
 
   if (!is404) {
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];

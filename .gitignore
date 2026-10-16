@@ -16,4 +16,5 @@ coverage/
 playwright-report/
 test-results/
 outputs/
+reports/
 .wrangler-state/

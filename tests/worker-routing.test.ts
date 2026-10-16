@@ -6,6 +6,20 @@ const assets = {
 };
 
 describe('Worker routing', () => {
+  it.each(['http://itbiz.pl', 'http://www.itbiz.pl'])(
+    'redirects %s to HTTPS in one step without dropping the query',
+    async (origin) => {
+      const response = await worker.fetch(
+        new Request(`${origin}/uslugi/?utm_source=test`),
+        { ASSETS: assets } as never,
+      );
+      expect(response.status).toBe(308);
+      expect(response.headers.get('location')).toBe(
+        'https://itbiz.pl/uslugi/?utm_source=test',
+      );
+    },
+  );
+
   it('redirects www GET requests to the apex domain', async () => {
     const response = await worker.fetch(
       new Request('https://www.itbiz.pl/en/services/?from=www'),

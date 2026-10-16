@@ -4,6 +4,7 @@ import { getRoute, languageTags, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getNetworkWeather } from '../../i18n/network-weather';
 import { company } from '../../data/company';
+import { serializeStructuredData } from '../../lib/structured-data';
 
 interface Props {
   locale: Locale;
@@ -75,20 +76,20 @@ const appSchema = {
             </div><span class="nw-live">LIVE</span>
           </header>
           <div class="nw-primary-reading">
-            <strong data-weather-temperature>—</strong><span>°C</span><div
+            <strong data-weather-temperature>-</strong><span>°C</span><div
               class="nw-reading-context"
             >
               <small data-weather-symbol>…</small><p>
-                <span>{copy.feels}</span><strong data-weather-feels>—</strong>
+                <span>{copy.feels}</span><strong data-weather-feels>-</strong>
               </p>
             </div>
           </div>
           <dl class="nw-business-metrics">
-            <div><dt>{copy.humidity}</dt><dd data-weather-humidity>—</dd></div><div>
-              <dt>{copy.wind}</dt><dd data-weather-wind>—</dd>
+            <div><dt>{copy.humidity}</dt><dd data-weather-humidity>-</dd></div><div>
+              <dt>{copy.wind}</dt><dd data-weather-wind>-</dd>
             </div><div>
-              <dt>{copy.pressure}</dt><dd data-weather-pressure>—</dd>
-            </div><div><dt>{copy.rain}</dt><dd data-weather-rain>—</dd></div>
+              <dt>{copy.pressure}</dt><dd data-weather-pressure>-</dd>
+            </div><div><dt>{copy.rain}</dt><dd data-weather-rain>-</dd></div>
           </dl>
           <p
             class="nw-inline-status"
@@ -112,11 +113,11 @@ const appSchema = {
             </div><span class="nw-pulse" aria-hidden="true"></span>
           </header>
           <dl class="nw-telemetry">
-            <div><dt>{copy.ip}</dt><dd data-network-ip>—</dd></div><div>
-              <dt>{copy.provider}</dt><dd data-network-provider>—</dd>
+            <div><dt>{copy.ip}</dt><dd data-network-ip>-</dd></div><div>
+              <dt>{copy.provider}</dt><dd data-network-provider>-</dd>
             </div><div>
-              <dt>{copy.location}</dt><dd data-network-location>—</dd>
-            </div><div><dt>{copy.edge}</dt><dd data-network-edge>—</dd></div>
+              <dt>{copy.location}</dt><dd data-network-location>-</dd>
+            </div><div><dt>{copy.edge}</dt><dd data-network-edge>-</dd></div>
           </dl>
           <p
             class="nw-inline-status"
@@ -132,11 +133,11 @@ const appSchema = {
           ><p class="nw-smallprint">{copy.testNote}</p>
           <div class="nw-report" data-test-results hidden>
             <div>
-              <span>{copy.latency}</span><strong data-test-latency>—</strong>
+              <span>{copy.latency}</span><strong data-test-latency>-</strong>
             </div><div>
-              <span>{copy.jitter}</span><strong data-test-jitter>—</strong>
+              <span>{copy.jitter}</span><strong data-test-jitter>-</strong>
             </div><div>
-              <span>{copy.speed}</span><strong data-test-speed>—</strong>
+              <span>{copy.speed}</span><strong data-test-speed>-</strong>
             </div>
           </div>
           <nav class="nw-external-tests" aria-label={fullTestLabel}>
@@ -194,6 +195,10 @@ const appSchema = {
       </div>
     </section>
   </div>
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(appSchema)} />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={serializeStructuredData(appSchema)}
+  />
   <script is:inline src="/scripts/network-weather.js" defer></script>
 </BaseLayout>

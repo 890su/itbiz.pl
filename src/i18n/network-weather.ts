@@ -3,7 +3,7 @@ import type { Locale } from './config';
 const copy = {
   pl: {
     nav: 'Stan łącza',
-    title: 'Pogoda w Warszawie a internet w firmie — test IP i opóźnienia | ITBIZ.PL',
+    title: 'Pogoda i test internetu w firmie - Warszawa | ITBIZ.PL',
     description:
       'Prognoza dla Warszawy i lekka diagnostyka firmowego łącza: publiczny IP, operator, opóźnienie HTTP, jitter i orientacyjne pobieranie.',
     eyebrow: 'Warunki zewnętrzne / stan infrastruktury',
@@ -54,7 +54,7 @@ const copy = {
   },
   ru: {
     nav: 'Состояние сети',
-    title: 'Погода в Варшаве и интернет компании — IP и задержка | ITBIZ.PL',
+    title: 'Погода и тест интернета - Варшава | ITBIZ.PL',
     description:
       'Прогноз для Варшавы и лёгкая диагностика офисного соединения: публичный IP, оператор, HTTP-задержка, джиттер и ориентировочная загрузка.',
     eyebrow: 'Внешние условия / состояние инфраструктуры',
@@ -90,7 +90,7 @@ const copy = {
       'Сравните кабель и Wi‑Fi. Разница обычно локализует проблему в офисной сети.',
       'Запишите время, рабочее место, тип подключения и симптомы. Один тест не показывает тренд или потерю пакетов.',
     ],
-    weatherContextTitle: 'Погода — не диагноз',
+    weatherContextTitle: 'Погода - не диагноз',
     weatherContext:
       'Ветер, осадки и температура могут влиять на радиолинии, наружное оборудование и питание. Для большинства офисов сначала нужно проверить Wi‑Fi, кабель, нагрузку и статус оператора.',
     ctaTitle: 'Инцидент повторяется?',
@@ -105,7 +105,7 @@ const copy = {
   },
   en: {
     nav: 'Network status',
-    title: 'Warsaw weather and business internet health — IP and latency | ITBIZ.PL',
+    title: 'Warsaw weather and business internet test | ITBIZ.PL',
     description:
       'Warsaw forecast and a lightweight business connection diagnostic: public IP, network operator, HTTP latency, jitter and indicative download.',
     eyebrow: 'External conditions / infrastructure state',
@@ -156,7 +156,7 @@ const copy = {
   },
   uk: {
     nav: 'Стан мережі',
-    title: 'Погода у Варшаві та інтернет компанії — IP і затримка | ITBIZ.PL',
+    title: 'Погода і тест інтернету - Варшава | ITBIZ.PL',
     description:
       'Прогноз для Варшави й легка діагностика офісного з’єднання: публічна IP-адреса, оператор, HTTP-затримка, джиттер і орієнтовне завантаження.',
     eyebrow: 'Зовнішні умови / стан інфраструктури',
@@ -192,7 +192,7 @@ const copy = {
       'Порівняйте кабель і Wi‑Fi. Різниця зазвичай локалізує проблему в офісній мережі.',
       'Запишіть час, робоче місце, тип підключення й симптоми. Один тест не показує тренд або втрату пакетів.',
     ],
-    weatherContextTitle: 'Погода — не діагноз',
+    weatherContextTitle: 'Погода - не діагноз',
     weatherContext:
       'Вітер, опади й температура можуть впливати на радіолінії, зовнішнє обладнання та живлення. Для більшості офісів спочатку слід перевірити Wi‑Fi, кабель, навантаження і статус оператора.',
     ctaTitle: 'Інцидент повторюється?',

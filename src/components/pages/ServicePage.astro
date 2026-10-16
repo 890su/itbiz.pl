@@ -24,6 +24,15 @@ const copy = ui.service;
   noindex={data.noindex || data.status !== 'published'}
   {locale}
   {translationKey}
+  service={{ name: data.title, description: data.description }}
+  breadcrumbs={[
+    { name: ui.common.start, path: getRoute(locale, 'home') },
+    { name: ui.common.services, path: getRoute(locale, 'services') },
+    {
+      name: data.breadcrumbTitle ?? data.title,
+      path: getRoute(locale, translationKey),
+    },
+  ]}
 >
   <nav class="breadcrumb" aria-label={ui.common.scope}>
     <ol>
@@ -43,7 +52,7 @@ const copy = ui.service;
     </div>
     {
       data.heroFacts && (
-        <ul class="service-facts" aria-label="Najważniejsze warunki usługi">
+        <ul class="service-facts" aria-label={copy.factsLabel}>
           {data.heroFacts.map((fact) => (
             <li>{fact}</li>
           ))}

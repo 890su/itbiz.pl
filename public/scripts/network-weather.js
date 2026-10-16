@@ -7,7 +7,7 @@
     if (node) node.textContent = value ?? settings.unknown;
   };
   const number = (value, digits = 0) =>
-    Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : '—';
+    Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : '-';
   const symbols = {
     clearsky: ['Bezchmurnie', 'Ясно', 'Clear sky', 'Ясно'],
     fair: ['Pogodnie', 'Малооблачно', 'Fair', 'Малохмарно'],

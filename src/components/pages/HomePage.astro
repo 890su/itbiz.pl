@@ -49,7 +49,7 @@ const services = (await getCollection('services'))
           >{copy.secondary}</a
         >
       </div>
-      <div class="hero-note" aria-label={copy.serviceLabel}>
+      <div class="hero-note">
         {copy.notes.map((note) => <span>{note}</span>)}
       </div>
     </div>

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { getRoute, type Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
+import { company } from '../data/company';
 
 interface Props {
   selectedServiceId?: string;
@@ -42,6 +43,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
     data-success-label={copy.success}
     data-preview-label={copy.preview}
     data-request-label={copy.requestNumber}
+    data-turnstile-src="https://challenges.cloudflare.com/turnstile/v0/api.js"
     novalidate
   >
     <div class="form-grid">
@@ -103,6 +105,13 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
         <small id="message-help">{messageHelp}</small>
       </div>
     </div>
+    <noscript>
+      <p>
+        <a href={company.publicPhoneHref}
+          >{getUi(locale).common.phoneAction}: {company.publicPhone}</a
+        >
+      </p>
+    </noscript>
     <div class="field visually-hidden" aria-hidden="true">
       <label for="website">{copy.website}</label>
       <input id="website" name="website" tabindex="-1" autocomplete="off" />
@@ -116,6 +125,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           data-sitekey={siteKey}
           data-action="contact"
           data-language={locale}
+          data-size="flexible"
         />
       )
     }
@@ -123,19 +133,9 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
       {copy.notice}
       <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
     </p>
-    <div class="form-status" role="status" aria-live="polite" data-form-status></div>
+    <div class="form-status" role="status" tabindex="-1" data-form-status></div>
     <button class="button button-primary" type="submit">{submitLabel}</button>
   </form>
 </div>
 
-{
-  siteKey && (
-    <script
-      is:inline
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      async
-      defer
-    />
-  )
-}
 <script is:inline src="/scripts/contact-form.js" defer></script>

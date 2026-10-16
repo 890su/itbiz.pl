@@ -33,6 +33,7 @@ const serviceIds = new Set([
   'office-wifi',
   'network-repair',
   'network-emergency',
+  'cctv-emergency',
   'lan-outlet-repair',
   'small-office-wifi-audit',
   'rack-cabinet-cleanup',

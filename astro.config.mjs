@@ -6,6 +6,6 @@ export default defineConfig({
   output: 'static',
   integrations: [sitemap({ filter: (page) => !page.includes('/404') })],
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
 });

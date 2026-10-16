@@ -55,6 +55,7 @@
     --line-strong: #9eafc4;
     --signal: #1769d2;
     --signal-hover: #0f55ae;
+    --button-ink: #ffffff;
     --network: #0788ba;
     --verified: #087f74;
     --panel: #0b1324;
@@ -87,6 +88,7 @@
       --line-strong: #425875;
       --signal: #63a7ff;
       --signal-hover: #8cbeff;
+      --button-ink: #07101f;
       --network: #48c7ee;
       --verified: #4fd1c5;
       --panel: #040a14;
@@ -111,6 +113,7 @@
     --line-strong: #425875;
     --signal: #63a7ff;
     --signal-hover: #8cbeff;
+    --button-ink: #07101f;
     --network: #48c7ee;
     --verified: #4fd1c5;
     --panel: #040a14;
@@ -422,6 +425,15 @@
     display: none;
   }
 
+  .no-script-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--panel);
+    color: var(--panel-ink);
+  }
+
   .mobile-menu ul {
     display: grid;
     margin-bottom: 1rem;
@@ -525,7 +537,7 @@
 
   .button-primary {
     background: var(--signal);
-    color: #fff;
+    color: var(--button-ink);
   }
 
   .button-primary:hover {
@@ -593,10 +605,12 @@
   .hero-copy {
     display: grid;
     gap: 1.35rem;
+    min-width: 0;
   }
 
   .hero h1 {
     max-width: 13ch;
+    overflow-wrap: anywhere;
   }
 
   .hero-lead {
@@ -1009,6 +1023,10 @@
   .form-grid {
     display: grid;
     gap: 1rem;
+  }
+
+  .cf-turnstile {
+    min-height: 65px;
   }
 
   .field {
@@ -1430,7 +1448,16 @@
     }
 
     .hero {
-      grid-template-columns: minmax(0, 1.05fr) minmax(24rem, 0.95fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.8fr);
+      gap: clamp(2rem, 3vw, 3rem);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.55rem, 4.5vw, 4.5rem);
+    }
+
+    .no-script-nav {
+      display: none;
     }
 
     .process-grid {

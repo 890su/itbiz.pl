@@ -11,6 +11,13 @@ import {
   type TranslationKey,
 } from '../i18n/config';
 import { getUi } from '../i18n/ui';
+import { getNetworkWeather } from '../i18n/network-weather';
+import {
+  organizationId,
+  organizationSchema,
+  serializeStructuredData,
+  websiteId,
+} from '../lib/structured-data';
 
 interface Props {
   title: string;
@@ -19,6 +26,8 @@ interface Props {
   noindex?: boolean;
   locale?: Locale;
   translationKey: TranslationKey;
+  breadcrumbs?: { name: string; path: string }[];
+  service?: { name: string; description: string };
 }
 
 const {
@@ -28,18 +37,93 @@ const {
   noindex = false,
   locale = 'pl',
   translationKey,
+  breadcrumbs,
+  service,
 } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site);
 const siteIndexable = import.meta.env.PUBLIC_SITE_INDEXABLE === 'true';
 const effectiveNoindex = noindex || !siteIndexable;
 const copy = getUi(locale);
 const alternates = getAvailableRoutes(translationKey);
-const websiteSchema = {
+const breadcrumbLabels: Partial<Record<TranslationKey, string>> = {
+  services: copy.common.services,
+  solutions: copy.common.nav[2],
+  about: copy.common.nav[3],
+  contact: copy.common.nav[4],
+  'area.warsaw': copy.common.warsaw,
+  privacy: copy.common.privacy,
+  cookies: copy.common.cookies,
+  networkWeather: getNetworkWeather(locale).nav,
+};
+const currentBreadcrumbLabel = breadcrumbLabels[translationKey];
+const breadcrumbItems =
+  breadcrumbs ??
+  (currentBreadcrumbLabel
+    ? [
+        { name: copy.common.start, path: getRoute(locale, 'home') },
+        { name: currentBreadcrumbLabel, path: canonicalPath },
+      ]
+    : []);
+const socialImage = new URL('/assets/share-itbiz-v1.png', Astro.site);
+const pageSchema = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'ITBIZ.PL',
-  url: Astro.site,
-  inLanguage: languageTags[locale],
+  '@graph': [
+    organizationSchema,
+    ...(canonicalPath === '/'
+      ? [
+          {
+            '@type': 'WebSite',
+            '@id': websiteId,
+            name: 'ITBIZ.PL',
+            url: 'https://itbiz.pl/',
+            publisher: { '@id': organizationId },
+            inLanguage: Object.values(languageTags),
+          },
+        ]
+      : []),
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: languageTags[locale],
+      isPartOf: { '@id': websiteId },
+      publisher: { '@id': organizationId },
+      ...(service ? { mainEntity: { '@id': `${canonical}#service` } } : {}),
+      ...(breadcrumbItems.length >= 2
+        ? { breadcrumb: { '@id': `${canonical}#breadcrumb` } }
+        : {}),
+    },
+    ...(breadcrumbItems.length >= 2
+      ? [
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${canonical}#breadcrumb`,
+            itemListElement: breadcrumbItems.map((item, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: item.name,
+              item: new URL(item.path, Astro.site),
+            })),
+          },
+        ]
+      : []),
+    ...(service
+      ? [
+          {
+            '@type': 'Service',
+            '@id': `${canonical}#service`,
+            url: canonical,
+            name: service.name,
+            description: service.description,
+            provider: { '@id': organizationId },
+            areaServed: { '@type': 'City', name: 'Warszawa' },
+            mainEntityOfPage: { '@id': `${canonical}#webpage` },
+          },
+        ]
+      : []),
+  ],
 };
 ---
 
@@ -47,7 +131,7 @@ const websiteSchema = {
 <html lang={languageTags[locale]} data-theme="auto">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#0b1324" />
     <title>{title}</title>
@@ -72,18 +156,26 @@ const websiteSchema = {
       href={new URL(getRoute('pl', translationKey), Astro.site)}
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/favicon-v1.png" type="image/png" sizes="96x96" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ITBIZ.PL" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={languageTags[locale].replace('-', '_')} />
-    <meta name="twitter:card" content="summary" />
-    <script is:inline src="/scripts/google-ads.js"></script>
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ITBIZ.PL" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script is:inline src="/scripts/google-ads.js" defer></script>
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(websiteSchema)}
+      set:html={serializeStructuredData(pageSchema)}
     />
     <script is:inline src="/scripts/theme.js"></script>
     <script is:inline src="/scripts/site.js" defer></script>
@@ -93,6 +185,13 @@ const websiteSchema = {
     <div class="site-shell">
       <div class="content-rail">
         <SiteChrome variant="mobile" {locale} {translationKey} />
+        <noscript>
+          <nav class="no-script-nav" aria-label={copy.common.mainNav}>
+            <a href={getRoute(locale, 'home')}>{copy.common.start}</a>
+            <a href={getRoute(locale, 'services')}>{copy.common.services}</a>
+            <a href={getRoute(locale, 'contact')}>{copy.common.nav[4]}</a>
+          </nav>
+        </noscript>
         <main id="main-content" tabindex="-1">
           <slot />
         </main>

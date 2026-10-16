@@ -50,6 +50,7 @@ test('content sections alternate tonal bands in light and dark themes', async ({
 
 const demandTestLandings = [
   ['/uslugi/awaria-sieci-w-firmie/', 'network-emergency'],
+  ['/uslugi/awaria-monitoringu-w-firmie/', 'cctv-emergency'],
   ['/uslugi/naprawa-gniazda-lan-w-biurze/', 'lan-outlet-repair'],
   ['/uslugi/audyt-wifi-malego-biura/', 'small-office-wifi-audit'],
   ['/uslugi/porzadkowanie-szafy-rack/', 'rack-cabinet-cleanup'],
@@ -202,6 +203,72 @@ test('mobile header scrolls away with the page', async ({ page }) => {
   await expect
     .poll(async () => (await header.boundingBox())?.y ?? 0)
     .toBeLessThan(-100);
+});
+
+test('mobile menu closes with Escape and returns focus to its button', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const toggle = page.locator('[data-menu-toggle]');
+  await toggle.click();
+  await expect(page.locator('#mobile-menu')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#mobile-menu')).toBeHidden();
+  await expect(toggle).toBeFocused();
+});
+
+test('mobile navigation remains reachable without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 320, height: 900 },
+  });
+  const page = await context.newPage();
+  await page.goto('http://127.0.0.1:8787/');
+  await expect(page.locator('.no-script-nav a[href="/uslugi/"]')).toBeVisible();
+  await page.locator('.no-script-nav a[href="/uslugi/"]').click();
+  await expect(page.locator('h1')).toBeVisible();
+  await context.close();
+});
+
+test('home headline stays clear of the topology in every language', async ({
+  page,
+}) => {
+  for (const path of ['/', '/ru/', '/en/', '/uk/']) {
+    for (const width of [1280, 1920]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(path);
+      const bounds = await page.evaluate(() => {
+        const heading = document.querySelector('.hero h1');
+        const diagram = document.querySelector('.blueprint');
+        const range = document.createRange();
+        range.selectNodeContents(heading!);
+        return {
+          right: Math.max(...Array.from(range.getClientRects(), (rect) => rect.right)),
+          left: diagram!.getBoundingClientRect().left,
+        };
+      });
+      expect(bounds.right + 16).toBeLessThanOrEqual(bounds.left);
+    }
+  }
+});
+
+test('Turnstile is deferred until the visitor approaches the form', async ({
+  page,
+}) => {
+  const externalRequests: string[] = [];
+  page.on('request', (request) => {
+    if (request.url().includes('challenges.cloudflare.com/turnstile/'))
+      externalRequests.push(request.url());
+  });
+  await page.route('https://challenges.cloudflare.com/**', (route) =>
+    route.fulfill({ status: 200, body: '' }),
+  );
+  await page.goto('/uslugi/awaria-monitoringu-w-firmie/');
+  await page.waitForTimeout(300);
+  expect(externalRequests).toHaveLength(0);
+  await page.locator('#contactName').focus();
+  await expect.poll(() => externalRequests.length).toBe(1);
 });
 
 test('confirmed company identity and contacts are published in every locale', async ({
