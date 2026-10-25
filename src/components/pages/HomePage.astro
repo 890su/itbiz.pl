@@ -1,4 +1,5 @@
 ---
+import PrivateSupport from '../PrivateSupport.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import { getHomeExamples } from '../../i18n/enquiry';
@@ -29,6 +30,7 @@ const experience = getExperience(locale);
       <p class="service-qualifier">{copy.eyebrow}</p>
       <h1>{copy.h1}</h1>
       <p class="hero-lead">{experience.homeLead}</p>
+      <PrivateSupport {locale} />
     </div>
     <LeadForm {locale} progressive examples={getHomeExamples(locale)} />
     <div class="enquiry-support">
@@ -138,6 +140,7 @@ const experience = getExperience(locale);
       <div class="info-panel">
         <h2>{copy.boundaryTitle}</h2>
         <p>{copy.boundary}</p>
+        <PrivateSupport {locale} />
       </div>
     </div>
   </section>

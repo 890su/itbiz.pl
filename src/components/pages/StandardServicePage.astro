@@ -1,5 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
+import PrivateSupport from '../PrivateSupport.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
@@ -50,6 +51,7 @@ const copy = ui.service;
       <p class="eyebrow">{copy.qualifier}</p>
       <h1>{data.title}</h1>
       <p class="hero-lead">{data.lead}</p>
+      <PrivateSupport {locale} />
     </div>
     <LeadForm
       selectedServiceId={data.serviceId}
@@ -64,7 +66,6 @@ const copy = ui.service;
         <a class="button button-secondary call-action" href={company.publicPhoneHref}
           >{getExperience(locale).call} <span>{company.publicPhone}</span></a
         >
-        <a class="button button-secondary" href="#scope">{copy.scopeLink}</a>
       </div>
       {
         data.heroFacts && (

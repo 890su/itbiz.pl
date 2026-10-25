@@ -3,42 +3,34 @@ import type { Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
 import { getExperience } from '../i18n/experience';
 import { getEnquiry } from '../i18n/enquiry';
-
 interface Props {
   locale: Locale;
   progressive: boolean;
   messageHelp: string;
+  idPrefix: string;
 }
-const { locale, progressive, messageHelp } = Astro.props;
+const { locale, progressive, messageHelp, idPrefix } = Astro.props;
 const copy = getUi(locale).form;
 const validation = getExperience(locale).form;
+const id = `${idPrefix}message`;
 ---
 
 <div class="field field-wide enquiry-message">
-  <label class:list={{ 'visually-hidden': progressive }} for="message">
-    {copy.message}
-  </label>
+  <label class="visually-hidden" for={id}>{copy.message}</label>
   <textarea
-    id="message"
+    id={id}
     name="message"
     maxlength="3000"
     minlength="20"
     rows="3"
     required
-    placeholder={progressive ? getEnquiry(locale).placeholder : undefined}
-    aria-describedby="message-help message-minimum message-error"
-    data-validation-message={validation.messageError}></textarea>
-  {!progressive && <small id="message-help">{messageHelp}</small>}
-  <small id="message-minimum">{validation.minimum}</small>
-  <small id="message-error" class="field-error" hidden></small>
-  {
-    progressive && (
-      <div id="message-help" class="enquiry-hint" role="tooltip" hidden>
-        <>
-          <p>{getEnquiry(locale).next}</p>
-          <p>{messageHelp}</p>
-        </>
-      </div>
-    )
-  }
+    placeholder={progressive ? getEnquiry(locale).placeholder : copy.message}
+    aria-describedby={`${id}-help ${id}-minimum`}
+    data-validation-message={validation.minimum}
+    data-validation-target={`${id}-minimum`}></textarea>
+  <small id={`${id}-minimum`} data-field-guidance>{validation.minimum}</small>
+  <div id={`${id}-help`} class="enquiry-hint" role="tooltip" hidden>
+    <p>{getEnquiry(locale).next}</p>
+    <p>{messageHelp}</p>
+  </div>
 </div>

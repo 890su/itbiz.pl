@@ -39,3 +39,34 @@
     });
   }
 })();
+
+(() => {
+  const dialog = document.querySelector('[data-enquiry-dialog]');
+  if (!(dialog instanceof HTMLDialogElement)) return;
+  let opener;
+  document.querySelectorAll('[data-enquiry-open]').forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      opener = trigger.closest('#mobile-menu')
+        ? document.querySelector('[data-menu-toggle]')
+        : trigger;
+      dialog.showModal();
+      dialog.querySelector('textarea')?.focus({ preventScroll: true });
+    });
+  });
+  dialog
+    .querySelector('[data-enquiry-close]')
+    ?.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom
+    )
+      dialog.close();
+  });
+  dialog.addEventListener('close', () => opener?.focus({ preventScroll: true }));
+})();

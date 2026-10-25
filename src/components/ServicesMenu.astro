@@ -1,0 +1,43 @@
+---
+import { getRoute, type Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+import { getExperience, type ServiceKey } from '../i18n/experience';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const copy = getExperience(locale);
+const keys: ServiceKey[] = [
+  'service.network-emergency',
+  'service.cctv-emergency',
+  'service.office-wifi',
+  'service.lan-installation',
+  'service.rack-cabinet-cleanup',
+  'service.managed-it',
+];
+---
+
+<details class="services-menu">
+  <summary
+    >{getUi(locale).common.services}<svg viewBox="0 0 24 24" aria-hidden="true"
+      ><path d="m7 10 5 5 5-5"></path></svg
+    ></summary
+  >
+  <ul>
+    {
+      keys.map((key) => (
+        <li>
+          <a
+            href={getRoute(locale, key)}
+            aria-current={
+              Astro.url.pathname === getRoute(locale, key) ? 'page' : undefined
+            }
+          >
+            {copy.serviceNames[key]}
+          </a>
+        </li>
+      ))
+    }
+    <li><a href={getRoute(locale, 'services')}>{copy.allServices}</a></li>
+  </ul>
+</details>

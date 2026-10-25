@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/experience.css';
 import '../styles/enquiry.css';
+import EnquiryDialog from '../components/EnquiryDialog.astro';
 import SiteChrome from '../components/SiteChrome.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ConsentControls from '../components/ConsentControls.astro';
@@ -203,6 +204,14 @@ const pageSchema = {
       </div>
       <SiteChrome variant="desktop" {locale} {translationKey} />
     </div>
+    <EnquiryDialog
+      {locale}
+      selectedServiceId={translationKey.startsWith('service.')
+        ? translationKey.slice(8)
+        : 'other'}
+    />
     <ConsentControls {locale} />
+    <script is:inline src="/scripts/enquiry.js" defer></script>
+    <script is:inline src="/scripts/contact-form.js" defer></script>
   </body>
 </html>

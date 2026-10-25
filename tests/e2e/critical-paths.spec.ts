@@ -76,17 +76,23 @@ for (const [path, serviceId] of demandTestLandings) {
       page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
     ).toBeVisible();
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('[name="serviceId"]')).toHaveValue(serviceId);
-    await expect(page.locator('input[name="contactName"]')).not.toHaveAttribute(
+    await expect(page.locator('main [name="serviceId"]')).toHaveValue(serviceId);
+    await expect(page.locator('main input[name="contactName"]')).not.toHaveAttribute(
       'required',
       '',
     );
-    await expect(page.locator('input[name="contact"]')).toHaveAttribute('required', '');
-    await expect(page.locator('input[name="companyName"]')).not.toHaveAttribute(
+    await expect(page.locator('main input[name="contact"]')).toHaveAttribute(
       'required',
       '',
     );
-    await expect(page.locator('a[href*="naserwis.pl"]')).toHaveCount(0);
+    await expect(page.locator('main input[name="companyName"]')).not.toHaveAttribute(
+      'required',
+      '',
+    );
+    await expect(page.locator('.enquiry-intro .private-support a')).toHaveAttribute(
+      'href',
+      'https://naserwis.pl/',
+    );
     const dimensions = await page.evaluate(() => ({
       client: document.documentElement.clientWidth,
       scroll: document.documentElement.scrollWidth,
@@ -340,14 +346,13 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
   await dialog.getByRole('button', { name: 'Zapisz ustawienia' }).click();
   await expect.poll(() => googleTagRequests.length).toBe(1);
 
-  await page.getByLabel('Osoba kontaktowa').fill('Jan Testowy');
-  await page.getByLabel('Telefon lub e-mail').fill('test@example.com');
-  await page.getByLabel('Temat').selectOption('network-emergency');
   await page
+    .locator('main')
     .getByLabel('Czego potrzebuje firma?')
     .fill('Testowe zgłoszenie firmowej awarii sieci.');
-  await page.getByRole('button', { name: 'Wyślij zapytanie' }).click();
-  await expect(page.locator('[data-form-status]')).toContainText('test-request-1');
+  await page.locator('main').getByLabel('Telefon lub e-mail').fill('test@example.com');
+  await page.locator('main').getByRole('button', { name: 'Wyślij zapytanie' }).click();
+  await expect(page.locator('main [data-form-status]')).toContainText('test-request-1');
 
   const conversion = await page.evaluate(() =>
     (window as typeof window & { dataLayer?: IArguments[] }).dataLayer
@@ -397,7 +402,7 @@ test('preview service remains noindex and preselects its form topic', async ({
     'href',
     'https://itbiz.pl/uslugi/wifi-dla-biur/',
   );
-  await expect(page.locator('[name="serviceId"]')).toHaveValue('office-wifi');
+  await expect(page.locator('main [name="serviceId"]')).toHaveValue('office-wifi');
   await expect(
     page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
   ).toBeVisible();
@@ -442,14 +447,13 @@ test('preview form validates without pretending to deliver a lead', async ({
   page,
 }) => {
   await page.goto('/kontakt/');
-  await page.getByLabel('Osoba kontaktowa').fill('Jan Testowy');
-  await page.getByLabel('Telefon lub e-mail').fill('+48 573 012 321');
-  await page.getByLabel('Temat').selectOption('office-wifi');
   await page
+    .locator('main')
     .getByLabel('Czego potrzebuje firma?')
     .fill('Test pełnej ścieżki formularza w środowisku preview.');
-  await page.getByRole('button', { name: 'Wyślij zapytanie' }).click();
-  await expect(page.locator('[data-form-status]')).toContainText(
+  await page.locator('main').getByLabel('Telefon lub e-mail').fill('+48 573 012 321');
+  await page.locator('main').getByRole('button', { name: 'Wyślij zapytanie' }).click();
+  await expect(page.locator('main [data-form-status]')).toContainText(
     'Tryb preview: walidacja zakończona. Zapytanie nie zostało zapisane.',
   );
 });
@@ -485,7 +489,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     );
     await expect(page.locator('.side-actions > .button')).toHaveAttribute(
       'href',
-      '#enquiry',
+      getRoute(locale, 'contact'),
     );
     const form = await page.locator('#enquiry').boundingBox();
     expect(form!.y).toBeLessThan(3500);
@@ -505,24 +509,24 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await page
       .locator('#message')
       .fill('Testowe zgłoszenie firmowej awarii monitoringu.');
-    const submit = page.locator('[data-lead-form] button[type="submit"]');
+    const submit = page.locator('main [data-lead-form] button[type="submit"]');
     await submit.click();
-    await expect(page.locator('[data-validation-summary]')).toBeFocused();
+    await expect(page.locator('main [data-validation-summary]')).toBeFocused();
     await expect(page.locator('#contactMethod-error')).toHaveText(copy.contactError);
     await page.locator('#contactMethod').fill('abc');
     await page.locator('#message').fill('Awaria');
     await submit.click();
     await expect(page.locator('#contactMethod-error')).toHaveText(copy.contactError);
-    await expect(page.locator('#message-error')).toHaveText(copy.messageError);
+    await expect(page.locator('#message-minimum')).toHaveText(copy.minimum);
     expect(requests).toBe(0);
     await page.locator('#contactMethod').fill('test@example.org');
     await page
       .locator('#message')
       .fill('Testowe zgłoszenie firmowej awarii monitoringu.');
     await expect(page.locator('#contactMethod-error')).toBeHidden();
-    await expect(page.locator('#message-error')).toBeHidden();
+    await expect(page.locator('#message-minimum')).not.toHaveClass(/field-error/);
     await submit.click();
-    await expect(page.locator('[data-form-status]')).toContainText('ux-test-only');
+    await expect(page.locator('main [data-form-status]')).toContainText('ux-test-only');
     expect(requests).toBe(1);
   });
 
@@ -533,19 +537,23 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await page.setViewportSize({ width: 320, height: 740 });
     await page.goto(getRoute(locale, 'contact'));
     await expect(page.locator('h1')).toHaveText(copy.contact.h1);
-    await expect(page.getByLabel(copy.form.message, { exact: true })).toBeVisible();
+    await expect(
+      page.locator('main').getByLabel(copy.form.message, { exact: true }),
+    ).toBeVisible();
 
     for (const [key, serviceId] of [
       ['service.cctv-emergency', 'cctv-emergency'],
       ['service.office-it-move', 'office-it-move'],
     ] as const) {
       await page.goto(getRoute(locale, key));
-      await expect(page.locator('[name="serviceId"]')).toHaveValue(serviceId);
+      await expect(page.locator('main [name="serviceId"]')).toHaveValue(serviceId);
       await expect(page.locator('.page-hero [data-progressive-enquiry]')).toBeVisible();
       await expect(page.locator('#scope h2').first()).toHaveText(
         copy.service.inScopeTitle,
       );
-      await expect(page.getByLabel(copy.form.message, { exact: true })).toBeVisible();
+      await expect(
+        page.locator('main').getByLabel(copy.form.message, { exact: true }),
+      ).toBeVisible();
       expect(
         await page.evaluate(
           () =>

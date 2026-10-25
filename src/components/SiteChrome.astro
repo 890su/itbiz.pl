@@ -9,6 +9,7 @@ import {
   type TranslationKey,
 } from '../i18n/config';
 import { getUi } from '../i18n/ui';
+import ServicesMenu from './ServicesMenu.astro';
 import { company } from '../data/company';
 
 interface Props {
@@ -37,9 +38,7 @@ navigation.splice(4, 0, {
   )[locale],
 });
 const currentPath = Astro.url.pathname;
-const enquiryHref = translationKey.startsWith('service.')
-  ? '#enquiry'
-  : getRoute(locale, 'contact');
+const enquiryHref = getRoute(locale, 'contact');
 const isCurrent = (href: string) =>
   href === getRoute(locale, 'home')
     ? currentPath === href
@@ -66,13 +65,17 @@ const isCurrent = (href: string) =>
         <ul>
           {navigation.map((item) => (
             <li>
-              <a
-                href={item.href}
-                aria-current={isCurrent(item.href) ? 'page' : undefined}
-              >
-                <span>{item.label}</span>
-                <span class="nav-port" aria-hidden="true" />
-              </a>
+              {item.href === getRoute(locale, 'services') ? (
+                <ServicesMenu {locale} />
+              ) : (
+                <a
+                  href={item.href}
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                  <span class="nav-port" aria-hidden="true" />
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -104,7 +107,13 @@ const isCurrent = (href: string) =>
           <span>{copy.common.phoneAction}</span>
           <strong>{company.publicPhone}</strong>
         </a>
-        <a class="button button-primary" href={enquiryHref}>
+        <a
+          class="button button-primary"
+          href={enquiryHref}
+          data-enquiry-open
+          aria-haspopup="dialog"
+          aria-controls="enquiry-dialog"
+        >
           {copy.common.cta}
         </a>
       </div>
@@ -143,12 +152,16 @@ const isCurrent = (href: string) =>
         <ul>
           {navigation.map((item) => (
             <li>
-              <a
-                href={item.href}
-                aria-current={isCurrent(item.href) ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
+              {item.href === getRoute(locale, 'services') ? (
+                <ServicesMenu {locale} />
+              ) : (
+                <a
+                  href={item.href}
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -175,7 +188,13 @@ const isCurrent = (href: string) =>
           <span>{copy.common.phoneAction}</span>
           <strong>{company.publicPhone}</strong>
         </a>
-        <a class="button button-primary" href={enquiryHref}>
+        <a
+          class="button button-primary"
+          href={enquiryHref}
+          data-enquiry-open
+          aria-haspopup="dialog"
+          aria-controls="enquiry-dialog"
+        >
           {copy.common.cta}
         </a>
       </nav>

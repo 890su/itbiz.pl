@@ -75,7 +75,6 @@
     min-height: 0;
     justify-content: center;
     line-height: 0;
-    margin-block: -0.5rem;
   }
 
   .lead-enquiry .cf-turnstile:empty {
@@ -132,10 +131,10 @@
     z-index: 5;
     inset-inline: 0;
     top: calc(100% + 0.5rem);
-    border: 1px solid var(--line-strong);
+    border: 1px solid #d9c68b;
     border-radius: var(--radius-sm);
-    background: #253445;
-    color: #e3edf8;
+    background: #fff2c6;
+    color: #493e22;
     padding: 0.85rem;
     font-size: 0.85rem;
     line-height: 1.5;
@@ -345,6 +344,150 @@
       column-gap: 2.5rem;
       row-gap: 1.75rem;
       align-content: start;
+    }
+  }
+}
+
+@layer components {
+  .enquiry-dialog {
+    position: fixed;
+    inset: 0;
+    width: min(40rem, calc(100% - 1.5rem));
+    max-height: calc(100dvh - 1.5rem);
+    margin: auto;
+    border: 1px solid #45566b;
+    border-radius: var(--radius-lg);
+    background: #18212c;
+    color: #f3f6fa;
+    padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: #66788c #18212c;
+  }
+
+  .enquiry-dialog::backdrop {
+    background: rgb(5 12 22 / 72%);
+  }
+  body:has(.enquiry-dialog[open]) {
+    overflow: hidden;
+  }
+  .enquiry-dialog .lead-enquiry {
+    border: 0;
+    width: 100%;
+  }
+  .enquiry-dialog .section-head {
+    padding-right: 2.5rem;
+  }
+  .enquiry-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: #bdc9d8;
+    cursor: pointer;
+  }
+  .enquiry-close:hover {
+    border-color: #66788c;
+    color: #fff;
+  }
+  .enquiry-close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+  .private-support {
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+  .private-support a {
+    display: inline-block;
+    padding-block: 0.35rem;
+    text-underline-offset: 0.2em;
+  }
+  .contact-layout {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 2.5rem;
+  }
+  .contact-intro {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .contact-intro .hero-lead {
+    max-width: 52ch;
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+  }
+  .contact-layout .lead-enquiry {
+    grid-area: auto;
+  }
+  .contact-intro .contact-links {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 0.25rem;
+    max-width: 28rem;
+  }
+  .services-menu summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 2.75rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .services-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .services-menu summary svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+  .services-menu[open] summary svg {
+    transform: rotate(180deg);
+  }
+  .services-menu ul {
+    padding: 0.25rem 0 0.5rem 0.8rem;
+  }
+  .services-menu li {
+    margin: 0;
+  }
+  .mobile-menu .services-menu a:not(.button) {
+    font-size: 0.9rem;
+    padding-block: 0.65rem;
+  }
+  .side-nav .services-menu summary {
+    border-bottom: 1px solid var(--panel-line);
+    padding-block: 0.85rem;
+    color: var(--panel-muted);
+  }
+  .side-nav .services-menu summary:hover {
+    color: var(--panel-ink);
+  }
+  .side-nav .services-menu li a {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding-block: 0.65rem;
+    border: 0;
+  }
+  .side-panel {
+    overflow-y: auto;
+  }
+  @media (min-width: 80rem) {
+    .contact-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(22rem, 1.15fr);
     }
   }
 }

@@ -1,6 +1,8 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
+import PrivateSupport from '../PrivateSupport.astro';
 import { company } from '../../data/company';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
@@ -10,6 +12,15 @@ interface Props {
 const { locale } = Astro.props;
 const ui = getUi(locale);
 const copy = ui.contact;
+const services = (await getCollection('services'))
+  .filter(
+    (service) => service.data.locale === locale && service.data.status === 'published',
+  )
+  .sort((a, b) => a.data.serviceId.localeCompare(b.data.serviceId));
+const examples = services.map(({ data }) => ({
+  text: data.problems[0]!,
+  serviceId: data.serviceId,
+}));
 ---
 
 <BaseLayout
@@ -28,20 +39,20 @@ const copy = ui.contact;
       </li>
     </ol>
   </nav>
-  <header class="page-hero">
-    <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p>
-      {copy.lead}
-    </p>
-    <address class="contact-links" aria-label={copy.directLabel}>
-      <a href={company.publicPhoneHref}>
-        <span>{copy.phoneLabel}</span>
-        <strong>{company.publicPhone}</strong>
-      </a>
-      <a href={company.publicEmailHref}>
-        <span>{copy.emailLabel}</span>
-        <strong>{company.publicEmail}</strong>
-      </a>
-    </address>
-  </header>
-  <section class="page-section"><LeadForm {locale} /></section>
+  <section class="page-hero contact-layout">
+    <header class="contact-intro">
+      <h1>{copy.h1}</h1>
+      <p class="hero-lead">{copy.lead}</p>
+      <address class="contact-links" aria-label={copy.directLabel}>
+        <a href={company.publicPhoneHref}
+          ><span>{copy.phoneLabel}</span><strong>{company.publicPhone}</strong></a
+        >
+        <a href={company.publicEmailHref}
+          ><span>{copy.emailLabel}</span><strong>{company.publicEmail}</strong></a
+        >
+      </address>
+      <PrivateSupport {locale} />
+    </header>
+    <LeadForm {locale} progressive {examples} />
+  </section>
 </BaseLayout>
