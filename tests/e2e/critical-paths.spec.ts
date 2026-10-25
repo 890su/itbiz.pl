@@ -234,29 +234,30 @@ test('mobile navigation remains reachable without JavaScript', async ({ browser 
   await context.close();
 });
 
-test('home headline stays clear of the topology in every language', async ({
-  page,
-}) => {
+test('home headline stays clear of the enquiry in every language', async ({ page }) => {
   for (const path of ['/', '/ru/', '/en/', '/uk/']) {
     for (const width of [1280, 1920]) {
       await page.setViewportSize({ width, height: 1000 });
       await page.goto(path);
       const bounds = await page.evaluate(() => {
         const heading = document.querySelector('.hero h1');
-        const diagram = document.querySelector('.blueprint');
+        const form = document.querySelector('.lead-enquiry');
         const range = document.createRange();
         range.selectNodeContents(heading!);
         return {
           right: Math.max(...Array.from(range.getClientRects(), (rect) => rect.right)),
-          left: diagram!.getBoundingClientRect().left,
+          left: form!.getBoundingClientRect().left,
+          top: form!.getBoundingClientRect().top,
+          bottom: heading!.getBoundingClientRect().bottom,
         };
       });
-      expect(bounds.right + 16).toBeLessThanOrEqual(bounds.left);
+      if (width >= 1440) expect(bounds.right + 16).toBeLessThanOrEqual(bounds.left);
+      else expect(bounds.bottom).toBeLessThan(bounds.top);
     }
   }
 });
 
-test('Turnstile is deferred until the visitor approaches the form', async ({
+test('hero Turnstile is deferred until the visitor interacts with the form', async ({
   page,
 }) => {
   const externalRequests: string[] = [];
@@ -270,7 +271,7 @@ test('Turnstile is deferred until the visitor approaches the form', async ({
   await page.goto('/uslugi/awaria-monitoringu-w-firmie/');
   await page.waitForTimeout(300);
   expect(externalRequests).toHaveLength(0);
-  await page.locator('#contactName').focus();
+  await page.locator('#message').focus();
   await expect.poll(() => externalRequests.length).toBe(1);
 });
 
@@ -461,15 +462,18 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
       copy.sampleLabel,
     );
     const heroPhone = page.locator('.hero a[href="tel:+48573012321"]');
-    await expect(heroPhone).toBeInViewport();
+    await expect(heroPhone).toBeVisible();
     const choice = await page.locator('#services').boundingBox();
     const utility = await page.locator('.network-tool-entry').boundingBox();
     expect(choice!.y).toBeLessThan(utility!.y);
 
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
     const phone = page.locator('.cctv-hero a[href="tel:+48573012321"]');
-    await expect(phone).toBeInViewport();
-    await expect(page.locator('.diagnostic-path li')).toHaveCount(4);
+    await expect(phone).toBeVisible();
+    await expect(page.locator('.cctv-hero [data-progressive-enquiry]')).toHaveCount(1);
+    await page
+      .locator('#message')
+      .fill('Testowe zgłoszenie firmowej awarii monitoringu.');
     await expect(page.locator('.photo-help a')).toHaveAttribute(
       'href',
       'mailto:info@itbiz.pl',
@@ -493,6 +497,9 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
       await route.fulfill({ json: { preview: true, requestId: 'ux-test-only' } });
     });
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
+    await page
+      .locator('#message')
+      .fill('Testowe zgłoszenie firmowej awarii monitoringu.');
     const submit = page.locator('[data-lead-form] button[type="submit"]');
     await submit.click();
     await expect(page.locator('[data-validation-summary]')).toBeFocused();
@@ -530,7 +537,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     ] as const) {
       await page.goto(getRoute(locale, key));
       await expect(page.locator('select[name="serviceId"]')).toHaveValue(serviceId);
-      await expect(page.locator('.page-hero a[href="#enquiry"]')).toBeVisible();
+      await expect(page.locator('.page-hero [data-progressive-enquiry]')).toBeVisible();
       await expect(page.locator('#scope h2').first()).toHaveText(
         copy.service.inScopeTitle,
       );

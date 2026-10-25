@@ -1,3 +1,6 @@
+import { enquiryContext } from '../src/i18n/enquiry';
+import type { Locale } from '../src/i18n/config';
+
 export interface ContactEnv {
   ENVIRONMENT?: string;
   ALLOWED_ORIGINS?: string;
@@ -171,6 +174,13 @@ export function validateContactPayload(
   if (data.message.length < 20) return { success: false, message: text.message };
   if (!supportedLocales.has(data.locale as SupportedLocale))
     return { success: false, message: text.locale };
+
+  const context = enquiryContext(data.locale as Locale, {
+    requestType: clean(value.requestType, 20),
+    urgency: clean(value.urgency, 20),
+    address: clean(value.address, 300),
+  });
+  if (context) data.message += `\n\n${context}`;
 
   return { success: true, data };
 }

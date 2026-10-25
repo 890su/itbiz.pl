@@ -17,7 +17,9 @@
     document.head.append(script);
   };
   form.addEventListener('focusin', loadTurnstile);
-  if ('IntersectionObserver' in window) {
+  if (form.hasAttribute('data-progressive-enquiry')) {
+    // First-stage examples need no challenge. Load it on the visitor's first input.
+  } else if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
