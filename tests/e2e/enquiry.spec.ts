@@ -31,7 +31,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
         'service.office-it-move',
       ] as const) {
         await page.goto(getRoute(locale, key));
-        await expect(page.locator('[data-lead-form]')).toHaveCount(1);
+        await expect(page.locator('main [data-lead-form]')).toHaveCount(1);
         await expect(page.locator('[data-enquiry-details]')).toBeHidden();
         await expect(page.locator('#message')).toBeVisible();
         await expect(page.locator('.enquiry-hero .button-primary')).toBeHidden();
@@ -97,7 +97,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await example.locator('span').click();
     await expect(page.locator('[data-enquiry-details]')).toBeVisible();
     await expect(page.locator('[data-enquiry-examples]')).toBeHidden();
-    await expect(page.locator('input[name="serviceId"]')).toHaveValue(
+    await expect(page.locator('main input[name="serviceId"]')).toHaveValue(
       'network-emergency',
     );
     await expect(page.locator('#message')).toHaveValue(text);
@@ -128,21 +128,23 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
     const description = 'Test: cameras in the office have stopped recording.';
     await page.locator('#message').fill(description);
-    await page.locator('.enquiry-extras summary').click();
+    await page.locator('main .enquiry-extras summary').click();
     await page.locator('#contactName').fill('Test Contact');
     await page.locator('#contactMethod').fill('test@example.org');
     await page.locator('#officeAddress').fill('Test office address');
     await page.locator('[name="requestType"][value="broken"]').check();
     await page.locator('[name="urgency"][value="urgent"]').check();
-    await page.locator('[data-lead-form] button[type="submit"]').click();
-    await expect(page.locator('[data-form-status]')).toHaveAttribute(
+    await page.locator('main [data-lead-form] button[type="submit"]').click();
+    await expect(page.locator('main [data-form-status]')).toHaveAttribute(
       'data-state',
       'error',
     );
     await expect(page.locator('#message')).toHaveValue(description);
     await expect(page.locator('#officeAddress')).toHaveValue('Test office address');
-    await page.locator('[data-lead-form] button[type="submit"]').click();
-    await expect(page.locator('[data-form-status]')).toContainText('enquiry-test-only');
+    await page.locator('main [data-lead-form] button[type="submit"]').click();
+    await expect(page.locator('main [data-form-status]')).toContainText(
+      'enquiry-test-only',
+    );
     expect(attempts).toBe(2);
     expect(posted).toContain('cctv-emergency');
     expect(posted).toContain('Test office address');
@@ -234,7 +236,7 @@ test('keyboard selection supports manual editing and a partially typed example c
   await page
     .locator('#message')
     .fill('Temporary description to reveal contact fields.');
-  await page.locator('.enquiry-extras summary').click();
+  await page.locator('main .enquiry-extras summary').click();
   await page.locator('#contactName').fill('Test Contact');
   await page.locator('#contactMethod').fill('test@example.org');
   await page.locator('#message').fill('');
@@ -242,8 +244,8 @@ test('keyboard selection supports manual editing and a partially typed example c
   const fullText = (await example.textContent())!.trim();
   await example.focus();
   await page.keyboard.press('Enter');
-  await page.locator('[data-lead-form] button[type="submit"]').click();
-  await expect(page.locator('[data-form-status]')).toContainText('keyboard-test');
+  await page.locator('main [data-lead-form] button[type="submit"]').click();
+  await expect(page.locator('main [data-form-status]')).toContainText('keyboard-test');
   expect(posted).toContain(fullText);
 });
 
@@ -313,15 +315,15 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await expect(page.locator('#contactName')).toBeHidden();
     await expect(page.locator('#companyName')).toBeHidden();
     await expect(page.locator('#officeAddress')).toBeHidden();
-    await expect(page.locator('[name="serviceId"]')).toHaveValue('other');
-    await expect(page.locator('[name="serviceId"]')).toBeHidden();
+    await expect(page.locator('main [name="serviceId"]')).toHaveValue('other');
+    await expect(page.locator('main [name="serviceId"]')).toBeHidden();
     await page.locator('#contactMethod').fill('test@example.org');
     await expect(page.locator('#message-help')).toBeHidden();
-    await expect(page.locator('.cf-turnstile')).toHaveAttribute(
+    await expect(page.locator('main .cf-turnstile')).toHaveAttribute(
       'data-appearance',
       'interaction-only',
     );
-    await expect(page.locator('.cf-turnstile')).toHaveCSS('min-height', '0px');
+    await expect(page.locator('main .cf-turnstile')).toHaveCSS('min-height', '0px');
     await page.locator('[name="urgency"][value="soon"]').check();
     const circles = await page.locator('.enquiry-urgency span').evaluateAll((spans) =>
       spans.map((span) => ({
@@ -332,12 +334,16 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     expect(
       circles.every((circle) => circle.content === '""' && circle.border === '50%'),
     ).toBe(true);
-    await page.locator('[data-lead-form] button[type="submit"]').click();
-    await expect(page.locator('[data-form-status]')).toContainText('contact-only-test');
+    await page.locator('main [data-lead-form] button[type="submit"]').click();
+    await expect(page.locator('main [data-form-status]')).toContainText(
+      'contact-only-test',
+    );
     expect(posted).toContain('other');
     expect(posted).toContain('test-turnstile-token');
     await page.goto(getRoute(locale, 'service.network-emergency'));
-    await expect(page.locator('[name="serviceId"]')).toHaveValue('network-emergency');
+    await expect(page.locator('main [name="serviceId"]')).toHaveValue(
+      'network-emergency',
+    );
   });
 }
 
@@ -346,7 +352,7 @@ test('description hint waits for one second of inactivity and is dismissed by Es
 }) => {
   await page.goto('/');
   const message = page.locator('#message');
-  const hint = page.locator('.enquiry-hint');
+  const hint = page.locator('main .enquiry-hint');
   await message.fill('Our office internet connection is unstable.');
   await page.waitForTimeout(550);
   await expect(hint).toBeHidden();
@@ -387,15 +393,17 @@ test('a quick submit waits for background verification instead of sending an emp
   await page.goto('/');
   await page.locator('#message').fill('Our office network needs a diagnostic visit.');
   await page.locator('#contactMethod').fill('test@example.org');
-  await page.locator('[data-lead-form] button[type="submit"]').click();
-  await expect(page.locator('[data-form-status]')).toContainText('Trwa weryfikacja');
+  await page.locator('main [data-lead-form] button[type="submit"]').click();
+  await expect(page.locator('main [data-form-status]')).toContainText(
+    'Trwa weryfikacja',
+  );
   expect(requests).toBe(0);
   await page.evaluate(() => {
     (
       window as typeof window & { completeTestVerification: () => void }
     ).completeTestVerification();
   });
-  await expect(page.locator('[data-form-status]')).toContainText('verified-test');
+  await expect(page.locator('main [data-form-status]')).toContainText('verified-test');
   expect(requests).toBe(1);
   expect(posted).toContain('test-turnstile-token');
 });
@@ -414,8 +422,8 @@ test('a failed verification keeps the enquiry and never calls the contact API', 
   await page.goto('/');
   await page.locator('#message').fill('Our office network needs a diagnostic visit.');
   await page.locator('#contactMethod').fill('test@example.org');
-  await page.locator('[data-lead-form] button[type="submit"]').click();
-  await expect(page.locator('[data-form-status]')).toHaveAttribute(
+  await page.locator('main [data-lead-form] button[type="submit"]').click();
+  await expect(page.locator('main [data-form-status]')).toHaveAttribute(
     'data-state',
     'error',
   );

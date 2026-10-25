@@ -186,8 +186,12 @@ const appSchema = {
             {copy.ctaText}
           </p>
         </div><div class="nw-business-cta-actions">
-          <a class="button button-primary" href={getRoute(locale, 'contact')}
-            >{copy.cta}</a
+          <a
+            class="button button-primary"
+            href={getRoute(locale, 'contact')}
+            data-enquiry-open
+            aria-haspopup="dialog"
+            aria-controls="enquiry-dialog">{copy.cta}</a
           ><a class="button button-secondary" href={company.publicPhoneHref}
             >{common.phoneAction}: {company.publicPhone}</a
           >

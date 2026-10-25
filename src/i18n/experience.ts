@@ -37,10 +37,7 @@ interface ExperienceCopy {
   };
   form: {
     errorsTitle: string;
-    nameError: string;
     contactError: string;
-    topicError: string;
-    messageError: string;
     minimum: string;
   };
 }
@@ -118,12 +115,9 @@ const experience = {
     },
     form: {
       errorsTitle: 'Sprawdź zaznaczone pola.',
-      nameError: 'Podaj osobę kontaktową.',
       contactError:
         'Podaj poprawny e-mail albo telefon zawierający co najmniej 7 cyfr.',
-      topicError: 'Wybierz usługę lub inny temat.',
-      messageError: 'Opisz zadanie w co najmniej 20 znakach.',
-      minimum: 'Minimum 20 znaków. Nie podawaj haseł ani danych dostępu.',
+      minimum: 'Min. 20 znaków, bez haseł.',
     },
   },
   ru: {
@@ -195,11 +189,8 @@ const experience = {
     },
     form: {
       errorsTitle: 'Проверьте отмеченные поля.',
-      nameError: 'Укажите контактное лицо.',
       contactError: 'Укажите корректный e-mail или телефон минимум из 7 цифр.',
-      topicError: 'Выберите услугу или другую тему.',
-      messageError: 'Опишите задачу минимум в 20 символах.',
-      minimum: 'Минимум 20 символов. Не указывайте пароли и данные доступа.',
+      minimum: 'От 20 символов, без паролей.',
     },
   },
   en: {
@@ -274,12 +265,8 @@ const experience = {
     },
     form: {
       errorsTitle: 'Check the marked fields.',
-      nameError: 'Enter the contact person’s name.',
       contactError: 'Enter a valid email or a phone number with at least 7 digits.',
-      topicError: 'Choose a service or another topic.',
-      messageError: 'Describe the task in at least 20 characters.',
-      minimum:
-        'At least 20 characters. Do not include passwords or access credentials.',
+      minimum: 'At least 20 characters, no passwords.',
     },
   },
   uk: {
@@ -354,11 +341,8 @@ const experience = {
     },
     form: {
       errorsTitle: 'Перевірте позначені поля.',
-      nameError: 'Вкажіть контактну особу.',
       contactError: 'Вкажіть коректний e-mail або телефон щонайменше із 7 цифр.',
-      topicError: 'Оберіть послугу або іншу тему.',
-      messageError: 'Опишіть завдання щонайменше у 20 символах.',
-      minimum: 'Щонайменше 20 символів. Не вказуйте паролів і даних доступу.',
+      minimum: 'Від 20 символів, без паролів.',
     },
   },
 } satisfies Record<Locale, ExperienceCopy>;

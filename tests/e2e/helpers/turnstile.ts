@@ -1,6 +1,8 @@
 export function mockTurnstile({ delay = 0, interactive = false, manual = false } = {}) {
   return `(() => {
-    const render = () => document.querySelectorAll('.cf-turnstile').forEach(container => {
+    const containers = new Map();
+    let next = 0;
+    const refresh = (container) => {
       let input = container.querySelector('[name="cf-turnstile-response"]');
       if (!input) { input = document.createElement('input'); input.type = 'hidden'; input.name = 'cf-turnstile-response'; container.append(input); }
       input.value = '';
@@ -12,8 +14,10 @@ export function mockTurnstile({ delay = 0, interactive = false, manual = false }
       const complete = () => { input.value = 'test-turnstile-token'; };
       if (${manual}) window.completeTestVerification = complete;
       else setTimeout(complete, ${delay});
-    });
-    window.turnstile = { reset: render };
-    render();
+    };
+    window.turnstile = {
+      render: (container) => { const id = String(++next); containers.set(id, container); refresh(container); return id; },
+      reset: (id) => refresh(containers.get(id)),
+    };
   })();`;
 }

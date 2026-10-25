@@ -1,0 +1,35 @@
+---
+import LeadForm from './LeadForm.astro';
+import { getUi } from '../i18n/ui';
+import type { Locale } from '../i18n/config';
+interface Props {
+  locale: Locale;
+  selectedServiceId?: string;
+}
+const { locale, selectedServiceId = 'other' } = Astro.props;
+const close = {
+  pl: 'Zamknij formularz',
+  ru: 'Закрыть форму',
+  en: 'Close form',
+  uk: 'Закрити форму',
+}[locale];
+---
+
+<dialog
+  id="enquiry-dialog"
+  class="enquiry-dialog"
+  data-enquiry-dialog
+  aria-labelledby="modal-form-title"
+>
+  <button class="enquiry-close" type="button" data-enquiry-close aria-label={close}
+    ><svg viewBox="0 0 24 24" aria-hidden="true"
+      ><path d="m6 6 12 12M18 6 6 18"></path></svg
+    ></button
+  >
+  <LeadForm
+    {locale}
+    {selectedServiceId}
+    idPrefix="modal-"
+    heading={getUi(locale).form.heading}
+  />
+</dialog>

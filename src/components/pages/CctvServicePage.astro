@@ -1,5 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
+import PrivateSupport from '../PrivateSupport.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
@@ -50,6 +51,7 @@ const copy = experience.cctv;
       <p class="service-qualifier">{ui.service.qualifier}</p>
       <h1>{data.title}</h1>
       <p class="hero-lead">{copy.intro}</p>
+      <PrivateSupport {locale} />
     </div>
     <LeadForm
       selectedServiceId={data.serviceId}

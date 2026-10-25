@@ -1,55 +1,52 @@
 ---
 import type { Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
-import { getExperience } from '../i18n/experience';
 import { getEnquiry } from '../i18n/enquiry';
 interface Props {
   locale: Locale;
-  progressive: boolean;
+  idPrefix: string;
 }
-const { locale, progressive } = Astro.props;
+const { locale, idPrefix } = Astro.props;
 const copy = getUi(locale).form;
 const enquiry = getEnquiry(locale);
+const fields = [
+  {
+    id: 'contactName',
+    name: 'contactName',
+    label: copy.contact,
+    autocomplete: 'name',
+    max: 100,
+  },
+  {
+    id: 'companyName',
+    name: 'companyName',
+    label: copy.company,
+    autocomplete: 'organization',
+    max: 120,
+  },
+  {
+    id: 'officeAddress',
+    name: 'address',
+    label: enquiry.address,
+    autocomplete: 'street-address',
+    max: 300,
+  },
+];
 ---
 
-<div class="field">
-  <label for="contactName"
-    >{copy.contact}{progressive ? ` (${enquiry.optional})` : ''}</label
-  >
-  <input
-    id="contactName"
-    name="contactName"
-    autocomplete="name"
-    maxlength="100"
-    required={!progressive}
-    aria-describedby={!progressive ? 'contactName-error' : undefined}
-    data-validation-message={!progressive
-      ? getExperience(locale).form.nameError
-      : undefined}
-  />
-  {!progressive && <small id="contactName-error" class="field-error" hidden />}
-</div>
-<div class="field">
-  <label for="companyName">{copy.company}</label>
-  <input
-    id="companyName"
-    name="companyName"
-    autocomplete="organization"
-    maxlength="120"
-  />
-</div>
 {
-  progressive && (
+  fields.map((field) => (
     <div class="field">
-      <>
-        <label for="officeAddress">{enquiry.address}</label>
-        <input
-          id="officeAddress"
-          name="address"
-          autocomplete="street-address"
-          maxlength="300"
-        />
-      </>
+      <label class="visually-hidden" for={`${idPrefix}${field.id}`}>
+        {field.label}
+      </label>
+      <input
+        id={`${idPrefix}${field.id}`}
+        name={field.name}
+        placeholder={field.label}
+        autocomplete={field.autocomplete}
+        maxlength={field.max}
+      />
     </div>
-  )
+  ))
 }
