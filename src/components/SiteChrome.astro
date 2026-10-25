@@ -1,23 +1,14 @@
 ---
-import {
-  getRoute,
-  getRouteOrFallback,
-  languageNames,
-  locales,
-  localeLabels,
-  type Locale,
-  type TranslationKey,
-} from '../i18n/config';
+import { getRoute, type Locale, type TranslationKey } from '../i18n/config';
 import { getUi } from '../i18n/ui';
 import ServicesMenu from './ServicesMenu.astro';
-import { company } from '../data/company';
-
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import ContactActions from './ContactActions.astro';
 interface Props {
   variant: 'desktop' | 'mobile';
   locale: Locale;
   translationKey: TranslationKey;
 }
-
 const { variant, locale, translationKey } = Astro.props;
 const copy = getUi(locale);
 const navigation: { href: string; label: string }[] = (
@@ -28,17 +19,14 @@ const navigation: { href: string; label: string }[] = (
 }));
 navigation.splice(4, 0, {
   href: getRoute(locale, 'networkWeather'),
-  label: (
-    {
-      pl: 'Stan łącza',
-      ru: 'Состояние сети',
-      en: 'Network status',
-      uk: 'Стан мережі',
-    } as const
-  )[locale],
+  label: {
+    pl: 'Stan łącza',
+    ru: 'Состояние сети',
+    en: 'Network status',
+    uk: 'Стан мережі',
+  }[locale],
 });
 const currentPath = Astro.url.pathname;
-const enquiryHref = getRoute(locale, 'contact');
 const isCurrent = (href: string) =>
   href === getRoute(locale, 'home')
     ? currentPath === href
@@ -48,52 +36,74 @@ const isCurrent = (href: string) =>
 {
   variant === 'desktop' ? (
     <aside class="side-panel" aria-label={copy.common.siteNav}>
-      <a
-        class="brand"
-        href={getRoute(locale, 'home')}
-        aria-label={copy.common.brandHome}
-      >
-        <span class="brand-node" aria-hidden="true" />
-        <span>ITBIZ.PL</span>
-      </a>
-      <p class="side-kicker">
-        {copy.common.sideKicker[0]}
-        <br />
-        {copy.common.sideKicker[1]}
-      </p>
-      <nav class="side-nav" aria-label={copy.common.mainNav}>
-        <ul>
-          {navigation.map((item) => (
-            <li>
-              {item.href === getRoute(locale, 'services') ? (
-                <ServicesMenu {locale} />
-              ) : (
-                <a
-                  href={item.href}
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
-                >
-                  <span>{item.label}</span>
-                  <span class="nav-port" aria-hidden="true" />
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div class="side-actions">
+      <div class="side-heading">
+        <a
+          class="brand"
+          href={getRoute(locale, 'home')}
+          aria-label={copy.common.brandHome}
+        >
+          <>
+            <span class="brand-node" aria-hidden="true" />
+            <span>ITBIZ.PL</span>
+          </>
+        </a>
+        <p class="side-kicker">
+          {copy.common.sideKicker[0]}
+          <br />
+          {copy.common.sideKicker[1]}
+        </p>
         <div class="utility-row">
-          <nav class="locale-switcher" aria-label={copy.common.languageLabel}>
-            {locales.map((targetLocale) => (
-              <a
-                href={getRouteOrFallback(targetLocale, translationKey)}
-                lang={targetLocale}
-                aria-current={targetLocale === locale ? 'page' : undefined}
-                aria-label={languageNames[targetLocale]}
-              >
-                {localeLabels[targetLocale]}
-              </a>
+          <>
+            <LanguageSwitcher {locale} {translationKey} />
+            <button
+              class="theme-toggle"
+              type="button"
+              data-theme-toggle
+              aria-label={copy.common.theme}
+            >
+              <span aria-hidden="true">◐</span>
+            </button>
+          </>
+        </div>
+      </div>
+      <div class="side-navigation">
+        <nav class="side-nav" aria-label={copy.common.mainNav}>
+          <ul>
+            {navigation.map((item) => (
+              <li>
+                {item.href === getRoute(locale, 'services') ? (
+                  <ServicesMenu {locale} />
+                ) : (
+                  <a
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  >
+                    <span>{item.label}</span>
+                    <span class="nav-port" aria-hidden="true" />
+                  </a>
+                )}
+              </li>
             ))}
-          </nav>
+          </ul>
+        </nav>
+        <ContactActions {locale} class="side-actions" />
+      </div>
+    </aside>
+  ) : (
+    <>
+      <header class="mobile-bar">
+        <a
+          class="brand mobile-brand"
+          href={getRoute(locale, 'home')}
+          aria-label={copy.common.brandHome}
+        >
+          <>
+            <span class="brand-node" aria-hidden="true" />
+            <span>ITBIZ.PL</span>
+          </>
+        </a>
+        <LanguageSwitcher {locale} {translationKey} mobile />
+        <div class="mobile-actions">
           <button
             class="theme-toggle"
             type="button"
@@ -102,102 +112,45 @@ const isCurrent = (href: string) =>
           >
             <span aria-hidden="true">◐</span>
           </button>
-        </div>
-        <a class="menu-phone" href={company.publicPhoneHref}>
-          <span>{copy.common.phoneAction}</span>
-          <strong>{company.publicPhone}</strong>
-        </a>
-        <a
-          class="button button-primary"
-          href={enquiryHref}
-          data-enquiry-open
-          aria-haspopup="dialog"
-          aria-controls="enquiry-dialog"
-        >
-          {copy.common.cta}
-        </a>
-      </div>
-    </aside>
-  ) : (
-    <header class="mobile-bar">
-      <a
-        class="brand"
-        href={getRoute(locale, 'home')}
-        aria-label={copy.common.brandHome}
-      >
-        <span class="brand-node" aria-hidden="true" />
-        <span>ITBIZ.PL</span>
-      </a>
-      <div class="mobile-actions">
-        <button
-          class="theme-toggle"
-          type="button"
-          data-theme-toggle
-          aria-label={copy.common.theme}
-        >
-          <span aria-hidden="true">◐</span>
-        </button>
-        <button
-          class="menu-toggle"
-          type="button"
-          data-menu-toggle
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-        >
-          <span class="menu-label">{copy.common.menu}</span>
-          <span class="menu-icon" aria-hidden="true" />
-        </button>
-      </div>
-      <nav id="mobile-menu" class="mobile-menu" aria-label={copy.common.mainNav} hidden>
-        <ul>
-          {navigation.map((item) => (
-            <li>
-              {item.href === getRoute(locale, 'services') ? (
-                <ServicesMenu {locale} />
-              ) : (
-                <a
-                  href={item.href}
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-        <div class="mobile-language-block">
-          <span class="mobile-utility-label">{copy.common.languageLabel}</span>
-          <div
-            class="mobile-locale-switcher"
-            role="group"
-            aria-label={copy.common.languageLabel}
+          <button
+            class="menu-toggle"
+            type="button"
+            data-menu-toggle
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            aria-label={copy.common.menu}
           >
-            {locales.map((targetLocale) => (
-              <a
-                href={getRouteOrFallback(targetLocale, translationKey)}
-                lang={targetLocale}
-                aria-label={languageNames[targetLocale]}
-                aria-current={targetLocale === locale ? 'page' : undefined}
-              >
-                {localeLabels[targetLocale]}
-              </a>
-            ))}
-          </div>
+            <span class="menu-icon" aria-hidden="true" />
+          </button>
         </div>
-        <a class="menu-phone" href={company.publicPhoneHref}>
-          <span>{copy.common.phoneAction}</span>
-          <strong>{company.publicPhone}</strong>
-        </a>
-        <a
-          class="button button-primary"
-          href={enquiryHref}
-          data-enquiry-open
-          aria-haspopup="dialog"
-          aria-controls="enquiry-dialog"
+        <nav
+          id="mobile-menu"
+          class="mobile-menu"
+          aria-label={copy.common.mainNav}
+          hidden
         >
-          {copy.common.cta}
-        </a>
-      </nav>
-    </header>
+          <div class="mobile-menu-scroll">
+            <ul>
+              {navigation.map((item) => (
+                <li>
+                  {item.href === getRoute(locale, 'services') ? (
+                    <ServicesMenu {locale} />
+                  ) : (
+                    <a
+                      href={item.href}
+                      aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <ContactActions {locale} compact class="mobile-menu-actions" />
+        </nav>
+      </header>
+      <ContactActions {locale} compact class="mobile-contact-bar" />
+    </>
   )
 }

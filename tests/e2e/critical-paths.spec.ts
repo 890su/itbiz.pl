@@ -168,10 +168,10 @@ test('mobile navigation keeps language targets large and clear of the primary ac
     await page.locator('.mobile-bar').getByRole('button', { name: 'Menu' }).click();
 
     const menu = page.locator('#mobile-menu');
-    const localeSwitcher = menu.locator('.mobile-locale-switcher');
+    const localeSwitcher = page.locator('.mobile-bar .mobile-locale-switcher');
     const localeLinks = localeSwitcher.locator('a');
     const primaryAction = menu.getByRole('link', { name: 'Wyślij zapytanie' });
-    const phoneAction = menu.getByRole('link', { name: /\+48 573 012 321/ });
+    const phoneAction = menu.locator('a[href="tel:+48573012321"]');
 
     await expect(menu).toBeVisible();
     await expect(primaryAction).toBeVisible();
@@ -197,25 +197,24 @@ test('mobile navigation keeps language targets large and clear of the primary ac
     expect(phoneActionBox).not.toBeNull();
     expect(primaryActionBox).not.toBeNull();
     expect(switcherBox!.y + switcherBox!.height).toBeLessThan(phoneActionBox!.y);
-    expect(phoneActionBox!.y + phoneActionBox!.height).toBeLessThan(
-      primaryActionBox!.y,
+    expect(Math.abs(phoneActionBox!.y - primaryActionBox!.y)).toBeLessThan(1);
+    expect(primaryActionBox!.x + primaryActionBox!.width).toBeLessThan(
+      phoneActionBox!.x,
     );
   }
 });
 
-test('mobile header scrolls away with the page', async ({ page }) => {
+test('mobile header stays pinned while the page scrolls', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.goto('/');
 
   const header = page.locator('.mobile-bar');
-  await expect(header).toHaveCSS('position', 'relative');
+  await expect(header).toHaveCSS('position', 'sticky');
   const initialBox = await header.boundingBox();
   expect(initialBox).not.toBeNull();
 
   await page.evaluate(() => window.scrollTo(0, 600));
-  await expect
-    .poll(async () => (await header.boundingBox())?.y ?? 0)
-    .toBeLessThan(-100);
+  await expect.poll(async () => (await header.boundingBox())?.y ?? 0).toBe(0);
 });
 
 test('mobile menu closes with Escape and returns focus to its button', async ({
@@ -487,7 +486,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
       'href',
       'mailto:info@itbiz.pl',
     );
-    await expect(page.locator('.side-actions > .button')).toHaveAttribute(
+    await expect(page.locator('.side-actions [data-enquiry-open]')).toHaveAttribute(
       'href',
       getRoute(locale, 'contact'),
     );

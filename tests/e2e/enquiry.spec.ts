@@ -347,31 +347,21 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
   });
 }
 
-test('description hint waits for one second of inactivity and is dismissed by Escape or blur', async ({
-  page,
-}) => {
+test('description fields have no delayed hints in either form', async ({ page }) => {
   await page.goto('/');
-  const message = page.locator('#message');
-  const hint = page.locator('main .enquiry-hint');
-  await message.fill('Our office internet connection is unstable.');
-  await page.waitForTimeout(550);
-  await expect(hint).toBeHidden();
-  await message.press('ArrowLeft');
-  await page.waitForTimeout(550);
-  await expect(hint).toBeHidden();
-  await expect(hint).toBeVisible();
-  await page.locator('[name="requestType"][value="broken"]').check();
-  await expect(hint).toBeHidden();
-  await message.focus();
-  await expect(hint).toBeVisible();
-  await message.press('Escape');
-  await expect(hint).toBeHidden();
-  await page.waitForTimeout(1100);
-  await expect(hint).toBeHidden();
-  await message.press('ArrowRight');
-  await expect(hint).toBeVisible();
-  await page.locator('#contactMethod').focus();
-  await expect(hint).toBeHidden();
+  await page.locator('#message').fill('Our office internet connection is unstable.');
+  await page.waitForTimeout(1200);
+  await expect(page.locator('.enquiry-hint, [role="tooltip"]')).toHaveCount(0);
+  await expect(page.locator('#message')).toHaveAttribute(
+    'aria-describedby',
+    'message-minimum',
+  );
+  await page.locator('.side-actions [data-enquiry-open]').click();
+  await expect(page.locator('#modal-message')).toHaveAttribute(
+    'aria-describedby',
+    'modal-message-minimum',
+  );
+  await expect(page.locator('[data-enquiry-dialog] [role="tooltip"]')).toHaveCount(0);
 });
 
 test('a quick submit waits for background verification instead of sending an empty token', async ({
