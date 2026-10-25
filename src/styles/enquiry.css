@@ -126,29 +126,6 @@
     position: relative;
   }
 
-  .enquiry-hint {
-    position: absolute;
-    z-index: 5;
-    inset-inline: 0;
-    top: calc(100% + 0.5rem);
-    border: 1px solid #d9c68b;
-    border-radius: var(--radius-sm);
-    background: #fff2c6;
-    color: #493e22;
-    padding: 0.85rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    pointer-events: none;
-  }
-
-  .enquiry-hint[hidden] {
-    display: none;
-  }
-
-  .enquiry-hint p + p {
-    margin-top: 0.65rem;
-  }
-
   .enquiry-extras summary {
     min-height: 2.75rem;
     padding-block: 0.5rem;
@@ -481,9 +458,6 @@
     line-height: 1.4;
     padding-block: 0.65rem;
     border: 0;
-  }
-  .side-panel {
-    overflow-y: auto;
   }
   @media (min-width: 80rem) {
     .contact-layout {

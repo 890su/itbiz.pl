@@ -147,16 +147,10 @@ test('mobile menu services expand and enquiry modal returns focus to menu toggle
   await expect(page.locator('[data-menu-toggle]')).toBeFocused();
 });
 
-test('message uses one short guidance line and a pale yellow delayed hint', async ({
-  page,
-}) => {
+test('message uses one short guidance line without a hint', async ({ page }) => {
   await page.goto('/');
   await page.locator('#message').fill('Krótko');
-  await expect(page.locator('main .enquiry-hint')).toBeVisible();
-  await expect(page.locator('main .enquiry-hint')).toHaveCSS(
-    'background-color',
-    'rgb(255, 242, 198)',
-  );
+  await expect(page.locator('.enquiry-hint')).toHaveCount(0);
   await page.locator('#contactMethod').focus();
   await expect(page.locator('#message-minimum')).toHaveClass(/field-error/);
   await expect(page.locator('.enquiry-message small').first()).toHaveText(

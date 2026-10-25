@@ -6,10 +6,9 @@ import { getEnquiry } from '../i18n/enquiry';
 interface Props {
   locale: Locale;
   progressive: boolean;
-  messageHelp: string;
   idPrefix: string;
 }
-const { locale, progressive, messageHelp, idPrefix } = Astro.props;
+const { locale, progressive, idPrefix } = Astro.props;
 const copy = getUi(locale).form;
 const validation = getExperience(locale).form;
 const id = `${idPrefix}message`;
@@ -25,12 +24,8 @@ const id = `${idPrefix}message`;
     rows="3"
     required
     placeholder={progressive ? getEnquiry(locale).placeholder : copy.message}
-    aria-describedby={`${id}-help ${id}-minimum`}
+    aria-describedby={`${id}-minimum`}
     data-validation-message={validation.minimum}
     data-validation-target={`${id}-minimum`}></textarea>
   <small id={`${id}-minimum`} data-field-guidance>{validation.minimum}</small>
-  <div id={`${id}-help`} class="enquiry-hint" role="tooltip" hidden>
-    <p>{getEnquiry(locale).next}</p>
-    <p>{messageHelp}</p>
-  </div>
 </div>

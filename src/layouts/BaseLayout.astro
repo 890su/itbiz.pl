@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/experience.css';
 import '../styles/enquiry.css';
+import '../styles/navigation.css';
 import EnquiryDialog from '../components/EnquiryDialog.astro';
 import SiteChrome from '../components/SiteChrome.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -136,7 +137,10 @@ const pageSchema = {
 <html lang={languageTags[locale]} data-theme="auto">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#0b1324" />
     <title>{title}</title>

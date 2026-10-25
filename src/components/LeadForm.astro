@@ -9,7 +9,6 @@ import LeadIdentity from './LeadIdentity.astro';
 interface Props {
   selectedServiceId?: string;
   heading?: string;
-  messageHelp?: string;
   submitLabel?: string;
   photoHelp?: string;
   locale: Locale;
@@ -28,7 +27,6 @@ const copy = getUi(locale).form;
 const enquiry = getEnquiry(locale);
 const validation = getExperience(locale).form;
 const heading = Astro.props.heading ?? copy.heading;
-const messageHelp = Astro.props.messageHelp ?? copy.messageHelp;
 const submitLabel = Astro.props.submitLabel ?? copy.submit;
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa4pZ6kY';
 const contactId = `${idPrefix}contactMethod`;
@@ -65,7 +63,7 @@ const contactId = `${idPrefix}contactMethod`;
     >
       <p>{validation.errorsTitle}</p><ul></ul>
     </div>
-    <LeadMessage {locale} {progressive} {messageHelp} {idPrefix} />
+    <LeadMessage {locale} {progressive} {idPrefix} />
     {
       progressive && (
         <div class="enquiry-examples" data-enquiry-examples>

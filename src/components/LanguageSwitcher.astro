@@ -1,0 +1,35 @@
+---
+import {
+  getRouteOrFallback,
+  languageNames,
+  locales,
+  localeLabels,
+  type Locale,
+  type TranslationKey,
+} from '../i18n/config';
+import { getUi } from '../i18n/ui';
+interface Props {
+  locale: Locale;
+  translationKey: TranslationKey;
+  mobile?: boolean;
+}
+const { locale, translationKey, mobile = false } = Astro.props;
+---
+
+<nav
+  class={mobile ? 'mobile-locale-switcher' : 'locale-switcher'}
+  aria-label={getUi(locale).common.languageLabel}
+>
+  {
+    locales.map((targetLocale) => (
+      <a
+        href={getRouteOrFallback(targetLocale, translationKey)}
+        lang={targetLocale}
+        aria-current={targetLocale === locale ? 'page' : undefined}
+        aria-label={languageNames[targetLocale]}
+      >
+        {localeLabels[targetLocale]}
+      </a>
+    ))
+  }
+</nav>

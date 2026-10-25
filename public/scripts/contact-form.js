@@ -88,34 +88,7 @@
         check();
       });
 
-    const message = form.elements.message;
-    const hint = form.querySelector('.enquiry-hint');
-    let hintTimer = 0;
-    const hideHint = () => {
-      clearTimeout(hintTimer);
-      if (hint) hint.hidden = true;
-    };
-    const scheduleHint = () => {
-      hideHint();
-      if (hint && document.activeElement === message) {
-        hintTimer = setTimeout(() => {
-          hint.hidden = false;
-        }, 1000);
-      }
-    };
-    for (const event of ['focus', 'input', 'pointermove', 'click'])
-      message.addEventListener(event, scheduleHint);
-    message.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') hideHint();
-      else scheduleHint();
-    });
-    message.addEventListener('blur', hideHint);
-    message.addEventListener('pointerleave', (event) => {
-      if (!hint?.contains(event.relatedTarget)) hideHint();
-    });
-
     form.addEventListener('reset', () => {
-      hideHint();
       const extras = form.querySelector('.enquiry-extras');
       if (extras) extras.open = false;
     });

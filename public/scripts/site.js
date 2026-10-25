@@ -17,25 +17,43 @@
   const menuButton = document.querySelector('[data-menu-toggle]');
   const menu = document.querySelector('#mobile-menu');
   if (menuButton instanceof HTMLButtonElement && menu instanceof HTMLElement) {
-    const closeMenu = () => {
-      menuButton.setAttribute('aria-expanded', 'false');
-      menu.hidden = true;
-      menuButton.focus();
+    const content = document.querySelector('main');
+    const footer = document.querySelector('.site-footer');
+    const dock = document.querySelector('.mobile-contact-bar');
+    const setOpen = (open, restoreFocus = true) => {
+      menuButton.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      for (const element of [content, footer, dock]) if (element) element.inert = open;
+      if (open) menu.querySelector('a, summary')?.focus({ preventScroll: true });
+      else if (restoreFocus) menuButton.focus({ preventScroll: true });
     };
-    menuButton.addEventListener('click', () => {
-      const open = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!open));
-      menu.hidden = open;
-      if (!open) menu.querySelector('a')?.focus();
-    });
+    menuButton.addEventListener('click', () => setOpen(menu.hidden));
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !menu.hidden) {
+      if (menu.hidden) return;
+      if (event.key === 'Escape') {
         event.preventDefault();
-        closeMenu();
+        setOpen(false);
+      }
+      if (event.key === 'Tab') {
+        const items = [
+          ...menuButton.closest('header').querySelectorAll('a, button, summary'),
+        ].filter((el) => el.getClientRects().length && !el.closest('[inert]'));
+        const first = items[0],
+          last = items.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       }
     });
     menu.addEventListener('click', (event) => {
-      if (event.target instanceof Element && event.target.closest('a')) closeMenu();
+      if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+    });
+    matchMedia('(min-width: 72rem)').addEventListener('change', (event) => {
+      if (event.matches && !menu.hidden) setOpen(false, false);
     });
   }
 })();
