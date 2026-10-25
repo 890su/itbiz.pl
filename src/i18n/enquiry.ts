@@ -27,6 +27,11 @@ const copy = {
     soon: 'W najbliższym czasie',
     flexible: 'Termin elastyczny',
     address: 'Adres biura / miejscowość (opcjonalnie)',
+    optional: 'opcjonalnie',
+    extras: 'Osoba kontaktowa, firma i adres',
+    verifying: 'Trwa weryfikacja. Potwierdź ją, jeśli pojawi się prośba.',
+    verificationError:
+      'Nie udało się zakończyć weryfikacji. Spróbuj ponownie lub zadzwoń.',
     home: [
       'W biurze przestał działać internet',
       'Kamery nie pokazują obrazu lub nie nagrywają',
@@ -53,6 +58,11 @@ const copy = {
     soon: 'В ближайшее время',
     flexible: 'Сроки не горящие',
     address: 'Адрес офиса / населённый пункт (необязательно)',
+    optional: 'необязательно',
+    extras: 'Контактное лицо, компания и адрес',
+    verifying: 'Идёт проверка. Подтвердите её, если появится запрос.',
+    verificationError:
+      'Не удалось завершить проверку. Попробуйте ещё раз или позвоните.',
     home: [
       'В офисе перестал работать интернет',
       'Камеры не показывают изображение или не записывают',
@@ -79,6 +89,10 @@ const copy = {
     soon: 'In the near future',
     flexible: 'No rush',
     address: 'Office address / town (optional)',
+    optional: 'optional',
+    extras: 'Contact person, company and address',
+    verifying: 'Verification is in progress. Complete it if prompted.',
+    verificationError: 'Verification could not be completed. Try again or call us.',
     home: [
       'The internet has stopped working in our office',
       'Our cameras have no picture or are not recording',
@@ -105,6 +119,11 @@ const copy = {
     soon: 'Найближчим часом',
     flexible: 'Терміни не горять',
     address: 'Адреса офісу / населений пункт (необов’язково)',
+    optional: 'необов’язково',
+    extras: 'Контактна особа, компанія та адреса',
+    verifying: 'Триває перевірка. Підтвердьте її, якщо з’явиться запит.',
+    verificationError:
+      'Не вдалося завершити перевірку. Спробуйте ще раз або зателефонуйте.',
     home: [
       'В офісі перестав працювати інтернет',
       'Камери не показують зображення або не записують',

@@ -96,7 +96,10 @@
     highlight(null);
     cancelTyping();
     selectedText = example.textContent.trim();
-    if (example.dataset.serviceId && topic instanceof HTMLSelectElement) {
+    if (
+      example.dataset.serviceId &&
+      (topic instanceof HTMLSelectElement || topic instanceof HTMLInputElement)
+    ) {
       topic.value = example.dataset.serviceId;
       topic.dispatchEvent(new Event('change', { bubbles: true }));
     }
@@ -125,6 +128,30 @@
   });
   message.addEventListener('pointerdown', cancelTyping);
   message.addEventListener('input', reveal);
+  const hint = form.querySelector('.enquiry-hint');
+  let hintTimer = 0;
+  const hideHint = () => {
+    clearTimeout(hintTimer);
+    if (hint) hint.hidden = true;
+  };
+  const scheduleHint = () => {
+    hideHint();
+    if (hint && document.activeElement === message) {
+      hintTimer = setTimeout(() => {
+        hint.hidden = false;
+      }, 1000);
+    }
+  };
+  for (const event of ['focus', 'input', 'pointermove', 'click'])
+    message.addEventListener(event, scheduleHint);
+  message.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') hideHint();
+    else scheduleHint();
+  });
+  message.addEventListener('blur', hideHint);
+  message.addEventListener('pointerleave', (event) => {
+    if (!hint?.contains(event.relatedTarget)) hideHint();
+  });
   form.addEventListener('submit', finishTyping, true);
   all?.addEventListener('click', () => {
     expanded = !expanded;
@@ -137,6 +164,9 @@
   });
   form.addEventListener('reset', () => {
     cancelTyping();
+    hideHint();
+    const extras = form.querySelector('.enquiry-extras');
+    if (extras) extras.open = false;
     queueMicrotask(() => {
       details.hidden = true;
       expanded = false;

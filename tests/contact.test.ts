@@ -47,6 +47,21 @@ describe('validateContactPayload', () => {
     expect(result).toMatchObject({ success: false });
   });
 
+  it.each(['pl', 'ru', 'en', 'uk'])(
+    'accepts a contact-only enquiry without optional identity in %s',
+    (locale) => {
+      const result = validateContactPayload({
+        ...validPayload,
+        locale,
+        contactName: '',
+        companyName: '',
+        serviceId: 'other',
+      });
+      expect(result.success).toBe(true);
+      expect(result.success && result.data.contactName).toBe('');
+    },
+  );
+
   it('accepts a combined phone contact and an omitted organisation', () => {
     const result = validateContactPayload({
       ...validPayload,

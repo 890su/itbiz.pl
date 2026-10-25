@@ -3,21 +3,25 @@
   if (!(form instanceof HTMLFormElement)) return;
 
   let turnstileRequested = false;
+  let verificationFailed = false;
+  const progressive = form.hasAttribute('data-progressive-enquiry');
   const loadTurnstile = () => {
     if (turnstileRequested || !form.querySelector('.cf-turnstile')) return;
     turnstileRequested = true;
+    verificationFailed = false;
     const script = document.createElement('script');
     script.src = form.dataset.turnstileSrc;
     script.async = true;
     script.referrerPolicy = 'strict-origin-when-cross-origin';
     script.onerror = () => {
       turnstileRequested = false;
+      verificationFailed = true;
       script.remove();
     };
     document.head.append(script);
   };
   form.addEventListener('focusin', loadTurnstile);
-  if (form.hasAttribute('data-progressive-enquiry')) {
+  if (progressive) {
     // First-stage examples need no challenge. Load it on the visitor's first input.
   } else if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
@@ -45,6 +49,8 @@
     success: form.dataset.successLabel || 'Request accepted.',
     preview: form.dataset.previewLabel || 'Preview: request not stored.',
     request: form.dataset.requestLabel || 'Reference',
+    verifying: form.dataset.verifyingLabel,
+    verificationError: form.dataset.verificationError,
   };
 
   const showStatus = (message, state) => {
@@ -53,6 +59,18 @@
     status.dataset.state = state;
     status.focus?.();
   };
+
+  const waitForVerification = () =>
+    new Promise((resolve, reject) => {
+      const deadline = Date.now() + 45000;
+      const check = () => {
+        if (form.querySelector('[name="cf-turnstile-response"]')?.value) resolve();
+        else if (verificationFailed || Date.now() >= deadline)
+          reject(new Error(labels.verificationError || labels.genericError));
+        else setTimeout(check, 100);
+      };
+      check();
+    });
 
   const fieldMessage = (field) => {
     const value = field.value.trim();
@@ -131,15 +149,23 @@
       return;
     }
     loadTurnstile();
-    const data = new FormData(form);
 
     if (submit instanceof HTMLButtonElement) {
       submit.disabled = true;
       submit.textContent = labels.sending;
     }
-    showStatus(labels.sending, 'progress');
+    showStatus(progressive ? labels.verifying : labels.sending, 'progress');
 
     try {
+      if (progressive) await waitForVerification();
+      // The visitor may edit the enquiry while verification is in progress.
+      if (!fields.map(validateField).every(Boolean)) {
+        updateSummary(true);
+        if (status) status.textContent = '';
+        return;
+      }
+      showStatus(labels.sending, 'progress');
+      const data = new FormData(form);
       const response = await fetch(form.action, {
         method: 'POST',
         body: data,

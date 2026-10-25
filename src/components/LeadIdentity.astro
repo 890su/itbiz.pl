@@ -1,0 +1,55 @@
+---
+import type { Locale } from '../i18n/config';
+import { getUi } from '../i18n/ui';
+import { getExperience } from '../i18n/experience';
+import { getEnquiry } from '../i18n/enquiry';
+interface Props {
+  locale: Locale;
+  progressive: boolean;
+}
+const { locale, progressive } = Astro.props;
+const copy = getUi(locale).form;
+const enquiry = getEnquiry(locale);
+---
+
+<div class="field">
+  <label for="contactName"
+    >{copy.contact}{progressive ? ` (${enquiry.optional})` : ''}</label
+  >
+  <input
+    id="contactName"
+    name="contactName"
+    autocomplete="name"
+    maxlength="100"
+    required={!progressive}
+    aria-describedby={!progressive ? 'contactName-error' : undefined}
+    data-validation-message={!progressive
+      ? getExperience(locale).form.nameError
+      : undefined}
+  />
+  {!progressive && <small id="contactName-error" class="field-error" hidden />}
+</div>
+<div class="field">
+  <label for="companyName">{copy.company}</label>
+  <input
+    id="companyName"
+    name="companyName"
+    autocomplete="organization"
+    maxlength="120"
+  />
+</div>
+{
+  progressive && (
+    <div class="field">
+      <>
+        <label for="officeAddress">{enquiry.address}</label>
+        <input
+          id="officeAddress"
+          name="address"
+          autocomplete="street-address"
+          maxlength="300"
+        />
+      </>
+    </div>
+  )
+}

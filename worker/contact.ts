@@ -162,7 +162,6 @@ export function validateContactPayload(
   };
   const text = getMessages(data.locale);
 
-  if (!data.contactName) return { success: false, message: text.identity };
   if (data.nip && !/^\d{10}$/.test(data.nip))
     return { success: false, message: text.nip };
   if (!data.email && !data.phone) return { success: false, message: text.contact };
