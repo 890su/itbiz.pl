@@ -72,8 +72,14 @@
 
   .lead-enquiry .cf-turnstile {
     display: flex;
-    min-height: 140px;
+    min-height: 0;
     justify-content: center;
+    line-height: 0;
+    margin-block: -0.5rem;
+  }
+
+  .lead-enquiry .cf-turnstile:empty {
+    display: none;
   }
 
   .lead-enquiry .field :is(input, textarea, select) {
@@ -108,7 +114,7 @@
 
   .enquiry-details {
     display: grid;
-    gap: 1.35rem;
+    gap: 1rem;
   }
 
   .enquiry-details[hidden],
@@ -117,9 +123,47 @@
     display: none;
   }
 
-  .enquiry-next {
+  .enquiry-message {
+    position: relative;
+  }
+
+  .enquiry-hint {
+    position: absolute;
+    z-index: 5;
+    inset-inline: 0;
+    top: calc(100% + 0.5rem);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: #253445;
+    color: #e3edf8;
+    padding: 0.85rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+
+  .enquiry-hint[hidden] {
+    display: none;
+  }
+
+  .enquiry-hint p + p {
+    margin-top: 0.65rem;
+  }
+
+  .enquiry-extras summary {
+    min-height: 2.75rem;
+    padding-block: 0.5rem;
+    color: var(--signal);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .enquiry-extras summary span {
     color: var(--ink-muted);
-    font-size: 0.9rem;
+  }
+
+  .enquiry-extras[open] .form-grid {
+    margin-top: 0.75rem;
   }
 
   .lead-enquiry .form-grid {
@@ -156,8 +200,10 @@
 
   .enquiry-choices input {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     opacity: 0;
   }
 
@@ -196,6 +242,24 @@
 
   .enquiry-urgency span {
     border-color: var(--choice-color);
+    gap: 0.45rem;
+    padding-inline: 0.5rem;
+  }
+
+  .enquiry-urgency span::before {
+    content: '';
+    flex: none;
+    width: 0.95rem;
+    height: 0.95rem;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    padding: 2px;
+    color: var(--choice-color);
+  }
+
+  .enquiry-urgency input:checked + span::before {
+    background: currentColor;
+    background-clip: content-box;
   }
 
   .enquiry-choices input:focus-visible + span {

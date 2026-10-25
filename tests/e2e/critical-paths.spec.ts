@@ -2,8 +2,12 @@ import { expect, test } from '@playwright/test';
 import { getRoute } from '../../src/i18n/config';
 import { getUi } from '../../src/i18n/ui';
 import { getExperience } from '../../src/i18n/experience';
+import { mockTurnstile } from './helpers/turnstile';
 
 test.beforeEach(async ({ page }) => {
+  await page.route('https://challenges.cloudflare.com/**', (route) =>
+    route.fulfill({ contentType: 'application/javascript', body: mockTurnstile() }),
+  );
   await page.addInitScript(() => {
     localStorage.setItem(
       'itbiz-consent-v2',
@@ -72,8 +76,8 @@ for (const [path, serviceId] of demandTestLandings) {
       page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
     ).toBeVisible();
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('select[name="serviceId"]')).toHaveValue(serviceId);
-    await expect(page.locator('input[name="contactName"]')).toHaveAttribute(
+    await expect(page.locator('[name="serviceId"]')).toHaveValue(serviceId);
+    await expect(page.locator('input[name="contactName"]')).not.toHaveAttribute(
       'required',
       '',
     );
@@ -223,11 +227,12 @@ test('mobile menu closes with Escape and returns focus to its button', async ({
 
 test('mobile navigation remains reachable without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({
+    baseURL: test.info().project.use.baseURL,
     javaScriptEnabled: false,
     viewport: { width: 320, height: 900 },
   });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:8787/');
+  await page.goto('/');
   await expect(page.locator('.no-script-nav a[href="/uslugi/"]')).toBeVisible();
   await page.locator('.no-script-nav a[href="/uslugi/"]').click();
   await expect(page.locator('h1')).toBeVisible();
@@ -392,7 +397,7 @@ test('preview service remains noindex and preselects its form topic', async ({
     'href',
     'https://itbiz.pl/uslugi/wifi-dla-biur/',
   );
-  await expect(page.getByLabel('Temat')).toHaveValue('office-wifi');
+  await expect(page.locator('[name="serviceId"]')).toHaveValue('office-wifi');
   await expect(
     page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
   ).toBeVisible();
@@ -503,8 +508,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     const submit = page.locator('[data-lead-form] button[type="submit"]');
     await submit.click();
     await expect(page.locator('[data-validation-summary]')).toBeFocused();
-    await expect(page.locator('#contactName-error')).toHaveText(copy.nameError);
-    await page.locator('#contactName').fill('Jan Testowy');
+    await expect(page.locator('#contactMethod-error')).toHaveText(copy.contactError);
     await page.locator('#contactMethod').fill('abc');
     await page.locator('#message').fill('Awaria');
     await submit.click();
@@ -536,7 +540,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
       ['service.office-it-move', 'office-it-move'],
     ] as const) {
       await page.goto(getRoute(locale, key));
-      await expect(page.locator('select[name="serviceId"]')).toHaveValue(serviceId);
+      await expect(page.locator('[name="serviceId"]')).toHaveValue(serviceId);
       await expect(page.locator('.page-hero [data-progressive-enquiry]')).toBeVisible();
       await expect(page.locator('#scope h2').first()).toHaveText(
         copy.service.inScopeTitle,

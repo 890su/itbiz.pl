@@ -6,6 +6,7 @@ import { company } from '../data/company';
 import { getExperience } from '../i18n/experience';
 import { getEnquiry } from '../i18n/enquiry';
 import LeadMessage from './LeadMessage.astro';
+import LeadIdentity from './LeadIdentity.astro';
 
 interface Props {
   selectedServiceId?: string;
@@ -60,6 +61,8 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
     data-preview-label={copy.preview}
     data-request-label={copy.requestNumber}
     data-turnstile-src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    data-verifying-label={enquiry.verifying}
+    data-verification-error={enquiry.verificationError}
     novalidate
   >
     <div
@@ -113,10 +116,6 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
       {
         progressive && (
           <>
-            <p class="enquiry-next">{enquiry.next}</p>
-            <p id="message-help" class="enquiry-next">
-              {messageHelp}
-            </p>
             <fieldset class="enquiry-choices">
               <legend>{enquiry.type}</legend>
               <label>
@@ -157,28 +156,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
         )
       }
       <div class="form-grid">
-        <div class="field">
-          <label for="contactName">{copy.contact}</label>
-          <input
-            id="contactName"
-            name="contactName"
-            autocomplete="name"
-            maxlength="100"
-            required
-            aria-describedby="contactName-error"
-            data-validation-message={validation.nameError}
-          />
-          <small id="contactName-error" class="field-error" hidden></small>
-        </div>
-        <div class="field">
-          <label for="companyName">{copy.company}</label>
-          <input
-            id="companyName"
-            name="companyName"
-            autocomplete="organization"
-            maxlength="120"
-          />
-        </div>
+        {!progressive && <LeadIdentity {locale} {progressive} />}
         <div class="field">
           <label for="contactMethod">{copy.contactMethod}</label>
           <input
@@ -193,49 +171,62 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
           />
           <small id="contactMethod-error" class="field-error" hidden></small>
         </div>
-        <div class="field">
-          <label for="serviceId">{copy.topic}</label>
-          <select
-            id="serviceId"
-            name="serviceId"
-            required
-            aria-describedby="serviceId-error"
-            data-validation-message={validation.topicError}
-          >
-            <option value="">{copy.choose}</option>
-            {
-              services.map((service) => (
-                <option
-                  value={service.data.serviceId}
-                  selected={selectedServiceId === service.data.serviceId}
-                >
-                  {service.data.formOption}
-                </option>
-              ))
-            }
-            <option value="other">{copy.other}</option>
-          </select>
-          <small id="serviceId-error" class="field-error" hidden></small>
-        </div>
-        {!progressive && <LeadMessage {locale} {progressive} {messageHelp} />}
         {
-          progressive && (
-            <div class="field field-wide">
-              <>
-                <label for="officeAddress">{enquiry.address}</label>
-                <input
-                  id="officeAddress"
-                  name="address"
-                  autocomplete="street-address"
-                  maxlength="300"
-                />
-              </>
+          progressive ? (
+            <input
+              type="hidden"
+              name="serviceId"
+              value={selectedServiceId || 'other'}
+            />
+          ) : (
+            <div class="field">
+              <label for="serviceId">{copy.topic}</label>
+              <select
+                id="serviceId"
+                name="serviceId"
+                required
+                aria-describedby="serviceId-error"
+                data-validation-message={validation.topicError}
+              >
+                <option value="">{copy.choose}</option>
+                {services.map((service) => (
+                  <option
+                    value={service.data.serviceId}
+                    selected={selectedServiceId === service.data.serviceId}
+                  >
+                    {service.data.formOption}
+                  </option>
+                ))}
+                <option value="other">{copy.other}</option>
+              </select>
+              <small id="serviceId-error" class="field-error" hidden />
             </div>
           )
         }
+        {!progressive && <LeadMessage {locale} {progressive} {messageHelp} />}
       </div>
       {
-        Astro.props.photoHelp && (
+        progressive && (
+          <details class="enquiry-extras">
+            <>
+              <summary>
+                {enquiry.extras} <span>({enquiry.optional})</span>
+              </summary>
+              <div class="form-grid">
+                <LeadIdentity {locale} {progressive} />
+              </div>
+              {Astro.props.photoHelp && (
+                <p class="photo-help">
+                  {Astro.props.photoHelp}{' '}
+                  <a href={company.publicEmailHref}>{company.publicEmail}</a>
+                </p>
+              )}
+            </>
+          </details>
+        )
+      }
+      {
+        !progressive && Astro.props.photoHelp && (
           <p class="photo-help">
             {Astro.props.photoHelp}{' '}
             <a href={company.publicEmailHref}>{company.publicEmail}</a>
@@ -256,6 +247,8 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
             data-action="contact"
             data-language={locale}
             data-size={progressive ? 'compact' : 'flexible'}
+            data-appearance={progressive ? 'interaction-only' : undefined}
+            data-theme={progressive ? 'dark' : undefined}
           />
         )
       }

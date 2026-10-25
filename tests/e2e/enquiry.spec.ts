@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { getRoute } from '../../src/i18n/config';
+import { mockTurnstile } from './helpers/turnstile';
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
@@ -14,7 +15,7 @@ test.beforeEach(async ({ page }) => {
     );
   });
   await page.route('https://challenges.cloudflare.com/**', (route) =>
-    route.fulfill({ body: '' }),
+    route.fulfill({ contentType: 'application/javascript', body: mockTurnstile() }),
   );
 });
 
@@ -96,7 +97,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await example.locator('span').click();
     await expect(page.locator('[data-enquiry-details]')).toBeVisible();
     await expect(page.locator('[data-enquiry-examples]')).toBeHidden();
-    await expect(page.locator('select[name="serviceId"]')).toHaveValue(
+    await expect(page.locator('input[name="serviceId"]')).toHaveValue(
       'network-emergency',
     );
     await expect(page.locator('#message')).toHaveValue(text);
@@ -127,6 +128,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
     const description = 'Test: cameras in the office have stopped recording.';
     await page.locator('#message').fill(description);
+    await page.locator('.enquiry-extras summary').click();
     await page.locator('#contactName').fill('Test Contact');
     await page.locator('#contactMethod').fill('test@example.org');
     await page.locator('#officeAddress').fill('Test office address');
@@ -232,6 +234,7 @@ test('keyboard selection supports manual editing and a partially typed example c
   await page
     .locator('#message')
     .fill('Temporary description to reveal contact fields.');
+  await page.locator('.enquiry-extras summary').click();
   await page.locator('#contactName').fill('Test Contact');
   await page.locator('#contactMethod').fill('test@example.org');
   await page.locator('#message').fill('');
@@ -278,7 +281,7 @@ test('the verification widget fits a 320px expanded form, including after resizi
   await page.route('https://challenges.cloudflare.com/**', (route) =>
     route.fulfill({
       contentType: 'application/javascript',
-      body: `document.querySelectorAll('.cf-turnstile').forEach(container => { const widget = document.createElement('div'); widget.dataset.testWidget = ''; widget.style.width = container.dataset.size === 'compact' ? '150px' : '300px'; widget.style.height = container.dataset.size === 'compact' ? '140px' : '65px'; container.append(widget); });`,
+      body: mockTurnstile({ interactive: true }),
     }),
   );
   await page.setViewportSize({ width: 320, height: 900 });
@@ -294,4 +297,128 @@ test('the verification widget fits a 320px expanded form, including after resizi
     expect(bounds!.x).toBeGreaterThanOrEqual(0);
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
   }
+});
+
+for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
+  test(`${locale} compact form sends with only contact and description and preserves its automatic topic`, async ({
+    page,
+  }) => {
+    let posted = '';
+    await page.route('**/api/contact', async (route) => {
+      posted = route.request().postData() || '';
+      await route.fulfill({ json: { preview: true, requestId: 'contact-only-test' } });
+    });
+    await page.goto(getRoute(locale, 'home'));
+    await page.locator('#message').fill('Office network needs a diagnostic visit.');
+    await expect(page.locator('#contactName')).toBeHidden();
+    await expect(page.locator('#companyName')).toBeHidden();
+    await expect(page.locator('#officeAddress')).toBeHidden();
+    await expect(page.locator('[name="serviceId"]')).toHaveValue('other');
+    await expect(page.locator('[name="serviceId"]')).toBeHidden();
+    await page.locator('#contactMethod').fill('test@example.org');
+    await expect(page.locator('#message-help')).toBeHidden();
+    await expect(page.locator('.cf-turnstile')).toHaveAttribute(
+      'data-appearance',
+      'interaction-only',
+    );
+    await expect(page.locator('.cf-turnstile')).toHaveCSS('min-height', '0px');
+    await page.locator('[name="urgency"][value="soon"]').check();
+    const circles = await page.locator('.enquiry-urgency span').evaluateAll((spans) =>
+      spans.map((span) => ({
+        content: getComputedStyle(span, '::before').content,
+        border: getComputedStyle(span, '::before').borderRadius,
+      })),
+    );
+    expect(
+      circles.every((circle) => circle.content === '""' && circle.border === '50%'),
+    ).toBe(true);
+    await page.locator('[data-lead-form] button[type="submit"]').click();
+    await expect(page.locator('[data-form-status]')).toContainText('contact-only-test');
+    expect(posted).toContain('other');
+    expect(posted).toContain('test-turnstile-token');
+    await page.goto(getRoute(locale, 'service.network-emergency'));
+    await expect(page.locator('[name="serviceId"]')).toHaveValue('network-emergency');
+  });
+}
+
+test('description hint waits for one second of inactivity and is dismissed by Escape or blur', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const message = page.locator('#message');
+  const hint = page.locator('.enquiry-hint');
+  await message.fill('Our office internet connection is unstable.');
+  await page.waitForTimeout(550);
+  await expect(hint).toBeHidden();
+  await message.press('ArrowLeft');
+  await page.waitForTimeout(550);
+  await expect(hint).toBeHidden();
+  await expect(hint).toBeVisible();
+  await page.locator('[name="requestType"][value="broken"]').check();
+  await expect(hint).toBeHidden();
+  await message.focus();
+  await expect(hint).toBeVisible();
+  await message.press('Escape');
+  await expect(hint).toBeHidden();
+  await page.waitForTimeout(1100);
+  await expect(hint).toBeHidden();
+  await message.press('ArrowRight');
+  await expect(hint).toBeVisible();
+  await page.locator('#contactMethod').focus();
+  await expect(hint).toBeHidden();
+});
+
+test('a quick submit waits for background verification instead of sending an empty token', async ({
+  page,
+}) => {
+  let requests = 0;
+  let posted = '';
+  await page.route('https://challenges.cloudflare.com/**', (route) =>
+    route.fulfill({
+      contentType: 'application/javascript',
+      body: mockTurnstile({ manual: true }),
+    }),
+  );
+  await page.route('**/api/contact', async (route) => {
+    requests++;
+    posted = route.request().postData() || '';
+    await route.fulfill({ json: { preview: true, requestId: 'verified-test' } });
+  });
+  await page.goto('/');
+  await page.locator('#message').fill('Our office network needs a diagnostic visit.');
+  await page.locator('#contactMethod').fill('test@example.org');
+  await page.locator('[data-lead-form] button[type="submit"]').click();
+  await expect(page.locator('[data-form-status]')).toContainText('Trwa weryfikacja');
+  expect(requests).toBe(0);
+  await page.evaluate(() => {
+    (
+      window as typeof window & { completeTestVerification: () => void }
+    ).completeTestVerification();
+  });
+  await expect(page.locator('[data-form-status]')).toContainText('verified-test');
+  expect(requests).toBe(1);
+  expect(posted).toContain('test-turnstile-token');
+});
+
+test('a failed verification keeps the enquiry and never calls the contact API', async ({
+  page,
+}) => {
+  let requests = 0;
+  await page.route('https://challenges.cloudflare.com/**', (route) =>
+    route.abort('failed'),
+  );
+  await page.route('**/api/contact', (route) => {
+    requests++;
+    return route.abort();
+  });
+  await page.goto('/');
+  await page.locator('#message').fill('Our office network needs a diagnostic visit.');
+  await page.locator('#contactMethod').fill('test@example.org');
+  await page.locator('[data-lead-form] button[type="submit"]').click();
+  await expect(page.locator('[data-form-status]')).toHaveAttribute(
+    'data-state',
+    'error',
+  );
+  await expect(page.locator('#contactMethod')).toHaveValue('test@example.org');
+  expect(requests).toBe(0);
 });

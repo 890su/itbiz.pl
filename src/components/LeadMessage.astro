@@ -31,4 +31,14 @@ const validation = getExperience(locale).form;
   {!progressive && <small id="message-help">{messageHelp}</small>}
   <small id="message-minimum">{validation.minimum}</small>
   <small id="message-error" class="field-error" hidden></small>
+  {
+    progressive && (
+      <div id="message-help" class="enquiry-hint" role="tooltip" hidden>
+        <>
+          <p>{getEnquiry(locale).next}</p>
+          <p>{messageHelp}</p>
+        </>
+      </div>
+    )
+  }
 </div>
