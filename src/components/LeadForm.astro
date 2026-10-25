@@ -255,7 +255,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
             data-sitekey={siteKey}
             data-action="contact"
             data-language={locale}
-            data-size="flexible"
+            data-size={progressive ? 'compact' : 'flexible'}
           />
         )
       }

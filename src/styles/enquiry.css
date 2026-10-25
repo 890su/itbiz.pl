@@ -70,6 +70,12 @@
     gap: 1rem;
   }
 
+  .lead-enquiry .cf-turnstile {
+    display: flex;
+    min-height: 140px;
+    justify-content: center;
+  }
+
   .lead-enquiry .field :is(input, textarea, select) {
     border-color: #a7b5c3;
     background: #dfe5ec;

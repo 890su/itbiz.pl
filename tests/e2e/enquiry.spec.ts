@@ -270,3 +270,28 @@ test('the empty padding of an example row remains clickable', async ({ page }) =
   await expect(page.locator('[data-enquiry-details]')).toBeVisible();
   await expect(page.locator('#message')).toHaveValue(text);
 });
+
+test('the verification widget fits a 320px expanded form, including after resizing', async ({
+  page,
+}) => {
+  // Model the documented Turnstile footprint; no challenge or real lead is sent.
+  await page.route('https://challenges.cloudflare.com/**', (route) =>
+    route.fulfill({
+      contentType: 'application/javascript',
+      body: `document.querySelectorAll('.cf-turnstile').forEach(container => { const widget = document.createElement('div'); widget.dataset.testWidget = ''; widget.style.width = container.dataset.size === 'compact' ? '150px' : '300px'; widget.style.height = container.dataset.size === 'compact' ? '140px' : '65px'; container.append(widget); });`,
+    }),
+  );
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto('/ru/');
+  await page
+    .locator('#message')
+    .fill('Нужна проверка сети и интернета в офисе компании.');
+  await expect(page.locator('[data-test-widget]')).toBeAttached();
+  for (const width of [320, 1920, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    const bounds = await page.locator('[data-test-widget]').boundingBox();
+    expect(bounds!.x).toBeGreaterThanOrEqual(0);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+  }
+});
