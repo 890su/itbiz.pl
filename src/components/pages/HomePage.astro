@@ -6,7 +6,7 @@ import { getHomeExamples } from '../../i18n/enquiry';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getExperience, serviceJourneys } from '../../i18n/experience';
-import { company } from '../../data/company';
+import CallButton from '../CallButton.astro';
 
 interface Props {
   locale: Locale;
@@ -35,10 +35,7 @@ const experience = getExperience(locale);
     <LeadForm {locale} progressive examples={getHomeExamples(locale)} />
     <div class="enquiry-support">
       <div class="hero-actions">
-        <a class="button button-secondary call-action" href={company.publicPhoneHref}>
-          {experience.call}
-          <span>{company.publicPhone}</span>
-        </a>
+        <CallButton {locale} />
       </div>
       <div class="hero-note">
         {copy.notes.map((note) => <span>{note}</span>)}

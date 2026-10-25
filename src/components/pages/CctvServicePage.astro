@@ -6,7 +6,7 @@ import LeadForm from '../LeadForm.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getExperience } from '../../i18n/experience';
-import { company } from '../../data/company';
+import CallButton from '../CallButton.astro';
 
 interface Props {
   locale: Locale;
@@ -63,10 +63,7 @@ const copy = experience.cctv;
     />
     <div class="enquiry-support">
       <div class="hero-actions">
-        <a class="button button-secondary call-action" href={company.publicPhoneHref}>
-          {experience.call}
-          <span>{company.publicPhone}</span>
-        </a>
+        <CallButton {locale} />
       </div>
       <p class="scope-note">{data.serviceNote}</p>
     </div>

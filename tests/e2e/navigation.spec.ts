@@ -32,6 +32,27 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
       await page.goto(getRoute(locale, 'service.network-emergency'));
       const header = page.locator('.mobile-bar');
       const dock = page.locator('.mobile-contact-bar');
+      await expect(header.locator('.mobile-brand')).toBeVisible();
+      const order = await header.evaluate((node) => {
+        const box = (selector: string) => {
+          const r = node.querySelector(selector)!.getBoundingClientRect();
+          return { x: r.x, right: r.right, cy: r.y + r.height / 2 };
+        };
+        return {
+          logo: box('.mobile-brand'),
+          languages: box('.mobile-locale-switcher'),
+          theme: box('.theme-toggle'),
+          menu: box('.menu-toggle'),
+        };
+      });
+      expect(order.logo.right).toBeLessThanOrEqual(order.languages.x);
+      expect(order.languages.right).toBeLessThanOrEqual(order.theme.x);
+      expect(order.theme.right).toBeLessThanOrEqual(order.menu.x);
+      expect(Math.abs(order.languages.cy - order.theme.cy)).toBeLessThan(1);
+      const phoneButtons = page.locator('.button[href="tel:+48573012321"]');
+      const phoneCopy = await phoneButtons.allTextContents();
+      expect(phoneCopy.every((text) => !/\d/.test(text))).toBe(true);
+      await expect(phoneButtons.locator('svg')).toHaveCount(phoneCopy.length);
       await expect(header.locator('.menu-label')).toHaveCount(0);
       await expect(header.locator('.mobile-locale-switcher a')).toHaveCount(4);
       await expect(dock).toBeVisible();
@@ -129,13 +150,22 @@ test('short desktop sidebar scrolls its links while languages and actions stay f
   await expect(page.locator('[data-enquiry-dialog]')).toBeVisible();
 });
 
-test('desktop actions follow the menu without a large empty gap', async ({ page }) => {
+test('desktop actions stay at the bottom with a short or expanded menu', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
-  const nav = (await page.locator('.side-nav').boundingBox())!;
-  const actions = (await page.locator('.side-actions').boundingBox())!;
-  expect(actions.y - nav.y - nav.height).toBeLessThanOrEqual(18);
-  expect(actions.y + actions.height).toBeLessThan(1000);
+  const actions = page.locator('.side-actions');
+  const before = (await actions.boundingBox())!;
+  expect(1000 - before.y - before.height).toBeGreaterThanOrEqual(15);
+  expect(1000 - before.y - before.height).toBeLessThanOrEqual(33);
+  await expect(actions.locator('a[href="tel:+48573012321"]')).toHaveText('Zadzwoń');
+  await expect(page.locator('.side-heading .theme-toggle svg')).toHaveCSS(
+    'width',
+    '20px',
+  );
+  await page.locator('.side-panel .services-menu summary').click();
+  expect((await actions.boundingBox())!.y).toBe(before.y);
 });
 
 test.describe('touch navigation', () => {

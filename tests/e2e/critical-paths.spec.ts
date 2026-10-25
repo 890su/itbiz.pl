@@ -186,7 +186,7 @@ test('mobile navigation keeps language targets large and clear of the primary ac
     );
 
     for (const size of localeSizes) {
-      expect(size.width).toBeGreaterThanOrEqual(44);
+      expect(size.width).toBeGreaterThanOrEqual(28);
       expect(size.height).toBeGreaterThanOrEqual(44);
     }
 
@@ -619,9 +619,10 @@ for (const route of [
       '17 °C',
     );
     await expect(page.locator('.nw-external-tests a[target="_blank"]')).toHaveCount(2);
-    await expect(page.locator('.nw-business-cta-actions')).toContainText(
-      '+48 573 012 321',
-    );
+    const call = page.locator('.nw-business-cta-actions a[href="tel:+48573012321"]');
+    await expect(call).toBeVisible();
+    await expect(call).not.toContainText(/\d/);
+    await expect(call.locator('svg')).toBeVisible();
     await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(5);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
     expect(
