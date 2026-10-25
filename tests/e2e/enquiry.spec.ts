@@ -93,7 +93,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
           (input as HTMLElement).dataset.sawPartialInput = 'true';
       });
     });
-    await example.click();
+    await example.locator('span').click();
     await expect(page.locator('[data-enquiry-details]')).toBeVisible();
     await expect(page.locator('[data-enquiry-examples]')).toBeHidden();
     await expect(page.locator('select[name="serviceId"]')).toHaveValue(
@@ -257,4 +257,16 @@ test('short service lists can complete a whole loop without hitting the scroll l
       (el.firstElementChild as HTMLElement).offsetTop,
   }));
   expect(lengths.maximum).toBeGreaterThanOrEqual(lengths.loop);
+});
+
+test('the empty padding of an example row remains clickable', async ({ page }) => {
+  await page.goto('/en/');
+  await page.locator('[data-examples-all]').click();
+  const example = page.locator('[data-enquiry-example]').first();
+  await example.scrollIntoViewIfNeeded();
+  const text = (await example.textContent())!.trim();
+  const box = (await example.boundingBox())!;
+  await page.mouse.click(box.x + 3, box.y + box.height / 2);
+  await expect(page.locator('[data-enquiry-details]')).toBeVisible();
+  await expect(page.locator('#message')).toHaveValue(text);
 });
