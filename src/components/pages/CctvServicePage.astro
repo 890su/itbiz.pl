@@ -45,13 +45,23 @@ const copy = experience.cctv;
       <li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
     </ol>
   </nav>
-  <header class="page-hero cctv-hero">
-    <div class="cctv-intro">
+  <header class="page-hero cctv-hero enquiry-hero">
+    <div class="cctv-intro enquiry-intro">
       <p class="service-qualifier">{ui.service.qualifier}</p>
       <h1>{data.title}</h1>
       <p class="hero-lead">{copy.intro}</p>
+    </div>
+    <LeadForm
+      selectedServiceId={data.serviceId}
+      progressive
+      examples={data.problems.map((text) => ({ text }))}
+      messageHelp={copy.messageHelp}
+      submitLabel={data.submitLabel}
+      photoHelp={copy.photoHelp}
+      {locale}
+    />
+    <div class="enquiry-support">
       <div class="hero-actions">
-        <a class="button button-primary" href="#enquiry">{data.primaryCta}</a>
         <a class="button button-secondary call-action" href={company.publicPhoneHref}>
           {experience.call}
           <span>{company.publicPhone}</span>
@@ -59,27 +69,6 @@ const copy = experience.cctv;
       </div>
       <p class="scope-note">{data.serviceNote}</p>
     </div>
-    <figure class="diagnostic-path">
-      <figcaption>{copy.diagramTitle}</figcaption>
-      <ol>
-        {
-          copy.nodes.map(([title, description], index) => (
-            <li>
-              <span class="path-step" aria-hidden="true">
-                {index + 1}
-              </span>
-              <div>
-                <>
-                  <strong>{title}</strong>
-                  <span>{description}</span>
-                </>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-      <p>{copy.diagramNote}</p>
-    </figure>
   </header>
 
   <section
@@ -95,18 +84,6 @@ const copy = experience.cctv;
       <h2>{copy.symptomsTitle}</h2>
       <ul class="plain-list">{data.problems.map((item) => <li>{item}</li>)}</ul>
     </div>
-  </section>
-
-  <section id="enquiry" class="page-section">
-    <LeadForm
-      selectedServiceId={data.serviceId}
-      heading={data.formOption}
-      lead={copy.formLead}
-      messageHelp={copy.messageHelp}
-      submitLabel={data.submitLabel}
-      photoHelp={copy.photoHelp}
-      {locale}
-    />
   </section>
 
   <section class="page-section service-result" aria-labelledby="result-title">

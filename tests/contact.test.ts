@@ -82,4 +82,38 @@ describe('validateContactPayload', () => {
     const result = validateContactPayload({ ...validPayload, website: 'spam.example' });
     expect(result.success && result.data.website).toBe('spam.example');
   });
+
+  it.each(['pl', 'ru', 'en', 'uk'] as const)(
+    'retains progressive enquiry context in the stored message in %s',
+    (locale) => {
+      const result = validateContactPayload({
+        ...validPayload,
+        locale,
+        requestType: 'broken',
+        urgency: 'soon',
+        address: 'Warszawa, biuro testowe',
+      });
+      expect(result.success).toBe(true);
+      if (!result.success) return;
+      expect(result.data.message).toContain(validPayload.message);
+      expect(result.data.message).toContain('Warszawa, biuro testowe');
+      expect(result.data.message.split('\n')).toHaveLength(5);
+    },
+  );
+
+  it('ignores unknown option values and still validates the original description', () => {
+    const result = validateContactPayload({
+      ...validPayload,
+      requestType: 'constructor',
+      urgency: 'unknown',
+    });
+    expect(result.success && result.data.message).toBe(validPayload.message);
+    expect(
+      validateContactPayload({
+        ...validPayload,
+        message: 'Short',
+        address: 'A'.repeat(300),
+      }).success,
+    ).toBe(false);
+  });
 });

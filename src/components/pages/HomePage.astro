@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import NetworkBlueprint from '../NetworkBlueprint.astro';
 import LeadForm from '../LeadForm.astro';
+import { getHomeExamples } from '../../i18n/enquiry';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getExperience, serviceJourneys } from '../../i18n/experience';
@@ -24,13 +24,15 @@ const experience = getExperience(locale);
   translationKey="home"
   pageClass="home-experience"
 >
-  <section class="hero">
-    <div class="hero-copy">
+  <section class="hero enquiry-hero">
+    <div class="hero-copy enquiry-intro">
       <p class="service-qualifier">{copy.eyebrow}</p>
       <h1>{copy.h1}</h1>
       <p class="hero-lead">{experience.homeLead}</p>
+    </div>
+    <LeadForm {locale} progressive examples={getHomeExamples(locale)} />
+    <div class="enquiry-support">
       <div class="hero-actions">
-        <a class="button button-primary" href="#enquiry">{copy.primary}</a>
         <a class="button button-secondary call-action" href={company.publicPhoneHref}>
           {experience.call}
           <span>{company.publicPhone}</span>
@@ -40,7 +42,6 @@ const experience = getExperience(locale);
         {copy.notes.map((note) => <span>{note}</span>)}
       </div>
     </div>
-    <NetworkBlueprint {locale} />
   </section>
 
   <section id="services" class="page-section" aria-labelledby="services-title">
@@ -139,9 +140,5 @@ const experience = getExperience(locale);
         <p>{copy.boundary}</p>
       </div>
     </div>
-  </section>
-
-  <section id="enquiry" class="page-section">
-    <LeadForm {locale} />
   </section>
 </BaseLayout>

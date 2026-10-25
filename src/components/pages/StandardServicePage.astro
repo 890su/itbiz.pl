@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
+import { getExperience } from '../../i18n/experience';
+import { company } from '../../data/company';
 
 // Keep the established layout for services outside the CCTV pilot.
 
@@ -43,28 +45,41 @@ const copy = ui.service;
       </li><li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
     </ol>
   </nav>
-  <header class="page-hero">
-    <p class="eyebrow">{copy.qualifier}</p>
-    <h1>{data.title}</h1>
-    <p>{data.lead}</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="#enquiry"
-        >{data.primaryCta ?? copy.primary}</a
-      ><a class="button button-secondary" href="#scope">{copy.scopeLink}</a>
+  <header class="page-hero enquiry-hero">
+    <div class="enquiry-intro">
+      <p class="eyebrow">{copy.qualifier}</p>
+      <h1>{data.title}</h1>
+      <p class="hero-lead">{data.lead}</p>
     </div>
-    {
-      data.heroFacts && (
-        <ul class="service-facts" aria-label={copy.factsLabel}>
-          {data.heroFacts.map((fact) => (
-            <li>{fact}</li>
-          ))}
-        </ul>
-      )
-    }
-    <div class="callout">
-      <strong>{data.serviceNoteTitle ?? copy.calloutTitle}</strong><p>
-        {data.serviceNote ?? copy.callout}
-      </p>
+    <LeadForm
+      selectedServiceId={data.serviceId}
+      progressive
+      examples={data.problems.map((text) => ({ text }))}
+      messageHelp={data.messageHelp}
+      submitLabel={data.submitLabel}
+      {locale}
+    />
+    <div class="enquiry-support">
+      <div class="hero-actions">
+        <a class="button button-secondary call-action" href={company.publicPhoneHref}
+          >{getExperience(locale).call} <span>{company.publicPhone}</span></a
+        >
+        <a class="button button-secondary" href="#scope">{copy.scopeLink}</a>
+      </div>
+      {
+        data.heroFacts && (
+          <ul class="service-facts" aria-label={copy.factsLabel}>
+            {data.heroFacts.map((fact) => (
+              <li>{fact}</li>
+            ))}
+          </ul>
+        )
+      }
+      <div class="callout">
+        <strong>{data.serviceNoteTitle ?? copy.calloutTitle}</strong><p>
+          {data.serviceNote ?? copy.callout}
+        </p>
+      </div>
     </div>
   </header>
   <section class="page-section" aria-labelledby="outcomes-title">
@@ -127,14 +142,4 @@ const copy = ui.service;
       </section>
     )
   }
-  <section id="enquiry" class="page-section">
-    <LeadForm
-      selectedServiceId={data.serviceId}
-      heading={data.formOption}
-      lead={data.formLead}
-      messageHelp={data.messageHelp}
-      submitLabel={data.submitLabel}
-      {locale}
-    />
-  </section>
 </BaseLayout>

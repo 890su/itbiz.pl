@@ -4,6 +4,8 @@ import { getRoute, type Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
 import { company } from '../data/company';
 import { getExperience } from '../i18n/experience';
+import { getEnquiry } from '../i18n/enquiry';
+import LeadMessage from './LeadMessage.astro';
 
 interface Props {
   selectedServiceId?: string;
@@ -13,10 +15,18 @@ interface Props {
   submitLabel?: string;
   photoHelp?: string;
   locale: Locale;
+  progressive?: boolean;
+  examples?: { text: string; serviceId?: string }[];
 }
 
-const { selectedServiceId = '', locale } = Astro.props;
+const {
+  selectedServiceId = '',
+  locale,
+  progressive = false,
+  examples = [],
+} = Astro.props;
 const copy = getUi(locale).form;
+const enquiry = getEnquiry(locale);
 const validation = getExperience(locale).form;
 const heading = Astro.props.heading ?? copy.heading;
 const lead = Astro.props.lead ?? copy.lead;
@@ -28,16 +38,20 @@ const services = (await getCollection('services')).filter(
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa4pZ6kY';
 ---
 
-<div class="form-block">
+<div
+  class:list={['form-block', { 'lead-enquiry': progressive }]}
+  id={progressive ? 'enquiry' : undefined}
+>
   <div class="section-head">
-    <h2>{heading}</h2>
-    <p>{lead}</p>
+    <h2>{progressive ? enquiry.heading : heading}</h2>
+    {!progressive && <p>{lead}</p>}
   </div>
   <form
     class="lead-form"
     action="/api/contact"
     method="post"
     data-lead-form
+    data-progressive-enquiry={progressive || undefined}
     data-submit-label={submitLabel}
     data-sending-label={copy.sending}
     data-missing-contact={copy.missingContact}
@@ -58,121 +72,209 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEcvxetyNa
       <p>{validation.errorsTitle}</p>
       <ul></ul>
     </div>
-    <div class="form-grid">
-      <div class="field">
-        <label for="contactName">{copy.contact}</label>
-        <input
-          id="contactName"
-          name="contactName"
-          autocomplete="name"
-          maxlength="100"
-          required
-          aria-describedby="contactName-error"
-          data-validation-message={validation.nameError}
-        />
-        <small id="contactName-error" class="field-error" hidden></small>
-      </div>
-      <div class="field">
-        <label for="companyName">{copy.company}</label>
-        <input
-          id="companyName"
-          name="companyName"
-          autocomplete="organization"
-          maxlength="120"
-        />
-      </div>
-      <div class="field">
-        <label for="contactMethod">{copy.contactMethod}</label>
-        <input
-          id="contactMethod"
-          name="contact"
-          type="text"
-          maxlength="160"
-          placeholder={copy.contactPlaceholder}
-          required
-          aria-describedby="contactMethod-error"
-          data-validation-message={validation.contactError}
-        />
-        <small id="contactMethod-error" class="field-error" hidden></small>
-      </div>
-      <div class="field">
-        <label for="serviceId">{copy.topic}</label>
-        <select
-          id="serviceId"
-          name="serviceId"
-          required
-          aria-describedby="serviceId-error"
-          data-validation-message={validation.topicError}
-        >
-          <option value="">{copy.choose}</option>
-          {
-            services.map((service) => (
-              <option
-                value={service.data.serviceId}
-                selected={selectedServiceId === service.data.serviceId}
-              >
-                {service.data.formOption}
-              </option>
-            ))
-          }
-          <option value="other">{copy.other}</option>
-        </select>
-        <small id="serviceId-error" class="field-error" hidden></small>
-      </div>
-      <div class="field field-wide">
-        <label for="message">{copy.message}</label>
-        <textarea
-          id="message"
-          name="message"
-          maxlength="3000"
-          minlength="20"
-          required
-          aria-describedby="message-help message-minimum message-error"
-          data-validation-message={validation.messageError}></textarea>
-        <small id="message-help">{messageHelp}</small>
-        <small id="message-minimum">{validation.minimum}</small>
-        <small id="message-error" class="field-error" hidden></small>
-      </div>
-    </div>
     {
-      Astro.props.photoHelp && (
-        <p class="photo-help">
-          {Astro.props.photoHelp}{' '}
-          <a href={company.publicEmailHref}>{company.publicEmail}</a>
-        </p>
+      progressive && (
+        <>
+          <LeadMessage {locale} {progressive} {messageHelp} />
+          <div class="enquiry-examples" data-enquiry-examples>
+            <div class="enquiry-example-heading">
+              <span>{enquiry.examples}</span>
+              <button
+                type="button"
+                data-examples-all
+                data-all={enquiry.all}
+                data-less={enquiry.less}
+                aria-expanded="false"
+                aria-controls="enquiry-examples"
+              >
+                {enquiry.all}
+              </button>
+            </div>
+            <div class="enquiry-example-list" id="enquiry-examples">
+              {examples.map((example) => (
+                <button
+                  type="button"
+                  data-enquiry-example
+                  data-service-id={example.serviceId}
+                >
+                  <span>{example.text}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
       )
     }
-    <noscript>
-      <p>
+    <div
+      class:list={{ 'enquiry-details': progressive }}
+      data-enquiry-details={progressive || undefined}
+      hidden={progressive}
+    >
+      {
+        progressive && (
+          <>
+            <p class="enquiry-next">{enquiry.next}</p>
+            <p id="message-help" class="enquiry-next">
+              {messageHelp}
+            </p>
+            <fieldset class="enquiry-choices">
+              <legend>{enquiry.type}</legend>
+              <label>
+                <>
+                  <input type="radio" name="requestType" value="broken" />
+                  <span>{enquiry.broken}</span>
+                </>
+              </label>
+              <label>
+                <>
+                  <input type="radio" name="requestType" value="setup" />
+                  <span>{enquiry.setup}</span>
+                </>
+              </label>
+            </fieldset>
+            <fieldset class="enquiry-choices enquiry-urgency">
+              <legend>{enquiry.urgency}</legend>
+              <label>
+                <>
+                  <input type="radio" name="urgency" value="urgent" />
+                  <span>{enquiry.urgent}</span>
+                </>
+              </label>
+              <label>
+                <>
+                  <input type="radio" name="urgency" value="soon" />
+                  <span>{enquiry.soon}</span>
+                </>
+              </label>
+              <label>
+                <>
+                  <input type="radio" name="urgency" value="flexible" />
+                  <span>{enquiry.flexible}</span>
+                </>
+              </label>
+            </fieldset>
+          </>
+        )
+      }
+      <div class="form-grid">
+        <div class="field">
+          <label for="contactName">{copy.contact}</label>
+          <input
+            id="contactName"
+            name="contactName"
+            autocomplete="name"
+            maxlength="100"
+            required
+            aria-describedby="contactName-error"
+            data-validation-message={validation.nameError}
+          />
+          <small id="contactName-error" class="field-error" hidden></small>
+        </div>
+        <div class="field">
+          <label for="companyName">{copy.company}</label>
+          <input
+            id="companyName"
+            name="companyName"
+            autocomplete="organization"
+            maxlength="120"
+          />
+        </div>
+        <div class="field">
+          <label for="contactMethod">{copy.contactMethod}</label>
+          <input
+            id="contactMethod"
+            name="contact"
+            type="text"
+            maxlength="160"
+            placeholder={copy.contactPlaceholder}
+            required
+            aria-describedby="contactMethod-error"
+            data-validation-message={validation.contactError}
+          />
+          <small id="contactMethod-error" class="field-error" hidden></small>
+        </div>
+        <div class="field">
+          <label for="serviceId">{copy.topic}</label>
+          <select
+            id="serviceId"
+            name="serviceId"
+            required
+            aria-describedby="serviceId-error"
+            data-validation-message={validation.topicError}
+          >
+            <option value="">{copy.choose}</option>
+            {
+              services.map((service) => (
+                <option
+                  value={service.data.serviceId}
+                  selected={selectedServiceId === service.data.serviceId}
+                >
+                  {service.data.formOption}
+                </option>
+              ))
+            }
+            <option value="other">{copy.other}</option>
+          </select>
+          <small id="serviceId-error" class="field-error" hidden></small>
+        </div>
+        {!progressive && <LeadMessage {locale} {progressive} {messageHelp} />}
+        {
+          progressive && (
+            <div class="field field-wide">
+              <>
+                <label for="officeAddress">{enquiry.address}</label>
+                <input
+                  id="officeAddress"
+                  name="address"
+                  autocomplete="street-address"
+                  maxlength="300"
+                />
+              </>
+            </div>
+          )
+        }
+      </div>
+      {
+        Astro.props.photoHelp && (
+          <p class="photo-help">
+            {Astro.props.photoHelp}{' '}
+            <a href={company.publicEmailHref}>{company.publicEmail}</a>
+          </p>
+        )
+      }
+      <div class="field visually-hidden" aria-hidden="true">
+        <label for="website">{copy.website}</label>
+        <input id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="pagePath" value={Astro.url.pathname} />
+      {
+        siteKey && (
+          <div
+            class="cf-turnstile"
+            data-sitekey={siteKey}
+            data-action="contact"
+            data-language={locale}
+            data-size={progressive ? 'compact' : 'flexible'}
+          />
+        )
+      }
+      <p class="form-notice">
+        {copy.notice}{' '}
+        <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
+      </p>
+      <button class="button button-primary" type="submit">{submitLabel}</button>
+    </div>
+    <div class="form-status" role="status" tabindex="-1" data-form-status></div>
+    <noscript
+      ><p>
         <a href={company.publicPhoneHref}
           >{getUi(locale).common.phoneAction}: {company.publicPhone}</a
         >
-      </p>
-    </noscript>
-    <div class="field visually-hidden" aria-hidden="true">
-      <label for="website">{copy.website}</label>
-      <input id="website" name="website" tabindex="-1" autocomplete="off" />
-    </div>
-    <input type="hidden" name="locale" value={locale} />
-    <input type="hidden" name="pagePath" value={Astro.url.pathname} />
-    {
-      siteKey && (
-        <div
-          class="cf-turnstile"
-          data-sitekey={siteKey}
-          data-action="contact"
-          data-language={locale}
-          data-size="flexible"
-        />
-      )
-    }
-    <p class="form-notice">
-      {copy.notice}{' '}
-      <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
-    </p>
-    <div class="form-status" role="status" tabindex="-1" data-form-status></div>
-    <button class="button button-primary" type="submit">{submitLabel}</button>
+      </p></noscript
+    >
   </form>
 </div>
 
+{progressive && <script is:inline src="/scripts/enquiry.js" defer />}
 <script is:inline src="/scripts/contact-form.js" defer></script>
