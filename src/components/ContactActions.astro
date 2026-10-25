@@ -1,7 +1,7 @@
 ---
 import { getRoute, type Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
-import { company } from '../data/company';
+import CallButton from './CallButton.astro';
 interface Props {
   locale: Locale;
   compact?: boolean;
@@ -25,11 +25,5 @@ const copy = getUi(locale).common;
       ><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"></path></svg
     ><span>{copy.cta}</span>
   </a>
-  <a class="button button-contact" href={company.publicPhoneHref}>
-    <svg viewBox="0 0 24 24" aria-hidden="true"
-      ><path
-        d="M8 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-4l-5-2-2 2a13 13 0 0 1-6-6l2-2z"
-      ></path></svg
-    ><span>{copy.phoneAction}{!compact && <strong>{company.publicPhone}</strong>}</span>
-  </a>
+  <CallButton {locale} class="button-contact" />
 </div>

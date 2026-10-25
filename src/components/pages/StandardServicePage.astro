@@ -5,8 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
-import { getExperience } from '../../i18n/experience';
-import { company } from '../../data/company';
+import CallButton from '../CallButton.astro';
 
 // Keep the established layout for services outside the CCTV pilot.
 
@@ -62,9 +61,7 @@ const copy = ui.service;
     />
     <div class="enquiry-support">
       <div class="hero-actions">
-        <a class="button button-secondary call-action" href={company.publicPhoneHref}
-          >{getExperience(locale).call} <span>{company.publicPhone}</span></a
-        >
+        <CallButton {locale} />
       </div>
       {
         data.heroFacts && (
