@@ -33,11 +33,13 @@ for (const [name, url, width, height, theme] of [
   await page.locator('html').evaluate((el, theme) => {
     el.dataset.theme = theme;
   }, theme);
-  await page.locator('.hero-network-light').evaluate((el) => {
-    const animation = el.getAnimations()[0];
-    if (animation) {
-      animation.currentTime = 4000;
-      animation.pause();
+  await page.locator('.hero-network-light, .hero-network-lit').evaluateAll((layers) => {
+    for (const el of layers) {
+      const animation = el.getAnimations()[0];
+      if (animation) {
+        animation.currentTime = 4000;
+        animation.pause();
+      }
     }
   });
   await page.screenshot({

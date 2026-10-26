@@ -66,6 +66,17 @@ test('background motion pauses by choice, while editing, offscreen and under red
   const light = page.locator('.hero-network-light');
   await expect(hero).toHaveAttribute('data-motion-running', 'true');
   await expect(light).toHaveCSS('animation-play-state', 'running');
+  const stationaryNetwork = await page.evaluate(() => {
+    const light = new DOMMatrix(
+      getComputedStyle(document.querySelector('.hero-network-light')!).transform,
+    );
+    const network = new DOMMatrix(
+      getComputedStyle(document.querySelector('.hero-network-lit')!).transform,
+    );
+    return { x: light.m41 + network.m41, y: light.m42 + network.m42 };
+  });
+  expect(Math.abs(stationaryNetwork.x)).toBeLessThan(0.1);
+  expect(Math.abs(stationaryNetwork.y)).toBeLessThan(0.1);
   const start = await light.evaluate((el) => getComputedStyle(el).transform);
   await expect
     .poll(() => light.evaluate((el) => getComputedStyle(el).transform))
@@ -77,6 +88,10 @@ test('background motion pauses by choice, while editing, offscreen and under red
   await control.click();
   await expect(switchControl).not.toBeChecked();
   await expect(light).toHaveCSS('animation-play-state', 'paused');
+  await expect(page.locator('.hero-network-lit')).toHaveCSS(
+    'animation-play-state',
+    'paused',
+  );
   await expect(page.locator('.hero-motion-play')).toBeVisible();
   await switchControl.focus();
   await page.keyboard.press('Space');
