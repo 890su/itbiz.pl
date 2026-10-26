@@ -65,7 +65,7 @@ const filterLabel = (filterId: ServiceFilterId) => copy.filters[filterId];
     <h1>{copy.h1}</h1>
     <p>{getCompact(locale).servicesLead}</p>
   </header>
-  <section class="page-section">
+  <div class="page-section">
     <div
       class="service-filter-panel"
       data-service-filter-panel
@@ -121,7 +121,6 @@ const filterLabel = (filterId: ServiceFilterId) => copy.filters[filterId];
         })
       }
     </div>
-  </section>
+  </div>
+  <script is:inline src="/scripts/service-filters.js" defer></script>
 </BaseLayout>
-
-<script is:inline src="/scripts/service-filters.js" defer></script>

@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import CallButton from '../CallButton.astro';
+import HeroNetwork from '../HeroNetwork.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getCompact } from '../../i18n/compact';
@@ -46,7 +47,10 @@ const isCctv = data.serviceId === 'cctv-emergency';
       <li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
     </ol>
   </nav>
-  <header class:list={['page-hero', 'enquiry-hero', isCctv && 'cctv-hero']}>
+  <header
+    class:list={['page-hero', 'enquiry-hero', 'network-hero', isCctv && 'cctv-hero']}
+  >
+    <HeroNetwork {locale} />
     <div class="enquiry-intro">
       <h1>{data.title}</h1>
       <p class="hero-lead">{brief.lead}</p>

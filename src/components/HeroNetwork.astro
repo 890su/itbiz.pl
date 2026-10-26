@@ -1,0 +1,73 @@
+---
+import '../styles/hero-network.css';
+import { getCompact } from '../i18n/compact';
+import type { Locale } from '../i18n/config';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<div class="hero-network" data-hero-network aria-hidden="true">
+  <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <pattern id="hero-mesh-grid" width="64" height="64" patternUnits="userSpaceOnUse">
+        <path d="M64 0H0V64" fill="none" stroke="var(--line-strong)" stroke-width="1"
+        ></path>
+      </pattern>
+      <pattern
+        id="hero-mesh-grid-lit"
+        width="64"
+        height="64"
+        patternUnits="userSpaceOnUse"
+      >
+        <path d="M64 0H0V64" fill="none" stroke="var(--signal)" stroke-width="1"></path>
+      </pattern>
+    </defs>
+    <rect
+      class="hero-network-grid"
+      width="1200"
+      height="800"
+      fill="url(#hero-mesh-grid)"></rect>
+  </svg>
+  <div class="hero-network-light">
+    <svg
+      class="hero-network-lit"
+      viewBox="0 0 1200 800"
+      preserveAspectRatio="xMidYMid slice"
+      focusable="false"
+    >
+      <rect width="1200" height="800" fill="url(#hero-mesh-grid-lit)"></rect>
+      <g class="hero-network-links">
+        <path
+          d="M64 256H256V128H448V320H704V192H1088M128 576H384V448H640V640H960V448H1152"
+        ></path>
+        <circle cx="256" cy="256" r="4"></circle><circle cx="448" cy="128" r="4"
+        ></circle>
+        <circle cx="704" cy="320" r="4"></circle><circle cx="1088" cy="192" r="4"
+        ></circle>
+        <circle cx="384" cy="576" r="4"></circle><circle cx="640" cy="448" r="4"
+        ></circle>
+        <circle cx="960" cy="640" r="4"></circle>
+      </g>
+    </svg>
+  </div>
+</div>
+<label class="hero-motion-toggle" title={getCompact(locale).motionLabel} hidden>
+  <input
+    class="visually-hidden"
+    type="checkbox"
+    role="switch"
+    checked
+    data-hero-motion
+    aria-label={getCompact(locale).motionLabel}
+  />
+  <svg class="hero-motion-pause" viewBox="0 0 24 24" aria-hidden="true"
+    ><path d="M9 6v12M15 6v12"></path></svg
+  >
+  <svg class="hero-motion-play" viewBox="0 0 24 24" aria-hidden="true"
+    ><path d="m9 6 9 6-9 6Z"></path></svg
+  >
+</label>
+
+<script is:inline src="/scripts/hero-network.js" defer></script>

@@ -1,0 +1,159 @@
+@layer components {
+  .network-hero {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .hero-network {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .hero-network svg {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+
+  .hero-network-grid {
+    color: var(--line-strong);
+    opacity: 0.3;
+  }
+
+  .hero-network-lit {
+    color: var(--signal);
+    opacity: 0.38;
+    will-change: transform;
+    animation: hero-network-counter-sweep 28s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .hero-network-links {
+    fill: var(--canvas);
+    stroke: var(--signal);
+    stroke-width: 1.5;
+  }
+
+  .hero-network-links path {
+    fill: none;
+  }
+
+  .hero-network-light {
+    position: absolute;
+    inset: 0;
+    mask-image: radial-gradient(
+      ellipse 45% 60% at center,
+      #fff 0%,
+      #ffffff99 45%,
+      transparent 100%
+    );
+    transform: translate3d(-28%, -20%, 0);
+    will-change: transform;
+    animation: hero-network-sweep 28s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .network-hero[data-motion-running='true']
+    :is(.hero-network-light, .hero-network-lit) {
+    animation-play-state: running;
+  }
+
+  .hero-motion-toggle {
+    position: absolute;
+    z-index: 1;
+    right: 1rem;
+    bottom: 0.5rem;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--canvas);
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+
+  .hero-motion-toggle:hover {
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .hero-motion-toggle:has(:focus-visible) {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .hero-motion-toggle svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hero-motion-toggle .hero-motion-play,
+  .hero-motion-toggle:has(input:not(:checked)) .hero-motion-pause {
+    display: none;
+  }
+
+  .hero-motion-toggle:has(input:not(:checked)) .hero-motion-play {
+    display: block;
+  }
+
+  .hero-motion-toggle[hidden] {
+    display: none;
+  }
+
+  @keyframes hero-network-sweep {
+    0%,
+    100% {
+      transform: translate3d(-28%, -20%, 0);
+    }
+    40% {
+      transform: translate3d(30%, 4%, 0);
+    }
+    72% {
+      transform: translate3d(-4%, 28%, 0);
+    }
+  }
+
+  @keyframes hero-network-counter-sweep {
+    0%,
+    100% {
+      transform: translate3d(28%, 20%, 0);
+    }
+    40% {
+      transform: translate3d(-30%, -4%, 0);
+    }
+    72% {
+      transform: translate3d(4%, -28%, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-network-light,
+    .hero-network-lit {
+      animation: none;
+      transform: none;
+      will-change: auto;
+    }
+    .hero-motion-toggle {
+      display: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .hero-network,
+    .hero-motion-toggle {
+      display: none;
+    }
+  }
+}

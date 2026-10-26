@@ -26,7 +26,7 @@ const { locale, translationKey, mobile = false } = Astro.props;
         href={getRouteOrFallback(targetLocale, translationKey)}
         lang={targetLocale}
         aria-current={targetLocale === locale ? 'page' : undefined}
-        aria-label={languageNames[targetLocale]}
+        aria-label={`${localeLabels[targetLocale]} - ${languageNames[targetLocale]}`}
       >
         {localeLabels[targetLocale]}
       </a>

@@ -116,6 +116,10 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
         new RegExp(getEnquiry(locale).optional),
       );
     }
+    await expect(form.locator('[name="address"]')).toHaveAttribute(
+      'autocomplete',
+      'address-line1',
+    );
     const labels = await form
       .locator('label[for]')
       .evaluateAll((nodes) =>

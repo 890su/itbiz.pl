@@ -66,6 +66,8 @@ for (const locale of locales) {
   test(`${locale} service pages keep only the decision essentials within three mobile screens`, async ({
     page,
   }) => {
+    // This case visits and expands all twelve services; individual assertion timeouts stay unchanged.
+    test.setTimeout(90_000);
     await page.setViewportSize({ width: 390, height: 844 });
     const keys = Object.keys(routeTranslations).filter((key) =>
       key.startsWith('service.'),

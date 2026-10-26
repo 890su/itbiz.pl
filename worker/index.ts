@@ -29,7 +29,14 @@ export default {
         { status: 404, headers: { 'Cache-Control': 'no-store' } },
       );
     }
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+    const mediaType = response.headers.get('Content-Type')?.split(';')[0]?.trim();
+    if (mediaType?.toLowerCase() === 'text/html') {
+      const htmlResponse = new Response(response.body, response);
+      htmlResponse.headers.set('Content-Type', 'text/html; charset=utf-8');
+      return htmlResponse;
+    }
+    return response;
   },
   async scheduled(_controller: ScheduledController, env: Env): Promise<void> {
     await purgeExpiredLeads(env);

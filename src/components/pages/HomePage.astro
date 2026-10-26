@@ -7,6 +7,7 @@ import { getUi } from '../../i18n/ui';
 import { getExperience, serviceJourneys } from '../../i18n/experience';
 import { getCompact } from '../../i18n/compact';
 import CallButton from '../CallButton.astro';
+import HeroNetwork from '../HeroNetwork.astro';
 
 interface Props {
   locale: Locale;
@@ -25,7 +26,8 @@ const compact = getCompact(locale);
   translationKey="home"
   pageClass="home-experience compact-page"
 >
-  <section class="hero enquiry-hero">
+  <section class="hero enquiry-hero network-hero">
+    <HeroNetwork {locale} />
     <div class="hero-copy enquiry-intro">
       <h1>{copy.h1}</h1>
       <p class="hero-lead">{compact.homeLead}</p>

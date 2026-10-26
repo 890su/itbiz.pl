@@ -41,6 +41,37 @@ describe('Worker routing', () => {
     expect(await response.text()).toBe('asset');
   });
 
+  it('declares UTF-8 for HTML while preserving the body and asset headers', async () => {
+    const response = await worker.fetch(new Request('https://itbiz.pl/'), {
+      ASSETS: {
+        fetch: async () =>
+          new Response('Łączność dla firm', {
+            headers: { 'Content-Type': 'text/html', ETag: 'test-asset' },
+          }),
+      },
+    } as never);
+
+    expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
+    expect(response.headers.get('etag')).toBe('test-asset');
+    expect(await response.text()).toBe('Łączność dla firm');
+  });
+
+  it('preserves non-HTML asset MIME types', async () => {
+    const response = await worker.fetch(
+      new Request('https://itbiz.pl/scripts/hero-network.js'),
+      {
+        ASSETS: {
+          fetch: async () =>
+            new Response('/* script */', {
+              headers: { 'Content-Type': 'application/javascript' },
+            }),
+        },
+      } as never,
+    );
+
+    expect(response.headers.get('content-type')).toBe('application/javascript');
+  });
+
   it('returns private connection data without cache storage', async () => {
     const request = new Request('https://itbiz.pl/api/network', {
       headers: { 'CF-Connecting-IP': '198.51.100.10' },
