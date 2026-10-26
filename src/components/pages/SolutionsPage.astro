@@ -35,7 +35,7 @@ const services: TranslationKey[] = [
     <h1>{copy.h1}</h1><p>{getCompact(locale).solutionsLead}</p>
     <ContactActions {locale} compact />
   </header>
-  <section class="page-section">
+  <div class="page-section">
     <div class="compact-solutions">
       {
         copy.items.map(([, title, description], index) => (
@@ -48,5 +48,5 @@ const services: TranslationKey[] = [
         ))
       }
     </div>
-  </section>
+  </div>
 </BaseLayout>

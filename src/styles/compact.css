@@ -70,6 +70,15 @@
     gap: 1.5rem 2.5rem;
   }
 
+  .compact-page > .compact-service-scope {
+    background: var(--section-band);
+    clip-path: inset(0 -100vmax);
+    box-shadow:
+      0 0 0 100vmax var(--section-band),
+      inset 0 1px var(--section-edge),
+      inset 0 -1px var(--section-edge);
+  }
+
   .compact-service-scope h2 {
     margin-bottom: 0.5rem;
   }
