@@ -108,3 +108,19 @@ test('background motion pauses by choice, while editing, offscreen and under red
   await expect(light).toHaveCSS('animation-name', 'none');
   await expect(switchControl).toBeHidden();
 });
+
+test('the background stays paused throughout the separate enquiry dialog', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  const hero = page.locator('.network-hero');
+  await expect(hero).toHaveAttribute('data-motion-running', 'true');
+  await page.locator('.side-actions [data-enquiry-open]').click();
+  await expect(page.locator('[data-enquiry-dialog]')).toBeVisible();
+  await expect(hero).toHaveAttribute('data-motion-running', 'false');
+  await page.locator('[data-enquiry-close]').focus();
+  await expect(hero).toHaveAttribute('data-motion-running', 'false');
+  await page.keyboard.press('Escape');
+  await expect(hero).toHaveAttribute('data-motion-running', 'true');
+});

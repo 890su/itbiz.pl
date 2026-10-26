@@ -8,8 +8,15 @@
     let visible = false;
     const update = () => {
       const editing = Boolean(document.activeElement?.closest('[data-lead-form]'));
+      const enquiryOpen =
+        document.querySelector('[data-enquiry-dialog]')?.open === true;
       hero.dataset.motionRunning = String(
-        visible && !document.hidden && !reduced.matches && toggle.checked && !editing,
+        visible &&
+          !document.hidden &&
+          !reduced.matches &&
+          toggle.checked &&
+          !editing &&
+          !enquiryOpen,
       );
     };
     const observer = new IntersectionObserver(([entry]) => {
@@ -21,7 +28,7 @@
     if (reduced.addEventListener) reduced.addEventListener('change', update);
     else reduced.addListener(update);
     document.addEventListener('visibilitychange', update);
-    hero.addEventListener('focusin', update);
-    hero.addEventListener('focusout', () => queueMicrotask(update));
+    document.addEventListener('focusin', update);
+    document.addEventListener('focusout', () => queueMicrotask(update));
   }
 })();

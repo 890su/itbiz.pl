@@ -229,30 +229,35 @@ async function verifyTurnstile(
   secret: string,
 ): Promise<boolean> {
   if (!token) return false;
-  const response = await fetch(
-    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret,
-        response: token,
-        remoteip: request.headers.get('CF-Connecting-IP') || undefined,
-        idempotency_key: crypto.randomUUID(),
-      }),
-    },
-  );
-  if (!response.ok) return false;
-  const result = (await response.json()) as {
-    success?: boolean;
-    action?: string;
-    hostname?: string;
-  };
-  return (
-    result.success === true &&
-    result.action === 'contact' &&
-    result.hostname === new URL(request.url).hostname
-  );
+  try {
+    const response = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret,
+          response: token,
+          remoteip: request.headers.get('CF-Connecting-IP') || undefined,
+          idempotency_key: crypto.randomUUID(),
+        }),
+        signal: AbortSignal.timeout(8_000),
+      },
+    );
+    if (!response.ok) return false;
+    const result = (await response.json()) as {
+      success?: boolean;
+      action?: string;
+      hostname?: string;
+    };
+    return (
+      result.success === true &&
+      result.action === 'contact' &&
+      result.hostname === new URL(request.url).hostname
+    );
+  } catch {
+    return false;
+  }
 }
 
 async function storeLead(

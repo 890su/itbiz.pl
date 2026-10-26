@@ -27,6 +27,14 @@
     let typingTimer = 0;
     let selectedText = '';
     let hoveredRow = null;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let loopHeight = 0;
+    const measureLoop = () => {
+      loopHeight =
+        clones[0] && originals[0] ? clones[0].offsetTop - originals[0].offsetTop : 0;
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(measureLoop).observe(list);
+    else window.addEventListener('resize', measureLoop);
 
     const stop = () => {
       cancelAnimationFrame(frame);
@@ -34,19 +42,28 @@
       lastTime = 0;
     };
     const animate = (time) => {
-      const height = clones[0]?.offsetTop - originals[0]?.offsetTop;
-      if (lastTime && height > 0)
-        offset = (offset + Math.min(time - lastTime, 50) * 0.024) % height;
+      if (lastTime && loopHeight > 0)
+        offset = (offset + Math.min(time - lastTime, 50) * 0.024) % loopHeight;
       lastTime = time;
       list.scrollTop = offset;
       frame = requestAnimationFrame(animate);
     };
     const updateMotion = () => {
       stop();
-      clones.forEach((item) => (item.hidden = expanded));
-      // Match NaSerwis: automatic motion continues through hover and touch.
-      // The owner explicitly requested this motion even with reduced motion.
-      if (visible && !expanded && !examples.hidden && !document.hidden)
+      clones.forEach((item) => (item.hidden = expanded || reduced.matches));
+      if (reduced.matches) {
+        offset = 0;
+        list.scrollTop = 0;
+      }
+      measureLoop();
+      if (
+        visible &&
+        !expanded &&
+        !reduced.matches &&
+        !examples.hidden &&
+        !document.hidden &&
+        !list.contains(document.activeElement)
+      )
         frame = requestAnimationFrame(animate);
     };
     const reveal = () => {
@@ -107,6 +124,12 @@
       examples.hidden = true;
       updateMotion();
       message.value = '';
+      if (reduced.matches) {
+        message.value = selectedText;
+        message.dispatchEvent(new Event('input', { bubbles: true }));
+        message.focus({ preventScroll: true });
+        return;
+      }
       form.setAttribute('data-typing-example', 'true');
       message.focus({ preventScroll: true });
       const characters = Array.from(selectedText);
@@ -155,6 +178,14 @@
       });
     });
     document.addEventListener('visibilitychange', updateMotion);
+    list.addEventListener('focusin', updateMotion);
+    list.addEventListener('focusout', () => queueMicrotask(updateMotion));
+    const updatePreference = () => {
+      if (reduced.matches) finishTyping();
+      updateMotion();
+    };
+    if (reduced.addEventListener) reduced.addEventListener('change', updatePreference);
+    else reduced.addListener(updatePreference);
     window.addEventListener('pageshow', reveal);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver((entries) => {

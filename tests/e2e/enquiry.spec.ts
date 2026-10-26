@@ -420,3 +420,31 @@ test('a failed verification keeps the enquiry and never calls the contact API', 
   await expect(page.locator('#contactMethod')).toHaveValue('test@example.org');
   expect(requests).toBe(0);
 });
+
+test('reduced motion stops examples and fills a chosen description without typing', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const list = page.locator('.enquiry-example-list');
+  await list.scrollIntoViewIfNeeded();
+  await expect(page.locator('[data-example-clone]:visible')).toHaveCount(0);
+  const before = await list.evaluate((el) => el.scrollTop);
+  await page.waitForTimeout(300);
+  expect(await list.evaluate((el) => el.scrollTop)).toBe(before);
+  await page.locator('[data-examples-all]').click();
+  const example = page.locator('[data-enquiry-example]').first();
+  const text = (await example.textContent())!.trim();
+  await example.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#message')).toHaveValue(text);
+  await expect(page.locator('main [data-lead-form]')).not.toHaveAttribute(
+    'data-typing-example',
+  );
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.locator('#message').fill('');
+  await page.locator('[data-examples-all]').click();
+  await page.locator('#message').blur();
+  await list.scrollIntoViewIfNeeded();
+  await expect.poll(() => list.evaluate((el) => el.scrollTop)).toBeGreaterThan(3);
+});
