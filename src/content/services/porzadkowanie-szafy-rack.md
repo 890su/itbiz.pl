@@ -2,6 +2,12 @@
 translationKey: service.rack-cabinet-cleanup
 locale: pl
 serviceId: rack-cabinet-cleanup
+brief:
+  lead: 'Plątanina kabli i nieopisane porty w szafie rack? Uporządkujemy uzgodnione połączenia.'
+  scope: 'Spis i oznaczenie portów, przełożenie patchcordów, usunięcie zatwierdzonych nieużywanych połączeń.'
+  result: 'Opisane porty, podstawowy schemat i zdjęcia stanu po pracy.'
+  limits: 'Nie odłączamy nierozpoznanych połączeń bez zgody. Zasilanie, wentylacja i wymiana urządzeń są poza tym zakresem.'
+  request: 'Adres, zdjęcie szafy, liczba urządzeń i dopuszczalna przerwa w pracy.'
 title: Porządkowanie szafy rack w biurze
 seoTitle: Porządkowanie szafy rack Warszawa | Opis kabli i portów
 description: Oznaczenie kabli i portów, usunięcie uzgodnionych nieużywanych połączeń, schemat oraz zdjęcia po pracy. Wyłącznie dla firm w Warszawie.

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
-import PrivateSupport from '../PrivateSupport.astro';
+import { getCompact } from '../../i18n/compact';
 import { company } from '../../data/company';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
@@ -29,6 +29,7 @@ const examples = services.map(({ data }) => ({
   canonicalPath={getRoute(locale, 'contact')}
   {locale}
   translationKey="contact"
+  pageClass="compact-page"
 >
   <nav class="breadcrumb" aria-label={ui.common.scope}>
     <ol>
@@ -42,7 +43,7 @@ const examples = services.map(({ data }) => ({
   <section class="page-hero contact-layout">
     <header class="contact-intro">
       <h1>{copy.h1}</h1>
-      <p class="hero-lead">{copy.lead}</p>
+      <p class="hero-lead">{getCompact(locale).contactLead}</p>
       <address class="contact-links" aria-label={copy.directLabel}>
         <a href={company.publicPhoneHref}
           ><span>{copy.phoneLabel}</span><strong>{company.publicPhone}</strong></a
@@ -51,7 +52,6 @@ const examples = services.map(({ data }) => ({
           ><span>{copy.emailLabel}</span><strong>{company.publicEmail}</strong></a
         >
       </address>
-      <PrivateSupport {locale} />
     </header>
     <LeadForm {locale} progressive {examples} />
   </section>

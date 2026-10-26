@@ -1,37 +1,24 @@
 ---
-import type { Locale } from '../i18n/config';
-import { getUi } from '../i18n/ui';
-
 interface Props {
   href: string;
-  index: string;
   title: string;
-  description: string;
-  tags: readonly string[];
   filterIds?: readonly string[];
-  locale: Locale;
   headingLevel?: 'h2' | 'h3';
 }
-
-const { href, index, title, description, tags, filterIds = [], locale } = Astro.props;
-const copy = getUi(locale).common;
+const { href, title, filterIds = [] } = Astro.props;
 const Heading = Astro.props.headingLevel ?? 'h3';
 ---
 
 <article
-  class="service-card"
+  class="service-card compact-service-card"
   data-service-card={filterIds.length ? '' : undefined}
   data-service-filters={filterIds.length ? filterIds.join(' ') : undefined}
 >
-  <div class="card-index" aria-hidden="true">{index}</div>
-  <div>
-    <Heading><a href={href}>{title}</a></Heading>
-    <p>{description}</p>
-    <ul class="tag-list" aria-label={copy.scope}>
-      {tags.map((tag) => <li>{tag}</li>)}
-    </ul>
-  </div>
-  <a class="card-link" href={href} aria-label={`${copy.checkScope}: ${title}`}
-    >{copy.checkScope} <span aria-hidden="true">→</span></a
+  <Heading
+    ><a href={href}
+      >{title}<svg viewBox="0 0 24 24" aria-hidden="true"
+        ><path d="M5 12h14m-6-6 6 6-6 6"></path></svg
+      ></a
+    ></Heading
   >
 </article>

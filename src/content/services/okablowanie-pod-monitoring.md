@@ -2,6 +2,12 @@
 translationKey: service.cctv-cabling
 locale: pl
 serviceId: cctv-cabling
+brief:
+  lead: 'Potrzebne przewody do firmowych kamer IP? Przygotujemy uzgodnione linie sieciowe.'
+  scope: 'Ułożenie przewodów w zaakceptowanych trasach, zakończenie, oznaczenie i test linii.'
+  result: 'Lista punktów, oznaczone końce i wyniki testów połączeń.'
+  limits: 'Bez doboru, montażu i konfiguracji kamer lub rejestratora. Elektryka, prace budowlane i wysokościowe wymagają osobnego ustalenia.'
+  request: 'Adres, liczba punktów kamerowych i dostępne trasy kablowe.'
 title: Okablowanie pod monitoring w firmie
 seoTitle: Okablowanie pod monitoring Warszawa | Trasy i test LAN
 description: Trasy kablowe, zakończenie i test przewodów pod kamery IP. Sprzęt monitoringu dostarcza klient. Usługa dla firm w Warszawie.

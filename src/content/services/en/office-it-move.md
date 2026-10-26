@@ -2,6 +2,12 @@
 translationKey: service.office-it-move
 locale: en
 serviceId: office-it-move
+brief:
+  lead: 'Moving office? We label, disconnect and reconnect workstations and the network at the new premises.'
+  scope: 'Equipment inventory, premises readiness check, disconnection and startup sequence, and tests.'
+  result: 'A label list, startup results for agreed workstations and outstanding issues.'
+  limits: 'Equipment transport is agreed separately. Furniture, electrical work and the ISP link are excluded. New cabling requires separate agreement.'
+  request: 'Both addresses, number of workstations, date and who transports the equipment.'
 title: Office IT move in Warsaw - workstations and network
 seoTitle: Office IT move Warsaw | Workstations and network
 description: Planning, labelling, disconnection and restart of workstations and network equipment during a small office IT move in Warsaw.

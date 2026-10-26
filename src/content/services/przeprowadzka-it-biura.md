@@ -2,6 +2,12 @@
 translationKey: service.office-it-move
 locale: pl
 serviceId: office-it-move
+brief:
+  lead: 'Przenosisz biuro? Oznaczymy, odłączymy i podłączymy stanowiska oraz sieć w nowym lokalu.'
+  scope: 'Spis sprzętu, sprawdzenie gotowości lokalu, kolejność odłączenia, podłączenia i testy.'
+  result: 'Lista oznaczeń, wynik uruchomienia uzgodnionych stanowisk i wykaz braków.'
+  limits: 'Transport sprzętu uzgadniamy osobno. Meble, elektryka i łącze operatora są poza zakresem. Nowe okablowanie wymaga osobnego ustalenia.'
+  request: 'Oba adresy, liczba stanowisk, termin i kto przewozi sprzęt.'
 title: Przeprowadzka IT biura w Warszawie - stanowiska i sieć
 seoTitle: Przeprowadzka IT biura Warszawa | Stanowiska i sieć
 description: Plan, oznaczenie, odłączenie i ponowne uruchomienie stanowisk oraz sieci podczas przeprowadzki małego biura w Warszawie.

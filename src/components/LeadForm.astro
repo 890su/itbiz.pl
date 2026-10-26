@@ -33,14 +33,20 @@ const contactId = `${idPrefix}contactMethod`;
 ---
 
 <div class="form-block lead-enquiry" id={progressive ? 'enquiry' : undefined}>
-  <div class="section-head">
-    <h2 id={`${idPrefix}form-title`}>{progressive ? enquiry.heading : heading}</h2>
-  </div>
+  {
+    !progressive && (
+      <div class="section-head">
+        <h2 id={`${idPrefix}form-title`}>{heading}</h2>
+      </div>
+    )
+  }
   <form
     class="lead-form"
     action="/api/contact"
     method="post"
     data-lead-form
+    aria-label={progressive ? heading : undefined}
+    aria-labelledby={!progressive ? `${idPrefix}form-title` : undefined}
     data-progressive-enquiry={progressive || undefined}
     data-submit-label={submitLabel}
     data-sending-label={copy.sending}
@@ -194,7 +200,7 @@ const contactId = `${idPrefix}contactMethod`;
       >
       </div>
       <p class="form-notice">
-        {copy.notice}
+        {copy.notice}{' '}
         <a href={getRoute(locale, 'privacy')}>{copy.privacyLink}</a>.
       </p>
       <button class="button button-primary" type="submit">{submitLabel}</button>

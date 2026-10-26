@@ -14,6 +14,13 @@ const services = defineCollection({
     description: z.string(),
     eyebrow: z.string(),
     lead: z.string(),
+    brief: z.object({
+      lead: z.string(),
+      scope: z.string(),
+      result: z.string(),
+      limits: z.string(),
+      request: z.string(),
+    }),
     status: z.enum(['draft', 'published']),
     noindex: z.boolean().default(true),
     adEligible: z.literal(false),

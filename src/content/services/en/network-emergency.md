@@ -2,6 +2,12 @@
 translationKey: service.network-emergency
 locale: en
 serviceId: network-emergency
+brief:
+  lead: 'Business internet or network down? We check the cause and repair options.'
+  scope: 'Router, switch, Wi‑Fi, cables, outlets and basic connection or configuration corrections.'
+  result: 'An identified or narrowed-down cause, test results and recommendations. Service restored where possible within the agreed scope.'
+  limits: 'Repair depends on the cause. Extra work and materials need approval.'
+  request: 'Business address, affected services, number of workstations and when it started.'
 title: Business network outage - on-site diagnostics in Warsaw
 breadcrumbTitle: Business network outage
 seoTitle: Business network outage Warsaw | On-site diagnostics

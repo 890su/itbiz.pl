@@ -2,6 +2,12 @@
 translationKey: service.lan-outlet-repair
 locale: en
 serviceId: lan-outlet-repair
+brief:
+  lead: 'LAN outlet not working at a desk? We check the line and its terminations.'
+  scope: 'Tests at both ends, outlet, patch panel and port. Correction or replacement of an agreed termination.'
+  result: 'Before-and-after test results and labels on accessible line ends.'
+  limits: 'No wall opening or electrical work. Certified measurements and active-device repairs require separate agreement.'
+  request: 'Business address, number of outlets, symptoms and access to the other line end.'
 title: Repair of a faulty LAN outlet in an office
 seoTitle: Office LAN outlet repair Warsaw | ITBIZ.PL
 description: Testing of the line, port and LAN outlet in a business. Repair or replacement of the termination and a connection check in a Warsaw office.

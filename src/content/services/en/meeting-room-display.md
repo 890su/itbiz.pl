@@ -2,6 +2,12 @@
 translationKey: service.meeting-room-display
 locale: en
 serviceId: meeting-room-display
+brief:
+  lead: 'Office screen or panel mounting with connection to the agreed image source.'
+  scope: 'Wall and mount checks, mounting, available signal cables and an image test.'
+  result: 'A mounted screen, connection notes and the agreed test result.'
+  limits: 'A suitable wall, mount and power supply are required. Electrical work, concealed cables, account and conferencing setup are excluded.'
+  request: 'Business address, screen model, mount, wall material and image source.'
 title: Display or panel installation in a meeting room
 seoTitle: Office display installation Warsaw | Meeting room
 description: Installation of a business display or conference panel, connection of the signal source and testing. Service for offices and organisations in Warsaw.

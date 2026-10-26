@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getRoute, languageTags, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getNetworkWeather } from '../../i18n/network-weather';
+import { getExperience } from '../../i18n/experience';
 import CallButton from '../CallButton.astro';
 import { serializeStructuredData } from '../../lib/structured-data';
 
@@ -46,6 +47,7 @@ const appSchema = {
   canonicalPath={getRoute(locale, 'networkWeather')}
   {locale}
   translationKey="networkWeather"
+  pageClass="compact-page"
 >
   <nav class="breadcrumb" aria-label={common.scope}>
     <ol>
@@ -58,8 +60,8 @@ const appSchema = {
   </nav>
   <div class="network-weather" data-network-weather data-settings={settings}>
     <section class="nw-business-hero">
-      <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p class="hero-lead">
-        {copy.lead}
+      <h1>{copy.h1}</h1><p class="hero-lead">
+        {getExperience(locale).toolLead}
       </p>
       <div class="nw-status-board">
         <article
@@ -156,7 +158,7 @@ const appSchema = {
     </section>
     <section class="page-section nw-horizon" aria-labelledby="forecast-title">
       <header class="section-head">
-        <p class="section-label">MET / 24H</p><h2 id="forecast-title">
+        <h2 id="forecast-title">
           {copy.forecast}
         </h2>
       </header><div class="nw-forecast-rail" data-weather-forecast aria-live="polite">
@@ -165,26 +167,9 @@ const appSchema = {
       </p>
     </section>
     <section class="page-section">
-      <div class="nw-analysis-grid">
-        <article class="info-panel">
-          <p class="section-label">INTERPRETACJA / 01</p><h2>{copy.explainTitle}</h2><ul
-            class="check-list"
-          >
-            {copy.explain.map((item) => <li>{item}</li>)}
-          </ul>
-        </article><article class="info-panel nw-context-panel">
-          <p class="section-label">KONTEKST / 02</p><h2>
-            {copy.weatherContextTitle}
-          </h2><p>{copy.weatherContext}</p>
-        </article>
-      </div>
-    </section>
-    <section class="page-section">
       <div class="nw-business-cta">
         <div>
-          <p class="section-label">INCIDENT / NEXT</p><h2>{copy.ctaTitle}</h2><p>
-            {copy.ctaText}
-          </p>
+          <h2>{copy.ctaTitle}</h2>
         </div><div class="nw-business-cta-actions">
           <a
             class="button button-primary"

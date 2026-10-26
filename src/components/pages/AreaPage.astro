@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactActions from '../ContactActions.astro';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
+import { getCompact } from '../../i18n/compact';
 interface Props {
   locale: Locale;
 }
@@ -16,40 +18,19 @@ const copy = ui.area;
   canonicalPath={getRoute(locale, 'area.warsaw')}
   {locale}
   translationKey="area.warsaw"
+  pageClass="compact-page"
 >
   <nav class="breadcrumb" aria-label={ui.common.scope}>
     <ol>
-      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li
-        aria-current="page"
-      >
-        {ui.common.warsaw}
-      </li>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li>
+      <li aria-current="page">{ui.common.warsaw}</li>
     </ol>
   </nav>
   <header class="page-hero">
-    <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p>
-      {copy.lead}
-    </p>
-    <div class="hero-actions">
-      <a
-        class="button button-primary"
-        href={getRoute(locale, 'contact')}
-        data-enquiry-open
-        aria-haspopup="dialog"
-        aria-controls="enquiry-dialog">{copy.cta}</a
-      ><a class="button button-secondary" href={getRoute(locale, 'services')}
-        >{ui.common.services}</a
-      >
-    </div>
-    <ul class="service-facts" aria-label={copy.eyebrow}>
-      {copy.facts.map((fact) => <li>{fact}</li>)}
-    </ul>
+    <h1>{copy.h1}</h1><p>{getCompact(locale).areaLead}</p>
+    <ContactActions {locale} compact />
+    <a class="all-services-link" href={getRoute(locale, 'services')}
+      >{ui.common.services}</a
+    >
   </header>
-  <section class="page-section" aria-labelledby="area-process-title">
-    <header class="section-head">
-      <p class="section-label">{copy.eyebrow}</p>
-      <h2 id="area-process-title">{copy.processTitle}</h2>
-    </header>
-    <ul class="check-list">{copy.process.map((item) => <li>{item}</li>)}</ul>
-  </section>
 </BaseLayout>

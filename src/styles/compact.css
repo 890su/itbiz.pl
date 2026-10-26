@@ -1,0 +1,180 @@
+@layer components {
+  .compact-page {
+    --compact-section: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .compact-page > .page-section,
+  .compact-page :is(.hero, .page-hero, .nw-business-hero) {
+    padding-block: var(--compact-section);
+  }
+
+  .compact-page :is(.hero, .page-hero) {
+    gap: 1.25rem;
+  }
+
+  .compact-page :is(.hero, .page-hero, .nw-business-hero) h1 {
+    max-width: 24ch;
+    font-size: clamp(2rem, 3.7vw, 3.5rem);
+    line-height: 1.12;
+  }
+
+  .compact-page .enquiry-intro {
+    gap: 0.75rem;
+  }
+
+  .compact-page :is(.hero-lead, .page-hero > p) {
+    max-width: 62ch;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+
+  .compact-page .section-head {
+    margin-bottom: 1.25rem;
+  }
+
+  .compact-page h2 {
+    max-width: 32ch;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    line-height: 1.2;
+  }
+
+  .compact-page .service-journeys {
+    gap: 1.5rem;
+  }
+
+  .compact-page .service-journey {
+    padding-top: 0.9rem;
+  }
+
+  .compact-page .service-journey h3 {
+    min-height: 0;
+    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
+    line-height: 1.35;
+  }
+
+  .compact-page .service-journey a {
+    min-height: 2.75rem;
+    padding-block: 0.65rem;
+  }
+
+  .compact-page .all-services-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-top: 0.75rem;
+  }
+
+  .compact-service-scope {
+    display: grid;
+    gap: 1.5rem 2.5rem;
+  }
+
+  .compact-service-scope h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .compact-service-scope p + h2 {
+    margin-top: 1.5rem;
+  }
+
+  .compact-service-scope p {
+    max-width: 68ch;
+    color: var(--ink-muted);
+  }
+
+  .compact-service-scope .compact-terms {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .compact-page .contact-actions {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .compact-catalogue .service-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.625rem;
+  }
+
+  .compact-service-card {
+    display: block;
+    padding: 0;
+  }
+
+  .compact-service-card h2 {
+    max-width: none;
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+
+  .compact-service-card h2 a {
+    display: flex;
+    min-height: 3.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+  }
+
+  .compact-service-card svg {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 1.7;
+  }
+
+  .compact-solutions {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .compact-solutions article {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 1rem;
+  }
+
+  .compact-solutions h2 a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  .compact-solutions p {
+    max-width: 68ch;
+    color: var(--ink-muted);
+  }
+
+  .compact-page .nw-status-board {
+    margin-top: 1.5rem;
+  }
+
+  .compact-page .network-weather > .page-section {
+    padding-block: var(--compact-section);
+  }
+
+  .compact-page .nw-business-hero::before {
+    display: none;
+  }
+
+  .content-rail:has(> .compact-page) > .site-footer {
+    gap: 1rem;
+    padding-block: 1.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    .compact-service-scope,
+    .compact-catalogue .service-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .compact-solutions {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}

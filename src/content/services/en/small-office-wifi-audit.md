@@ -2,6 +2,12 @@
 translationKey: service.small-office-wifi-audit
 locale: en
 serviceId: small-office-wifi-audit
+brief:
+  lead: 'Weak signal or office Wi‑Fi dropouts? We measure the network and recommend changes.'
+  scope: 'Measurements at agreed points and a review of accessible settings.'
+  result: 'A short report with measurements, problem locations and prioritised changes.'
+  limits: 'Installation and cabling are quoted separately. Speed also depends on the internet link, devices and radio conditions.'
+  request: 'Business address, office area, number of users and problem locations.'
 title: Wi‑Fi audit for a small office - 5-30 workstations
 seoTitle: Small office Wi‑Fi audit Warsaw | ITBIZ.PL
 description: Wi‑Fi coverage, interference and load measurements for offices with 5-30 workstations in Warsaw. A report and change plan without promises before measurement.

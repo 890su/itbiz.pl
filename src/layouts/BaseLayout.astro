@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/experience.css';
 import '../styles/enquiry.css';
 import '../styles/navigation.css';
+import '../styles/compact.css';
 import EnquiryDialog from '../components/EnquiryDialog.astro';
 import SiteChrome from '../components/SiteChrome.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -192,7 +193,12 @@ const pageSchema = {
   <body>
     <a class="skip-link" href="#main-content">{copy.common.skip}</a>
     <div class="site-shell">
-      <div class:list={['content-rail', pageClass && 'experience-rail']}>
+      <div
+        class:list={[
+          'content-rail',
+          pageClass?.includes('experience') && 'experience-rail',
+        ]}
+      >
         <SiteChrome variant="mobile" {locale} {translationKey} />
         <noscript>
           <nav class="no-script-nav" aria-label={copy.common.mainNav}>

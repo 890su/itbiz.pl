@@ -33,21 +33,19 @@
   }
 
   .lead-enquiry {
-    --ink: #f3f6fa;
-    --ink-muted: #bdc9d8;
-    --line: #45566b;
-    --line-strong: #66788c;
+    --ink: var(--panel-ink);
+    --ink-muted: var(--panel-muted);
+    --line: var(--panel-line);
+    --line-strong: var(--panel-muted);
     --danger: #ffb2a7;
     --verified: #80dfce;
-    --signal: #87bbff;
-    --signal-hover: #acd0ff;
-    --button-ink: #102337;
+    --form-link: #87bbff;
     grid-area: form;
     width: min(100%, 40rem);
     min-width: 0;
     margin-inline: auto;
-    border-radius: var(--radius-lg);
-    background: #18212c;
+    border-radius: var(--radius-md);
+    background: var(--panel);
     color: var(--ink);
     padding: clamp(1.1rem, 2.5vw, 2rem);
     scroll-margin-top: 1.5rem;
@@ -82,15 +80,16 @@
   }
 
   .lead-enquiry .field :is(input, textarea, select) {
-    border-color: #a7b5c3;
-    background: #dfe5ec;
-    color: #182638;
-    caret-color: #164e91;
-    color-scheme: light;
+    border-color: var(--panel-muted);
+    background: var(--panel-line);
+    color: var(--panel-ink);
+    caret-color: var(--panel-ink);
+    color-scheme: dark;
   }
 
   .lead-enquiry .field :is(input, textarea, select):focus {
-    background: #e7ecf2;
+    border-color: var(--form-link);
+    background: var(--panel-line);
   }
 
   .lead-enquiry .field textarea {
@@ -98,7 +97,7 @@
   }
 
   .lead-enquiry ::placeholder {
-    color: #526175;
+    color: var(--panel-muted);
     opacity: 1;
   }
 
@@ -108,7 +107,7 @@
   }
 
   .lead-enquiry a {
-    color: var(--signal);
+    color: var(--form-link);
   }
 
   .enquiry-details {
@@ -129,7 +128,7 @@
   .enquiry-extras summary {
     min-height: 2.75rem;
     padding-block: 0.5rem;
-    color: var(--signal);
+    color: var(--form-link);
     font-size: 0.85rem;
     cursor: pointer;
   }
@@ -195,12 +194,12 @@
   }
 
   .enquiry-choices label:hover span {
-    background: #263545;
+    background: var(--panel-line);
   }
 
   .enquiry-choices input:checked + span {
     border-color: var(--choice-color, #87bbff);
-    background: #263545;
+    background: var(--panel-line);
     color: var(--choice-color, #b7d6ff);
   }
 
@@ -257,7 +256,7 @@
     min-height: 2.75rem;
     border: 0;
     background: transparent;
-    color: var(--signal);
+    color: var(--form-link);
     padding: 0;
     text-decoration: underline;
     text-underline-offset: 0.25em;
@@ -289,7 +288,7 @@
     border: 0;
     border-radius: var(--radius-sm);
     background: transparent;
-    color: #d2dfed;
+    color: var(--panel-muted);
     padding: 0.85rem 0.5rem;
     font-size: 0.95rem;
     line-height: 1.5;
@@ -302,8 +301,8 @@
   }
 
   .enquiry-example-list button:is(:hover, :focus-visible, .is-hovered) {
-    background: #263545;
-    color: #fff;
+    background: var(--panel-line);
+    color: var(--panel-ink);
   }
 
   .enquiry-examples.is-expanded .enquiry-example-list {
@@ -332,10 +331,10 @@
     width: min(40rem, calc(100% - 1.5rem));
     max-height: calc(100dvh - 1.5rem);
     margin: auto;
-    border: 1px solid #45566b;
+    border: 1px solid var(--panel-line);
     border-radius: var(--radius-lg);
-    background: #18212c;
-    color: #f3f6fa;
+    background: var(--panel);
+    color: var(--panel-ink);
     padding: 0;
     overflow-y: auto;
     overscroll-behavior: contain;

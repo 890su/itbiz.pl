@@ -2,6 +2,12 @@
 translationKey: service.network-repair
 locale: pl
 serviceId: network-repair
+brief:
+  lead: 'Sieć okresowo zwalnia lub rozłącza? Zaplanuj diagnostykę firmowych połączeń.'
+  scope: 'Sprawdzenie uzgodnionych urządzeń, przewodów i konfiguracji na podstawie objawów.'
+  result: 'Raport z testów, wykryta przyczyna albo kolejny krok oraz zakres zalecanej naprawy.'
+  limits: 'Nie obejmuje odzyskiwania kont, danych ani haseł. Naprawa zależy od diagnozy; pilny wyjazd wymaga potwierdzenia.'
+  request: 'Adres, objawy, liczba stanowisk i momenty występowania problemu.'
 title: Planowa diagnostyka niestabilnej sieci firmowej w Warszawie
 seoTitle: Diagnostyka niestabilnej sieci firmowej Warszawa | ITBIZ.PL
 description: Planowe badanie okresowych przerw, błędów portów i niejasnych problemów z połączeniem. Dokumentacja obserwacji i kolejnych kroków.

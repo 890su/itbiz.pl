@@ -2,6 +2,12 @@
 translationKey: service.cctv-emergency
 locale: pl
 serviceId: cctv-emergency
+brief:
+  lead: 'Brak obrazu lub zapisu? Rejestrator piszczy albo hałasuje? Diagnozujemy firmowy monitoring IP.'
+  scope: 'Zasilanie i linie PoE, połączenia, dostępność kamer, status rejestratora oraz nośnika.'
+  result: 'Opis wykrytej lub zawężonej przyczyny, wykonanych korekt i wyniku testu obrazu oraz zapisu.'
+  limits: 'Bez odzyskiwania nagrań i napraw podzespołów. Wymiana urządzeń, elektryka i prace na wysokości wymagają osobnego ustalenia.'
+  request: 'Adres, liczba kamer, objaw i komunikat rejestratora. Nie wysyłaj haseł.'
 title: Awaria monitoringu IP w firmie - diagnostyka w Warszawie
 breadcrumbTitle: Awaria monitoringu w firmie
 seoTitle: Awaria monitoringu w firmie Warszawa | Diagnostyka PoE

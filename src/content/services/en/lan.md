@@ -2,6 +2,12 @@
 translationKey: service.lan-installation
 locale: en
 serviceId: lan-installation
+brief:
+  lead: 'New LAN outlets and cabling for business workstations.'
+  scope: 'Point plan, agreed cables and outlets, labels and basic connection tests.'
+  result: 'A point list, as-built connection diagram and agreed test results.'
+  limits: 'Construction, electrical work and certified measurements require a separate order.'
+  request: 'Business address, number of points, room layout and available cable routes.'
 title: Structured cabling and LAN networks for Warsaw businesses
 seoTitle: Office structured cabling Warsaw | Business LAN
 description: Planning and installation of agreed LAN outlets and cable routes in offices. Termination, labelling and verification of connections.

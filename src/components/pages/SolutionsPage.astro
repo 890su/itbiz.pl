@@ -1,13 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getRoute, type Locale } from '../../i18n/config';
+import ContactActions from '../ContactActions.astro';
+import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
+import { getCompact } from '../../i18n/compact';
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
 const ui = getUi(locale);
 const copy = ui.solutions;
+const services: TranslationKey[] = [
+  'service.office-wifi',
+  'service.lan-installation',
+  'service.office-wifi',
+];
 ---
 
 <BaseLayout
@@ -16,33 +23,27 @@ const copy = ui.solutions;
   canonicalPath={getRoute(locale, 'solutions')}
   {locale}
   translationKey="solutions"
+  pageClass="compact-page"
 >
   <nav class="breadcrumb" aria-label={ui.common.scope}>
     <ol>
-      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li
-        aria-current="page"
-      >
-        {ui.common.nav[2]}
-      </li>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li>
+      <li aria-current="page">{ui.common.nav[2]}</li>
     </ol>
   </nav>
   <header class="page-hero">
-    <p class="eyebrow">{copy.eyebrow}</p><h1>{copy.h1}</h1><p>{copy.lead}</p>
+    <h1>{copy.h1}</h1><p>{getCompact(locale).solutionsLead}</p>
+    <ContactActions {locale} compact />
   </header>
   <section class="page-section">
-    <div class="service-grid">
+    <div class="compact-solutions">
       {
-        copy.items.map(([index, title, description]) => (
-          <article class="service-card">
-            <>
-              <div class="card-index">{index}</div>
-              <div>
-                <>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </>
-              </div>
-            </>
+        copy.items.map(([, title, description], index) => (
+          <article>
+            <h2>
+              <a href={getRoute(locale, services[index]!)}>{title}</a>
+            </h2>
+            <p>{description}</p>
           </article>
         ))
       }

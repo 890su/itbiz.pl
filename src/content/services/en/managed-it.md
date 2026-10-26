@@ -2,6 +2,12 @@
 translationKey: service.managed-it
 locale: en
 serviceId: managed-it
+brief:
+  lead: 'Ongoing network and workstation support for small businesses, with agreed responsibilities.'
+  scope: 'Equipment inventory, documentation, administrative access and agreed support requests.'
+  result: 'An infrastructure register, priorities, request channel and working terms.'
+  limits: 'Personal devices and accounts are excluded. Projects, purchases and licences are separate. Response times require agreement.'
+  request: 'Number of workstations, main devices and tasks for ongoing support.'
 title: Managed IT and outsourced support for Warsaw businesses
 seoTitle: Outsourced IT for small Warsaw businesses | ITBIZ.PL
 description: Ongoing support for a small business network, workstations and IT documentation. Responsibility and the working model are agreed before support begins.
