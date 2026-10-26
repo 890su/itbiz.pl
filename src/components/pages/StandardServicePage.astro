@@ -1,24 +1,24 @@
 ---
-import { render, type CollectionEntry } from 'astro:content';
-import PrivateSupport from '../PrivateSupport.astro';
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
+import CallButton from '../CallButton.astro';
 import { getRoute, type Locale, type TranslationKey } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
-import CallButton from '../CallButton.astro';
-
-// Keep the established layout for services outside the CCTV pilot.
+import { getCompact } from '../../i18n/compact';
+import { getExperience } from '../../i18n/experience';
 
 interface Props {
   locale: Locale;
   service: CollectionEntry<'services'>;
 }
 const { locale, service } = Astro.props;
-const { Content } = await render(service);
 const data = service.data;
 const translationKey = data.translationKey as TranslationKey;
 const ui = getUi(locale);
-const copy = ui.service;
+const compact = getCompact(locale);
+const brief = data.brief;
+const isCctv = data.serviceId === 'cctv-emergency';
 ---
 
 <BaseLayout
@@ -28,6 +28,7 @@ const copy = ui.service;
   noindex={data.noindex || data.status !== 'published'}
   {locale}
   {translationKey}
+  pageClass="service-experience compact-page"
   service={{ name: data.title, description: data.description }}
   breadcrumbs={[
     { name: ui.common.start, path: getRoute(locale, 'home') },
@@ -40,103 +41,46 @@ const copy = ui.service;
 >
   <nav class="breadcrumb" aria-label={ui.common.scope}>
     <ol>
-      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li><li>
-        <a href={getRoute(locale, 'services')}>{ui.common.services}</a>
-      </li><li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
+      <li><a href={getRoute(locale, 'home')}>{ui.common.start}</a></li>
+      <li><a href={getRoute(locale, 'services')}>{ui.common.services}</a></li>
+      <li aria-current="page">{data.breadcrumbTitle ?? data.title}</li>
     </ol>
   </nav>
-  <header class="page-hero enquiry-hero">
+  <header class:list={['page-hero', 'enquiry-hero', isCctv && 'cctv-hero']}>
     <div class="enquiry-intro">
-      <p class="eyebrow">{copy.qualifier}</p>
       <h1>{data.title}</h1>
-      <p class="hero-lead">{data.lead}</p>
-      <PrivateSupport {locale} />
+      <p class="hero-lead">{brief.lead}</p>
+      <p class="service-qualifier">{ui.service.qualifier}</p>
     </div>
     <LeadForm
       selectedServiceId={data.serviceId}
       progressive
       examples={data.problems.map((text) => ({ text }))}
       submitLabel={data.submitLabel}
+      photoHelp={isCctv ? getExperience(locale).cctv.photoHelp : undefined}
       {locale}
     />
     <div class="enquiry-support">
-      <div class="hero-actions">
-        <CallButton {locale} />
-      </div>
-      {
-        data.heroFacts && (
-          <ul class="service-facts" aria-label={copy.factsLabel}>
-            {data.heroFacts.map((fact) => (
-              <li>{fact}</li>
-            ))}
-          </ul>
-        )
-      }
-      <div class="callout">
-        <strong>{data.serviceNoteTitle ?? copy.calloutTitle}</strong><p>
-          {data.serviceNote ?? copy.callout}
-        </p>
-      </div>
+      <div class="hero-actions"><CallButton {locale} /></div>
     </div>
   </header>
-  <section class="page-section" aria-labelledby="outcomes-title">
-    <header class="section-head">
-      <p class="section-label">{copy.outcomeLabel}</p><h2 id="outcomes-title">
-        {copy.outcomeTitle}
-      </h2>
-    </header><ul class="check-list">{data.outcomes.map((item) => <li>{item}</li>)}</ul>
-  </section>
-  <section class="page-section" aria-labelledby="problems-title">
-    <header class="section-head">
-      <p class="section-label">{copy.problemsLabel}</p><h2 id="problems-title">
-        {copy.problemsTitle}
-      </h2>
-    </header><ul class="plain-list">{data.problems.map((item) => <li>{item}</li>)}</ul>
-  </section>
-  <section id="scope" class="page-section" aria-label={copy.scopeAria}>
-    <div class="scope-grid">
-      <div class="info-panel">
-        <p class="section-label">{copy.inScopeLabel}</p><h2>{copy.inScopeTitle}</h2><ul
-          class="check-list"
-        >
-          {data.scope.map((item) => <li>{item}</li>)}
-        </ul>
-      </div><div class="info-panel">
-        <p class="section-label">{copy.exclusionsLabel}</p><h2>
-          {copy.exclusionsTitle}
-        </h2><ul class="plain-list">
-          {data.exclusions.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
+  <section
+    id="scope"
+    class="page-section compact-service-scope"
+    aria-labelledby="scope-title"
+  >
+    <div>
+      <h2 id="scope-title">{ui.service.inScopeTitle}</h2>
+      <p>{brief.scope}</p>
+      <h2>{compact.result}</h2>
+      <p>{brief.result}</p>
+    </div>
+    <div>
+      <h2>{compact.limits}</h2>
+      <p>{brief.limits}</p>
+      <h2>{compact.request}</h2>
+      <p>{brief.request}</p>
+      <p class="compact-terms">{compact.terms}</p>
     </div>
   </section>
-  <section class="page-section" aria-labelledby="deliverables-title">
-    <header class="section-head">
-      <p class="section-label">{copy.docsLabel}</p><h2 id="deliverables-title">
-        {copy.docsTitle}
-      </h2>
-    </header><ul class="check-list">
-      {data.deliverables.map((item) => <li>{item}</li>)}
-    </ul><div class="legal-copy"><Content /></div>
-  </section>
-  {
-    data.process && (
-      <section class="page-section" aria-labelledby="service-process-title">
-        <header class="section-head">
-          <p class="section-label">{data.processLabel}</p>
-          <h2 id="service-process-title">{data.processTitle}</h2>
-          {data.processLead && <p>{data.processLead}</p>}
-        </header>
-        <div class="process-grid">
-          {data.process.map((step) => (
-            <article class="process-step">
-              <span>{step.label}</span>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-    )
-  }
 </BaseLayout>

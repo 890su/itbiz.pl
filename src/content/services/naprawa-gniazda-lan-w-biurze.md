@@ -2,6 +2,12 @@
 translationKey: service.lan-outlet-repair
 locale: pl
 serviceId: lan-outlet-repair
+brief:
+  lead: 'Nie działa gniazdo LAN przy stanowisku? Sprawdzamy linię i jej zakończenia.'
+  scope: 'Test obu końców, gniazda, patch panelu i portu. Poprawa lub wymiana uzgodnionego zakończenia.'
+  result: 'Wynik testu przed i po pracy oraz oznaczenie dostępnych końców linii.'
+  limits: 'Bez kucia i prac elektrycznych. Certyfikowane pomiary i naprawa urządzeń aktywnych wymagają osobnego ustalenia.'
+  request: 'Adres, liczba gniazd, objawy i dostęp do drugiego końca linii.'
 title: Naprawa niedziałającego gniazda LAN w biurze
 seoTitle: Naprawa gniazda LAN w biurze Warszawa | ITBIZ.PL
 description: Test linii, portu i gniazda LAN w firmie. Naprawa lub wymiana zakończenia oraz sprawdzenie połączenia w biurze w Warszawie.

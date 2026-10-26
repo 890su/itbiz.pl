@@ -1,20 +1,20 @@
 ---
-import PrivateSupport from '../PrivateSupport.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../LeadForm.astro';
 import { getHomeExamples } from '../../i18n/enquiry';
 import { getRoute, type Locale } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
 import { getExperience, serviceJourneys } from '../../i18n/experience';
+import { getCompact } from '../../i18n/compact';
 import CallButton from '../CallButton.astro';
 
 interface Props {
   locale: Locale;
 }
-
 const { locale } = Astro.props;
 const copy = getUi(locale).home;
 const experience = getExperience(locale);
+const compact = getCompact(locale);
 ---
 
 <BaseLayout
@@ -23,37 +23,27 @@ const experience = getExperience(locale);
   canonicalPath={getRoute(locale, 'home')}
   {locale}
   translationKey="home"
-  pageClass="home-experience"
+  pageClass="home-experience compact-page"
 >
   <section class="hero enquiry-hero">
     <div class="hero-copy enquiry-intro">
-      <p class="service-qualifier">{copy.eyebrow}</p>
       <h1>{copy.h1}</h1>
-      <p class="hero-lead">{experience.homeLead}</p>
-      <PrivateSupport {locale} />
+      <p class="hero-lead">{compact.homeLead}</p>
     </div>
     <LeadForm {locale} progressive examples={getHomeExamples(locale)} />
     <div class="enquiry-support">
-      <div class="hero-actions">
-        <CallButton {locale} />
-      </div>
-      <div class="hero-note">
-        {copy.notes.map((note) => <span>{note}</span>)}
-      </div>
+      <div class="hero-actions"><CallButton {locale} /></div>
     </div>
   </section>
-
   <section id="services" class="page-section" aria-labelledby="services-title">
     <header class="section-head">
       <h2 id="services-title">{experience.chooseTitle}</h2>
-      <p>{experience.chooseLead}</p>
     </header>
     <div class="service-journeys">
       {
         serviceJourneys.map((keys, index) => (
           <section class="service-journey" aria-labelledby={`journey-${index}`}>
             <h3 id={`journey-${index}`}>{experience.groups[index]!.title}</h3>
-            <p>{experience.groups[index]!.description}</p>
             <ul>
               {keys.map((key) => (
                 <li>
@@ -73,72 +63,5 @@ const experience = getExperience(locale);
     <a class="all-services-link" href={getRoute(locale, 'services')}
       >{experience.allServices}</a
     >
-  </section>
-
-  <section class="page-section handover-section" aria-labelledby="handover-title">
-    <div class="section-head">
-      <h2 id="handover-title">{experience.handoverTitle}</h2>
-      <p>{experience.handoverLead}</p>
-    </div>
-    <figure class="handover-sheet">
-      <div class="sheet-heading">
-        <span class="sheet-mark" aria-hidden="true"></span>
-        <strong>{experience.sampleTitle}</strong>
-      </div>
-      <dl>
-        {
-          experience.sampleRows.map(([label, value]) => (
-            <div>
-              <>
-                <dt>{label}</dt>
-                <dd>{value}</dd>
-              </>
-            </div>
-          ))
-        }
-      </dl>
-      <figcaption>{experience.sampleLabel}</figcaption>
-    </figure>
-  </section>
-
-  <section class="page-section" aria-labelledby="process-title">
-    <header class="section-head">
-      <h2 id="process-title">{copy.processTitle}</h2>
-      <p>{copy.processLead}</p>
-    </header>
-    <ol class="work-steps">
-      {
-        copy.process.map(([, title, description]) => (
-          <li>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <a class="network-tool-entry" href={getRoute(locale, 'networkWeather')}>
-    <span class="network-tool-entry-symbol" aria-hidden="true">
-      <svg viewBox="0 0 32 32"><path d="M4 19h5l4-10 6 16 4-10h5"></path></svg>
-    </span>
-    <span
-      ><strong>{experience.toolTitle}</strong><small>{experience.toolLead}</small></span
-    >
-    <span class="network-tool-entry-arrow" aria-hidden="true">→</span>
-  </a>
-
-  <section class="page-section" aria-labelledby="eligibility-title">
-    <div class="scope-grid">
-      <div class="info-panel">
-        <h2 id="eligibility-title">{copy.forWhomTitle}</h2>
-        <ul class="check-list">{copy.forWhom.map((item) => <li>{item}</li>)}</ul>
-      </div>
-      <div class="info-panel">
-        <h2>{copy.boundaryTitle}</h2>
-        <p>{copy.boundary}</p>
-        <PrivateSupport {locale} />
-      </div>
-    </div>
   </section>
 </BaseLayout>

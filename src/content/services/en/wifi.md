@@ -2,6 +2,12 @@
 translationKey: service.office-wifi
 locale: en
 serviceId: office-wifi
+brief:
+  lead: 'Office Wi‑Fi design and configuration, including guest access where required.'
+  scope: 'Access-point placement, agreed network configuration and operational checks.'
+  result: 'A point plan, configuration notes and network check results.'
+  limits: 'Coverage is confirmed after a site assessment and measurements. Personal routers and home devices are excluded.'
+  request: 'Business address, floor area, number of users and existing Wi‑Fi equipment.'
 title: Office Wi‑Fi design and deployment in Warsaw
 seoTitle: Office Wi‑Fi design and deployment Warsaw | ITBIZ.PL
 description: Access point placement, configuration and separation of business and guest networks. Wi‑Fi deployment for offices in Warsaw.

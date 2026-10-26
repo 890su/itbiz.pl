@@ -2,6 +2,12 @@
 translationKey: service.office-wifi
 locale: pl
 serviceId: office-wifi
+brief:
+  lead: 'Projekt i konfiguracja Wi‑Fi dla biura, z siecią gościnną, jeśli wymaga tego zadanie.'
+  scope: 'Rozmieszczenie punktów dostępowych, konfiguracja uzgodnionych sieci i weryfikacja działania.'
+  result: 'Plan punktów, opis konfiguracji i wyniki sprawdzenia sieci.'
+  limits: 'Zasięg potwierdzamy po ocenie lokalu i pomiarach. Nie obsługujemy prywatnych routerów ani urządzeń domowych.'
+  request: 'Adres, powierzchnia, liczba użytkowników i używany sprzęt Wi‑Fi.'
 title: Projekt i wdrożenie Wi‑Fi dla biura w Warszawie
 seoTitle: Projekt i wdrożenie Wi‑Fi dla biura Warszawa | ITBIZ.PL
 description: Projekt rozmieszczenia, konfiguracja punktów dostępowych i oddzielenie sieci firmowej od gościnnej. Wdrożenie Wi‑Fi w biurach w Warszawie.

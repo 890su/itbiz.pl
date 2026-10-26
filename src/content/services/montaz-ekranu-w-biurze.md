@@ -2,6 +2,12 @@
 translationKey: service.meeting-room-display
 locale: pl
 serviceId: meeting-room-display
+brief:
+  lead: 'Montaż ekranu lub panelu w biurze z podłączeniem uzgodnionego źródła obrazu.'
+  scope: 'Sprawdzenie ściany i uchwytu, montaż, dostępne przewody sygnałowe i test obrazu.'
+  result: 'Zamontowany ekran, opis połączeń i wynik uzgodnionego testu.'
+  limits: 'Wymagane odpowiednie podłoże, uchwyt i zasilanie. Elektryka, ukrywanie kabli oraz konfiguracja kont i wideokonferencji są poza zakresem.'
+  request: 'Adres, model ekranu, uchwyt, rodzaj ściany i źródło obrazu.'
 title: Montaż ekranu lub panelu w sali konferencyjnej
 seoTitle: Montaż ekranu w biurze Warszawa | Sala konferencyjna
 description: Montaż firmowego ekranu lub panelu konferencyjnego, podłączenie źródła sygnału i test. Usługa dla biur i organizacji w Warszawie.

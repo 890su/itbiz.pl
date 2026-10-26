@@ -2,6 +2,12 @@
 translationKey: service.lan-installation
 locale: pl
 serviceId: lan-installation
+brief:
+  lead: 'Nowe gniazda i okablowanie LAN dla stanowisk w firmie.'
+  scope: 'Plan punktów, uzgodnione przewody i gniazda, oznaczenie oraz podstawowy test połączeń.'
+  result: 'Lista punktów, schemat wykonanych połączeń i wyniki uzgodnionych testów.'
+  limits: 'Prace budowlane, elektryczne i certyfikowane pomiary wymagają osobnego zamówienia.'
+  request: 'Adres, liczba punktów, układ pomieszczeń i dostępne trasy kablowe.'
 title: Okablowanie strukturalne i sieci LAN dla firm w Warszawie
 seoTitle: Okablowanie strukturalne biura Warszawa | Sieć LAN
 description: Planowanie i wykonanie uzgodnionych punktów LAN oraz tras kablowych w biurach. Zakończenie, oznaczenie i sprawdzenie połączeń.

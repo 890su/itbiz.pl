@@ -2,6 +2,12 @@
 translationKey: service.managed-it
 locale: pl
 serviceId: managed-it
+brief:
+  lead: 'Stała obsługa sieci i stanowisk małej firmy, z ustalonym podziałem odpowiedzialności.'
+  scope: 'Inwentaryzacja, dokumentacja, dostęp administracyjny i obsługa uzgodnionych zgłoszeń.'
+  result: 'Rejestr infrastruktury, priorytety, kanał zgłoszeń i zasady współpracy.'
+  limits: 'Bez prywatnych urządzeń i kont. Projekty, zakupy i licencje rozliczamy osobno. Czas reakcji wymaga uzgodnienia.'
+  request: 'Liczba stanowisk, główne urządzenia i zadania do stałej obsługi.'
 title: Outsourcing IT i stała obsługa informatyczna firm w Warszawie
 seoTitle: Outsourcing IT dla małych firm Warszawa | ITBIZ.PL
 description: Stała, uzgodniona obsługa sieci, stanowisk i dokumentacji IT małej firmy. Zakres odpowiedzialności i model współpracy ustalamy przed startem.

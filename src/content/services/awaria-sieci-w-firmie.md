@@ -2,6 +2,12 @@
 translationKey: service.network-emergency
 locale: pl
 serviceId: network-emergency
+brief:
+  lead: 'Nie działa internet lub sieć w firmie? Sprawdzamy przyczynę i możliwości naprawy.'
+  scope: 'Router, switch, Wi‑Fi, kable, gniazda i podstawowe korekty połączeń lub konfiguracji.'
+  result: 'Ustalona lub zawężona przyczyna, wynik testu i zalecenia. Przywrócenie działania, jeśli pozwala na to uzgodniony zakres.'
+  limits: 'Naprawa zależy od przyczyny. Dodatkowe prace i materiały wymagają akceptacji.'
+  request: 'Adres, co nie działa, ile stanowisk i od kiedy.'
 title: Awaria sieci w firmie - diagnostyka z dojazdem w Warszawie
 breadcrumbTitle: Awaria sieci w firmie
 seoTitle: Awaria sieci w firmie Warszawa | Diagnostyka z dojazdem

@@ -2,6 +2,12 @@
 translationKey: service.cctv-cabling
 locale: en
 serviceId: cctv-cabling
+brief:
+  lead: 'Need cables for business IP cameras? We prepare the agreed network lines.'
+  scope: 'Cable routing along approved paths, termination, labelling and line tests.'
+  result: 'A point list, labelled ends and connection test results.'
+  limits: 'Camera or recorder selection, installation and configuration are excluded. Electrical, construction and work-at-height tasks require separate agreement.'
+  request: 'Business address, number of camera points and available cable routes.'
 title: Cabling for business CCTV
 seoTitle: CCTV cabling Warsaw | Cable routes and LAN testing
 description: Cable routes, termination and testing for IP cameras. The client supplies the CCTV equipment. Service for businesses in Warsaw.

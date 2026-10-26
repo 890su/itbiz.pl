@@ -2,6 +2,12 @@
 translationKey: service.cctv-emergency
 locale: en
 serviceId: cctv-emergency
+brief:
+  lead: 'No camera image or recording? Recorder beeping or making unusual noise? We diagnose business IP CCTV.'
+  scope: 'PoE power and lines, connections, camera availability, recorder and storage status.'
+  result: 'A record of the identified or narrowed-down cause, corrections and image and recording test results.'
+  limits: 'No footage recovery or internal component repair. Device replacement, electrical and work-at-height tasks require separate agreement.'
+  request: 'Business address, number of cameras, symptoms and recorder message. Do not send passwords.'
 title: Business IP CCTV outage diagnostics in Warsaw
 breadcrumbTitle: Business CCTV outage
 seoTitle: Business CCTV outage Warsaw | PoE diagnostics

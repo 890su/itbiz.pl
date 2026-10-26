@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { getRoute } from '../../src/i18n/config';
 import { getUi } from '../../src/i18n/ui';
 import { getExperience } from '../../src/i18n/experience';
+import { getCompact } from '../../src/i18n/compact';
 import { mockTurnstile } from './helpers/turnstile';
 
 test.beforeEach(async ({ page }) => {
@@ -28,7 +29,8 @@ test('home page keeps a concise business scope without horizontal overflow', asy
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Firmowa sieć bez przypadkowych połączeń.',
   );
-  await expect(page.getByRole('heading', { name: 'Zakres firmowy' })).toBeVisible();
+  await expect(page.locator('.hero-lead')).toHaveText(getCompact('pl').homeLead);
+  await expect(page.locator('main > section')).toHaveCount(2);
   const dimensions = await page.evaluate(() => ({
     client: document.documentElement.clientWidth,
     scroll: document.documentElement.scrollWidth,
@@ -45,7 +47,7 @@ test('content sections alternate tonal bands in light and dark themes', async ({
       html.dataset.theme = value;
     }, theme);
     const backgrounds = await page
-      .locator('.page-section')
+      .locator('main > section')
       .evaluateAll((sections) =>
         sections
           .slice(0, 3)
@@ -89,10 +91,7 @@ for (const [path, serviceId] of demandTestLandings) {
       'required',
       '',
     );
-    await expect(page.locator('.enquiry-intro .private-support a')).toHaveAttribute(
-      'href',
-      'https://naserwis.pl/',
-    );
+    await expect(page.locator('main a[href*="naserwis.pl"]')).toHaveCount(0);
     const dimensions = await page.evaluate(() => ({
       client: document.documentElement.clientWidth,
       scroll: document.documentElement.scrollWidth,
@@ -461,19 +460,17 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
   test(`${locale} client experience gives clear service choices and a visible CCTV phone`, async ({
     page,
   }) => {
-    const copy = getExperience(locale);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(getRoute(locale, 'home'));
     await expect(page.locator('.service-journey')).toHaveCount(3);
     await expect(page.locator('.service-journey a')).toHaveCount(7);
-    await expect(page.locator('.handover-sheet figcaption')).toHaveText(
-      copy.sampleLabel,
-    );
+    await expect(
+      page.locator('.handover-sheet, .work-steps, .network-tool-entry'),
+    ).toHaveCount(0);
     const heroPhone = page.locator('.hero a[href="tel:+48573012321"]');
     await expect(heroPhone).toBeVisible();
-    const choice = await page.locator('#services').boundingBox();
-    const utility = await page.locator('.network-tool-entry').boundingBox();
-    expect(choice!.y).toBeLessThan(utility!.y);
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    expect(height).toBeLessThanOrEqual(844 * 3);
 
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
     const phone = page.locator('.cctv-hero a[href="tel:+48573012321"]');

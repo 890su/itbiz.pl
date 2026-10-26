@@ -2,6 +2,12 @@
 translationKey: service.network-repair
 locale: en
 serviceId: network-repair
+brief:
+  lead: 'Network slowing down or disconnecting intermittently? Book planned business-network diagnostics.'
+  scope: 'Checks of agreed devices, cables and settings based on the reported symptoms.'
+  result: 'A test report, identified cause or next diagnostic step, and recommended repair scope.'
+  limits: 'No account, data or password recovery. Repairs depend on diagnosis; urgent visits need confirmation.'
+  request: 'Business address, symptoms, number of workstations and when the problem occurs.'
 title: Planned diagnostics for an unstable business network in Warsaw
 seoTitle: Unstable business network diagnostics Warsaw | ITBIZ.PL
 description: Planned investigation of intermittent drops, port errors and unclear connection problems. Documented observations and next steps.

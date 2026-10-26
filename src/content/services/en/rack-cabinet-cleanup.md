@@ -2,6 +2,12 @@
 translationKey: service.rack-cabinet-cleanup
 locale: en
 serviceId: rack-cabinet-cleanup
+brief:
+  lead: 'Tangled cables and unlabelled rack ports? We organise the agreed connections.'
+  scope: 'Port inventory and labels, patch-cord routing and removal of approved unused connections.'
+  result: 'Labelled ports, a basic connection diagram and photos after the work.'
+  limits: 'Unidentified connections are not disconnected without approval. Power, ventilation and device replacement are outside this scope.'
+  request: 'Business address, rack photo, number of devices and permitted downtime.'
 title: Rack cabinet cleanup in an office
 seoTitle: Rack cabinet cleanup Warsaw | Cable and port labels
 description: Labelling cables and ports, removing agreed unused connections, a diagram and photographs after the work. Exclusively for businesses in Warsaw.
