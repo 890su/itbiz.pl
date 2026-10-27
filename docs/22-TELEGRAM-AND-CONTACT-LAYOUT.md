@@ -7,7 +7,9 @@ Preview environments do not send notifications. Both sites retain their existing
 public offers and forms.
 
 New enquiries enter a durable notification queue. Successful Telegram delivery
-marks them sent; failures retry every five minutes. Concurrent delivery claims
+marks them sent; failures retry every five minutes. An accepted production enquiry
+also wakes the due retry queue in the background, without delaying its response.
+Concurrent delivery claims
 prevent routine duplicate sends. Delivery is at least once: a provider success
 followed by a storage failure can cause a duplicate. Existing rows are marked
 legacy by the migration and are not automatically forwarded.
