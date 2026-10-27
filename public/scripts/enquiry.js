@@ -27,7 +27,75 @@
     let typingTimer = 0;
     let selectedText = '';
     let hoveredRow = null;
+    let stopPositioning = () => {};
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const positionSelection = () => {
+      stopPositioning();
+      const box = form.closest('.lead-enquiry') || form;
+      const controller = new AbortController();
+      const options = { passive: true, signal: controller.signal };
+      let positionFrame = 0;
+      const position = () => {
+        positionFrame = 0;
+        const viewport = window.visualViewport;
+        const viewportTop = viewport?.offsetTop || 0;
+        let top = viewportTop + 12;
+        let bottom = viewportTop + (viewport?.height || window.innerHeight) - 12;
+        const header = document.querySelector('.mobile-bar');
+        if (header?.getClientRects().length)
+          top = Math.max(top, header.getBoundingClientRect().bottom + 12);
+        for (const overlay of document.querySelectorAll(
+          '.mobile-contact-bar, [data-consent-banner]',
+        )) {
+          if (
+            overlay.getClientRects().length &&
+            getComputedStyle(overlay).visibility !== 'hidden'
+          )
+            bottom = Math.min(bottom, overlay.getBoundingClientRect().top - 12);
+        }
+        const bounds = box.getBoundingClientRect();
+        let delta = 0;
+        if (bounds.height > bottom - top)
+          delta = message.getBoundingClientRect().top - top;
+        else if (bounds.top < top) delta = bounds.top - top;
+        else if (bounds.bottom > bottom) delta = bounds.bottom - bottom;
+        if (Math.abs(delta) > 1)
+          window.scrollTo({
+            top: window.scrollY + delta,
+            behavior: reduced.matches ? 'instant' : 'smooth',
+          });
+      };
+      const schedule = () => {
+        cancelAnimationFrame(positionFrame);
+        positionFrame = requestAnimationFrame(position);
+      };
+      const observer = 'ResizeObserver' in window ? new ResizeObserver(schedule) : null;
+      const timeout = setTimeout(() => stopPositioning(), 1200);
+      stopPositioning = () => {
+        controller.abort();
+        observer?.disconnect();
+        clearTimeout(timeout);
+        cancelAnimationFrame(positionFrame);
+        stopPositioning = () => {};
+      };
+      // Follow the keyboard opening, then leave subsequent scrolling to the visitor.
+      window.visualViewport?.addEventListener('resize', schedule, options);
+      let viewportOffset = window.visualViewport?.offsetTop || 0;
+      window.visualViewport?.addEventListener(
+        'scroll',
+        () => {
+          const nextOffset = window.visualViewport.offsetTop;
+          if (nextOffset !== viewportOffset) schedule();
+          viewportOffset = nextOffset;
+        },
+        options,
+      );
+      window.addEventListener('resize', schedule, options);
+      for (const event of ['pointerdown', 'touchmove', 'wheel', 'keydown'])
+        window.addEventListener(event, () => stopPositioning(), options);
+      observer?.observe(box);
+      schedule();
+    };
     let loopHeight = 0;
     const measureLoop = () => {
       loopHeight =
@@ -73,6 +141,7 @@
       updateMotion();
     };
     const cancelTyping = () => {
+      stopPositioning();
       clearTimeout(typingTimer);
       typingTimer = 0;
       form.removeAttribute('data-typing-example');
@@ -123,22 +192,25 @@
       details.hidden = false;
       examples.hidden = true;
       updateMotion();
-      message.value = '';
+      // Reserve the full text height before typing so the form does not keep growing.
+      message.value = selectedText;
+      message.style.height = 'auto';
+      message.style.height = Math.max(112, message.scrollHeight) + 'px';
       if (reduced.matches) {
-        message.value = selectedText;
         message.dispatchEvent(new Event('input', { bubbles: true }));
         message.focus({ preventScroll: true });
+        positionSelection();
         return;
       }
+      message.value = '';
       form.setAttribute('data-typing-example', 'true');
       message.focus({ preventScroll: true });
+      positionSelection();
       const characters = Array.from(selectedText);
       let length = 0;
       const typeNext = () => {
         message.value = characters.slice(0, ++length).join('');
         message.dispatchEvent(new Event('input', { bubbles: true }));
-        message.style.height = 'auto';
-        message.style.height = Math.max(112, message.scrollHeight) + 'px';
         message.setSelectionRange(message.value.length, message.value.length);
         if (length < characters.length) typingTimer = setTimeout(typeNext, 28);
         else cancelTyping();
