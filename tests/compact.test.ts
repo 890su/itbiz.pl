@@ -5,7 +5,7 @@ import { locales } from '../src/i18n/config';
 describe('compact commercial copy', () => {
   it.each(locales)('has concise, complete localized labels in %s', (locale) => {
     const copy = getCompact(locale);
-    expect(Object.keys(copy)).toHaveLength(11);
+    expect(Object.keys(copy)).toHaveLength(10);
     for (const value of Object.values(copy)) {
       expect(value.trim().length).toBeGreaterThan(4);
       expect(value.split(/\s+/).length).toBeLessThan(26);

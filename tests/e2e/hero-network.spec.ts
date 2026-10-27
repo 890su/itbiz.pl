@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import { getCompact } from '../../src/i18n/compact';
 import { getRoute, locales } from '../../src/i18n/config';
 
 test.beforeEach(async ({ page }) => {
@@ -24,9 +23,7 @@ for (const locale of locales) {
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
     await expect(page.locator('.hero-network')).toHaveAttribute('aria-hidden', 'true');
     await expect(page.locator('.hero-network')).toHaveCSS('pointer-events', 'none');
-    await expect(page.locator('main [role="switch"]')).toHaveAccessibleName(
-      getCompact(locale).motionLabel,
-    );
+    await expect(page.locator('main [role="switch"]')).toHaveCount(0);
     for (const theme of ['light', 'dark']) {
       await page.locator('html').evaluate((html, theme) => {
         html.dataset.theme = theme;
@@ -55,14 +52,13 @@ for (const locale of locales) {
   });
 }
 
-test('background motion pauses by choice, while editing, offscreen and under reduced motion', async ({
+test('background motion pauses automatically while editing, offscreen and under reduced motion', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   const hero = page.locator('.network-hero');
-  const switchControl = hero.getByRole('switch');
   const light = page.locator('.hero-network-light');
   await expect(hero).toHaveAttribute('data-motion-running', 'true');
   await expect(light).toHaveCSS('animation-play-state', 'running');
@@ -81,22 +77,7 @@ test('background motion pauses by choice, while editing, offscreen and under red
   await expect
     .poll(() => light.evaluate((el) => getComputedStyle(el).transform))
     .not.toBe(start);
-  const control = page.locator('.hero-motion-toggle');
-  await control.evaluate((el) =>
-    el.scrollIntoView({ block: 'center', behavior: 'instant' }),
-  );
-  await control.click();
-  await expect(switchControl).not.toBeChecked();
-  await expect(light).toHaveCSS('animation-play-state', 'paused');
-  await expect(page.locator('.hero-network-lit')).toHaveCSS(
-    'animation-play-state',
-    'paused',
-  );
-  await expect(page.locator('.hero-motion-play')).toBeVisible();
-  await switchControl.focus();
-  await page.keyboard.press('Space');
-  await expect(switchControl).toBeChecked();
-  await expect(light).toHaveCSS('animation-play-state', 'running');
+  await expect(page.locator('.hero-motion-toggle')).toHaveCount(0);
   await page.locator('#message').focus();
   await expect(light).toHaveCSS('animation-play-state', 'paused');
   await page.locator('#services a').first().focus();
@@ -106,7 +87,7 @@ test('background motion pauses by choice, while editing, offscreen and under red
   await expect(hero).toHaveAttribute('data-motion-running', 'false');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(light).toHaveCSS('animation-name', 'none');
-  await expect(switchControl).toBeHidden();
+  await expect(hero.getByRole('switch')).toHaveCount(0);
 });
 
 test('the background stays paused throughout the separate enquiry dialog', async ({

@@ -50,7 +50,7 @@ const isCctv = data.serviceId === 'cctv-emergency';
   <header
     class:list={['page-hero', 'enquiry-hero', 'network-hero', isCctv && 'cctv-hero']}
   >
-    <HeroNetwork {locale} />
+    <HeroNetwork />
     <div class="enquiry-intro">
       <h1>{data.title}</h1>
       <p class="hero-lead">{brief.lead}</p>

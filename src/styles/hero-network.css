@@ -63,55 +63,6 @@
     animation-play-state: running;
   }
 
-  .hero-motion-toggle {
-    position: absolute;
-    z-index: 1;
-    right: 1rem;
-    bottom: 0.5rem;
-    display: grid;
-    width: 2.75rem;
-    height: 2.75rem;
-    place-items: center;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    background: var(--canvas);
-    color: var(--ink-muted);
-    cursor: pointer;
-  }
-
-  .hero-motion-toggle:hover {
-    border-color: var(--signal);
-    color: var(--signal);
-  }
-
-  .hero-motion-toggle:has(:focus-visible) {
-    outline: 3px solid var(--focus);
-    outline-offset: 3px;
-  }
-
-  .hero-motion-toggle svg {
-    width: 1.125rem;
-    height: 1.125rem;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.7;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .hero-motion-toggle .hero-motion-play,
-  .hero-motion-toggle:has(input:not(:checked)) .hero-motion-pause {
-    display: none;
-  }
-
-  .hero-motion-toggle:has(input:not(:checked)) .hero-motion-play {
-    display: block;
-  }
-
-  .hero-motion-toggle[hidden] {
-    display: none;
-  }
-
   @keyframes hero-network-sweep {
     0%,
     100% {
@@ -145,14 +96,10 @@
       transform: none;
       will-change: auto;
     }
-    .hero-motion-toggle {
-      display: none;
-    }
   }
 
   @media (forced-colors: active) {
-    .hero-network,
-    .hero-motion-toggle {
+    .hero-network {
       display: none;
     }
   }
