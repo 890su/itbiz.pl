@@ -74,9 +74,7 @@ for (const [path, serviceId] of demandTestLandings) {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(path);
-    await expect(
-      page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
-    ).toBeVisible();
+    await expect(page.locator('.service-qualifier')).toHaveCount(0);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('main [name="serviceId"]')).toHaveValue(serviceId);
     await expect(page.locator('main input[name="contactName"]')).not.toHaveAttribute(
@@ -350,7 +348,9 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
     .fill('Testowe zgłoszenie firmowej awarii sieci.');
   await page.locator('main').getByLabel('Telefon lub e-mail').fill('test@example.com');
   await page.locator('main').getByRole('button', { name: 'Wyślij zapytanie' }).click();
-  await expect(page.locator('main [data-form-status]')).toContainText('test-request-1');
+  await expect(page.locator('main [data-form-status]')).toHaveText(
+    getUi('pl').form.success,
+  );
 
   const conversion = await page.evaluate(() =>
     (window as typeof window & { dataLayer?: IArguments[] }).dataLayer
@@ -370,6 +370,9 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
 });
 
 test('privacy prompt stays a compact bottom-centred card', async ({ page }) => {
+  await page.route('https://www.googletagmanager.com/**', (route) =>
+    route.fulfill({ contentType: 'application/javascript', body: '' }),
+  );
   await page.goto('/');
   await page.locator('[data-consent-banner]').evaluate((banner) => {
     (banner as HTMLElement).hidden = false;
@@ -386,6 +389,32 @@ test('privacy prompt stays a compact bottom-centred card', async ({ page }) => {
   expect(box!.width).toBeLessThan(viewport!.width);
   const mainWidth = viewport!.width >= 1152 ? viewport!.width - 288 : viewport!.width;
   expect(Math.abs(box!.x - (mainWidth - box!.width) / 2)).toBeLessThan(2);
+  await expect(banner.getByRole('button')).toHaveCount(2);
+  await expect(banner.locator('[data-consent-customize]')).toHaveCount(0);
+  const accept = banner.getByRole('button', {
+    name: 'Zezwól na wszystkie',
+    exact: true,
+  });
+  const reject = banner.getByRole('button', { name: 'Tylko niezbędne', exact: true });
+  const backgrounds = await banner
+    .getByRole('button')
+    .evaluateAll((buttons) =>
+      buttons.map((button) => getComputedStyle(button).backgroundColor),
+    );
+  expect(backgrounds[0]).not.toBe(backgrounds[1]);
+  await reject.click();
+  await expect(banner).toBeHidden();
+  expect(
+    await page.evaluate(() => JSON.parse(localStorage.getItem('itbiz-consent-v2')!)),
+  ).toMatchObject({ analytics: false, advertising: false });
+  await banner.evaluate((element) => {
+    (element as HTMLElement).hidden = false;
+  });
+  await accept.click();
+  await expect(banner).toBeHidden();
+  expect(
+    await page.evaluate(() => JSON.parse(localStorage.getItem('itbiz-consent-v2')!)),
+  ).toMatchObject({ analytics: true, advertising: true });
 });
 
 test('preview service remains noindex and preselects its form topic', async ({
@@ -401,9 +430,7 @@ test('preview service remains noindex and preselects its form topic', async ({
     'https://itbiz.pl/uslugi/wifi-dla-biur/',
   );
   await expect(page.locator('main [name="serviceId"]')).toHaveValue('office-wifi');
-  await expect(
-    page.getByText('Wyłącznie dla firm i organizacji w Warszawie'),
-  ).toBeVisible();
+  await expect(page.locator('.service-qualifier')).toHaveCount(0);
 });
 
 test('language switch keeps the translated page relationship', async ({ page }) => {
@@ -438,6 +465,10 @@ for (const [locale, path, language] of [
     }));
     expect(dimensions.scroll).toBe(dimensions.client);
     await expect(page.locator('.mobile-locale-switcher a')).toHaveCount(4);
+    await expect(page.locator('[data-consent-banner] button')).toHaveCount(2);
+    await expect(page.locator('[data-consent-accept]')).toHaveText(
+      getUi(locale).consent.accept,
+    );
   });
 }
 
@@ -499,7 +530,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     let requests = 0;
     await page.route('**/api/contact', async (route) => {
       requests += 1;
-      await route.fulfill({ json: { preview: true, requestId: 'ux-test-only' } });
+      await route.fulfill({ json: { requestId: 'ux-test-only' } });
     });
     await page.goto(getRoute(locale, 'service.cctv-emergency'));
     await page
@@ -522,7 +553,9 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await expect(page.locator('#contactMethod-error')).toBeHidden();
     await expect(page.locator('#message-minimum')).not.toHaveClass(/field-error/);
     await submit.click();
-    await expect(page.locator('main [data-form-status]')).toContainText('ux-test-only');
+    await expect(page.locator('main [data-form-status]')).toHaveText(
+      getUi(locale).form.success,
+    );
     expect(requests).toBe(1);
   });
 

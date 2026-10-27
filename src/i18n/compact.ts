@@ -15,8 +15,7 @@ interface CompactCopy {
 
 const copy = {
   pl: {
-    homeLead:
-      'LAN, Wi‑Fi, monitoring IP i przeprowadzki IT. Wyłącznie dla firm i organizacji w Warszawie i uzgodnionych okolicach.',
+    homeLead: 'LAN, Wi‑Fi, monitoring IP i przeprowadzki IT.',
     servicesLead: 'Wybierz zadanie. Zakres, koszt i termin potwierdzamy przed pracą.',
     solutionsLead:
       'Wi‑Fi, sieć stanowisk i dostęp gości w biurze. Opisz lokal i liczbę użytkowników.',
@@ -32,8 +31,7 @@ const copy = {
     request: 'W zgłoszeniu',
   },
   ru: {
-    homeLead:
-      'LAN, Wi‑Fi, IP-видеонаблюдение и IT-переезды. Только для компаний и организаций в Варшаве и согласованных окрестностях.',
+    homeLead: 'LAN, Wi‑Fi, IP-видеонаблюдение и IT-переезды.',
     servicesLead: 'Выберите задачу. Объём, стоимость и срок согласуем до начала работ.',
     solutionsLead:
       'Wi‑Fi, сеть рабочих мест и гостевой доступ в офисе. Укажите помещение и число пользователей.',
@@ -49,8 +47,7 @@ const copy = {
     request: 'В заявке',
   },
   en: {
-    homeLead:
-      'LAN, Wi‑Fi, IP CCTV and office IT moves. Exclusively for businesses and organisations in Warsaw and agreed nearby areas.',
+    homeLead: 'LAN, Wi‑Fi, IP CCTV and office IT moves.',
     servicesLead:
       'Choose a task. Scope, cost and timing are agreed before work starts.',
     solutionsLead:
@@ -67,8 +64,7 @@ const copy = {
     request: 'In your enquiry',
   },
   uk: {
-    homeLead:
-      'LAN, Wi‑Fi, IP-відеоспостереження та IT-переїзди. Лише для компаній і організацій у Варшаві та погоджених околицях.',
+    homeLead: 'LAN, Wi‑Fi, IP-відеоспостереження та IT-переїзди.',
     servicesLead:
       'Виберіть завдання. Обсяг, вартість і строк погодимо до початку робіт.',
     solutionsLead:

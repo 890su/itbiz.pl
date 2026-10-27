@@ -46,9 +46,6 @@
     .querySelector('[data-consent-accept]')
     ?.addEventListener('click', () => save({ analytics: true, advertising: true }));
   document
-    .querySelector('[data-consent-customize]')
-    ?.addEventListener('click', openSettings);
-  document
     .querySelector('[data-consent-dialog-reject]')
     ?.addEventListener('click', () => save(defaults));
   document.querySelectorAll('[data-privacy-settings]').forEach((button) => {
