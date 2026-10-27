@@ -4,6 +4,7 @@ import worker from '../worker/index';
 const assets = {
   fetch: vi.fn(async () => new Response('asset', { status: 200 })),
 };
+const context = { waitUntil: vi.fn() } as unknown as ExecutionContext;
 
 describe('Worker routing', () => {
   it.each(['http://itbiz.pl', 'http://www.itbiz.pl'])(
@@ -12,6 +13,7 @@ describe('Worker routing', () => {
       const response = await worker.fetch(
         new Request(`${origin}/uslugi/?utm_source=test`),
         { ASSETS: assets } as never,
+        context,
       );
       expect(response.status).toBe(308);
       expect(response.headers.get('location')).toBe(
@@ -24,6 +26,7 @@ describe('Worker routing', () => {
     const response = await worker.fetch(
       new Request('https://www.itbiz.pl/en/services/?from=www'),
       { ASSETS: assets } as never,
+      context,
     );
 
     expect(response.status).toBe(308);
@@ -33,23 +36,31 @@ describe('Worker routing', () => {
   });
 
   it('delegates apex page requests to static assets', async () => {
-    const response = await worker.fetch(new Request('https://itbiz.pl/en/'), {
-      ASSETS: assets,
-    } as never);
+    const response = await worker.fetch(
+      new Request('https://itbiz.pl/en/'),
+      {
+        ASSETS: assets,
+      } as never,
+      context,
+    );
 
     expect(response.status).toBe(200);
     expect(await response.text()).toBe('asset');
   });
 
   it('declares UTF-8 for HTML while preserving the body and asset headers', async () => {
-    const response = await worker.fetch(new Request('https://itbiz.pl/'), {
-      ASSETS: {
-        fetch: async () =>
-          new Response('Łączność dla firm', {
-            headers: { 'Content-Type': 'text/html', ETag: 'test-asset' },
-          }),
-      },
-    } as never);
+    const response = await worker.fetch(
+      new Request('https://itbiz.pl/'),
+      {
+        ASSETS: {
+          fetch: async () =>
+            new Response('Łączność dla firm', {
+              headers: { 'Content-Type': 'text/html', ETag: 'test-asset' },
+            }),
+        },
+      } as never,
+      context,
+    );
 
     expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
     expect(response.headers.get('etag')).toBe('test-asset');
@@ -67,6 +78,7 @@ describe('Worker routing', () => {
             }),
         },
       } as never,
+      context,
     );
 
     expect(response.headers.get('content-type')).toBe('application/javascript');
@@ -79,7 +91,7 @@ describe('Worker routing', () => {
     Object.defineProperty(request, 'cf', {
       value: { asn: 64500, asOrganization: 'Example Business ISP', colo: 'WAW' },
     });
-    const response = await worker.fetch(request, { ASSETS: assets } as never);
+    const response = await worker.fetch(request, { ASSETS: assets } as never, context);
     expect(response.headers.get('cache-control')).toContain('no-store');
     expect(await response.json()).toMatchObject({
       ip: '198.51.100.10',
@@ -93,6 +105,7 @@ describe('Worker routing', () => {
     const response = await worker.fetch(
       new Request('https://itbiz.pl/api/network-probe?bytes=9000000'),
       { ASSETS: assets } as never,
+      context,
     );
     expect((await response.arrayBuffer()).byteLength).toBe(262_144);
     expect(response.headers.get('cache-control')).toContain('no-store');
