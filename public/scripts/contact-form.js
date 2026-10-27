@@ -64,7 +64,6 @@
       genericError: form.dataset.genericError || 'The request could not be sent.',
       success: form.dataset.successLabel || 'Request accepted.',
       preview: form.dataset.previewLabel || 'Preview: request not stored.',
-      request: form.dataset.requestLabel || 'Reference',
       verifying: form.dataset.verifyingLabel,
       verificationError: form.dataset.verificationError,
     };
@@ -202,10 +201,7 @@
           throw new Error(payload.message || labels.genericError);
         }
         form.reset();
-        showStatus(
-          `${payload.preview ? labels.preview : labels.success} ${labels.request}: ${payload.requestId}.`,
-          'success',
-        );
+        showStatus(payload.preview ? labels.preview : labels.success, 'success');
         if (!payload.preview) {
           window.dispatchEvent(
             new CustomEvent('itbiz:b2b-lead-submit', {

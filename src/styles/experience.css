@@ -51,13 +51,6 @@
     line-height: 1.6;
   }
 
-  .service-qualifier {
-    color: var(--ink-muted);
-    font-size: 0.85rem;
-    font-weight: 650;
-    line-height: 1.5;
-  }
-
   .call-action {
     flex-wrap: wrap;
     gap: 0.4rem;

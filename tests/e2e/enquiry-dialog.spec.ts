@@ -28,7 +28,7 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     let posted = '';
     await page.route('**/api/contact', (route) => {
       posted = route.request().postData() || '';
-      return route.fulfill({ json: { preview: true, requestId: 'modal-test' } });
+      return route.fulfill({ json: { requestId: 'modal-test' } });
     });
     await page.goto(getRoute(locale, 'home'));
     const inline = page.locator('main [data-lead-form]');
@@ -53,7 +53,9 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await dialog
       .getByRole('button', { name: getUi(locale).form.submit, exact: true })
       .click();
-    await expect(dialog.locator('[data-form-status]')).toContainText('modal-test');
+    await expect(dialog.locator('[data-form-status]')).toHaveText(
+      getUi(locale).form.success,
+    );
     expect(posted).toContain('test-turnstile-token');
     await expect(inline.locator('[name="message"]')).toHaveValue(
       'Keep this office enquiry while another form is used.',

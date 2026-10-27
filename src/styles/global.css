@@ -1197,15 +1197,18 @@
 
   .consent-banner .consent-actions {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.35rem;
   }
 
   .consent-banner .button {
     min-height: 2.3rem;
-    background: color-mix(in srgb, var(--surface) 75%, transparent);
     padding: 0.35rem 0.6rem;
     font-size: 0.72rem;
+  }
+
+  .consent-banner .button-secondary {
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
   }
 
   .consent-dialog {

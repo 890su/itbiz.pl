@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { getRoute } from '../../src/i18n/config';
+import { getUi } from '../../src/i18n/ui';
 import { mockTurnstile } from './helpers/turnstile';
 
 test.beforeEach(async ({ page }) => {
@@ -142,8 +143,8 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
     await expect(page.locator('#message')).toHaveValue(description);
     await expect(page.locator('#officeAddress')).toHaveValue('Test office address');
     await page.locator('main [data-lead-form] button[type="submit"]').click();
-    await expect(page.locator('main [data-form-status]')).toContainText(
-      'enquiry-test-only',
+    await expect(page.locator('main [data-form-status]')).toHaveText(
+      getUi(locale).form.preview,
     );
     expect(attempts).toBe(2);
     expect(posted).toContain('cctv-emergency');
@@ -245,7 +246,9 @@ test('keyboard selection supports manual editing and a partially typed example c
   await example.focus();
   await page.keyboard.press('Enter');
   await page.locator('main [data-lead-form] button[type="submit"]').click();
-  await expect(page.locator('main [data-form-status]')).toContainText('keyboard-test');
+  await expect(page.locator('main [data-form-status]')).toHaveText(
+    getUi('pl').form.preview,
+  );
   expect(posted).toContain(fullText);
 });
 
@@ -335,8 +338,8 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
       circles.every((circle) => circle.content === '""' && circle.border === '50%'),
     ).toBe(true);
     await page.locator('main [data-lead-form] button[type="submit"]').click();
-    await expect(page.locator('main [data-form-status]')).toContainText(
-      'contact-only-test',
+    await expect(page.locator('main [data-form-status]')).toHaveText(
+      getUi(locale).form.preview,
     );
     expect(posted).toContain('other');
     expect(posted).toContain('test-turnstile-token');
@@ -393,7 +396,9 @@ test('a quick submit waits for background verification instead of sending an emp
       window as typeof window & { completeTestVerification: () => void }
     ).completeTestVerification();
   });
-  await expect(page.locator('main [data-form-status]')).toContainText('verified-test');
+  await expect(page.locator('main [data-form-status]')).toHaveText(
+    getUi('pl').form.preview,
+  );
   expect(requests).toBe(1);
   expect(posted).toContain('test-turnstile-token');
 });
