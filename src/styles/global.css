@@ -1083,16 +1083,16 @@
   }
 
   .site-footer {
-    --footer-band: color-mix(in srgb, var(--section-band) 72%, transparent);
+    --footer-band: var(--panel);
 
     display: grid;
     gap: 1.5rem;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--panel-line);
     background: var(--footer-band);
     padding: 2.5rem clamp(1.1rem, 5vw, 4rem);
     clip-path: inset(0 -100vmax);
     box-shadow: 0 0 0 100vmax var(--footer-band);
-    color: var(--ink-muted);
+    color: var(--panel-muted);
     font-size: 0.85rem;
   }
 

@@ -1,5 +1,6 @@
 import { handleContact, purgeExpiredLeads, type ContactEnv } from './contact';
 import { handleNetwork, handleNetworkProbe, handleWeather } from './network-tools';
+import { retryTelegramNotifications } from './telegram';
 
 interface Env extends ContactEnv {
   ASSETS: Fetcher;
@@ -38,7 +39,8 @@ export default {
     }
     return response;
   },
-  async scheduled(_controller: ScheduledController, env: Env): Promise<void> {
-    await purgeExpiredLeads(env);
+  async scheduled(controller: ScheduledController, env: Env): Promise<void> {
+    await retryTelegramNotifications(env);
+    if (controller.cron === '17 2 * * *') await purgeExpiredLeads(env);
   },
 } satisfies ExportedHandler<Env>;

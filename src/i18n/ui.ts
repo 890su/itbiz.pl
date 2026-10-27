@@ -291,7 +291,7 @@ export const ui = {
         ],
         [
           'Odbiorcy i bezpieczeństwo',
-          'Infrastruktura serwisu i formularza działa w Cloudflare. Dane mogą być dostępne dostawcom infrastruktury wyłącznie w zakresie koniecznym do świadczenia usługi i z zastosowaniem odpowiednich zabezpieczeń. Formularz korzysta z Turnstile do ograniczania automatycznych zgłoszeń. Po zgodzie na reklamę Google Ads przetwarza dane pomiarowe kampanii; tag nie otrzymuje treści formularza ani danych kontaktowych.',
+          'Infrastruktura serwisu i formularza działa w Cloudflare. Dane mogą być dostępne dostawcom infrastruktury wyłącznie w zakresie koniecznym do świadczenia usługi i z zastosowaniem odpowiednich zabezpieczeń. Powiadomienia o zgłoszeniach, zawierające treść i dane kontaktowe, trafiają do operatora przez Telegram. Formularz korzysta z Turnstile do ograniczania automatycznych zgłoszeń. Po zgodzie na reklamę Google Ads przetwarza dane pomiarowe kampanii; tag nie otrzymuje treści formularza ani danych kontaktowych.',
         ],
         [
           'Prawa osoby',
@@ -610,7 +610,7 @@ export const ui = {
         ],
         [
           'Получатели и защита',
-          'Сайт и форма работают в инфраструктуре Cloudflare. Поставщик получает доступ только в объёме, необходимом для услуги и при соответствующих мерах защиты. Turnstile ограничивает автоматические отправки. После согласия на рекламу Google Ads обрабатывает данные измерения кампаний; содержимое формы и контактные данные в тег не передаются.',
+          'Сайт и форма работают в инфраструктуре Cloudflare. Поставщик получает доступ только в объёме, необходимом для услуги и при соответствующих мерах защиты. Уведомления с текстом заявки и контактными данными поступают оператору через Telegram. Turnstile ограничивает автоматические отправки. После согласия на рекламу Google Ads обрабатывает данные измерения кампаний; содержимое формы и контактные данные в тег не передаются.',
         ],
         [
           'Права',
@@ -929,7 +929,7 @@ export const ui = {
         ],
         [
           'Recipients and security',
-          'The site and form run on Cloudflare infrastructure. Providers may access data only as needed to deliver the service and under appropriate safeguards. Turnstile limits automated submissions. After advertising consent, Google Ads processes campaign measurement data; form content and contact details are not sent to the tag.',
+          'The site and form run on Cloudflare infrastructure. Providers may access data only as needed to deliver the service and under appropriate safeguards. Notifications containing the enquiry and contact details are sent to the operator through Telegram. Turnstile limits automated submissions. After advertising consent, Google Ads processes campaign measurement data; form content and contact details are not sent to the tag.',
         ],
         [
           'Your rights',
@@ -1249,7 +1249,7 @@ export const ui = {
         ],
         [
           'Одержувачі та захист',
-          'Сайт і форма працюють в інфраструктурі Cloudflare. Постачальник отримує доступ лише в обсязі, необхідному для послуги, із належними заходами захисту. Turnstile обмежує автоматичні надсилання. Після згоди на рекламу Google Ads обробляє дані вимірювання кампаній; вміст форми й контактні дані до тегу не передаються.',
+          'Сайт і форма працюють в інфраструктурі Cloudflare. Постачальник отримує доступ лише в обсязі, необхідному для послуги, із належними заходами захисту. Сповіщення з текстом заявки та контактними даними надходять оператору через Telegram. Turnstile обмежує автоматичні надсилання. Після згоди на рекламу Google Ads обробляє дані вимірювання кампаній; вміст форми й контактні дані до тегу не передаються.',
         ],
         [
           'Права',

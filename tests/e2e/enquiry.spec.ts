@@ -66,12 +66,12 @@ for (const locale of ['pl', 'ru', 'en', 'uk'] as const) {
           await page
             .locator('#message')
             .fill('Test office network enquiry to expand the form.');
-          const gap = await page.evaluate(
-            () =>
-              document.querySelector('.enquiry-support')!.getBoundingClientRect().top -
-              document.querySelector('.enquiry-intro')!.getBoundingClientRect().bottom,
-          );
-          expect(gap).toBeLessThan(50);
+          const call = await page.locator('.enquiry-support a').boundingBox();
+          const form = await page.locator('main .lead-enquiry').boundingBox();
+          expect(call!.y).toBeGreaterThan(form!.y + form!.height);
+          expect(
+            Math.abs(call!.x + call!.width / 2 - form!.x - form!.width / 2),
+          ).toBeLessThan(1);
         }
       }
     }

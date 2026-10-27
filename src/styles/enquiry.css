@@ -30,6 +30,7 @@
 
   .enquiry-support .hero-actions {
     margin: 0;
+    justify-content: center;
   }
 
   .lead-enquiry {
@@ -315,8 +316,8 @@
     .home-experience .hero.enquiry-hero,
     .page-hero.enquiry-hero {
       grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.95fr);
-      grid-template-areas: 'intro form' 'support form';
-      grid-template-rows: min-content minmax(0, 1fr);
+      grid-template-areas: 'intro form' '. support';
+      grid-template-rows: auto auto;
       column-gap: 2.5rem;
       row-gap: 1.75rem;
       align-content: start;

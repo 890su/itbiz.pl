@@ -1,11 +1,5 @@
 ---
 import '../styles/hero-network.css';
-import { getCompact } from '../i18n/compact';
-import type { Locale } from '../i18n/config';
-interface Props {
-  locale: Locale;
-}
-const { locale } = Astro.props;
 ---
 
 <div class="hero-network" data-hero-network aria-hidden="true">
@@ -53,21 +47,5 @@ const { locale } = Astro.props;
     </svg>
   </div>
 </div>
-<label class="hero-motion-toggle" title={getCompact(locale).motionLabel} hidden>
-  <input
-    class="visually-hidden"
-    type="checkbox"
-    role="switch"
-    checked
-    data-hero-motion
-    aria-label={getCompact(locale).motionLabel}
-  />
-  <svg class="hero-motion-pause" viewBox="0 0 24 24" aria-hidden="true"
-    ><path d="M9 6v12M15 6v12"></path></svg
-  >
-  <svg class="hero-motion-play" viewBox="0 0 24 24" aria-hidden="true"
-    ><path d="m9 6 9 6-9 6Z"></path></svg
-  >
-</label>
 
 <script is:inline src="/scripts/hero-network.js" defer></script>

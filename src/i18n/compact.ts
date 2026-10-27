@@ -1,7 +1,6 @@
 import type { Locale } from './config';
 
 interface CompactCopy {
-  motionLabel: string;
   homeLead: string;
   servicesLead: string;
   solutionsLead: string;
@@ -16,7 +15,6 @@ interface CompactCopy {
 
 const copy = {
   pl: {
-    motionLabel: 'Animacja tła',
     homeLead:
       'LAN, Wi‑Fi, monitoring IP i przeprowadzki IT. Wyłącznie dla firm i organizacji w Warszawie i uzgodnionych okolicach.',
     servicesLead: 'Wybierz zadanie. Zakres, koszt i termin potwierdzamy przed pracą.',
@@ -34,7 +32,6 @@ const copy = {
     request: 'W zgłoszeniu',
   },
   ru: {
-    motionLabel: 'Анимация фона',
     homeLead:
       'LAN, Wi‑Fi, IP-видеонаблюдение и IT-переезды. Только для компаний и организаций в Варшаве и согласованных окрестностях.',
     servicesLead: 'Выберите задачу. Объём, стоимость и срок согласуем до начала работ.',
@@ -52,7 +49,6 @@ const copy = {
     request: 'В заявке',
   },
   en: {
-    motionLabel: 'Background animation',
     homeLead:
       'LAN, Wi‑Fi, IP CCTV and office IT moves. Exclusively for businesses and organisations in Warsaw and agreed nearby areas.',
     servicesLead:
@@ -71,7 +67,6 @@ const copy = {
     request: 'In your enquiry',
   },
   uk: {
-    motionLabel: 'Анімація тла',
     homeLead:
       'LAN, Wi‑Fi, IP-відеоспостереження та IT-переїзди. Лише для компаній і організацій у Варшаві та погоджених околицях.',
     servicesLead:

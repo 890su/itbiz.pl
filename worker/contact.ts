@@ -1,7 +1,14 @@
 import { enquiryContext } from '../src/i18n/enquiry';
 import type { Locale } from '../src/i18n/config';
+import {
+  deliverTelegramNotification,
+  sendTelegram,
+  telegramConfigured,
+  type TelegramEnv,
+  type TelegramLead,
+} from './telegram';
 
-export interface ContactEnv {
+export interface ContactEnv extends TelegramEnv {
   ENVIRONMENT?: string;
   ALLOWED_ORIGINS?: string;
   TURNSTILE_SECRET_KEY?: string;
@@ -271,8 +278,8 @@ async function storeLead(
     await env.LEADS_DB.prepare(
       `INSERT INTO contact_leads (
         request_id, submitted_at, purge_after, company_name, contact_name,
-        nip, email, phone, service_id, message, locale, page_path, status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new')`,
+        nip, email, phone, service_id, message, locale, page_path, status, notification_status
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?)`,
     )
       .bind(
         requestId,
@@ -287,6 +294,7 @@ async function storeLead(
         data.message,
         data.locale,
         data.pagePath,
+        telegramConfigured(env) ? 'pending' : 'legacy',
       )
       .run();
     return true;
@@ -379,11 +387,27 @@ export async function handleContact(
     return json({ requestId, preview: true }, 202, requestId);
 
   const submittedAt = new Date();
-  const [stored, forwarded] = await Promise.all([
-    storeLead(env, data, requestId, submittedAt),
+  const stored = await storeLead(env, data, requestId, submittedAt);
+  const telegramLead: TelegramLead = {
+    request_id: requestId,
+    submitted_at: submittedAt.toISOString(),
+    company_name: data.companyName,
+    contact_name: data.contactName,
+    nip: data.nip || null,
+    email: data.email || null,
+    phone: data.phone || null,
+    service_id: data.serviceId,
+    message: data.message,
+    locale: data.locale,
+    page_path: data.pagePath,
+  };
+  const [notified, forwarded] = await Promise.all([
+    stored
+      ? deliverTelegramNotification(env, requestId)
+      : sendTelegram(telegramLead, env),
     forwardLead(env, data, requestId, submittedAt),
   ]);
-  if (!stored && !forwarded)
+  if (!stored && !forwarded && !notified)
     return json({ message: text.delivery, requestId }, 502, requestId);
   return json({ requestId }, 201, requestId);
 }
