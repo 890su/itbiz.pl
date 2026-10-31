@@ -191,6 +191,13 @@
         }
         showStatus(labels.sending, 'progress');
         const data = new FormData(form);
+        data.set(
+          'attribution',
+          JSON.stringify({
+            ...window.itbizMeasurement?.attribution(),
+            form_id: form.dataset.formId || 'inline',
+          }),
+        );
         const response = await fetch(form.action, {
           method: 'POST',
           body: data,
@@ -200,12 +207,24 @@
         if (!response.ok) {
           throw new Error(payload.message || labels.genericError);
         }
+        const measurement = {
+          requestId: payload.requestId,
+          serviceId: String(data.get('serviceId') || 'other'),
+          formId: form.dataset.formId || 'inline',
+          locale: String(data.get('locale') || 'pl'),
+        };
         form.reset();
         showStatus(payload.preview ? labels.preview : labels.success, 'success');
-        if (!payload.preview) {
+        if (
+          response.status === 201 &&
+          !payload.preview &&
+          /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(
+            payload.requestId || '',
+          )
+        ) {
           window.dispatchEvent(
             new CustomEvent('itbiz:b2b-lead-submit', {
-              detail: { requestId: payload.requestId },
+              detail: measurement,
             }),
           );
         }

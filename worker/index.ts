@@ -1,6 +1,7 @@
 import { handleContact, purgeExpiredLeads, type ContactEnv } from './contact';
 import { handleNetwork, handleNetworkProbe, handleWeather } from './network-tools';
 import { retryTelegramNotifications } from './telegram';
+import { retryJournal, purgeJournal } from './journal';
 
 interface Env extends ContactEnv {
   ASSETS: Fetcher;
@@ -23,7 +24,10 @@ export default {
     }
     if (url.pathname === '/api/contact') {
       const response = await handleContact(request, env);
-      if (response.status === 201) context.waitUntil(retryTelegramNotifications(env));
+      if (response.status === 201)
+        context.waitUntil(
+          Promise.all([retryTelegramNotifications(env), retryJournal(env)]),
+        );
       return response;
     }
     if (request.method === 'GET' && url.pathname === '/api/weather')
@@ -49,6 +53,8 @@ export default {
   },
   async scheduled(controller: ScheduledController, env: Env): Promise<void> {
     await retryTelegramNotifications(env);
+    await retryJournal(env);
     if (controller.cron === '17 2 * * *') await purgeExpiredLeads(env);
+    if (controller.cron === '17 2 * * *') await purgeJournal(env);
   },
 } satisfies ExportedHandler<Env>;

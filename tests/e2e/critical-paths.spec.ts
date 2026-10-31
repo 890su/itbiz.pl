@@ -313,7 +313,7 @@ test('privacy choices can be changed and reopened from the footer', async ({
   await expect(dialog.getByLabel('Analityka')).toBeChecked();
 });
 
-test('Google Ads tag and lead conversion require advertising consent', async ({
+test('preview never loads Google tags or sends advertising conversions, even after consent', async ({
   page,
 }) => {
   const googleTagRequests: string[] = [];
@@ -327,9 +327,9 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
   });
   await page.route('**/api/contact', async (route) => {
     await route.fulfill({
-      status: 200,
+      status: 201,
       contentType: 'application/json',
-      body: JSON.stringify({ requestId: 'test-request-1' }),
+      body: JSON.stringify({ requestId: 'a1234567-1234-4234-8234-123456789abc' }),
     });
   });
 
@@ -340,7 +340,7 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
   const dialog = page.locator('[data-consent-dialog]');
   await dialog.getByLabel('Reklama').check();
   await dialog.getByRole('button', { name: 'Zapisz ustawienia' }).click();
-  await expect.poll(() => googleTagRequests.length).toBe(1);
+  expect(googleTagRequests).toHaveLength(0);
 
   await page
     .locator('main')
@@ -362,11 +362,8 @@ test('Google Ads tag and lead conversion require advertising consent', async ({
           entry[2]?.send_to === 'AW-18394870871/WpLcCOaejeMcENforcNE',
       ),
   );
-  expect(conversion?.[2]).toMatchObject({
-    value: 1,
-    currency: 'PLN',
-    transaction_id: 'test-request-1',
-  });
+  expect(conversion).toBeUndefined();
+  expect(googleTagRequests).toHaveLength(0);
 });
 
 test('privacy prompt stays a compact bottom-centred card', async ({ page }) => {

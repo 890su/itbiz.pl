@@ -30,6 +30,7 @@ function setup(status = 'pending') {
     '0001_create_contact_leads.sql',
     '0002_add_contact_lead_nip.sql',
     '0003_add_telegram_outbox.sql',
+    '0004_lead_attribution.sql',
   ])
     db.exec(readFileSync(`migrations/${file}`, 'utf8'));
   db.prepare(

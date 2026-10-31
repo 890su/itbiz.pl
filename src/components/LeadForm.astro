@@ -45,6 +45,7 @@ const contactId = `${idPrefix}contactMethod`;
     action="/api/contact"
     method="post"
     data-lead-form
+    data-form-id={idPrefix === 'modal-' ? 'modal' : 'inline'}
     aria-label={progressive ? heading : undefined}
     aria-labelledby={!progressive ? `${idPrefix}form-title` : undefined}
     data-progressive-enquiry={progressive || undefined}

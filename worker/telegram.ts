@@ -1,3 +1,5 @@
+import { attributionText, cleanAttribution } from './attribution';
+
 export interface TelegramEnv {
   TELEGRAM_RELAY_URL?: string;
   TELEGRAM_RELAY_TOKEN?: string;
@@ -16,6 +18,7 @@ export interface TelegramLead {
   message: string;
   locale: string;
   page_path: string;
+  attribution_json?: string;
 }
 
 export const telegramConfigured = (env: TelegramEnv) =>
@@ -41,6 +44,7 @@ export function telegramText(lead: TelegramLead): string {
     lead.email && `E-mail: ${lead.email}`,
     `Usługa: ${lead.service_id}`,
     `Strona: ${page}`,
+    attributionText(cleanAttribution(lead.attribution_json)),
     '',
     lead.message,
   ]
@@ -93,7 +97,7 @@ export async function deliverTelegramNotification(
       .run();
     if (claim.meta.changes !== 1) return false;
     const lead = await env.LEADS_DB.prepare(
-      `SELECT request_id, submitted_at, company_name, contact_name, nip, email, phone, service_id, message, locale, page_path
+      `SELECT request_id, submitted_at, company_name, contact_name, nip, email, phone, service_id, message, locale, page_path, attribution_json
       FROM contact_leads WHERE request_id = ?`,
     )
       .bind(requestId)

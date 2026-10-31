@@ -18,7 +18,10 @@ const database = () => {
   const run = vi.fn().mockResolvedValue({ success: true });
   const bind = vi.fn().mockReturnValue({ run });
   const prepare = vi.fn().mockReturnValue({ bind });
-  return { run, bind, prepare };
+  const batch = vi.fn(async (statements: { run: () => Promise<unknown> }[]) =>
+    Promise.all(statements.map((statement) => statement.run())),
+  );
+  return { run, bind, prepare, batch };
 };
 afterEach(() => vi.unstubAllGlobals());
 
@@ -69,7 +72,8 @@ describe('production contact delivery', () => {
     expect(response.status).toBe(201);
     const result = (await response.json()) as { requestId: string };
     expect(result.requestId).toBe(response.headers.get('X-Request-ID'));
-    expect(db.run).toHaveBeenCalledOnce();
+    expect(db.batch).toHaveBeenCalledOnce();
+    expect(db.run).toHaveBeenCalledTimes(2);
     expect(db.bind.mock.calls[0]).toContain(result.requestId);
     expect(db.bind.mock.calls[0]).toContain('test@example.org');
     expect(db.bind.mock.calls[0]).toContain('cctv-emergency');

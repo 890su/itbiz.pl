@@ -1,5 +1,7 @@
 import { enquiryContext } from '../src/i18n/enquiry';
 import type { Locale } from '../src/i18n/config';
+import { cleanAttribution, type LeadAttribution } from './attribution';
+import { journalStatement, type JournalEnv } from './journal';
 import {
   deliverTelegramNotification,
   sendTelegram,
@@ -8,7 +10,7 @@ import {
   type TelegramLead,
 } from './telegram';
 
-export interface ContactEnv extends TelegramEnv {
+export interface ContactEnv extends TelegramEnv, JournalEnv {
   ENVIRONMENT?: string;
   ALLOWED_ORIGINS?: string;
   TURNSTILE_SECRET_KEY?: string;
@@ -32,6 +34,7 @@ export interface ContactPayload {
   pagePath: string;
   website: string;
   turnstileToken: string;
+  attribution: LeadAttribution;
 }
 
 type ValidationResult =
@@ -166,6 +169,7 @@ export function validateContactPayload(
     pagePath: clean(value.pagePath, 500),
     website: clean(value.website, 200),
     turnstileToken: clean(value['cf-turnstile-response'], 2048),
+    attribution: cleanAttribution(value.attribution),
   };
   const text = getMessages(data.locale);
 
@@ -275,28 +279,43 @@ async function storeLead(
 ): Promise<boolean> {
   if (!env.LEADS_DB) return false;
   try {
-    await env.LEADS_DB.prepare(
+    const leadStatement = env.LEADS_DB.prepare(
       `INSERT INTO contact_leads (
         request_id, submitted_at, purge_after, company_name, contact_name,
-        nip, email, phone, service_id, message, locale, page_path, status, notification_status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?)`,
-    )
-      .bind(
-        requestId,
-        submittedAt.toISOString(),
-        new Date(submittedAt.getTime() + 180 * 24 * 60 * 60 * 1000).toISOString(),
-        data.companyName,
-        data.contactName,
-        data.nip || null,
-        data.email || null,
-        data.phone || null,
-        data.serviceId,
-        data.message,
-        data.locale,
-        data.pagePath,
-        telegramConfigured(env) ? 'pending' : 'legacy',
-      )
-      .run();
+        nip, email, phone, service_id, message, locale, page_path, status, notification_status, attribution_json
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?)`,
+    ).bind(
+      requestId,
+      submittedAt.toISOString(),
+      new Date(submittedAt.getTime() + 180 * 24 * 60 * 60 * 1000).toISOString(),
+      data.companyName,
+      data.contactName,
+      data.nip || null,
+      data.email || null,
+      data.phone || null,
+      data.serviceId,
+      data.message,
+      data.locale,
+      data.pagePath,
+      telegramConfigured(env) ? 'pending' : 'legacy',
+      JSON.stringify(data.attribution),
+    );
+    await env.LEADS_DB.batch([
+      leadStatement,
+      journalStatement(env.LEADS_DB, {
+        site_brand: 'ITBIZ',
+        request_id: requestId,
+        submitted_at: submittedAt.toISOString(),
+        contact_name: [data.contactName, data.companyName].filter(Boolean).join(' — '),
+        phone: data.phone,
+        email: data.email,
+        service_id: data.serviceId,
+        message: data.message,
+        locale: data.locale,
+        page_path: data.pagePath,
+        attribution: data.attribution,
+      }),
+    ]);
     return true;
   } catch {
     return false;
@@ -331,6 +350,8 @@ async function forwardLead(
         message: data.message,
         locale: data.locale,
         pagePath: data.pagePath,
+        siteBrand: 'ITBIZ',
+        attribution: data.attribution,
       }),
       signal: AbortSignal.timeout(8_000),
     });
@@ -400,6 +421,7 @@ export async function handleContact(
     message: data.message,
     locale: data.locale,
     page_path: data.pagePath,
+    attribution_json: JSON.stringify(data.attribution),
   };
   const [notified, forwarded] = await Promise.all([
     stored

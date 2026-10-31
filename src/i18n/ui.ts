@@ -263,7 +263,7 @@ export const ui = {
       necessary: 'Niezbędne',
       necessaryHelp: 'Bezpieczeństwo formularza, motyw i zapis decyzji.',
       analytics: 'Analityka',
-      analyticsHelp: 'Pomiar korzystania z serwisu. GA4 nie jest obecnie używany.',
+      analyticsHelp: 'GA4: wizyty, potwierdzone zapytania i kliknięcia kontaktowe.',
       advertising: 'Reklama',
       advertisingHelp:
         'Pomiar kampanii Google Ads. Tag ładuje się dopiero po wyrażeniu tej zgody.',
@@ -285,11 +285,11 @@ export const ui = {
         ],
         [
           'Zakres i przechowywanie',
-          'Przetwarzamy imię osoby kontaktowej, telefon lub e-mail, opcjonalne oznaczenie firmy, organizacji albo NIP, wybrany temat i opis zadania. Zgłoszenia są przechowywane nie dłużej niż 180 dni, chyba że dalsze przechowywanie wynika z zawartej umowy lub obowiązku prawnego.',
+          'Przetwarzamy imię osoby kontaktowej, telefon lub e-mail, opcjonalne oznaczenie firmy, organizacji albo NIP, wybrany temat i opis zadania. Z zapytaniem zapisujemy również czas, identyfikator, język, stronę i dostępne oznaczenie źródła. Kopia formularza w bazie Cloudflare jest usuwana po 180 dniach. Korespondencja i dziennik obsługi służą prowadzeniu sprawy; dalsze przechowywanie może wynikać z zawartej umowy lub obowiązku prawnego.',
         ],
         [
           'Odbiorcy i bezpieczeństwo',
-          'Infrastruktura serwisu i formularza działa w Cloudflare. Dane mogą być dostępne dostawcom infrastruktury wyłącznie w zakresie koniecznym do świadczenia usługi i z zastosowaniem odpowiednich zabezpieczeń. Powiadomienia o zgłoszeniach, zawierające treść i dane kontaktowe, trafiają do operatora przez Telegram. Formularz korzysta z Turnstile do ograniczania automatycznych zgłoszeń. Po zgodzie na reklamę Google Ads przetwarza dane pomiarowe kampanii; tag nie otrzymuje treści formularza ani danych kontaktowych.',
+          'Infrastruktura serwisu i formularza działa w Cloudflare. Dane mogą być dostępne dostawcom infrastruktury wyłącznie w zakresie koniecznym do świadczenia usługi i z zastosowaniem odpowiednich zabezpieczeń. Powiadomienia o zgłoszeniach, zawierające treść i dane kontaktowe, trafiają do operatora przez Telegram. Dziennik obsługi zgłoszeń jest prowadzony w Google Sheets. Po zgodzie na analitykę GA4 mierzy wizyty, przyjęte zapytania i kliknięcia kontaktowe, bez treści formularza i danych kontaktowych. Formularz korzysta z Turnstile do ograniczania automatycznych zgłoszeń. Po zgodzie na reklamę Google Ads przetwarza dane pomiarowe kampanii; tag nie otrzymuje treści formularza ani danych kontaktowych.',
         ],
         [
           'Prawa osoby',
@@ -310,7 +310,7 @@ export const ui = {
         ],
         [
           'Kategorie opcjonalne',
-          'Analityka i reklama są domyślnie wyłączone. GA4 nie jest obecnie używany. Tag Google Ads ładuje się dopiero po zgodzie na reklamę, a potwierdzona przez serwer wysyłka formularza jest wtedy rejestrowana jako konwersja. Treść formularza i dane kontaktowe nie są przekazywane do tagu.',
+          'Analityka i reklama są domyślnie wyłączone. GA4 mierzy wizyty, potwierdzone zapytania i kliknięcia kontaktowe dopiero po zgodzie na analitykę. Tag Google Ads ładuje się dopiero po zgodzie na reklamę, a potwierdzona przez serwer wysyłka formularza jest wtedy rejestrowana jako konwersja. Treść formularza i dane kontaktowe nie są przekazywane do tagu.',
         ],
         [
           'Zmiana decyzji',
@@ -580,7 +580,7 @@ export const ui = {
       necessary: 'Необходимые',
       necessaryHelp: 'Безопасность формы, тема и сохранение решения.',
       analytics: 'Аналитика',
-      analyticsHelp: 'Измерение использования сайта. GA4 сейчас не используется.',
+      analyticsHelp: 'GA4: посещения, принятые заявки и клики по контактам.',
       advertising: 'Реклама',
       advertisingHelp:
         'Измерение кампаний Google Ads. Тег загружается только после этого согласия.',
@@ -602,11 +602,11 @@ export const ui = {
         ],
         [
           'Состав и хранение',
-          'Обрабатываются имя контактного лица, телефон или e-mail, необязательное название компании, организации либо NIP, тема и описание задачи. Запросы хранятся не более 180 дней, если договор или закон не требуют большего срока.',
+          'Обрабатываются имя контактного лица, телефон или e-mail, необязательное название компании, организации либо NIP, тема и описание задачи. С запросом сохраняются время, ID, язык, страница и доступные метки источника. Копия формы в базе Cloudflare удаляется через 180 дней. Переписка и рабочий журнал используются для ведения заявки; дальнейшее хранение может быть связано с договором или требованиями закона.',
         ],
         [
           'Получатели и защита',
-          'Сайт и форма работают в инфраструктуре Cloudflare. Поставщик получает доступ только в объёме, необходимом для услуги и при соответствующих мерах защиты. Уведомления с текстом заявки и контактными данными поступают оператору через Telegram. Turnstile ограничивает автоматические отправки. После согласия на рекламу Google Ads обрабатывает данные измерения кампаний; содержимое формы и контактные данные в тег не передаются.',
+          'Сайт и форма работают в инфраструктуре Cloudflare. Поставщик получает доступ только в объёме, необходимом для услуги и при соответствующих мерах защиты. Уведомления с текстом заявки и контактными данными поступают оператору через Telegram. Рабочий журнал обращений ведётся в Google Sheets. После согласия на аналитику GA4 измеряет посещения, принятые заявки и клики по контактам без текста формы и контактных данных. Turnstile ограничивает автоматические отправки. После согласия на рекламу Google Ads обрабатывает данные измерения кампаний; содержимое формы и контактные данные в тег не передаются.',
         ],
         [
           'Права',
@@ -626,7 +626,7 @@ export const ui = {
         ],
         [
           'Необязательные категории',
-          'Аналитика и реклама по умолчанию выключены. GA4 сейчас не используется. Тег Google Ads загружается только после согласия на рекламу, а подтверждённая сервером отправка формы тогда регистрируется как конверсия. Содержимое формы и контактные данные в тег не передаются.',
+          'Аналитика и реклама по умолчанию выключены. GA4 измеряет посещения, принятые заявки и клики по контактам только после согласия на аналитику. Тег Google Ads загружается только после согласия на рекламу, а подтверждённая сервером отправка формы тогда регистрируется как конверсия. Содержимое формы и контактные данные в тег не передаются.',
         ],
         [
           'Изменение решения',
@@ -897,7 +897,7 @@ export const ui = {
       necessary: 'Necessary',
       necessaryHelp: 'Form security, theme and saved decision.',
       analytics: 'Analytics',
-      analyticsHelp: 'Measurement of site use. GA4 is not currently in use.',
+      analyticsHelp: 'GA4: visits, accepted enquiries and contact clicks.',
       advertising: 'Advertising',
       advertisingHelp:
         'Google Ads campaign measurement. The tag loads only after this consent.',
@@ -919,11 +919,11 @@ export const ui = {
         ],
         [
           'Data and retention',
-          'We process the contact person’s name, phone or email, an optional company, organisation or NIP identifier, the selected topic and task description. Enquiries are kept for no more than 180 days unless a contract or legal duty requires longer retention.',
+          'We process the contact person’s name, phone or email, an optional company, organisation or NIP identifier, the selected topic and task description. We also record the time, ID, language, page and available source labels. The form copy in the Cloudflare database is deleted after 180 days. Correspondence and the operational register support handling the enquiry; further retention may relate to a contract or legal duty.',
         ],
         [
           'Recipients and security',
-          'The site and form run on Cloudflare infrastructure. Providers may access data only as needed to deliver the service and under appropriate safeguards. Notifications containing the enquiry and contact details are sent to the operator through Telegram. Turnstile limits automated submissions. After advertising consent, Google Ads processes campaign measurement data; form content and contact details are not sent to the tag.',
+          'The site and form run on Cloudflare infrastructure. Providers may access data only as needed to deliver the service and under appropriate safeguards. Notifications containing the enquiry and contact details are sent to the operator through Telegram. The operational enquiry register is maintained in Google Sheets. After analytics consent, GA4 measures visits, accepted enquiries and contact clicks without form content or contact details. Turnstile limits automated submissions. After advertising consent, Google Ads processes campaign measurement data; form content and contact details are not sent to the tag.',
         ],
         [
           'Your rights',
@@ -944,7 +944,7 @@ export const ui = {
         ],
         [
           'Optional categories',
-          'Analytics and advertising are off by default. GA4 is not currently in use. The Google Ads tag loads only after advertising consent, and a server-confirmed form submission is then recorded as a conversion. Form content and contact details are not sent to the tag.',
+          'Analytics and advertising are off by default. GA4 measures visits, accepted enquiries and contact clicks only after analytics consent. The Google Ads tag loads only after advertising consent, and a server-confirmed form submission is then recorded as a conversion. Form content and contact details are not sent to the tag.',
         ],
         [
           'Changing your decision',
@@ -1215,7 +1215,7 @@ export const ui = {
       necessary: 'Необхідні',
       necessaryHelp: 'Безпека форми, тема та збереження рішення.',
       analytics: 'Аналітика',
-      analyticsHelp: 'Вимірювання використання сайту. GA4 зараз не використовується.',
+      analyticsHelp: 'GA4: відвідування, прийняті заявки та натискання контактів.',
       advertising: 'Реклама',
       advertisingHelp:
         'Вимірювання кампаній Google Ads. Тег завантажується лише після цієї згоди.',
@@ -1237,11 +1237,11 @@ export const ui = {
         ],
         [
           'Склад і зберігання',
-          'Обробляємо ім’я контактної особи, телефон або e-mail, необов’язкову назву компанії, організації чи NIP, тему й опис завдання. Запити зберігаються не більше 180 днів, якщо договір або закон не вимагають довшого строку.',
+          'Обробляємо ім’я контактної особи, телефон або e-mail, необов’язкову назву компанії, організації чи NIP, тему й опис завдання. Із запитом зберігаються час, ID, мова, сторінка й доступні мітки джерела. Копія форми в базі Cloudflare видаляється через 180 днів. Листування та робочий журнал використовуються для ведення заявки; подальше зберігання може бути пов’язане з договором або вимогами закону.',
         ],
         [
           'Одержувачі та захист',
-          'Сайт і форма працюють в інфраструктурі Cloudflare. Постачальник отримує доступ лише в обсязі, необхідному для послуги, із належними заходами захисту. Сповіщення з текстом заявки та контактними даними надходять оператору через Telegram. Turnstile обмежує автоматичні надсилання. Після згоди на рекламу Google Ads обробляє дані вимірювання кампаній; вміст форми й контактні дані до тегу не передаються.',
+          'Сайт і форма працюють в інфраструктурі Cloudflare. Постачальник отримує доступ лише в обсязі, необхідному для послуги, із належними заходами захисту. Сповіщення з текстом заявки та контактними даними надходять оператору через Telegram. Робочий журнал звернень ведеться в Google Sheets. Після згоди на аналітику GA4 вимірює відвідування, прийняті заявки та натискання контактів без тексту форми й контактних даних. Turnstile обмежує автоматичні надсилання. Після згоди на рекламу Google Ads обробляє дані вимірювання кампаній; вміст форми й контактні дані до тегу не передаються.',
         ],
         [
           'Права',
@@ -1262,7 +1262,7 @@ export const ui = {
         ],
         [
           'Необов’язкові категорії',
-          'Аналітика й реклама за замовчуванням вимкнені. GA4 зараз не використовується. Тег Google Ads завантажується лише після згоди на рекламу, а підтверджене сервером надсилання форми тоді реєструється як конверсія. Вміст форми й контактні дані до тегу не передаються.',
+          'Аналітика й реклама за замовчуванням вимкнені. GA4 вимірює відвідування, прийняті заявки та натискання контактів лише після згоди на аналітику. Тег Google Ads завантажується лише після згоди на рекламу, а підтверджене сервером надсилання форми тоді реєструється як конверсія. Вміст форми й контактні дані до тегу не передаються.',
         ],
         [
           'Зміна рішення',
