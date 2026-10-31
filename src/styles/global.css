@@ -297,25 +297,19 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     text-decoration: none;
+    min-height: 2.75rem;
   }
 
-  .brand-node {
-    position: relative;
-    width: 0.85rem;
-    height: 0.85rem;
-    border: 2px solid var(--signal);
-    border-radius: 50%;
-    box-shadow: 0 0 0 5px rgb(99 167 255 / 12%);
+  .brand-image {
+    display: block;
+    width: 11.75rem;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 705 / 168;
   }
 
-  .brand-node::after {
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    width: 0.75rem;
-    height: 1px;
-    background: var(--signal);
-    content: '';
+  .footer-brand .brand-image {
+    width: 10.75rem;
   }
 
   .mobile-actions,

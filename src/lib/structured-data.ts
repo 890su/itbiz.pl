@@ -11,7 +11,7 @@ export const organizationSchema = {
   alternateName: company.brand,
   taxID: company.nip,
   url: 'https://itbiz.pl/',
-  image: 'https://itbiz.pl/assets/share-itbiz-v1.png',
+  image: 'https://itbiz.pl/assets/brand/20261031/share.png',
   telephone: company.publicPhone,
   email: company.publicEmail,
 };

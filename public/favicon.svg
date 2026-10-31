@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0b1324"/>
-  <path d="M16 20h32M16 32h20M16 44h32" stroke="#63a7ff" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="46" cy="32" r="5" fill="#4fd1c5"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>ITBIZ.PL</title><g transform="translate(-29.31 -29.31) scale(1.229)"><title id="logo-title">ITBIZ.PL small</title><g fill="#3b82f6"><ns0:g xmlns:ns0="http://www.w3.org/2000/svg" transform="translate(0 4)"><ns0:path fill-rule="evenodd" d="M88 24H168V104H144V128H208V176H224V224H168V176H184V152H144V176H156V224H100V176H112V152H72V176H88V224H32V176H48V128H112V104H88ZM112 48V80H144V48Z" /></ns0:g></g></g></svg>

@@ -4,6 +4,7 @@ import { getUi } from '../i18n/ui';
 import ServicesMenu from './ServicesMenu.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ContactActions from './ContactActions.astro';
+import BrandLogo from './BrandLogo.astro';
 interface Props {
   variant: 'desktop' | 'mobile';
   locale: Locale;
@@ -43,8 +44,7 @@ const isCurrent = (href: string) =>
           aria-label={copy.common.brandHome}
         >
           <>
-            <span class="brand-node" aria-hidden="true" />
-            <span>ITBIZ.PL</span>
+            <BrandLogo />
           </>
         </a>
         <p class="side-kicker">
@@ -110,8 +110,7 @@ const isCurrent = (href: string) =>
           aria-label={copy.common.brandHome}
         >
           <>
-            <span class="brand-node" aria-hidden="true" />
-            <span>ITBIZ.PL</span>
+            <BrandLogo />
           </>
         </a>
         <LanguageSwitcher {locale} {translationKey} mobile />

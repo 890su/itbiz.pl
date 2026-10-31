@@ -25,12 +25,8 @@
     font-size: 0.8rem;
     letter-spacing: 0.04em;
   }
-  .mobile-brand .brand-node {
-    width: 0.6rem;
-    height: 0.6rem;
-  }
-  .mobile-brand .brand-node::after {
-    width: 0.4rem;
+  .mobile-brand .brand-image {
+    width: 6rem;
   }
   .mobile-bar .mobile-locale-switcher {
     margin-left: auto;
@@ -192,6 +188,9 @@
     stroke-linejoin: round;
   }
   @media (min-width: 24rem) {
+    .mobile-brand .brand-image {
+      width: 8.75rem;
+    }
     .mobile-brand {
       font-size: 0.95rem;
     }
@@ -201,6 +200,9 @@
     }
   }
   @media (min-width: 48rem) {
+    .mobile-brand .brand-image {
+      width: 10.25rem;
+    }
     .mobile-brand {
       font-size: 1.05rem;
     }

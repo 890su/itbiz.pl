@@ -71,7 +71,7 @@ const breadcrumbItems =
         { name: currentBreadcrumbLabel, path: canonicalPath },
       ]
     : []);
-const socialImage = new URL('/assets/share-itbiz-v1.png', Astro.site);
+const socialImage = new URL('/assets/brand/20261031/share.png', Astro.site);
 const pageSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -165,8 +165,10 @@ const pageSchema = {
       hreflang="x-default"
       href={new URL(getRoute('pl', translationKey), Astro.site)}
     />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/assets/favicon-v1.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/assets/brand/20261031/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/brand/20261031/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/brand/20261031/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/brand/20261031/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ITBIZ.PL" />
     <meta property="og:title" content={title} />
