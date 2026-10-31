@@ -302,14 +302,18 @@
 
   .brand-image {
     display: block;
-    width: 11.75rem;
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 705 / 168;
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
-  .footer-brand .brand-image {
-    width: 10.75rem;
+  .brand-wordmark {
+    white-space: nowrap;
+  }
+
+  .footer-brand {
+    font-size: 1rem;
+    letter-spacing: normal;
   }
 
   .mobile-actions,
