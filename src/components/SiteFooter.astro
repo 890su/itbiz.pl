@@ -2,6 +2,7 @@
 import { company } from '../data/company';
 import { getRoute, type Locale } from '../i18n/config';
 import { getUi } from '../i18n/ui';
+import BrandLogo from './BrandLogo.astro';
 
 interface Props {
   locale: Locale;
@@ -13,7 +14,13 @@ const copy = getUi(locale);
 
 <footer class="site-footer">
   <div>
-    <strong>{company.brand}</strong>
+    <a
+      class="brand footer-brand"
+      href={getRoute(locale, 'home')}
+      aria-label={copy.common.brandHome}
+    >
+      <BrandLogo />
+    </a>
     <p>{company.legalName} · NIP {company.nip}</p>
     <address class="footer-contact" aria-label={copy.common.nav[4]}>
       <a href={company.publicPhoneHref}>{company.publicPhone}</a>
